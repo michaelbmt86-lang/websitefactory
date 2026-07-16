@@ -5,7 +5,7 @@ const valueProps = [
     title: "Packaging Made From Plants",
     description:
       "Designed for the circular economy where resources are reused and not wasted.",
-    icon: "/images/value-props/packaging-made-from-plants.png",
+    icon: "/images/value-props/packaging-from-plants.png",
   },
   {
     title: "Certified Compostable",
@@ -17,7 +17,7 @@ const valueProps = [
     title: "B Corp Certified",
     description:
       "We give back to people and planet, so your purchases directly affect positive change.",
-    icon: "/images/value-props/b-corp-certified.png",
+    icon: "/images/value-props/b-corp.png",
   },
   {
     title: "Emissions Reduction",

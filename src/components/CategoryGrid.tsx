@@ -8,37 +8,37 @@ const categories = [
   {
     title: "Drinks",
     subtitle: "Cups, Lids & Straws",
-    href: "/cups",
+    href: "/products#drinks",
     image: "/images/categories/drinks.png",
   },
   {
     title: "Food Packaging",
     subtitle: "Containers, Bowls & Plates",
-    href: "/containers-lids",
+    href: "/products#food-packaging",
     image: "/images/categories/food-packaging.png",
   },
   {
     title: "Service & Accessories",
     subtitle: "Cutlery, Napkins & Gloves",
-    href: "/napkins-washroom",
+    href: "/products#service",
     image: "/images/categories/service-accessories.jpg",
   },
   {
     title: "Bags & Carry",
     subtitle: "Paper & Carry Bags",
-    href: "/bags",
+    href: "/products#bags",
     image: "/images/categories/bags-carry.jpg",
   },
   {
     title: "Kits",
     subtitle: "Retail & Catering Packs",
-    href: "/cutlery-straws",
+    href: "/products#kits",
     image: "/images/categories/kits.png",
   },
   {
     title: "Plates & Trays",
     subtitle: "Compostable Serveware",
-    href: "/plates-trays",
+    href: "/products#plates",
     image: "/images/categories/plates-trays.jpg",
   },
 ];

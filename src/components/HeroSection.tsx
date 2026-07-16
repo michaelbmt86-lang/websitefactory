@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import {
   ShoppingBagIcon,
@@ -30,8 +31,8 @@ export function HeroSection() {
         </p>
 
         <div className="mb-10 flex flex-wrap gap-4">
-          <button
-            type="button"
+          <Link
+            href="/products"
             className={cn(
               "inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-[15px] font-semibold",
               "text-[#004F3B] transition-colors hover:bg-white/90"
@@ -40,10 +41,10 @@ export function HeroSection() {
             <ShoppingBagIcon size={18} />
             Shop Sale
             <ArrowRightIcon size={16} />
-          </button>
+          </Link>
 
-          <button
-            type="button"
+          <Link
+            href="/contact"
             className={cn(
               "inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/10 px-5 py-3",
               "text-[15px] font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
@@ -51,7 +52,7 @@ export function HeroSection() {
           >
             <MessageCircleIcon size={18} />
             Request Custom Quote
-          </button>
+          </Link>
         </div>
 
         <div className="flex flex-wrap gap-x-6 gap-y-3">

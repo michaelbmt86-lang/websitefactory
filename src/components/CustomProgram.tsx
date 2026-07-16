@@ -16,10 +16,10 @@ const customData = {
       description: "Personal support throughout your project",
     },
   ],
-  primaryCta: { label: "Request Custom Quote", href: "/request-quote" },
+  primaryCta: { label: "Request Custom Quote", href: "/contact" },
   secondaryCta: {
     label: "View Custom Examples",
-    href: "/custom-packaging",
+    href: "/products",
   },
   stats: { number: "500+", label: "Custom Projects" },
   image: "/images/custom/custom-biopak-cup.jpg",

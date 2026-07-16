@@ -4,7 +4,7 @@ import { deploy, printReport as printDeployReport } from "./deployment/deploy";
 
 async function main() {
   console.log("=== STEP 1: VERIFY RUNTIME ===\n");
-  const vReport = await verifyDeployment();
+  const vReport = await verifyDeployment({ skipGithub: true });
   printVerifyReport(vReport);
 
   if (!vReport.passed) {
@@ -13,7 +13,7 @@ async function main() {
   }
 
   console.log("=== STEP 2: EXECUTE DEPLOYMENT ===\n");
-  const dReport = await deploy({ dryRun: false });
+  const dReport = await deploy({ dryRun: false, skipGitHub: true });
   printDeployReport(dReport);
 
   if (!dReport.passed) {

@@ -12,8 +12,6 @@ interface SessionData {
   expiresAt: number;
 }
 
-const sessions = new Map<string, SessionData>();
-
 export function hashPassword(password: string): string {
   return crypto.createHash("sha256").update(password).digest("hex");
 }
@@ -22,17 +20,35 @@ export function verifyPassword(password: string, hash: string): boolean {
   return hashPassword(password) === hash;
 }
 
-export async function createSession(
-  username: string
-): Promise<string> {
+function encodeSession(data: SessionData): string {
+  const json = JSON.stringify(data);
+  const base64 = Buffer.from(json).toString("base64url");
+  const signature = crypto.createHash("sha256").update(base64).digest("base64url");
+  return `${base64}.${signature}`;
+}
+
+function decodeSession(token: string): SessionData | null {
+  try {
+    const [base64, signature] = token.split(".");
+    if (!base64 || !signature) return null;
+    const expectedSig = crypto.createHash("sha256").update(base64).digest("base64url");
+    if (signature !== expectedSig) return null;
+    const json = Buffer.from(base64, "base64url").toString("utf-8");
+    const data = JSON.parse(json) as SessionData;
+    if (Date.now() > data.expiresAt) return null;
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+export async function createSession(username: string): Promise<string> {
   const user = db
     .prepare("SELECT role FROM users WHERE username = ?")
     .get(username) as { role: string } | undefined;
 
   const role = user?.role ?? "admin";
-  const token = crypto.randomUUID();
-
-  sessions.set(token, {
+  const token = encodeSession({
     username,
     role,
     expiresAt: Date.now() + SESSION_DURATION_MS,
@@ -55,15 +71,10 @@ export async function createSession(
 export async function getCurrentUser(): Promise<{ username: string; role: string } | null> {
   const cookieStore = await cookies();
   const token = cookieStore.get(SESSION_COOKIE_NAME)?.value;
-
   if (!token) return null;
 
-  const session = sessions.get(token);
+  const session = decodeSession(token);
   if (!session) return null;
-  if (Date.now() > session.expiresAt) {
-    sessions.delete(token);
-    return null;
-  }
 
   return { username: session.username, role: session.role };
 }
@@ -78,12 +89,6 @@ export async function requireAuth(): Promise<{ username: string; role: string }>
 
 export async function clearSession(): Promise<void> {
   const cookieStore = await cookies();
-  const token = cookieStore.get(SESSION_COOKIE_NAME)?.value;
-
-  if (token) {
-    sessions.delete(token);
-  }
-
   cookieStore.set(SESSION_COOKIE_NAME, "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

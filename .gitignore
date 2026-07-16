@@ -48,3 +48,7 @@ next-env.d.ts
 # Local temp files
 temp/
 .env*
+
+# Database temp files
+database/*.db-shm
+database/*.db-wal
