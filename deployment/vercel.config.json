@@ -1,0 +1,6 @@
+{
+    "provider": "vercel",
+    "project_name": "websitefactorytest",
+    "auto_deploy": true,
+    "framework": "nextjs"
+  }

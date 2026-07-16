@@ -1,0 +1,36 @@
+{
+    "factory": {
+      "name": "Website Factory",
+      "version": "1.0.0",
+      "mode": "production"
+    },
+  
+    "project": {
+      "root": "E:\\AI-Projects\\website-factory\\jcodemore"
+    },
+  
+    "deployment": {
+      "provider": "vercel",
+      "github": true,
+      "cloudflare": true,
+      "useWrangler": false,
+      "useCloudflareRestApi": true
+    },
+  
+    "dashboard": {
+      "enabled": true,
+      "required": true
+    },
+  
+    "database": {
+      "provider": "sqlite"
+    },
+  
+    "ai": {
+      "provider": "gemini"
+    },
+  
+    "crawler": {
+      "provider": "firecrawl"
+    }
+  }

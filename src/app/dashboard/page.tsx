@@ -4,13 +4,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type DashboardData = {
-  theme: { site_name: string } | null;
-  navigation: { label: string; href: string }[];
-  benefits: { id: number; icon: string; title: string }[];
-  team: { id: number; name: string; position: string }[];
-  images: { id: number; name: string; path: string }[];
-  videos: { id: number; name: string; path: string }[];
-  seo: { title: string } | null;
+  settings: { site_name: string } | null;
+  products: { id: number; name: string; price: number }[];
+  categories: { id: number; name: string }[];
+  pages: { id: number; title: string }[];
+  media: { id: number; filename: string }[];
+  navigation: { id: number; label: string }[];
 };
 
 export default function DashboardHome() {
@@ -19,98 +18,276 @@ export default function DashboardHome() {
 
   useEffect(() => {
     async function load() {
-      const [th, na, be, tm, im, vi, se] = await Promise.all([
-        fetch("/api/theme", { cache: "no-store" }).then(r => r.json()),
-        fetch("/api/navigation", { cache: "no-store" }).then(r => r.json()),
-        fetch("/api/benefits", { cache: "no-store" }).then(r => r.json()),
-        fetch("/api/team", { cache: "no-store" }).then(r => r.json()),
-        fetch("/api/images", { cache: "no-store" }).then(r => r.json()),
-        fetch("/api/videos", { cache: "no-store" }).then(r => r.json()),
-        fetch("/api/seo", { cache: "no-store" }).then(r => r.json()),
-      ]);
-      setData({ theme: th, navigation: na, benefits: be, team: tm, images: im, videos: vi, seo: se });
-      setLoading(false);
+      try {
+        const [settingsRes, productsRes, categoriesRes, pagesRes, mediaRes, navRes] = await Promise.all([
+          fetch("/api/settings", { cache: "no-store" }),
+          fetch("/api/products", { cache: "no-store" }),
+          fetch("/api/categories", { cache: "no-store" }),
+          fetch("/api/pages", { cache: "no-store" }),
+          fetch("/api/media", { cache: "no-store" }),
+          fetch("/api/navigation", { cache: "no-store" }),
+        ]);
+
+        const settings = await settingsRes.json();
+        const products = await productsRes.json();
+        const categories = await categoriesRes.json();
+        const pages = await pagesRes.json();
+        const media = await mediaRes.json();
+        const navigation = await navRes.json();
+
+        setData({ settings, products, categories, pages, media, navigation });
+      } catch (error) {
+        console.error("Failed to load dashboard data:", error);
+      } finally {
+        setLoading(false);
+      }
     }
     load();
   }, []);
 
   if (loading) {
-    return <div className="flex h-screen items-center justify-center bg-gray-100 text-2xl">Loading Dashboard...</div>;
+    return (
+      <div className="flex h-screen items-center justify-center bg-gray-100">
+        <div className="text-center">
+          <div className="mb-4 h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent mx-auto"></div>
+          <p className="text-lg text-gray-600">Loading Dashboard...</p>
+        </div>
+      </div>
+    );
   }
 
   if (!data) {
-    return <div className="flex h-screen items-center justify-center bg-gray-100 text-2xl text-red-600">Failed to load.</div>;
+    return (
+      <div className="flex h-screen items-center justify-center bg-gray-100">
+        <p className="text-lg text-red-600">Failed to load dashboard data.</p>
+      </div>
+    );
   }
 
   return (
     <div className="flex min-h-screen bg-gray-100">
+      {/* Sidebar */}
       <aside className="w-64 shrink-0 bg-slate-900 text-white">
         <div className="border-b border-slate-700 p-6">
-          <h1 className="text-2xl font-bold">{data.theme?.site_name ?? "Website"} CMS</h1>
+          <h1 className="text-xl font-bold">{data.settings?.site_name ?? "BioPak"} CMS</h1>
         </div>
         <nav className="space-y-0.5 p-4">
-          <p className="mb-2 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Website Sections</p>
-          <NavLink href="/dashboard/hero-consolidated" label="Hero" />
-          <NavLink href="/dashboard/header-consolidated" label="Header" />
-          <NavLink href="/dashboard/technology-consolidated" label="Technology" />
-          <NavLink href="/dashboard/team-consolidated" label="Team" />
-          <NavLink href="/dashboard/footer-consolidated" label="Footer" />
-          <NavLink href="/dashboard/media-consolidated" label="Media" />
-          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Meta</p>
-          <NavLink href="/dashboard/theme" label="Theme" />
-          <NavLink href="/dashboard/seo" label="SEO" />
+          <p className="mb-2 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Content</p>
+          <NavLink href="/dashboard" label="Dashboard" icon="📊" />
+          <NavLink href="/dashboard/products" label="Products" icon="📦" />
+          <NavLink href="/dashboard/categories" label="Categories" icon="📁" />
+          <NavLink href="/dashboard/pages" label="Pages" icon="📄" />
+          <NavLink href="/dashboard/navigation" label="Navigation" icon="🧭" />
+          <NavLink href="/dashboard/media" label="Media" icon="🖼️" />
+          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Settings</p>
+          <NavLink href="/dashboard/settings" label="General" icon="⚙️" />
+          <NavLink href="/dashboard/seo" label="SEO" icon="🔍" />
         </nav>
       </aside>
 
-      <main className="flex-1 space-y-8 overflow-y-auto p-10">
-        <div>
-          <h2 className="mb-2 text-4xl font-bold">{data.theme?.site_name ?? "Website"} CMS</h2>
-          <p className="text-gray-600">
-            {data.navigation.length} nav items · {data.benefits.length} benefits · {data.team.length} team members · {data.images.length} images · {data.videos.length} videos
+      {/* Main Content */}
+      <main className="flex-1 overflow-y-auto p-8">
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold text-gray-900">Dashboard</h2>
+          <p className="mt-1 text-gray-600">
+            Welcome to the {data.settings?.site_name ?? "BioPak"} content management system.
           </p>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          <SectionCard href="/dashboard/hero-consolidated" icon="🌟" title="Hero" desc="Title lines, animated words, video, poster" />
-          <SectionCard href="/dashboard/header-consolidated" icon="🧩" title="Header" desc="Navigation items, logo, contact button" />
-          <SectionCard href="/dashboard/technology-consolidated" icon="🔬" title="Technology" desc="Section text, paragraphs, benefits, CTA" />
-          <SectionCard href="/dashboard/team-consolidated" icon="👥" title="Team" desc="Members, bios, section headings" />
-          <SectionCard href="/dashboard/footer-consolidated" icon="📞" title="Footer" desc="Description, address, copyright, contact" />
-          <SectionCard href="/dashboard/media-consolidated" icon="🖼" title="Media" desc="Images and videos" />
-          <SectionCard href="/dashboard/theme" icon="🎨" title="Theme" desc="Colors, fonts, site name" />
-          <SectionCard href="/dashboard/seo" icon="⚙" title="SEO" desc="Title, description, keywords, robots" />
+        {/* Stats Grid */}
+        <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <StatCard
+            title="Products"
+            value={data.products.length}
+            icon="📦"
+            href="/dashboard/products"
+            color="green"
+          />
+          <StatCard
+            title="Categories"
+            value={data.categories.length}
+            icon="📁"
+            href="/dashboard/categories"
+            color="blue"
+          />
+          <StatCard
+            title="Pages"
+            value={data.pages.length}
+            icon="📄"
+            href="/dashboard/pages"
+            color="purple"
+          />
+          <StatCard
+            title="Media Files"
+            value={data.media.length}
+            icon="🖼️"
+            href="/dashboard/media"
+            color="orange"
+          />
         </div>
 
-        <div className="rounded-xl border border-dashed border-gray-400 bg-white/50 p-6">
-          <p className="text-sm text-gray-500">
-            Legacy pages (per-table) still available for advanced editing:
-            {["hero", "hero-animated", "header", "header-settings", "technology-section", "benefits", "team", "team-section-text", "footer", "footer-details", "images", "videos"].map(s => (
-              <Link key={s} href={`/dashboard/${s}`} className="mx-1 text-blue-600 hover:underline">/{s}</Link>
-            ))}
-          </p>
+        {/* Quick Actions */}
+        <div className="mb-8">
+          <h3 className="mb-4 text-lg font-semibold text-gray-900">Quick Actions</h3>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <ActionCard
+              title="Add New Product"
+              description="Create a new product listing"
+              href="/dashboard/products/new"
+              icon="➕"
+            />
+            <ActionCard
+              title="Manage Categories"
+              description="Organize your product categories"
+              href="/dashboard/categories"
+              icon="📂"
+            />
+            <ActionCard
+              title="Upload Media"
+              description="Add images and files"
+              href="/dashboard/media"
+              icon="📤"
+            />
+            <ActionCard
+              title="Edit Navigation"
+              description="Update menu structure"
+              href="/dashboard/navigation"
+              icon="🔗"
+            />
+            <ActionCard
+              title="Site Settings"
+              description="Configure general settings"
+              href="/dashboard/settings"
+              icon="⚙️"
+            />
+            <ActionCard
+              title="SEO Settings"
+              description="Optimize for search engines"
+              href="/dashboard/seo"
+              icon="🔍"
+            />
+          </div>
         </div>
+
+        {/* Recent Products */}
+        {data.products.length > 0 && (
+          <div className="rounded-xl bg-white p-6 shadow">
+            <div className="mb-4 flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-gray-900">Recent Products</h3>
+              <Link
+                href="/dashboard/products"
+                className="text-sm font-medium text-green-600 hover:text-green-700"
+              >
+                View All →
+              </Link>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200">
+                    <th className="pb-3 font-medium text-gray-500">Name</th>
+                    <th className="pb-3 font-medium text-gray-500">Price</th>
+                    <th className="pb-3 font-medium text-gray-500">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.products.slice(0, 5).map((product) => (
+                    <tr key={product.id} className="border-b border-gray-100">
+                      <td className="py-3 font-medium text-gray-900">{product.name}</td>
+                      <td className="py-3 text-gray-600">${product.price.toFixed(2)}</td>
+                      <td className="py-3">
+                        <Link
+                          href={`/dashboard/products/${product.id}`}
+                          className="text-green-600 hover:text-green-700"
+                        >
+                          Edit
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
 }
 
-function NavLink({ href, label }: { href: string; label: string }) {
+function NavLink({ href, label, icon }: { href: string; label: string; icon: string }) {
   return (
-    <Link href={href} className="block rounded px-3 py-1.5 text-sm font-medium text-slate-200 transition-colors hover:bg-slate-700 hover:text-white">
-      {label}
+    <Link
+      href={href}
+      className="flex items-center gap-3 rounded px-3 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-slate-700 hover:text-white"
+    >
+      <span>{icon}</span>
+      <span>{label}</span>
     </Link>
   );
 }
 
-function SectionCard({ href, icon, title, desc }: { href: string; icon: string; title: string; desc: string }) {
+function StatCard({
+  title,
+  value,
+  icon,
+  href,
+  color,
+}: {
+  title: string;
+  value: number;
+  icon: string;
+  href: string;
+  color: "green" | "blue" | "purple" | "orange";
+}) {
+  const colorClasses = {
+    green: "bg-green-50 text-green-600",
+    blue: "bg-blue-50 text-blue-600",
+    purple: "bg-purple-50 text-purple-600",
+    orange: "bg-orange-50 text-orange-600",
+  };
+
   return (
-    <Link href={href} className="rounded-xl bg-white p-6 shadow transition hover:shadow-lg">
-      <div className="mb-2 flex items-center gap-2">
-        <span className="text-2xl">{icon}</span>
-        <h3 className="text-xl font-bold">{title}</h3>
+    <Link
+      href={href}
+      className="rounded-xl bg-white p-6 shadow transition hover:shadow-md"
+    >
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm font-medium text-gray-500">{title}</p>
+          <p className="mt-1 text-3xl font-bold text-gray-900">{value}</p>
+        </div>
+        <div className={`rounded-lg p-3 ${colorClasses[color]}`}>
+          <span className="text-2xl">{icon}</span>
+        </div>
       </div>
-      <p className="text-sm text-gray-500">{desc}</p>
-      <span className="mt-3 inline-block text-sm font-medium text-blue-600 hover:underline">Edit →</span>
+    </Link>
+  );
+}
+
+function ActionCard({
+  title,
+  description,
+  href,
+  icon,
+}: {
+  title: string;
+  description: string;
+  href: string;
+  icon: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md"
+    >
+      <div className="flex items-start gap-3">
+        <span className="text-2xl">{icon}</span>
+        <div>
+          <h4 className="font-medium text-gray-900">{title}</h4>
+          <p className="mt-1 text-sm text-gray-500">{description}</p>
+        </div>
+      </div>
     </Link>
   );
 }

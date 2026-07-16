@@ -1,0 +1,32 @@
+{
+    "workflow_name": "website_factory_domain_deployment",
+    "version": "0.1",
+  
+    "steps": [
+      {
+        "step": 1,
+        "action": "verify_domain",
+        "provider": "namecheap"
+      },
+      {
+        "step": 2,
+        "action": "configure_dns",
+        "provider": "cloudflare"
+      },
+      {
+        "step": 3,
+        "action": "deploy_project",
+        "provider": "vercel"
+      },
+      {
+        "step": 4,
+        "action": "bind_domain",
+        "provider": "vercel"
+      },
+      {
+        "step": 5,
+        "action": "verify_ssl",
+        "provider": "cloudflare"
+      }
+    ]
+  }

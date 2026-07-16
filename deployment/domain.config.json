@@ -1,0 +1,7 @@
+{
+    "domain": "websitefactorytest.online",
+    "environment": "test",
+    "registrar": "namecheap",
+    "dns_provider": "cloudflare",
+    "deployment_provider": "vercel"
+  }
