@@ -11,64 +11,48 @@ const footerLinks = [
   {
     title: "Shop",
     links: [
-      { label: "All Products", href: "/containers-lids" },
-      { label: "Drinks", href: "/cups" },
-      { label: "Food Packaging", href: "/containers-lids" },
-      { label: "Service & Accessories", href: "/napkins-washroom" },
-      { label: "Bags & Carry", href: "/bags" },
-      { label: "Kits", href: "/cutlery-straws" },
+      { label: "All Products", href: "/products" },
+      { label: "Drinks", href: "/products" },
+      { label: "Food Packaging", href: "/products" },
+      { label: "Service & Accessories", href: "/products" },
+      { label: "Bags & Carry", href: "/products" },
+      { label: "Plates & Trays", href: "/products" },
     ],
   },
   {
-    title: "Custom",
+    title: "Industries",
     links: [
-      { label: "BioPak Catalogue", href: "/biopak-catalogue" },
-      { label: "BioPak Price List", href: "/biopak-price-list" },
-      { label: "Custom Packaging", href: "/custom-packaging" },
-      { label: "Design Process", href: "/design-process" },
-      { label: "Request Quote", href: "/request-quote" },
-      { label: "My Account", href: "/customer/account" },
-    ],
-  },
-  {
-    title: "Solutions",
-    links: [
-      { label: "Plastic Ban", href: "/single-use-plastic-bans" },
-      { label: "Disposal Guide", href: "/disposal" },
-      { label: "Compost Connect", href: "/compost-connect" },
-      {
-        label: "Customer Stories",
-        href: "/resources/category/customer-stories",
-      },
+      { label: "Cafes & Restaurants", href: "/industries" },
+      { label: "Quick Service Restaurants", href: "/industries" },
+      { label: "Corporate Catering", href: "/industries" },
+      { label: "Events & Festivals", href: "/industries" },
+      { label: "Retail & Grocery", href: "/industries" },
+      { label: "Education", href: "/industries" },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "Why Choose BioPak", href: "/about/why-choose-biopak" },
-      { label: "Sustainability", href: "/environmental-responsibility" },
-      { label: "Give Back Fund", href: "/about/give-back-fund" },
-      {
-        label: "Sustainable Sourcing",
-        href: "/resources/ethical-sourcing-policy",
-      },
-      { label: "Media Centre", href: "/media-centre" },
-      { label: "News & Resources", href: "/resources" },
-      { label: "Awards", href: "/awards" },
+      { label: "About BioPak", href: "/about" },
+      { label: "Sustainability", href: "/about" },
+      { label: "News & Blog", href: "/blog" },
       { label: "Contact Us", href: "/contact" },
+    ],
+  },
+  {
+    title: "Support",
+    links: [
+      { label: "Contact Us", href: "/contact" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms & Conditions", href: "/terms" },
     ],
   },
 ];
 
 const supportLinks = [
-  { label: "Delivery & Returns Policy", href: "/support/delivery-returns" },
-  { label: "Terms & Conditions", href: "/terms-and-conditions" },
-  { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Track Your order", href: "/support/track" },
-  { label: "Payment Methods", href: "/support/payment" },
-  { label: "Become a Distributor", href: "/support/become-a-distributor" },
-  { label: "Preference Centre", href: "/preference-centre" },
-  { label: "FAQs", href: "/faq" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms & Conditions", href: "/terms" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 const contactInfo = {

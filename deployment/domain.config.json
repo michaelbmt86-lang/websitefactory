@@ -3,5 +3,6 @@
     "environment": "test",
     "registrar": "namecheap",
     "dns_provider": "cloudflare",
-    "deployment_provider": "vercel"
+    "deployment_provider": "vercel",
+    "github_repository": "michaelbmt86-lang/websitefactory"
   }

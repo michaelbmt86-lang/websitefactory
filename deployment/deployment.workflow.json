@@ -1,32 +1,83 @@
 {
-    "workflow_name": "website_factory_domain_deployment",
-    "version": "0.1",
-  
-    "steps": [
-      {
-        "step": 1,
-        "action": "verify_domain",
-        "provider": "namecheap"
-      },
-      {
-        "step": 2,
-        "action": "configure_dns",
-        "provider": "cloudflare"
-      },
-      {
-        "step": 3,
-        "action": "deploy_project",
-        "provider": "vercel"
-      },
-      {
-        "step": 4,
-        "action": "bind_domain",
-        "provider": "vercel"
-      },
-      {
-        "step": 5,
-        "action": "verify_ssl",
-        "provider": "cloudflare"
-      }
-    ]
-  }
+  "workflow_name": "website_factory_runtime",
+  "version": "2.0.0",
+
+  "description": "Universal Website Factory Deployment Runtime",
+
+  "continue_on_error": false,
+  "fail_fast": true,
+
+  "steps": [
+    {
+      "step": 1,
+      "id": "verify_repository",
+      "action": "verify_repository",
+      "provider": "github",
+      "enabled": true,
+      "required": true
+    },
+
+    {
+      "step": 2,
+      "id": "configure_dns",
+      "action": "configure_dns",
+      "provider": "cloudflare",
+      "enabled": true,
+      "required": true
+    },
+
+    {
+      "step": 3,
+      "id": "deploy_project",
+      "action": "deploy_project",
+      "provider": "vercel",
+      "enabled": true,
+      "required": true
+    },
+
+    {
+      "step": 4,
+      "id": "bind_domain",
+      "action": "bind_domain",
+      "provider": "vercel",
+      "enabled": true,
+      "required": true
+    },
+
+    {
+      "step": 5,
+      "id": "verify_ssl",
+      "action": "verify_ssl",
+      "provider": "cloudflare",
+      "enabled": true,
+      "required": true
+    },
+
+    {
+      "step": 6,
+      "id": "browser_verify",
+      "action": "browser_verify",
+      "provider": "browser",
+      "enabled": false,
+      "required": false
+    },
+
+    {
+      "step": 7,
+      "id": "capture_screenshot",
+      "action": "capture_screenshot",
+      "provider": "browser",
+      "enabled": false,
+      "required": false
+    },
+
+    {
+      "step": 8,
+      "id": "delivery_report",
+      "action": "delivery_report",
+      "provider": "delivery",
+      "enabled": false,
+      "required": false
+    }
+  ]
+}
