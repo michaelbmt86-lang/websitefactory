@@ -14,7 +14,16 @@
       "github": true,
       "cloudflare": true,
       "useWrangler": false,
-      "useCloudflareRestApi": true
+      "useCloudflareRestApi": true,
+
+      "autoCreateProject": true,
+      "reuseProject": false,
+      "projectNameStrategy": "slug",
+      "cleanupOldProject": false,
+      "verifyAfterDeployment": true,
+      "verifyDashboard": true,
+      "verifyHttps": true,
+      "verifyHomepage": true
     },
   
     "dashboard": {

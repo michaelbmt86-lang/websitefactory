@@ -1,83 +1,274 @@
 {
   "workflow_name": "website_factory_runtime",
-  "version": "2.0.0",
+  "version": "3.0.0",
 
-  "description": "Universal Website Factory Deployment Runtime",
+  "description": "Production-grade Website Factory Deployment Runtime. Always creates a fresh Vercel project from the site slug — never reuses existing projects.",
 
   "continue_on_error": false,
   "fail_fast": true,
 
+  "deploymentStrategy": {
+    "alwaysCreateNewProject": true,
+    "reuseExistingProject": false,
+    "projectNameStrategy": "slug",
+    "deleteOldProject": false,
+    "verifyBeforeCleanup": true
+  },
+
+  "projectName": {
+    "source": "site_slug",
+    "example": {
+      "input_url": "https://www.biopak.com",
+      "slug": "biopak",
+      "vercel_project_name": "biopak"
+    },
+    "rules": [
+      "Extract the apex domain from the target URL",
+      "Strip www., subdomains, protocol, and path",
+      "Remove dots, hyphens are allowed",
+      "Lowercase everything",
+      "Result is the slug — used as the Vercel project name"
+    ]
+  },
+
   "steps": [
     {
       "step": 1,
-      "id": "verify_repository",
-      "action": "verify_repository",
-      "provider": "github",
+      "id": "create_project",
+      "action": "create_project",
+      "provider": "vercel",
       "enabled": true,
-      "required": true
+      "required": true,
+      "details": {
+        "operation": "POST /v9/projects",
+        "name": "${slug}",
+        "framework": "nextjs",
+        "nodeVersion": "24.x",
+        "notes": "Always create a new project. Never reuse or reference an existing project."
+      }
     },
 
     {
       "step": 2,
-      "id": "configure_dns",
-      "action": "configure_dns",
-      "provider": "cloudflare",
+      "id": "connect_github",
+      "action": "connect_github",
+      "provider": "vercel",
       "enabled": true,
-      "required": true
+      "required": true,
+      "details": {
+        "operation": "POST /v9/projects/${projectId}/link",
+        "type": "github",
+        "repo": "${github_owner}/${github_repo}",
+        "productionBranch": "main",
+        "notes": "Link the GitHub repository to the newly created project."
+      }
     },
 
     {
       "step": 3,
-      "id": "deploy_project",
-      "action": "deploy_project",
+      "id": "configure_env",
+      "action": "configure_env",
       "provider": "vercel",
       "enabled": true,
-      "required": true
+      "required": true,
+      "details": {
+        "operation": "POST /v10/projects/${projectId}/env",
+        "scope": "production",
+        "variables": [
+          "DATABASE_URL",
+          "SESSION_SECRET",
+          "ADMIN_USERNAME",
+          "ADMIN_PASSWORD"
+        ],
+        "notes": "Set all required environment variables for production scope before deploying."
+      }
     },
 
     {
       "step": 4,
-      "id": "bind_domain",
-      "action": "bind_domain",
+      "id": "deploy_project",
+      "action": "deploy_project",
       "provider": "vercel",
       "enabled": true,
-      "required": true
+      "required": true,
+      "details": {
+        "method": "vercel deploy --prod --yes",
+        "token": "${VERCEL_TOKEN}",
+        "expects": "readySubstate === PROMOTED",
+        "timeout_seconds": 300,
+        "notes": "Trigger production deployment. Must complete with READY state and PROMOTED substate."
+      }
     },
 
     {
       "step": 5,
-      "id": "verify_ssl",
-      "action": "verify_ssl",
-      "provider": "cloudflare",
+      "id": "bind_domain",
+      "action": "bind_domain",
+      "provider": "vercel",
       "enabled": true,
-      "required": true
+      "required": true,
+      "details": {
+        "operations": [
+          "POST /v9/projects/${projectId}/domains — { name: ${domain} }",
+          "POST /v9/projects/${projectId}/domains — { name: www.${domain} }"
+        ],
+        "domains": [
+          "${domain}",
+          "www.${domain}"
+        ],
+        "notes": "Bind both apex and www domains. Both must show verified: true."
+      }
     },
 
     {
       "step": 6,
-      "id": "browser_verify",
-      "action": "browser_verify",
-      "provider": "browser",
-      "enabled": false,
-      "required": false
+      "id": "configure_cloudflare_dns",
+      "action": "configure_dns",
+      "provider": "cloudflare",
+      "enabled": true,
+      "required": true,
+      "details": {
+        "zone_id": "${CLOUDFLARE_ZONE_ID}",
+        "records": [
+          {
+            "name": "@",
+            "type": "A",
+            "content": "76.76.21.21",
+            "proxied": true,
+            "ttl": "auto"
+          },
+          {
+            "name": "www",
+            "type": "CNAME",
+            "content": "cname.vercel-dns.com",
+            "proxied": false,
+            "ttl": "auto"
+          }
+        ],
+        "notes": "Apex A record proxied through Cloudflare. www CNAME direct to Vercel (DNS-only)."
+      }
     },
 
     {
       "step": 7,
-      "id": "capture_screenshot",
-      "action": "capture_screenshot",
-      "provider": "browser",
-      "enabled": false,
-      "required": false
+      "id": "verify_dns",
+      "action": "verify_dns",
+      "provider": "system",
+      "enabled": true,
+      "required": true,
+      "details": {
+        "checks": [
+          {
+            "domain": "${domain}",
+            "expect": "A record resolves to Cloudflare IPs"
+          },
+          {
+            "domain": "www.${domain}",
+            "expect": "CNAME resolves to cname.vercel-dns.com"
+          }
+        ],
+        "retry": { "attempts": 5, "delay_seconds": 10 },
+        "notes": "Confirm DNS records propagate before checking HTTPS."
+      }
     },
 
     {
       "step": 8,
-      "id": "delivery_report",
+      "id": "verify_https",
+      "action": "verify_https",
+      "provider": "system",
+      "enabled": true,
+      "required": true,
+      "details": {
+        "urls": [
+          "https://${domain}",
+          "https://www.${domain}"
+        ],
+        "expect_status": 200,
+        "expect_tls": true,
+        "retry": { "attempts": 5, "delay_seconds": 10 },
+        "notes": "Both domains must return a valid TLS certificate and HTTP 200."
+      }
+    },
+
+    {
+      "step": 9,
+      "id": "verify_homepage",
+      "action": "verify_homepage",
+      "provider": "system",
+      "enabled": true,
+      "required": true,
+      "details": {
+        "url": "https://${domain}",
+        "expect_status": 200,
+        "expect_title_contains": "${site_title}",
+        "min_content_bytes": 30000,
+        "retry": { "attempts": 3, "delay_seconds": 5 },
+        "notes": "Homepage must return 200, contain expected title, and be larger than 30 KB."
+      }
+    },
+
+    {
+      "step": 10,
+      "id": "verify_dashboard_login",
+      "action": "verify_dashboard_login",
+      "provider": "browser",
+      "enabled": true,
+      "required": true,
+      "details": {
+        "url": "https://${domain}/login",
+        "action": "submit login form",
+        "credentials": {
+          "username": "${ADMIN_USERNAME}",
+          "password": "${ADMIN_PASSWORD}"
+        },
+        "expect_redirect_to": "/dashboard",
+        "expect_status_after_login": 200,
+        "retry": { "attempts": 3, "delay_seconds": 5 },
+        "notes": "Navigate to /login, fill form, submit. Must redirect to /dashboard with HTTP 200."
+      }
+    },
+
+    {
+      "step": 11,
+      "id": "verify_admin_account",
+      "action": "verify_admin_account",
+      "provider": "system",
+      "enabled": true,
+      "required": true,
+      "details": {
+        "api_url": "https://${domain}/api/auth/me",
+        "method": "GET",
+        "expect_status": 200,
+        "expect_body_contains": "${ADMIN_USERNAME}",
+        "retry": { "attempts": 3, "delay_seconds": 5 },
+        "notes": "GET /api/auth/me must return the admin user object (not 401)."
+      }
+    },
+
+    {
+      "step": 12,
+      "id": "delivery_complete",
       "action": "delivery_report",
       "provider": "delivery",
-      "enabled": false,
-      "required": false
+      "enabled": true,
+      "required": true,
+      "details": {
+        "outputs": [
+          "vercel_project_name",
+          "vercel_project_id",
+          "production_url",
+          "custom_domain",
+          "github_repo",
+          "deployment_id",
+          "dns_verified",
+          "https_verified",
+          "homepage_verified",
+          "dashboard_verified",
+          "admin_verified"
+        ],
+        "notes": "All steps passed. Site is live and admin is accessible."
+      }
     }
   ]
 }

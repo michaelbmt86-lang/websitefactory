@@ -29,20 +29,29 @@ export async function POST(req: NextRequest) {
       .prepare("SELECT * FROM users WHERE username = ?")
       .get(username) as UserRow | undefined;
 
-    if (!user || !verifyPassword(password, user.password_hash)) {
+    if (!user) {
       return NextResponse.json(
         { success: false, error: "Invalid credentials" },
         { status: 401 }
       );
     }
 
-    await createSession(user.username);
+    if (!verifyPassword(password, user.password_hash)) {
+      return NextResponse.json(
+        { success: false, error: "Invalid credentials" },
+        { status: 401 }
+      );
+    }
+
+    const token = await createSession(user.username);
 
     return NextResponse.json({
       success: true,
       user: { username: user.username, role: user.role },
+      token,
     });
-  } catch {
+  } catch (err) {
+    console.error("[login] Error:", err);
     return NextResponse.json(
       { success: false, error: "Internal server error" },
       { status: 500 }

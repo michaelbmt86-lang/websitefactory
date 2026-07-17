@@ -60,10 +60,10 @@ export interface GitHubWebhookResult {
 export interface VercelProjectConfig {
   name: string;
   framework: string;
-  buildCommand: string;
-  outputDirectory: string;
-  installCommand: string;
-  environmentVariables: Record<string, string>;
+  buildCommand?: string;
+  outputDirectory?: string;
+  installCommand?: string;
+  environmentVariables?: Record<string, string>;
 }
 
 export interface VercelProjectResult {
@@ -152,6 +152,8 @@ export interface VercelProvider {
   bindDomain(config: VercelDomainConfig): Promise<ProviderResult<VercelDomainResult>>;
   setEnvironmentVariables(projectId: string, vars: Record<string, string>): Promise<ProviderResult<{ set: number }>>;
   deleteProject(projectId: string): Promise<ProviderResult<void>>;
+  connectGithub(projectId: string, repoFullName: string, productionBranch: string): Promise<ProviderResult<void>>;
+  getDeploymentStatus(deploymentId: string): Promise<ProviderResult<{ readyState: string; readySubstate?: string; url: string }>>;
 }
 
 export interface CloudflareProvider {

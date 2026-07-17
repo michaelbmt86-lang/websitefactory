@@ -314,3 +314,56 @@ export function createMedia(media: Omit<Media, 'id' | 'created_at'>): Media {
 export function deleteMedia(id: number): void {
   db.prepare("DELETE FROM media WHERE id = ?").run(id);
 }
+
+/* ===========================
+   Posts (Blog)
+=========================== */
+
+export interface Post {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  category: string;
+  featured_image: string;
+  is_published: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export function getPosts(): Post[] {
+  return db.prepare(`
+    SELECT * FROM posts
+    WHERE is_published = 1
+    ORDER BY created_at DESC
+  `).all() as Post[];
+}
+
+export function getPostBySlug(slug: string): Post | undefined {
+  return db.prepare(`
+    SELECT * FROM posts
+    WHERE slug = ? AND is_published = 1
+  `).get(slug) as Post | undefined;
+}
+
+export function getAllProductSlugs(): { slug: string }[] {
+  return db.prepare(`
+    SELECT slug FROM products
+  `).all() as { slug: string }[];
+}
+
+export function getAllPostSlugs(): { slug: string }[] {
+  return db.prepare(`
+    SELECT slug FROM posts
+    WHERE is_published = 1
+  `).all() as { slug: string }[];
+}
+
+export function getAllCategorySlugs(): { slug: string }[] {
+  return db.prepare(`
+    SELECT slug FROM categories
+    WHERE is_active = 1
+  `).all() as { slug: string }[];
+}

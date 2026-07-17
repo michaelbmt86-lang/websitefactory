@@ -13,7 +13,7 @@ async function main() {
   }
 
   console.log("=== STEP 2: EXECUTE DEPLOYMENT ===\n");
-  const dReport = await deploy({ dryRun: false, skipGitHub: true });
+  const dReport = await deploy({ dryRun: false, skipGitHub: false });
   printDeployReport(dReport);
 
   if (!dReport.passed) {

@@ -5,6 +5,7 @@ import db from "@/lib/db";
 
 const SESSION_COOKIE_NAME = "session_token";
 const SESSION_DURATION_MS = 24 * 60 * 60 * 1000;
+const SECRET = process.env.SESSION_SECRET || "change-me-in-production";
 
 interface SessionData {
   username: string;
@@ -23,7 +24,7 @@ export function verifyPassword(password: string, hash: string): boolean {
 function encodeSession(data: SessionData): string {
   const json = JSON.stringify(data);
   const base64 = Buffer.from(json).toString("base64url");
-  const signature = crypto.createHash("sha256").update(base64).digest("base64url");
+  const signature = crypto.createHmac("sha256", SECRET).update(base64).digest("base64url");
   return `${base64}.${signature}`;
 }
 
@@ -31,7 +32,7 @@ function decodeSession(token: string): SessionData | null {
   try {
     const [base64, signature] = token.split(".");
     if (!base64 || !signature) return null;
-    const expectedSig = crypto.createHash("sha256").update(base64).digest("base64url");
+    const expectedSig = crypto.createHmac("sha256", SECRET).update(base64).digest("base64url");
     if (signature !== expectedSig) return null;
     const json = Buffer.from(base64, "base64url").toString("utf-8");
     const data = JSON.parse(json) as SessionData;

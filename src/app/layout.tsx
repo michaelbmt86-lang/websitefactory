@@ -15,12 +15,16 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://websitefactorytest.online"),
   title: "Market Leaders in Sustainable Packaging | BioPak Australia",
   description:
     "Award-winning plant-based compostable packaging that puts the planet first. We design food service and catering packaging for the circular economy.",
   icons: {
     icon: "/seo/favicon.png",
     apple: "/seo/favicon.png",
+  },
+  twitter: {
+    card: "summary_large_image",
   },
   openGraph: {
     title: "Market Leaders in Sustainable Packaging | BioPak Australia",

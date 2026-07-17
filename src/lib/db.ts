@@ -156,10 +156,15 @@ function initializeDatabase() {
       ('ABOUT US', '/about', 6)`);
   }
 
-  const usersExist = db.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
-  if (usersExist.count === 0) {
-    const hash = crypto.createHash("sha256").update("ChangeMe123!").digest("hex");
-    db.prepare("INSERT INTO users (username, password_hash, email, role) VALUES (?, ?, ?, ?)").run("admin", hash, "admin@biopak.com.au", "admin");
+  const adminUsername = process.env.ADMIN_USERNAME || "admin";
+  const adminPassword = process.env.ADMIN_PASSWORD || "Admin123!";
+  const hash = crypto.createHash("sha256").update(adminPassword).digest("hex");
+
+  const existingAdmin = db.prepare("SELECT id FROM users WHERE username = ?").get(adminUsername) as { id: number } | undefined;
+  if (existingAdmin) {
+    db.prepare("UPDATE users SET password_hash = ?, email = ?, role = ? WHERE username = ?").run(hash, "admin@websitefactory.local", "admin", adminUsername);
+  } else {
+    db.prepare("INSERT INTO users (username, password_hash, email, role) VALUES (?, ?, ?, ?)").run(adminUsername, hash, "admin@websitefactory.local", "admin");
   }
 
   const postsExist = db.prepare("SELECT COUNT(*) as count FROM posts").get() as { count: number };

@@ -132,7 +132,7 @@ export function loadContext(): DeploymentContext {
 
   const env = process.env;
 
-  return {
+  const ctx: DeploymentContext = {
 
     /**
      * Project
@@ -230,11 +230,11 @@ export function loadContext(): DeploymentContext {
 
     geminiKey:
 
-      required(env.GEMINI_API_KEY, "GEMINI_API_KEY"),
+      env.GEMINI_API_KEY || "",
 
     firecrawlKey:
 
-      required(env.FIRECRAWL_API_KEY, "FIRECRAWL_API_KEY"),
+      env.FIRECRAWL_API_KEY || "",
 
     /**
      * Dashboard
@@ -248,11 +248,15 @@ export function loadContext(): DeploymentContext {
 
     defaultAdminPassword:
 
-      env.DEFAULT_DASHBOARD_PASSWORD ||
-
-      "123456"
+      env.DEFAULT_DASHBOARD_PASSWORD || "",
 
   };
+
+  if (!ctx.defaultAdminPassword && ctx.environment === "production") {
+    throw new Error("DEFAULT_DASHBOARD_PASSWORD is required in production");
+  }
+
+  return ctx;
 
 }
 

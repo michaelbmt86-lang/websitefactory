@@ -1,8 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import { Context } from "./context";
+import Vercel from "./providers/vercel";
 import * as log from "./providers/logger";
+import { sanitizeSlug } from "./providers/utils";
 import type { PipelineState, StepResult } from "./deploy";
+
+/* ============================================================================
+ * Interfaces
+ * ============================================================================
+ */
 
 export interface WorkflowStep {
   step: number;
@@ -45,6 +52,11 @@ export interface WorkflowRunResult {
   totalDuration: number;
 }
 
+/* ============================================================================
+ * Internal helpers
+ * ============================================================================
+ */
+
 function loadWorkflow(): WorkflowDefinition {
   const workflowPath = path.join(
     Context.deploymentRoot,
@@ -80,12 +92,171 @@ function buildInitialState(): PipelineState {
     environment: Context.environment,
     repoFullName: Context.githubRepository,
     projectSlug: Context.projectSlug,
+    vercelProjectName: "",
     zoneId: "",
     projectId: "",
     deploymentId: "",
     deploymentUrl: "",
   };
 }
+
+function makeStepResult(
+  step: number,
+  name: string,
+  provider: string,
+  passed: boolean,
+  message: string,
+  duration: number,
+): StepResult {
+  return { step, name, provider, passed, message, duration };
+}
+
+/* ============================================================================
+ * Slug generation
+ *
+ * Extracts a clean project slug from the target domain.
+ *   biopak.com           → biopak
+ *   www.example-site.com → example-site
+ *   staging.shop.io      → staging-shop
+ * ============================================================================
+ */
+
+function generateProjectSlug(domain: string): string {
+  let slug = domain
+    .replace(/^www\./, "")
+    .split(".")[0]
+    .toLowerCase();
+
+  slug = sanitizeSlug(slug);
+
+  if (!slug) {
+    throw new Error(`Could not generate slug from domain: ${domain}`);
+  }
+
+  return slug;
+}
+
+/* ============================================================================
+ * Unique project name generator
+ *
+ * Tries: slug → slug-2 → slug-3 → slug-YYYYMMDD → slug-YYYYMMDD-2
+ * Stops at the first name that does NOT exist on Vercel.
+ * Never reuses. Never overwrites.
+ * ============================================================================
+ */
+
+function dateStamp(): string {
+  const d = new Date();
+  const y = d.getUTCFullYear();
+  const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(d.getUTCDate()).padStart(2, "0");
+  return `${y}${m}${day}`;
+}
+
+function projectNameCandidates(slug: string): string[] {
+  const stamp = dateStamp();
+  return [
+    slug,
+    `${slug}-2`,
+    `${slug}-3`,
+    `${slug}-4`,
+    `${slug}-5`,
+    `${slug}-prod`,
+    `${slug}-${stamp}`,
+    `${slug}-${stamp}-2`,
+  ];
+}
+
+/* ============================================================================
+ * Pre-deployment steps (injected automatically before user workflow)
+ * ============================================================================
+ */
+
+async function preDeploymentGenerateSlug(
+  state: PipelineState,
+  stepNum: number,
+): Promise<StepResult> {
+  const name = "generate_project_slug";
+  const provider = "workflow";
+  const start = Date.now();
+
+  try {
+    const slug = generateProjectSlug(state.domain);
+    state.projectSlug = slug;
+
+    log.info("workflow", name, `domain="${state.domain}" → slug="${slug}"`);
+    return makeStepResult(stepNum, name, provider, true, `slug="${slug}"`, Date.now() - start);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return makeStepResult(stepNum, name, provider, false, msg, Date.now() - start);
+  }
+}
+
+async function preDeploymentCheckAndCreateProject(
+  state: PipelineState,
+  stepNum: number,
+): Promise<StepResult> {
+  const name = "ensure_unique_project";
+  const provider = "vercel";
+  const start = Date.now();
+
+  try {
+    const candidates = projectNameCandidates(state.projectSlug);
+    let created = false;
+
+    for (const candidate of candidates) {
+      log.info("workflow", name, `trying project name: ${candidate}`);
+
+      const result = await Vercel.createProject({
+        name: candidate,
+        framework: "nextjs",
+      });
+
+      if (result.success && result.data) {
+        state.projectId = result.data.projectId;
+        state.vercelProjectName = result.data.name;
+        created = true;
+
+        log.info("workflow", name, `created project: ${result.data.name} (${result.data.projectId})`);
+        break;
+      }
+
+      const err = result.error ?? "";
+
+      if (err.includes("409") || err.includes("already exists")) {
+        log.info("workflow", name, `"${candidate}" already exists — trying next`);
+        continue;
+      }
+
+      throw new Error(`createProject failed for "${candidate}": ${err}`);
+    }
+
+    if (!created) {
+      throw new Error(
+        `All project name candidates exhausted for slug "${state.projectSlug}". ` +
+        `Tried: ${candidates.join(", ")}`,
+      );
+    }
+
+    const duration = Date.now() - start;
+    return makeStepResult(
+      stepNum,
+      name,
+      provider,
+      true,
+      `project="${state.vercelProjectName}" id="${state.projectId}"`,
+      duration,
+    );
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return makeStepResult(stepNum, name, provider, false, msg, Date.now() - start);
+  }
+}
+
+/* ============================================================================
+ * Main workflow runner
+ * ============================================================================
+ */
 
 export async function runWorkflow(
   workflow: WorkflowDefinition,
@@ -106,7 +277,43 @@ export async function runWorkflow(
   const results: StepResult[] = [];
   let stoppedEarly = false;
 
+  /* ========================================================================
+   * Pre-deployment phase
+   * ======================================================================== */
+
+  log.info("workflow", "preDeployment", "=== PRE-DEPLOYMENT PHASE ===");
+
+  const slugResult = await preDeploymentGenerateSlug(state, 0);
+  results.push(slugResult);
+  if (!slugResult.passed) {
+    log.error("workflow", "preDeployment", `slug generation failed: ${slugResult.message}`);
+    return buildRunResult(workflow, results, true, start);
+  }
+
+  const projectResult = await preDeploymentCheckAndCreateProject(state, -1);
+  results.push(projectResult);
+  if (!projectResult.passed) {
+    log.error("workflow", "preDeployment", `project creation failed: ${projectResult.message}`);
+    return buildRunResult(workflow, results, true, start);
+  }
+
+  log.info(
+    "workflow",
+    "preDeployment",
+    `ready: slug="${state.projectSlug}", project="${state.vercelProjectName}" (${state.projectId})`,
+  );
+
+  /* ========================================================================
+   * User workflow phase
+   * ======================================================================== */
+
+  log.info("workflow", "userWorkflow", "=== USER WORKFLOW PHASE ===");
+
+  let userStepCounter = 0;
+
   for (const step of workflow.steps) {
+    userStepCounter++;
+
     if (!step.enabled) {
       log.info("workflow", step.id, `SKIPPED — step disabled`);
       results.push({
@@ -157,6 +364,15 @@ export async function runWorkflow(
     }
   }
 
+  if (stoppedEarly) {
+    log.warn("workflow", "userWorkflow", "user workflow stopped early due to fail_fast");
+    return buildRunResult(workflow, results, true, start);
+  }
+
+  /* ========================================================================
+   * Build final result
+   * ======================================================================== */
+
   const totalDuration = Date.now() - start;
   const executedSteps = results.filter(
     (r) => r.message !== "step disabled",
@@ -168,17 +384,25 @@ export async function runWorkflow(
   const failedSteps = results.filter((r) => !r.passed).length;
   const passed = failedSteps === 0;
 
-  log.info(
-    "workflow",
-    "runWorkflow",
-    `finished: ${passedSteps} passed, ${failedSteps} failed, ${skippedSteps} skipped, stopped_early=${stoppedEarly} (${totalDuration}ms)`,
-  );
+  if (passed) {
+    log.info(
+      "workflow",
+      "runWorkflow",
+      `ALL PASSED: ${passedSteps}/${results.length} steps (${totalDuration}ms)`,
+    );
+  } else {
+    log.error(
+      "workflow",
+      "runWorkflow",
+      `FAILED: ${failedSteps}/${results.length} steps failed (${totalDuration}ms)`,
+    );
+  }
 
   return {
     workflowName: workflow.workflow_name,
     version: workflow.version,
     results,
-    totalSteps: workflow.steps.length,
+    totalSteps: workflow.steps.length + 2,
     executedSteps,
     skippedSteps,
     passedSteps,
@@ -189,6 +413,43 @@ export async function runWorkflow(
   };
 }
 
+function buildRunResult(
+  workflow: WorkflowDefinition,
+  results: StepResult[],
+  stoppedEarly: boolean,
+  start: number,
+): WorkflowRunResult {
+  const totalDuration = Date.now() - start;
+  const executedSteps = results.filter(
+    (r) => r.message !== "step disabled",
+  ).length;
+  const skippedSteps = results.filter(
+    (r) => r.message === "step disabled",
+  ).length;
+  const passedSteps = results.filter((r) => r.passed).length;
+  const failedSteps = results.filter((r) => !r.passed).length;
+  const passed = failedSteps === 0;
+
+  return {
+    workflowName: workflow.workflow_name,
+    version: workflow.version,
+    results,
+    totalSteps: workflow.steps.length + 2,
+    executedSteps,
+    skippedSteps,
+    passedSteps,
+    failedSteps,
+    stoppedEarly,
+    passed,
+    totalDuration,
+  };
+}
+
+/* ============================================================================
+ * Convenience: load workflow from disk and run
+ * ============================================================================
+ */
+
 export async function loadAndRunWorkflow(
   executor: WorkflowExecutor,
   dryRun: boolean,
@@ -198,6 +459,11 @@ export async function loadAndRunWorkflow(
   return runWorkflow(workflow, executor, state, dryRun);
 }
 
+/* ============================================================================
+ * Pretty-print
+ * ============================================================================
+ */
+
 export function printWorkflowResult(result: WorkflowRunResult): void {
   console.log("");
   console.log("=".repeat(70));
@@ -205,7 +471,7 @@ export function printWorkflowResult(result: WorkflowRunResult): void {
   console.log("=".repeat(70));
   console.log(`  Workflow:    ${result.workflowName} v${result.version}`);
   console.log(`  Status:      ${result.passed ? "ALL PASSED" : "FAILED"}`);
-  console.log(`  Steps:       ${result.passedSteps}/${result.totalSteps} passed`);
+  console.log(`  Steps:       ${result.passedSteps}/${result.results.length} passed`);
   console.log(`  Executed:    ${result.executedSteps}`);
   console.log(`  Skipped:     ${result.skippedSteps}`);
   console.log(`  Failed:      ${result.failedSteps}`);
@@ -216,7 +482,7 @@ export function printWorkflowResult(result: WorkflowRunResult): void {
   for (const r of result.results) {
     const icon = r.passed ? "[PASS]" : "[FAIL]";
     const provider = r.provider.padEnd(12);
-    const name = r.name.padEnd(25);
+    const name = r.name.padEnd(30);
     const duration = r.duration > 0 ? `(${r.duration}ms)` : "";
     console.log(`  ${icon} ${provider} ${name} ${r.message} ${duration}`);
   }

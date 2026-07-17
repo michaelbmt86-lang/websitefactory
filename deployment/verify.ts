@@ -160,34 +160,31 @@ async function verifyVercel(): Promise<VerificationCheck[]> {
   const projectSlug = Context.projectSlug;
 
   checks.push(await runCheck(3, "vercel_project_check", "vercel", async () => {
-    const result = await Vercel.createProject({
-      name: projectSlug,
-      framework: "nextjs",
-      buildCommand: "",
-      outputDirectory: "",
-      installCommand: "",
-      environmentVariables: {},
-    });
-    if (!result.success) throw new Error(result.error);
+    const { status } = await fetch(
+      `https://api.vercel.com/v9/projects/${encodeURIComponent(projectSlug)}`,
+      { headers: { Authorization: `Bearer ${Context.vercelToken}` } },
+    );
+    if (status === 404) throw new Error(`Project not found: ${projectSlug}`);
+    if (status !== 200) throw new Error(`Vercel returned HTTP ${status}`);
   }));
 
   checks.push(await runCheck(4, "vercel_domain_bind", "vercel", async () => {
-    const projectResult = await Vercel.createProject({
-      name: projectSlug,
-      framework: "nextjs",
-      buildCommand: "",
-      outputDirectory: "",
-      installCommand: "",
-      environmentVariables: {},
-    });
-    if (!projectResult.success || !projectResult.data) {
-      throw new Error("cannot verify domain: project lookup failed");
-    }
-    const result = await Vercel.bindDomain({
-      domain: Context.targetDomain,
-      projectId: projectResult.data.projectId,
-    });
-    if (!result.success) throw new Error(result.error);
+    const projectResp = await fetch(
+      `https://api.vercel.com/v9/projects/${encodeURIComponent(projectSlug)}`,
+      { headers: { Authorization: `Bearer ${Context.vercelToken}` } },
+    );
+    if (projectResp.status === 404) throw new Error(`Project not found: ${projectSlug}`);
+    if (projectResp.status !== 200) throw new Error(`Vercel project lookup returned HTTP ${projectResp.status}`);
+    const project = await projectResp.json() as { id: string };
+
+    const domainsResp = await fetch(
+      `https://api.vercel.com/v9/projects/${encodeURIComponent(project.id)}/domains`,
+      { headers: { Authorization: `Bearer ${Context.vercelToken}` } },
+    );
+    if (domainsResp.status !== 200) throw new Error(`Vercel domain list returned HTTP ${domainsResp.status}`);
+    const { domains } = await domainsResp.json() as { domains: Array<{ name: string }> };
+    const bound = domains?.some((d) => d.name === Context.targetDomain);
+    if (!bound) throw new Error(`Domain "${Context.targetDomain}" is not bound to project "${projectSlug}"`);
   }));
 
   return checks;

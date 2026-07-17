@@ -82,14 +82,6 @@
   --sidebar-border: oklch(0.872 0.01 258.338);
   --sidebar-ring: oklch(0.508 0.118 165.612);
 
-  /* BioPak brand tokens */
-  --bp-navy: oklch(0.21 0.006 285.885);
-  --bp-green: oklch(0.508 0.118 165.612);
-  --bp-green-light: oklch(0.596 0.145 163.225);
-  --bp-green-dark: oklch(0.442 0.017 285.786);
-  --bp-gray: oklch(0.552 0.016 285.938);
-  --bp-gray-light: oklch(0.92 0.004 286.32);
-  --bp-white: oklch(1 0 0);
 }
 
 .dark {

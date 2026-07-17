@@ -296,12 +296,74 @@ async function deleteProject(projectId: string): Promise<ProviderResult<void>> {
   });
 }
 
+async function connectGithub(
+  projectId: string,
+  repoFullName: string,
+  productionBranch: string,
+): Promise<ProviderResult<void>> {
+  log.info(PROVIDER, "connectGithub", `linking ${repoFullName} to project ${projectId}`);
+
+  return timed(PROVIDER, "connectGithub", async () => {
+    const payload = {
+      type: "github",
+      repo: repoFullName,
+      productionBranch,
+    };
+
+    const { status, body } = await vercelFetch<{ type: string; repo: string }>(
+      `/v9/projects/${encodeURIComponent(projectId)}/link`,
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+      },
+    );
+
+    if (status === 200 || status === 201) {
+      log.info(PROVIDER, "connectGithub", `GitHub linked: ${body.repo}`);
+      return;
+    }
+
+    handleVercelError(status, body);
+  });
+}
+
+interface DeploymentStatus {
+  readyState: string;
+  readySubstate?: string;
+  url: string;
+}
+
+async function getDeploymentStatus(
+  deploymentId: string,
+): Promise<ProviderResult<DeploymentStatus>> {
+  log.info(PROVIDER, "getDeploymentStatus", `checking ${deploymentId}`);
+
+  return timed(PROVIDER, "getDeploymentStatus", async () => {
+    const { status, body } = await vercelFetch<DeploymentStatus>(
+      `/v13/deployments/${encodeURIComponent(deploymentId)}`,
+      { method: "GET" },
+    );
+
+    if (status === 200) {
+      return {
+        readyState: body.readyState,
+        readySubstate: body.readySubstate,
+        url: body.url,
+      };
+    }
+
+    handleVercelError(status, body);
+  });
+}
+
 export const Vercel: VercelProvider = {
   createProject,
   deploy,
   bindDomain,
   setEnvironmentVariables,
   deleteProject,
+  connectGithub,
+  getDeploymentStatus,
 };
 
 export default Vercel;
