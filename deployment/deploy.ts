@@ -9,6 +9,8 @@ import { retry, sleep } from "./providers/utils";
 import type { ProviderResult } from "./providers/types";
 import { runWorkflow } from "./workflowRunner";
 import type { WorkflowDefinition, WorkflowExecutor, WorkflowStep } from "./workflowRunner";
+import { generateReport, recordRepair } from "./deliveryReportArchive";
+import type { RepairEntry } from "./deliveryReportArchive";
 
 /* ============================================================================
  * Interfaces — unchanged, preserves workflowRunner compatibility
@@ -25,6 +27,9 @@ export interface PipelineState {
   projectId: string;
   deploymentId: string;
   deploymentUrl: string;
+  repairHistory: RepairEntry[];
+  checks: DeliveryCheck[];
+  failureReason: string | null;
 }
 
 export interface StepResult {
@@ -142,6 +147,9 @@ function buildInitialState(): PipelineState {
     projectId: "",
     deploymentId: "",
     deploymentUrl: "",
+    repairHistory: [],
+    checks: [],
+    failureReason: null,
   };
 }
 
@@ -829,10 +837,17 @@ async function stepDeliveryComplete(
     const passedCount = checks.filter((c) => c.passed).length;
     const failedChecks = checks.filter((c) => !c.passed);
 
+    // Store checks and failure info in state for archive
+    state.checks = checks;
+
     const report = buildDeliveryReport(checks, state, deliveryDuration);
     printDeliveryReport(report);
 
     if (failedChecks.length > 0) {
+      state.failureReason =
+        `${failedChecks.length}/${checks.length} checks failed: ` +
+        failedChecks.map((c) => `${c.name}: ${c.message}`).join("; ");
+
       throw new Error(
         `DELIVERY INCOMPLETE — ${failedChecks.length}/${checks.length} checks failed:\n` +
         failedChecks.map((c) => `  [FAIL] ${c.name}: ${c.message}`).join("\n"),
@@ -983,7 +998,25 @@ export async function deploy(
     log.error("deploy", "pipeline", `FAILED — ${result.failedSteps} step(s) failed`);
   }
 
-  return buildReport(result.results, state, opts.dryRun, start);
+  // Generate and archive delivery report (always, even on failure)
+  const report = buildReport(result.results, state, opts.dryRun, start);
+
+  if (!opts.dryRun && state.domain) {
+    try {
+      generateReport({
+        state,
+        checks: state.checks,
+        totalDuration: report.totalDuration,
+        passed: report.passed,
+        failureReason: state.failureReason ?? undefined,
+        repairHistory: state.repairHistory,
+      });
+    } catch (archiveErr) {
+      log.error("deploy", "archive", `Failed to write report: ${archiveErr}`);
+    }
+  }
+
+  return report;
 }
 
 /* ============================================================================

@@ -62,4 +62,38 @@ scripts/            # Asset download scripts
 - After editing `AGENTS.md`, run `bash scripts/sync-agent-rules.sh` to regenerate platform-specific instruction files.
 - After editing `.claude/skills/clone-website/SKILL.md`, run `node scripts/sync-skills.mjs` to regenerate the skill for all platforms.
 
+## Framework Patterns (Critical — read before writing any code)
+
+Full reference: `docs/FRAMEWORK_PATTERNS.md`
+
+### Database seed data: ALWAYS call `.run()`
+`db.prepare(sql)` creates a statement but does NOT execute it. You MUST chain `.run()`:
+```ts
+// WRONG — data never inserted, silently fails
+db.prepare(`INSERT INTO categories (...) VALUES (...)`);
+// CORRECT
+db.prepare(`INSERT INTO categories (...) VALUES (...)`).run();
+```
+
+### Dynamic routes: use `force-dynamic` for DB-dependent pages
+On Vercel, SQLite is ephemeral (`/tmp`). `generateStaticParams()` returns empty at build time → 404s:
+```ts
+export const dynamic = "force-dynamic"; // REQUIRED for DB queries
+```
+Only use `generateStaticParams()` for hardcoded/static data.
+
+### Auth: HMAC-signed tokens, not plain base64
+Sessions use `SESSION_SECRET` env var for HMAC-SHA256 signing. Never hardcode the secret.
+
+### Admin: UPSERT on every cold start
+Admin password is synced from `ADMIN_PASSWORD` env var on each DB init. No manual DB updates needed.
+
+### Error handling: NEVER silently swallow DB init errors
+```ts
+// WRONG
+try { initializeDatabase(); } catch { }
+// CORRECT
+try { initializeDatabase(); } catch (err) { console.error("[db] Init failed:", err); }
+```
+
 @docs/research/INSPECTION_GUIDE.md

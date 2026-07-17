@@ -1,3 +1,12 @@
+// ============================================================================
+// CATEGORY DETAIL PAGE (Website Factory Framework)
+//
+// Patterns:
+//   - export const dynamic = "force-dynamic" — REQUIRED for DB-dependent routes
+//   - Queries category by slug + products in that category
+//   - Graceful empty state when no products exist yet
+// ============================================================================
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -6,14 +15,10 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ArrowRightIcon } from "@/components/icons";
 import {
   getCategoryBySlug,
-  getAllCategorySlugs,
   getProductsByCategory,
 } from "@/lib/site";
 
-export async function generateStaticParams() {
-  const slugs = getAllCategorySlugs();
-  return slugs.map(({ slug }) => ({ slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

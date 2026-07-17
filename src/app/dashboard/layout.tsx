@@ -39,6 +39,8 @@ export default async function DashboardLayout({
           </p>
           <SidebarLink href="/dashboard/discovery" label="Site Discovery" />
           <SidebarLink href="/dashboard/discovery/urls" label="Discovered URLs" />
+          <SidebarLink href="/dashboard/product-discovery" label="Product Discovery" />
+          <SidebarLink href="/dashboard/product-discovery/products" label="Product URLs" />
           <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">
             Settings
           </p>

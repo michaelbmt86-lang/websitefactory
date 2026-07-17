@@ -1,3 +1,16 @@
+// ============================================================================
+// AUTH MODULE (Website Factory Framework)
+//
+// Patterns:
+//   - HMAC-SHA256 signed tokens (not just base64 — prevents forgery)
+//   - Token format: base64url(payload).base64url(hmac_signature)
+//   - SESSION_SECRET env var required in production (falls back to dev default)
+//   - Cookies: httpOnly, secure (in prod), sameSite: lax, path: /
+//   - requireAuth() redirects to /login for server components
+//   - getCurrentUser() returns null (not redirect) for conditional rendering
+//   - Admin UPSERT in db.ts syncs password from ADMIN_PASSWORD env var
+// ============================================================================
+
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import crypto from "crypto";

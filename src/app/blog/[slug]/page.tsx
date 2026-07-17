@@ -1,15 +1,24 @@
+// ============================================================================
+// BLOG POST PAGE (Website Factory Framework)
+//
+// Patterns:
+//   - export const dynamic = "force-dynamic" — REQUIRED for DB-dependent routes
+//     On Vercel, the SQLite DB is ephemeral (/tmp). generateStaticParams() would
+//     return empty at build time, causing 404s. force-dynamic ensures server-side
+//     rendering on every request, after DB init.
+//   - generateMetadata() for SEO — returns minimal metadata if post not found
+//   - notFound() from next/navigation for 404 handling
+// ============================================================================
+
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ArrowRightIcon } from "@/components/icons";
-import { getPostBySlug, getAllPostSlugs } from "@/lib/site";
+import { getPostBySlug } from "@/lib/site";
 
-export async function generateStaticParams() {
-  const slugs = getAllPostSlugs();
-  return slugs.map(({ slug }) => ({ slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

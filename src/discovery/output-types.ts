@@ -78,12 +78,22 @@ export interface DeliveryReportOutput {
     };
     pageTypeBreakdown: Record<string, number>;
   };
+  productDiscovery: {
+    totalProducts: number;
+    totalCategories: number;
+    duplicateCount: number;
+    brokenProductUrls: number;
+    coveragePercent: number;
+    discoveryTimeMs: number;
+    productsByCategory: Record<string, number>;
+  };
   status: "PASS" | "FAIL";
   checks: {
     typecheck: "PASS" | "FAIL";
     lint: "PASS" | "FAIL";
     build: "PASS" | "FAIL";
     discovery: "PASS" | "FAIL";
+    productDiscovery: "PASS" | "FAIL";
     dashboard: "PASS" | "FAIL";
   };
 }

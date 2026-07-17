@@ -16,6 +16,13 @@ type DashboardData = {
     urlsByStatus: Record<string, number>;
     brokenUrls: { url: string; statusCode: number | null }[];
   } | null;
+  productDiscovery: {
+    totalProducts: number;
+    totalCategories: number;
+    duplicatesFound: number;
+    brokenProducts: number;
+    productsByCategory: Record<string, number>;
+  } | null;
 };
 
 export default function DashboardHome() {
@@ -25,7 +32,7 @@ export default function DashboardHome() {
   useEffect(() => {
     async function load() {
       try {
-        const [settingsRes, productsRes, categoriesRes, pagesRes, mediaRes, navRes, discoveryRes] = await Promise.all([
+        const [settingsRes, productsRes, categoriesRes, pagesRes, mediaRes, navRes, discoveryRes, productDiscoveryRes] = await Promise.all([
           fetch("/api/settings", { cache: "no-store" }),
           fetch("/api/products", { cache: "no-store" }),
           fetch("/api/categories", { cache: "no-store" }),
@@ -33,6 +40,7 @@ export default function DashboardHome() {
           fetch("/api/media", { cache: "no-store" }),
           fetch("/api/navigation", { cache: "no-store" }),
           fetch("/api/discovery", { cache: "no-store" }),
+          fetch("/api/product-discovery", { cache: "no-store" }),
         ]);
 
         const settings = await settingsRes.json();
@@ -42,8 +50,9 @@ export default function DashboardHome() {
         const media = await mediaRes.json();
         const navigation = await navRes.json();
         const discovery = await discoveryRes.json();
+        const productDiscovery = await productDiscoveryRes.json();
 
-        setData({ settings, products, categories, pages, media, navigation, discovery });
+        setData({ settings, products, categories, pages, media, navigation, discovery, productDiscovery });
       } catch (error) {
         console.error("Failed to load dashboard data:", error);
       } finally {
@@ -90,6 +99,8 @@ export default function DashboardHome() {
           <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Discovery</p>
           <NavLink href="/dashboard/discovery" label="Site Discovery" icon="🔍" />
           <NavLink href="/dashboard/discovery/urls" label="Discovered URLs" icon="🔗" />
+          <NavLink href="/dashboard/product-discovery" label="Product Discovery" icon="🛒" />
+          <NavLink href="/dashboard/product-discovery/products" label="Product URLs" icon="📦" />
           <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Settings</p>
           <NavLink href="/dashboard/settings" label="General" icon="⚙️" />
           <NavLink href="/dashboard/seo" label="SEO" icon="🔍" />
@@ -166,6 +177,40 @@ export default function DashboardHome() {
               value={data.discovery.brokenUrls?.length ?? 0}
               icon="⚠️"
               href="/dashboard/discovery"
+              color="red"
+            />
+          </div>
+        )}
+
+        {/* Product Discovery Stats */}
+        {data.productDiscovery && (
+          <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <StatCard
+              title="Products Found"
+              value={data.productDiscovery.totalProducts}
+              icon="📦"
+              href="/dashboard/product-discovery"
+              color="purple"
+            />
+            <StatCard
+              title="Product Categories"
+              value={data.productDiscovery.totalCategories}
+              icon="📁"
+              href="/dashboard/product-discovery"
+              color="blue"
+            />
+            <StatCard
+              title="Duplicate Products"
+              value={data.productDiscovery.duplicatesFound}
+              icon="🔄"
+              href="/dashboard/product-discovery"
+              color="orange"
+            />
+            <StatCard
+              title="Broken Products"
+              value={data.productDiscovery.brokenProducts}
+              icon="⚠️"
+              href="/dashboard/product-discovery"
               color="red"
             />
           </div>

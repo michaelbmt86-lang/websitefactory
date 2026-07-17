@@ -8,7 +8,7 @@
 import fs from "fs";
 import path from "path";
 import db from "@/lib/db";
-import type { SiteUrl } from "@/types/discovery";
+import type { SiteUrl, ProductUrl } from "@/types/discovery";
 import type {
   SiteMapOutput,
   UrlGraphOutput,
@@ -181,6 +181,7 @@ export function generateDeliveryReport(
     lint: "PASS" | "FAIL";
     build: "PASS" | "FAIL";
     discovery: "PASS" | "FAIL";
+    productDiscovery: "PASS" | "FAIL";
     dashboard: "PASS" | "FAIL";
   }
 ): DeliveryReportOutput {
@@ -209,6 +210,20 @@ export function generateDeliveryReport(
 
   const allChecksPass = Object.values(checks).every(v => v === "PASS");
 
+  // Product Discovery metrics
+  const productUrls = db.prepare("SELECT * FROM product_urls").all() as ProductUrl[];
+  const totalProducts = productUrls.filter(p => !p.is_duplicate).length;
+  const productCategories = new Set(productUrls.map(p => p.category)).size;
+  const duplicateProducts = productUrls.filter(p => p.is_duplicate).length;
+  const brokenProducts = productUrls.filter(p => p.status === "broken").length;
+  const crawledProducts = productUrls.filter(p => p.status === "crawled").length;
+  const productCoverage = productUrls.length > 0 ? Math.round((crawledProducts / productUrls.length) * 100) : 0;
+
+  const productsByCategory: Record<string, number> = {};
+  for (const p of productUrls) {
+    productsByCategory[p.category] = (productsByCategory[p.category] || 0) + 1;
+  }
+
   const output: DeliveryReportOutput = {
     generatedAt: new Date().toISOString(),
     siteUrl,
@@ -223,6 +238,15 @@ export function generateDeliveryReport(
         distribution,
       },
       pageTypeBreakdown,
+    },
+    productDiscovery: {
+      totalProducts,
+      totalCategories: productCategories,
+      duplicateCount: duplicateProducts,
+      brokenProductUrls: brokenProducts,
+      coveragePercent: productCoverage,
+      discoveryTimeMs: 0,
+      productsByCategory,
     },
     status: allChecksPass && totalUrls > 0 ? "PASS" : "FAIL",
     checks,

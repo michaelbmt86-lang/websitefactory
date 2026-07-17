@@ -1,3 +1,12 @@
+// ============================================================================
+// ROBOTS.TXT (Website Factory Framework)
+//
+// Patterns:
+//   - Allow all public pages
+//   - Disallow /dashboard (auth-protected), /login, /api (data endpoints)
+//   - Sitemap URL should match metadataBase in layout.tsx
+// ============================================================================
+
 import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {

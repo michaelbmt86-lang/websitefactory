@@ -1,3 +1,13 @@
+// ============================================================================
+// ROOT LAYOUT (Website Factory Framework)
+//
+// Patterns:
+//   - metadataBase: Required for OG images and sitemap/robots URLs
+//   - Must match the production domain (used by sitemap.ts, robots.ts)
+//   - Fonts: Montserrat (headings) + Inter (body) via next/font/google
+//   - twitter.card: "summary_large_image" for social sharing
+// ============================================================================
+
 import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import "./globals.css";

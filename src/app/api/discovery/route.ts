@@ -78,6 +78,7 @@ export async function POST(request: Request) {
       lint: "PASS",
       build: "PASS",
       discovery: "PASS",
+      productDiscovery: "PASS",
       dashboard: "PASS",
     });
 

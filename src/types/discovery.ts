@@ -207,12 +207,180 @@ export interface DeliveryReport {
     };
     pageTypeBreakdown: Record<PageType, number>;
   };
+  productDiscovery: {
+    totalProducts: number;
+    totalCategories: number;
+    duplicateCount: number;
+    brokenProductUrls: number;
+    coveragePercent: number;
+    discoveryTimeMs: number;
+    productsByCategory: Record<string, number>;
+  };
   status: "PASS" | "FAIL";
   checks: {
     typecheck: "PASS" | "FAIL";
     lint: "PASS" | "FAIL";
     build: "PASS" | "FAIL";
     discovery: "PASS" | "FAIL";
+    productDiscovery: "PASS" | "FAIL";
     dashboard: "PASS" | "FAIL";
   };
+}
+
+// ============================================================================
+// PRODUCT DISCOVERY TYPES
+// ============================================================================
+
+export type ProductCategory =
+  | "Packaging"
+  | "Cup"
+  | "Lid"
+  | "Container"
+  | "Bag"
+  | "Cutlery"
+  | "Napkin"
+  | "Accessory"
+  | "Custom Product"
+  | "Unknown";
+
+export type ProductUrlStatus = "discovered" | "crawled" | "failed" | "broken" | "duplicate";
+
+export type ProductDiscoverySource =
+  | "listing-page"
+  | "category-page"
+  | "collection-page"
+  | "search-page"
+  | "shop-page"
+  | "sitemap"
+  | "pagination"
+  | "load-more"
+  | "infinite-scroll"
+  | "ajax"
+  | "manual";
+
+export interface ProductUrl {
+  id: number;
+  url: string;
+  category: string;
+  product_slug: string;
+  product_name: string;
+  source_page: string;
+  discovered_by: string;
+  status: ProductUrlStatus;
+  priority: number;
+  canonical_url: string | null;
+  json_ld: string | null;
+  price: string | null;
+  sku: string | null;
+  image_url: string | null;
+  in_stock: number;
+  is_duplicate: number;
+  duplicate_of: string | null;
+  status_code: number | null;
+  response_time_ms: number | null;
+  created_at: string;
+}
+
+export interface ProductUrlInput {
+  url: string;
+  category: string;
+  product_slug: string;
+  product_name: string;
+  source_page: string;
+  discovered_by: ProductDiscoverySource;
+  status: ProductUrlStatus;
+  priority: number;
+  canonical_url?: string | null;
+  json_ld?: string | null;
+  price?: string | null;
+  sku?: string | null;
+  image_url?: string | null;
+  in_stock?: number;
+  is_duplicate?: number;
+  duplicate_of?: string | null;
+  status_code?: number | null;
+  response_time_ms?: number | null;
+}
+
+export interface PaginationInfo {
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+  nextPageUrl: string | null;
+  prevPageUrl: string | null;
+  totalPages: number | null;
+  currentPage: number | null;
+  loadMoreUrl: string | null;
+  paginationType: "links" | "load-more" | "infinite-scroll" | "ajax" | "none";
+}
+
+export interface ProductListingPageData {
+  url: string;
+  title: string;
+  productLinks: string[];
+  pagination: PaginationInfo;
+  totalProductsOnPage: number;
+}
+
+export interface ProductDiscoveryResult {
+  siteUrl: string;
+  discoveredAt: string;
+  startTimeMs: number;
+  endTimeMs: number;
+  discoveryTimeMs: number;
+  totalProducts: number;
+  totalCategories: number;
+  productsByCategory: Record<string, number>;
+  duplicatesFound: number;
+  brokenProducts: number;
+  pagesCrawled: number;
+  paginationPagesCrawled: number;
+  maxDepth: number;
+  listingPages: string[];
+  categoryPages: string[];
+  topProducts: ProductUrl[];
+}
+
+export interface ProductIndexOutput {
+  siteUrl: string;
+  generatedAt: string;
+  totalProducts: number;
+  products: {
+    url: string;
+    slug: string;
+    name: string;
+    category: string;
+    price: string | null;
+    sku: string | null;
+    imageUrl: string | null;
+    inStock: boolean;
+    isDuplicate: boolean;
+    sourcePage: string;
+  }[];
+}
+
+export interface CategoryIndexOutput {
+  siteUrl: string;
+  generatedAt: string;
+  totalCategories: number;
+  categories: {
+    name: string;
+    productCount: number;
+    listingPage: string;
+    products: { url: string; slug: string; name: string }[];
+  }[];
+}
+
+export interface ProductDiscoverySummaryOutput {
+  siteUrl: string;
+  generatedAt: string;
+  discoveryTimeMs: number;
+  totalProducts: number;
+  totalCategories: number;
+  duplicatesFound: number;
+  brokenProducts: number;
+  pagesCrawled: number;
+  paginationPagesCrawled: number;
+  productsByCategory: Record<string, number>;
+  productsByStatus: Record<string, number>;
+  topListingPages: { url: string; productsFound: number }[];
 }

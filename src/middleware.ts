@@ -1,3 +1,14 @@
+// ============================================================================
+// MIDDLEWARE (Website Factory Framework)
+//
+// Patterns:
+//   - Protects /dashboard and /dashboard/* routes
+//   - Validates token format (must have exactly one "." separator)
+//   - Forged/invalid tokens redirect to /login with ?from= return path
+//   - Does NOT verify HMAC signature (that's done in auth.ts server-side)
+//   - Lightweight check: rejects obviously bad tokens before they hit the DB
+// ============================================================================
+
 import { NextRequest, NextResponse } from "next/server";
 
 const SESSION_COOKIE = "session_token";

@@ -1,15 +1,21 @@
+// ============================================================================
+// PRODUCT DETAIL PAGE (Website Factory Framework)
+//
+// Patterns:
+//   - export const dynamic = "force-dynamic" — REQUIRED for DB-dependent routes
+//   - Queries product by slug from SQLite
+//   - generateMetadata() for per-product SEO
+// ============================================================================
+
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ArrowRightIcon } from "@/components/icons";
-import { getProductBySlug, getAllProductSlugs } from "@/lib/site";
+import { getProductBySlug } from "@/lib/site";
 
-export async function generateStaticParams() {
-  const slugs = getAllProductSlugs();
-  return slugs.map(({ slug }) => ({ slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

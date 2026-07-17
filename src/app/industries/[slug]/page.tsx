@@ -88,6 +88,8 @@ function slugToIndustryName(slug: string): string {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+// generateStaticParams with hardcoded data — use this pattern for routes with
+// known, static slugs. For DB-dependent routes, use force-dynamic instead.
 export async function generateStaticParams() {
   return Object.keys(KNOWN_INDUSTRIES).map((slug) => ({ slug }));
 }

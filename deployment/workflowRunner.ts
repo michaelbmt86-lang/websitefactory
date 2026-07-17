@@ -97,6 +97,9 @@ function buildInitialState(): PipelineState {
     projectId: "",
     deploymentId: "",
     deploymentUrl: "",
+    repairHistory: [],
+    checks: [],
+    failureReason: null,
   };
 }
 

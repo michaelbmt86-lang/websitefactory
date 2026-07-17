@@ -1,3 +1,13 @@
+// ============================================================================
+// SITEMAP (Website Factory Framework)
+//
+// Patterns:
+//   - Static pages listed manually with priorities
+//   - Dynamic pages (products, posts) pulled from DB at request time
+//   - BASE_URL should match metadataBase in layout.tsx
+//   - On Vercel, this runs server-side per request (not cached at build)
+// ============================================================================
+
 import type { MetadataRoute } from "next";
 import { getProducts, getPosts } from "@/lib/site";
 

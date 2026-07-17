@@ -174,6 +174,36 @@ function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS idx_site_urls_status ON site_urls(status);
     CREATE INDEX IF NOT EXISTS idx_site_urls_depth ON site_urls(depth);
     CREATE INDEX IF NOT EXISTS idx_site_urls_parent_url ON site_urls(parent_url);
+
+    CREATE TABLE IF NOT EXISTS product_urls (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      url TEXT NOT NULL,
+      category TEXT NOT NULL DEFAULT 'Unknown',
+      product_slug TEXT NOT NULL,
+      product_name TEXT DEFAULT '',
+      source_page TEXT NOT NULL DEFAULT '',
+      discovered_by TEXT NOT NULL DEFAULT 'manual',
+      status TEXT NOT NULL DEFAULT 'discovered',
+      priority INTEGER NOT NULL DEFAULT 50,
+      canonical_url TEXT,
+      json_ld TEXT,
+      price TEXT,
+      sku TEXT,
+      image_url TEXT,
+      in_stock INTEGER DEFAULT 1,
+      is_duplicate INTEGER DEFAULT 0,
+      duplicate_of TEXT,
+      status_code INTEGER,
+      response_time_ms INTEGER,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(url)
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_product_urls_category ON product_urls(category);
+    CREATE INDEX IF NOT EXISTS idx_product_urls_status ON product_urls(status);
+    CREATE INDEX IF NOT EXISTS idx_product_urls_product_slug ON product_urls(product_slug);
+    CREATE INDEX IF NOT EXISTS idx_product_urls_source_page ON product_urls(source_page);
+    CREATE INDEX IF NOT EXISTS idx_product_urls_is_duplicate ON product_urls(is_duplicate);
   `);
 
   // Seed settings (single row, insert if empty)
