@@ -55,6 +55,17 @@ export default async function DashboardLayout({
           <SidebarLink href="/dashboard/detail-extraction/related" label="Related Products" />
           <SidebarLink href="/dashboard/detail-extraction/faq" label="FAQ" />
           <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">
+            CMS Generator
+          </p>
+          <SidebarLink href="/dashboard/cms-generator" label="Overview" />
+          <SidebarLink href="/dashboard/cms-generator/pages" label="Pages" />
+          <SidebarLink href="/dashboard/cms-generator/brands" label="Brands" />
+          <SidebarLink href="/dashboard/cms-generator/collections" label="Collections" />
+          <SidebarLink href="/dashboard/cms-generator/blog" label="Blog" />
+          <SidebarLink href="/dashboard/cms-generator/seo" label="SEO" />
+          <SidebarLink href="/dashboard/cms-generator/search" label="Search" />
+          <SidebarLink href="/dashboard/cms-generator/quality" label="Quality" />
+          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">
             Settings
           </p>
           <SidebarLink href="/dashboard/settings" label="General" />

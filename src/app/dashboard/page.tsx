@@ -32,6 +32,19 @@ type DashboardData = {
     productsWithSEO: number;
     productsWithSchema: number;
   } | null;
+  cmsGenerator: {
+    totalPages: number;
+    totalBrands: number;
+    totalCollections: number;
+    totalBlogPosts: number;
+    totalSeo: number;
+    totalSearch: number;
+    quality: {
+      issues: number;
+      missingMetadata: number;
+      brokenLinks: number;
+    };
+  } | null;
 };
 
 export default function DashboardHome() {
@@ -41,7 +54,7 @@ export default function DashboardHome() {
   useEffect(() => {
     async function load() {
       try {
-        const [settingsRes, productsRes, categoriesRes, pagesRes, mediaRes, navRes, discoveryRes, productDiscoveryRes, detailExtractionRes] = await Promise.all([
+        const [settingsRes, productsRes, categoriesRes, pagesRes, mediaRes, navRes, discoveryRes, productDiscoveryRes, detailExtractionRes, cmsGeneratorRes] = await Promise.all([
           fetch("/api/settings", { cache: "no-store" }),
           fetch("/api/products", { cache: "no-store" }),
           fetch("/api/categories", { cache: "no-store" }),
@@ -51,6 +64,7 @@ export default function DashboardHome() {
           fetch("/api/discovery", { cache: "no-store" }),
           fetch("/api/product-discovery", { cache: "no-store" }),
           fetch("/api/detail-extraction", { cache: "no-store" }),
+          fetch("/api/cms-generator", { cache: "no-store" }),
         ]);
 
         const settings = await settingsRes.json();
@@ -62,8 +76,9 @@ export default function DashboardHome() {
         const discovery = await discoveryRes.json();
         const productDiscovery = await productDiscoveryRes.json();
         const detailExtraction = await detailExtractionRes.json();
+        const cmsGenerator = await cmsGeneratorRes.json();
 
-        setData({ settings, products, categories, pages, media, navigation, discovery, productDiscovery, detailExtraction });
+        setData({ settings, products, categories, pages, media, navigation, discovery, productDiscovery, detailExtraction, cmsGenerator });
       } catch (error) {
         console.error("Failed to load dashboard data:", error);
       } finally {
@@ -118,6 +133,12 @@ export default function DashboardHome() {
           <NavLink href="/dashboard/detail-extraction/images" label="Images" icon="🖼️" />
           <NavLink href="/dashboard/detail-extraction/seo" label="SEO" icon="📋" />
           <NavLink href="/dashboard/detail-extraction/schema" label="Schema" icon="📐" />
+          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">CMS Generator</p>
+          <NavLink href="/dashboard/cms-generator" label="Overview" icon="🏗️" />
+          <NavLink href="/dashboard/cms-generator/pages" label="Pages" icon="📄" />
+          <NavLink href="/dashboard/cms-generator/brands" label="Brands" icon="🏷️" />
+          <NavLink href="/dashboard/cms-generator/collections" label="Collections" icon="📁" />
+          <NavLink href="/dashboard/cms-generator/seo" label="SEO" icon="🔍" />
           <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Settings</p>
           <NavLink href="/dashboard/settings" label="General" icon="⚙️" />
           <NavLink href="/dashboard/seo" label="SEO" icon="🔍" />
@@ -267,6 +288,40 @@ export default function DashboardHome() {
           </div>
         )}
 
+        {/* CMS Generator Stats */}
+        {data.cmsGenerator && data.cmsGenerator.totalPages > 0 && (
+          <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <StatCard
+              title="CMS Pages"
+              value={data.cmsGenerator.totalPages}
+              icon="📄"
+              href="/dashboard/cms-generator"
+              color="emerald"
+            />
+            <StatCard
+              title="CMS Brands"
+              value={data.cmsGenerator.totalBrands}
+              icon="🏷️"
+              href="/dashboard/cms-generator/brands"
+              color="purple"
+            />
+            <StatCard
+              title="CMS Collections"
+              value={data.cmsGenerator.totalCollections}
+              icon="📁"
+              href="/dashboard/cms-generator/collections"
+              color="teal"
+            />
+            <StatCard
+              title="Quality Issues"
+              value={data.cmsGenerator.quality.issues}
+              icon="⚠️"
+              href="/dashboard/cms-generator/quality"
+              color="red"
+            />
+          </div>
+        )}
+
         {/* Quick Actions */}
         <div className="mb-8">
           <h3 className="mb-4 text-lg font-semibold text-gray-900">Quick Actions</h3>
@@ -379,7 +434,7 @@ function StatCard({
   value: string | number;
   icon: string;
   href: string;
-  color: "green" | "blue" | "purple" | "orange" | "teal" | "red" | "indigo" | "cyan" | "slate";
+  color: "green" | "blue" | "purple" | "orange" | "teal" | "red" | "indigo" | "cyan" | "slate" | "emerald";
 }) {
   const colorClasses = {
     green: "bg-green-50 text-green-600",
@@ -391,6 +446,7 @@ function StatCard({
     indigo: "bg-indigo-50 text-indigo-600",
     cyan: "bg-cyan-50 text-cyan-600",
     slate: "bg-slate-50 text-slate-600",
+    emerald: "bg-emerald-50 text-emerald-600",
   };
 
   return (

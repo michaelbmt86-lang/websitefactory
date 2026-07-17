@@ -255,6 +255,94 @@ function initializeDatabase() {
 
     CREATE INDEX IF NOT EXISTS idx_media_assets_product_id ON media_assets(product_id);
     CREATE INDEX IF NOT EXISTS idx_media_assets_type ON media_assets(type);
+
+    CREATE TABLE IF NOT EXISTS cms_pages (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      url TEXT NOT NULL,
+      slug TEXT NOT NULL,
+      title TEXT NOT NULL,
+      description TEXT DEFAULT '',
+      page_type TEXT NOT NULL DEFAULT 'page',
+      source_table TEXT DEFAULT '',
+      source_id INTEGER,
+      meta_title TEXT DEFAULT '',
+      meta_description TEXT DEFAULT '',
+      og_title TEXT DEFAULT '',
+      og_description TEXT DEFAULT '',
+      og_image TEXT DEFAULT '',
+      canonical TEXT DEFAULT '',
+      schema_json TEXT DEFAULT '[]',
+      status TEXT NOT NULL DEFAULT 'published',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(url)
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_cms_pages_slug ON cms_pages(slug);
+    CREATE INDEX IF NOT EXISTS idx_cms_pages_page_type ON cms_pages(page_type);
+    CREATE INDEX IF NOT EXISTS idx_cms_pages_status ON cms_pages(status);
+
+    CREATE TABLE IF NOT EXISTS cms_brands (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      slug TEXT UNIQUE NOT NULL,
+      logo_url TEXT DEFAULT '',
+      description TEXT DEFAULT '',
+      product_count INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_cms_brands_slug ON cms_brands(slug);
+
+    CREATE TABLE IF NOT EXISTS cms_collections (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      slug TEXT UNIQUE NOT NULL,
+      description TEXT DEFAULT '',
+      image_url TEXT DEFAULT '',
+      product_count INTEGER DEFAULT 0,
+      products_json TEXT DEFAULT '[]',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_cms_collections_slug ON cms_collections(slug);
+
+    CREATE TABLE IF NOT EXISTS cms_seo (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      url TEXT NOT NULL,
+      slug TEXT NOT NULL,
+      page_type TEXT DEFAULT '',
+      entity_type TEXT NOT NULL DEFAULT 'page',
+      entity_id INTEGER,
+      meta_title TEXT DEFAULT '',
+      meta_description TEXT DEFAULT '',
+      og_title TEXT DEFAULT '',
+      og_description TEXT DEFAULT '',
+      og_image TEXT DEFAULT '',
+      canonical TEXT DEFAULT '',
+      schema_json TEXT DEFAULT '[]',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(url)
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_cms_seo_slug ON cms_seo(slug);
+    CREATE INDEX IF NOT EXISTS idx_cms_seo_entity_type ON cms_seo(entity_type);
+
+    CREATE TABLE IF NOT EXISTS cms_search_index (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      entity_type TEXT NOT NULL DEFAULT 'page',
+      entity_id INTEGER NOT NULL,
+      title TEXT NOT NULL,
+      description TEXT DEFAULT '',
+      keywords TEXT DEFAULT '',
+      url TEXT NOT NULL,
+      image_url TEXT DEFAULT '',
+      category TEXT DEFAULT '',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_cms_search_entity_type ON cms_search_index(entity_type);
+    CREATE INDEX IF NOT EXISTS idx_cms_search_title ON cms_search_index(title);
   `);
 
   // Seed settings (single row, insert if empty)

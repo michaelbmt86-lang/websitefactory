@@ -646,6 +646,259 @@ export interface SchemaLibraryOutput {
 }
 
 // ============================================================================
+// CMS GENERATOR TYPES
+// ============================================================================
+
+export type CmsPageStatus = "draft" | "published" | "archived";
+export type CmsEntityType = "page" | "product" | "brand" | "collection" | "blog" | "category";
+
+export interface CmsPage {
+  id: number;
+  url: string;
+  slug: string;
+  title: string;
+  description: string;
+  page_type: string;
+  source_table: string;
+  source_id: number | null;
+  meta_title: string;
+  meta_description: string;
+  og_title: string;
+  og_description: string;
+  og_image: string;
+  canonical: string;
+  schema_json: string;
+  status: CmsPageStatus;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CmsPageInput {
+  url: string;
+  slug: string;
+  title: string;
+  description?: string;
+  page_type?: string;
+  source_table?: string;
+  source_id?: number | null;
+  meta_title?: string;
+  meta_description?: string;
+  og_title?: string;
+  og_description?: string;
+  og_image?: string;
+  canonical?: string;
+  schema_json?: string;
+  status?: CmsPageStatus;
+}
+
+export interface CmsBrand {
+  id: number;
+  name: string;
+  slug: string;
+  logo_url: string;
+  description: string;
+  product_count: number;
+  created_at: string;
+}
+
+export interface CmsBrandInput {
+  name: string;
+  slug: string;
+  logo_url?: string;
+  description?: string;
+  product_count?: number;
+}
+
+export interface CmsCollection {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  image_url: string;
+  product_count: number;
+  products_json: string;
+  created_at: string;
+}
+
+export interface CmsCollectionInput {
+  name: string;
+  slug: string;
+  description?: string;
+  image_url?: string;
+  product_count?: number;
+  products_json?: string;
+}
+
+export interface CmsSeoPage {
+  id: number;
+  url: string;
+  slug: string;
+  page_type: string;
+  entity_type: CmsEntityType;
+  entity_id: number | null;
+  meta_title: string;
+  meta_description: string;
+  og_title: string;
+  og_description: string;
+  og_image: string;
+  canonical: string;
+  schema_json: string;
+  created_at: string;
+}
+
+export interface CmsSeoPageInput {
+  url: string;
+  slug: string;
+  page_type?: string;
+  entity_type: CmsEntityType;
+  entity_id?: number | null;
+  meta_title?: string;
+  meta_description?: string;
+  og_title?: string;
+  og_description?: string;
+  og_image?: string;
+  canonical?: string;
+  schema_json?: string;
+}
+
+export interface CmsSearchIndex {
+  id: number;
+  entity_type: CmsEntityType;
+  entity_id: number;
+  title: string;
+  description: string;
+  keywords: string;
+  url: string;
+  image_url: string;
+  category: string;
+  created_at: string;
+}
+
+export interface CmsSearchIndexInput {
+  entity_type: CmsEntityType;
+  entity_id: number;
+  title: string;
+  description?: string;
+  keywords?: string;
+  url: string;
+  image_url?: string;
+  category?: string;
+}
+
+export interface CmsGeneratorResult {
+  siteUrl: string;
+  startTimeMs: number;
+  endTimeMs: number;
+  generationTimeMs: number;
+  pagesGenerated: number;
+  brandsGenerated: number;
+  collectionsGenerated: number;
+  blogPostsGenerated: number;
+  seoPagesGenerated: number;
+  searchIndexEntries: number;
+  totalMediaAssets: number;
+  seoCoverage: number;
+  searchCoverage: number;
+  brokenLinks: number;
+  missingMetadata: number;
+  generationSuccessRate: number;
+}
+
+export interface CmsQualityResult {
+  totalEntities: number;
+  missingMetadata: number;
+  missingSeo: number;
+  brokenLinks: number;
+  duplicateSlugs: number;
+  emptyDescriptions: number;
+  issues: CmsQualityIssue[];
+}
+
+export interface CmsQualityIssue {
+  entityType: CmsEntityType;
+  entityId: number;
+  entitySlug: string;
+  issueType: "missing-metadata" | "missing-seo" | "broken-link" | "duplicate-slug" | "empty-description" | "missing-image";
+  severity: "warning" | "error";
+  message: string;
+}
+
+export interface CmsManifestOutput {
+  siteUrl: string;
+  generatedAt: string;
+  version: string;
+  pages: {
+    url: string;
+    slug: string;
+    title: string;
+    pageType: string;
+    status: string;
+  }[];
+  brands: {
+    name: string;
+    slug: string;
+    productCount: number;
+  }[];
+  collections: {
+    name: string;
+    slug: string;
+    productCount: number;
+  }[];
+  categories: {
+    name: string;
+    slug: string;
+  }[];
+  blog: {
+    title: string;
+    slug: string;
+    excerpt: string;
+  }[];
+  totalEntities: number;
+}
+
+export interface CmsSearchOutput {
+  siteUrl: string;
+  generatedAt: string;
+  totalEntries: number;
+  entries: {
+    entityType: string;
+    entityId: number;
+    title: string;
+    description: string;
+    keywords: string;
+    url: string;
+    imageUrl: string;
+    category: string;
+  }[];
+}
+
+export interface CmsNavigationOutput {
+  siteUrl: string;
+  generatedAt: string;
+  mainNav: {
+    label: string;
+    href: string;
+    children?: { label: string; href: string }[];
+  }[];
+  footerNav: {
+    section: string;
+    links: { label: string; href: string }[];
+  }[];
+}
+
+export interface CmsSitemapOutput {
+  siteUrl: string;
+  generatedAt: string;
+  totalUrls: number;
+  urls: {
+    url: string;
+    lastmod: string;
+    changefreq: string;
+    priority: number;
+  }[];
+}
+
+// ============================================================================
 // DELIVERY REPORT
 // ============================================================================
 
@@ -683,6 +936,17 @@ export interface DeliveryReport {
     brokenAssets: number;
     extractionSuccessRate: number;
   };
+  cmsGenerator: {
+    pagesGenerated: number;
+    brandsGenerated: number;
+    collectionsGenerated: number;
+    blogPostsGenerated: number;
+    seoCoverage: number;
+    searchCoverage: number;
+    brokenLinks: number;
+    missingMetadata: number;
+    generationSuccessRate: number;
+  };
   status: "PASS" | "FAIL";
   checks: {
     typecheck: "PASS" | "FAIL";
@@ -691,6 +955,7 @@ export interface DeliveryReport {
     discovery: "PASS" | "FAIL";
     productDiscovery: "PASS" | "FAIL";
     detailExtraction: "PASS" | "FAIL";
+    cmsGenerator: "PASS" | "FAIL";
     dashboard: "PASS" | "FAIL";
   };
 }

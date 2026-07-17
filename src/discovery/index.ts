@@ -1,5 +1,5 @@
 // ============================================================================
-// DISCOVERY MODULE (Site + Product + Detail Extraction Engines)
+// DISCOVERY MODULE (Site + Product + Detail Extraction + CMS Generator Engines)
 //
 // Barrel export for the complete discovery engine.
 // ============================================================================
@@ -27,3 +27,14 @@ export { prepareHtmlForExtraction, extractAccordionContent, extractTabContent } 
 export { analyzeWithGemini } from "./gemini-analyzer";
 export { validateExtractionQuality } from "./quality-validator";
 export { generateProductsJson, generateMediaLibraryJson, generateSEOLibraryJson, generateSchemaLibraryJson } from "./detail-output-generator";
+
+// CMS Generator
+export { generateCms } from "./cms/cms-generator-engine";
+export { generatePages } from "./cms/page-generator";
+export { generateBrands } from "./cms/brand-generator";
+export { generateCollections } from "./cms/collection-generator";
+export { generateBlogPosts } from "./cms/blog-generator";
+export { generateSeoMetadata } from "./cms/seo-generator";
+export { generateSearchIndex } from "./cms/search-index-generator";
+export { validateCmsQuality } from "./cms/cms-quality-validator";
+export { generateCmsManifest, generateCmsSearchOutput, generateCmsNavigation, generateCmsSitemap } from "./cms/cms-output-generator";

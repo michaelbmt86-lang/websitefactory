@@ -97,6 +97,17 @@ export interface DeliveryReportOutput {
     brokenAssets: number;
     extractionSuccessRate: number;
   };
+  cmsGenerator: {
+    pagesGenerated: number;
+    brandsGenerated: number;
+    collectionsGenerated: number;
+    blogPostsGenerated: number;
+    seoCoverage: number;
+    searchCoverage: number;
+    brokenLinks: number;
+    missingMetadata: number;
+    generationSuccessRate: number;
+  };
   status: "PASS" | "FAIL";
   checks: {
     typecheck: "PASS" | "FAIL";
@@ -105,6 +116,7 @@ export interface DeliveryReportOutput {
     discovery: "PASS" | "FAIL";
     productDiscovery: "PASS" | "FAIL";
     detailExtraction: "PASS" | "FAIL";
+    cmsGenerator: "PASS" | "FAIL";
     dashboard: "PASS" | "FAIL";
   };
 }

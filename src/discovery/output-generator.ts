@@ -183,6 +183,7 @@ export function generateDeliveryReport(
     discovery: "PASS" | "FAIL";
     productDiscovery: "PASS" | "FAIL";
     detailExtraction: "PASS" | "FAIL";
+    cmsGenerator: "PASS" | "FAIL";
     dashboard: "PASS" | "FAIL";
   }
 ): DeliveryReportOutput {
@@ -285,6 +286,17 @@ export function generateDeliveryReport(
       schemaCoverage: schemaCoveragePct,
       brokenAssets: failedExtractions.count,
       extractionSuccessRate,
+    },
+    cmsGenerator: {
+      pagesGenerated: 0,
+      brandsGenerated: 0,
+      collectionsGenerated: 0,
+      blogPostsGenerated: 0,
+      seoCoverage: 0,
+      searchCoverage: 0,
+      brokenLinks: 0,
+      missingMetadata: 0,
+      generationSuccessRate: 0,
     },
     status: allChecksPass && totalUrls > 0 ? "PASS" : "FAIL",
     checks,

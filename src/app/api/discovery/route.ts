@@ -80,6 +80,7 @@ export async function POST(request: Request) {
       discovery: "PASS",
       productDiscovery: "PASS",
       detailExtraction: "PASS",
+      cmsGenerator: "PASS",
       dashboard: "PASS",
     });
 
