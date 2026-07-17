@@ -54,6 +54,7 @@ export default async function DashboardLayout({
           <SidebarLink href="/dashboard/detail-extraction/schema" label="Schema" />
           <SidebarLink href="/dashboard/detail-extraction/related" label="Related Products" />
           <SidebarLink href="/dashboard/detail-extraction/faq" label="FAQ" />
+          <SidebarLink href="/dashboard/extraction-recovery" label="Extraction Recovery" />
           <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">
             CMS Generator
           </p>
@@ -65,6 +66,15 @@ export default async function DashboardLayout({
           <SidebarLink href="/dashboard/cms-generator/seo" label="SEO" />
           <SidebarLink href="/dashboard/cms-generator/search" label="Search" />
           <SidebarLink href="/dashboard/cms-generator/quality" label="Quality" />
+          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">
+            Verification
+          </p>
+          <SidebarLink href="/dashboard/verification" label="Overview" />
+          <SidebarLink href="/dashboard/verification/audit" label="Audit" />
+          <SidebarLink href="/dashboard/verification/repair" label="Repair" />
+          <SidebarLink href="/dashboard/verification/build" label="Build" />
+          <SidebarLink href="/dashboard/verification/deployment" label="Deployment" />
+          <SidebarLink href="/dashboard/verification/reports" label="Reports" />
           <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">
             Settings
           </p>

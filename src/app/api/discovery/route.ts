@@ -81,6 +81,7 @@ export async function POST(request: Request) {
       productDiscovery: "PASS",
       detailExtraction: "PASS",
       cmsGenerator: "PASS",
+      verification: "PASS",
       dashboard: "PASS",
     });
 

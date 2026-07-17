@@ -231,6 +231,10 @@ function initializeDatabase() {
       error_message TEXT DEFAULT '',
       retry_count INTEGER DEFAULT 0,
       extraction_time_ms INTEGER DEFAULT 0,
+      extraction_engine TEXT DEFAULT 'chrome-devtools-mcp',
+      last_attempt TEXT DEFAULT '',
+      failure_reason TEXT DEFAULT '',
+      recovery_status TEXT DEFAULT 'primary',
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       UNIQUE(url)
@@ -343,7 +347,100 @@ function initializeDatabase() {
 
     CREATE INDEX IF NOT EXISTS idx_cms_search_entity_type ON cms_search_index(entity_type);
     CREATE INDEX IF NOT EXISTS idx_cms_search_title ON cms_search_index(title);
+
+    CREATE TABLE IF NOT EXISTS verification_reports (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      site_url TEXT NOT NULL,
+      timestamp TEXT NOT NULL,
+      total_checks INTEGER DEFAULT 0,
+      passed_checks INTEGER DEFAULT 0,
+      warning_checks INTEGER DEFAULT 0,
+      failed_checks INTEGER DEFAULT 0,
+      skipped_checks INTEGER DEFAULT 0,
+      overall_status TEXT NOT NULL DEFAULT 'SKIPPED',
+      pages_json TEXT DEFAULT '{}',
+      products_json TEXT DEFAULT '{}',
+      media_json TEXT DEFAULT '{}',
+      links_json TEXT DEFAULT '{}',
+      seo_json TEXT DEFAULT '{}',
+      schema_json TEXT DEFAULT '{}',
+      navigation_json TEXT DEFAULT '{}',
+      build_json TEXT DEFAULT '{}',
+      deployment_json TEXT DEFAULT '{}',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS audit_reports (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      site_url TEXT NOT NULL,
+      timestamp TEXT NOT NULL,
+      total_issues INTEGER DEFAULT 0,
+      error_count INTEGER DEFAULT 0,
+      warning_count INTEGER DEFAULT 0,
+      info_count INTEGER DEFAULT 0,
+      fixable_count INTEGER DEFAULT 0,
+      overall_status TEXT NOT NULL DEFAULT 'SKIPPED',
+      issues_json TEXT DEFAULT '[]',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS repair_reports (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      site_url TEXT NOT NULL,
+      timestamp TEXT NOT NULL,
+      total_actions INTEGER DEFAULT 0,
+      fixed_count INTEGER DEFAULT 0,
+      skipped_count INTEGER DEFAULT 0,
+      failed_count INTEGER DEFAULT 0,
+      overall_status TEXT NOT NULL DEFAULT 'SKIPPED',
+      actions_json TEXT DEFAULT '[]',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS deployment_reports (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      site_url TEXT NOT NULL,
+      timestamp TEXT NOT NULL,
+      git_status TEXT DEFAULT '',
+      commit_count INTEGER DEFAULT 0,
+      last_commit TEXT DEFAULT '',
+      build_output TEXT DEFAULT '',
+      build_success INTEGER DEFAULT 0,
+      vercel_status TEXT DEFAULT '',
+      cloudflare_status TEXT DEFAULT '',
+      env_vars_count INTEGER DEFAULT 0,
+      overall_status TEXT NOT NULL DEFAULT 'SKIPPED',
+      details_json TEXT DEFAULT '{}',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS extraction_metrics (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      url TEXT NOT NULL,
+      primary_engine TEXT NOT NULL DEFAULT 'chrome-devtools-mcp',
+      successful_engine TEXT,
+      attempts INTEGER DEFAULT 1,
+      duration_ms INTEGER DEFAULT 0,
+      failure_reason TEXT,
+      status TEXT NOT NULL DEFAULT 'pending',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_extraction_metrics_url ON extraction_metrics(url);
+    CREATE INDEX IF NOT EXISTS idx_extraction_metrics_status ON extraction_metrics(status);
+    CREATE INDEX IF NOT EXISTS idx_extraction_metrics_successful_engine ON extraction_metrics(successful_engine);
   `);
+
+  // ALTER TABLE for existing databases — add recovery columns if missing
+  const altCols = [
+    "ALTER TABLE extracted_products ADD COLUMN extraction_engine TEXT DEFAULT 'chrome-devtools-mcp'",
+    "ALTER TABLE extracted_products ADD COLUMN last_attempt TEXT DEFAULT ''",
+    "ALTER TABLE extracted_products ADD COLUMN failure_reason TEXT DEFAULT ''",
+    "ALTER TABLE extracted_products ADD COLUMN recovery_status TEXT DEFAULT 'primary'",
+  ];
+  for (const sql of altCols) {
+    try { db.exec(sql); } catch { /* column already exists */ }
+  }
 
   // Seed settings (single row, insert if empty)
   const settingsExists = db.prepare("SELECT COUNT(*) as count FROM settings").get() as { count: number };

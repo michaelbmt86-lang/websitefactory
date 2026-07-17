@@ -9,6 +9,7 @@ import { NextResponse } from "next/server";
 import db from "@/lib/db";
 import type { ExtractedProduct } from "@/types/discovery";
 import { extractProductDetails } from "@/discovery/detail-extraction-engine";
+import { extractProductDetailsWithRecovery } from "@/discovery/extraction-with-recovery";
 import {
   generateProductsJson,
   generateMediaLibraryJson,
@@ -16,6 +17,7 @@ import {
   generateSchemaLibraryJson,
 } from "@/discovery/detail-output-generator";
 import { validateExtractionQuality } from "@/discovery/quality-validator";
+import { getExtractionMetricsSummary } from "@/discovery/extraction/extraction-manager";
 
 export async function GET() {
   try {
@@ -61,6 +63,9 @@ export async function GET() {
 
     const quality = validateExtractionQuality();
 
+    // Recovery metrics
+    const recoverySummary = getExtractionMetricsSummary();
+
     return NextResponse.json({
       totalProducts,
       completed,
@@ -83,6 +88,7 @@ export async function GET() {
         brokenDownloads: quality.brokenDownloads,
         duplicateProducts: quality.duplicateProducts,
       },
+      recovery: recoverySummary,
       products: products.slice(0, 500),
     });
   } catch (error) {
@@ -94,7 +100,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { url, concurrency = 3, maxRetries = 2, resumeFromFailure = true } = body;
+    const { url, concurrency = 3, maxRetries = 2, resumeFromFailure = true, useRecovery = true } = body;
 
     if (!url || typeof url !== "string") {
       return NextResponse.json({ error: "URL is required" }, { status: 400 });
@@ -106,8 +112,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid URL format" }, { status: 400 });
     }
 
-    // Run detail extraction
-    const result = await extractProductDetails(url, { concurrency, maxRetries, resumeFromFailure });
+    // Run detail extraction with or without recovery
+    const result = useRecovery
+      ? await extractProductDetailsWithRecovery(url, { concurrency, maxRetries, resumeFromFailure })
+      : await extractProductDetails(url, { concurrency, maxRetries, resumeFromFailure });
 
     // Generate output files
     const productsJson = generateProductsJson(url);

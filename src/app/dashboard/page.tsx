@@ -31,6 +31,14 @@ type DashboardData = {
     totalImages: number;
     productsWithSEO: number;
     productsWithSchema: number;
+    recovery?: {
+      totalUrls: number;
+      primarySuccessCount: number;
+      recoveryL1Count: number;
+      recoveryL2Count: number;
+      failedCount: number;
+      successRate: number;
+    };
   } | null;
   cmsGenerator: {
     totalPages: number;
@@ -45,6 +53,24 @@ type DashboardData = {
       brokenLinks: number;
     };
   } | null;
+  verification: {
+    hasData: boolean;
+    verification: {
+      totalChecks: number;
+      passedChecks: number;
+      failedChecks: number;
+      overallStatus: string;
+    } | null;
+    audit: {
+      totalIssues: number;
+      errorCount: number;
+      fixableCount: number;
+    } | null;
+    repair: {
+      fixedCount: number;
+      totalActions: number;
+    } | null;
+  } | null;
 };
 
 export default function DashboardHome() {
@@ -54,7 +80,7 @@ export default function DashboardHome() {
   useEffect(() => {
     async function load() {
       try {
-        const [settingsRes, productsRes, categoriesRes, pagesRes, mediaRes, navRes, discoveryRes, productDiscoveryRes, detailExtractionRes, cmsGeneratorRes] = await Promise.all([
+        const [settingsRes, productsRes, categoriesRes, pagesRes, mediaRes, navRes, discoveryRes, productDiscoveryRes, detailExtractionRes, cmsGeneratorRes, verificationRes] = await Promise.all([
           fetch("/api/settings", { cache: "no-store" }),
           fetch("/api/products", { cache: "no-store" }),
           fetch("/api/categories", { cache: "no-store" }),
@@ -65,6 +91,7 @@ export default function DashboardHome() {
           fetch("/api/product-discovery", { cache: "no-store" }),
           fetch("/api/detail-extraction", { cache: "no-store" }),
           fetch("/api/cms-generator", { cache: "no-store" }),
+          fetch("/api/verification", { cache: "no-store" }),
         ]);
 
         const settings = await settingsRes.json();
@@ -77,8 +104,9 @@ export default function DashboardHome() {
         const productDiscovery = await productDiscoveryRes.json();
         const detailExtraction = await detailExtractionRes.json();
         const cmsGenerator = await cmsGeneratorRes.json();
+        const verification = await verificationRes.json();
 
-        setData({ settings, products, categories, pages, media, navigation, discovery, productDiscovery, detailExtraction, cmsGenerator });
+        setData({ settings, products, categories, pages, media, navigation, discovery, productDiscovery, detailExtraction, cmsGenerator, verification });
       } catch (error) {
         console.error("Failed to load dashboard data:", error);
       } finally {
@@ -133,12 +161,19 @@ export default function DashboardHome() {
           <NavLink href="/dashboard/detail-extraction/images" label="Images" icon="🖼️" />
           <NavLink href="/dashboard/detail-extraction/seo" label="SEO" icon="📋" />
           <NavLink href="/dashboard/detail-extraction/schema" label="Schema" icon="📐" />
+          <NavLink href="/dashboard/extraction-recovery" label="Extraction Recovery" icon="🛡️" />
           <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">CMS Generator</p>
           <NavLink href="/dashboard/cms-generator" label="Overview" icon="🏗️" />
           <NavLink href="/dashboard/cms-generator/pages" label="Pages" icon="📄" />
           <NavLink href="/dashboard/cms-generator/brands" label="Brands" icon="🏷️" />
           <NavLink href="/dashboard/cms-generator/collections" label="Collections" icon="📁" />
           <NavLink href="/dashboard/cms-generator/seo" label="SEO" icon="🔍" />
+          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Verification</p>
+          <NavLink href="/dashboard/verification" label="Overview" icon="🛡️" />
+          <NavLink href="/dashboard/verification/audit" label="Audit" icon="🔎" />
+          <NavLink href="/dashboard/verification/repair" label="Repair" icon="🔧" />
+          <NavLink href="/dashboard/verification/build" label="Build" icon="🏗️" />
+          <NavLink href="/dashboard/verification/deployment" label="Deployment" icon="🚀" />
           <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Settings</p>
           <NavLink href="/dashboard/settings" label="General" icon="⚙️" />
           <NavLink href="/dashboard/seo" label="SEO" icon="🔍" />
@@ -288,6 +323,40 @@ export default function DashboardHome() {
           </div>
         )}
 
+        {/* Extraction Recovery Stats */}
+        {data.detailExtraction?.recovery && data.detailExtraction.recovery.totalUrls > 0 && (
+          <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <StatCard
+              title="Extraction Success"
+              value={`${data.detailExtraction.recovery.successRate}%`}
+              icon="✅"
+              href="/dashboard/extraction-recovery"
+              color="green"
+            />
+            <StatCard
+              title="Primary Engine"
+              value={data.detailExtraction.recovery.primarySuccessCount}
+              icon="🌐"
+              href="/dashboard/extraction-recovery"
+              color="blue"
+            />
+            <StatCard
+              title="Recovery L1"
+              value={data.detailExtraction.recovery.recoveryL1Count}
+              icon="🔄"
+              href="/dashboard/extraction-recovery"
+              color="orange"
+            />
+            <StatCard
+              title="Recovery L2"
+              value={data.detailExtraction.recovery.recoveryL2Count}
+              icon="🔥"
+              href="/dashboard/extraction-recovery"
+              color="red"
+            />
+          </div>
+        )}
+
         {/* CMS Generator Stats */}
         {data.cmsGenerator && data.cmsGenerator.totalPages > 0 && (
           <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -318,6 +387,40 @@ export default function DashboardHome() {
               icon="⚠️"
               href="/dashboard/cms-generator/quality"
               color="red"
+            />
+          </div>
+        )}
+
+        {/* Verification Stats */}
+        {data.verification?.hasData && data.verification.verification && (
+          <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <StatCard
+              title="Verification Status"
+              value={data.verification.verification.overallStatus}
+              icon="🛡️"
+              href="/dashboard/verification"
+              color="violet"
+            />
+            <StatCard
+              title="Checks Passed"
+              value={data.verification.verification.passedChecks}
+              icon="✅"
+              href="/dashboard/verification"
+              color="green"
+            />
+            <StatCard
+              title="Audit Issues"
+              value={data.verification.audit?.totalIssues ?? 0}
+              icon="🔎"
+              href="/dashboard/verification/audit"
+              color="orange"
+            />
+            <StatCard
+              title="Repairs Fixed"
+              value={data.verification.repair?.fixedCount ?? 0}
+              icon="🔧"
+              href="/dashboard/verification/repair"
+              color="teal"
             />
           </div>
         )}
@@ -434,7 +537,7 @@ function StatCard({
   value: string | number;
   icon: string;
   href: string;
-  color: "green" | "blue" | "purple" | "orange" | "teal" | "red" | "indigo" | "cyan" | "slate" | "emerald";
+  color: "green" | "blue" | "purple" | "orange" | "teal" | "red" | "indigo" | "cyan" | "slate" | "emerald" | "violet";
 }) {
   const colorClasses = {
     green: "bg-green-50 text-green-600",
@@ -447,6 +550,7 @@ function StatCard({
     cyan: "bg-cyan-50 text-cyan-600",
     slate: "bg-slate-50 text-slate-600",
     emerald: "bg-emerald-50 text-emerald-600",
+    violet: "bg-violet-50 text-violet-600",
   };
 
   return (

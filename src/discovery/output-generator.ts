@@ -8,7 +8,7 @@
 import fs from "fs";
 import path from "path";
 import db from "@/lib/db";
-import type { SiteUrl, ProductUrl, ExtractedProduct } from "@/types/discovery";
+import type { SiteUrl, ProductUrl, ExtractedProduct, VerificationReport, AuditReport, RepairReport } from "@/types/discovery";
 import type {
   SiteMapOutput,
   UrlGraphOutput,
@@ -16,6 +16,7 @@ import type {
   DeliveryReportOutput,
 } from "./output-types";
 import { buildUrlGraph } from "./url-graph";
+import { getExtractionMetricsSummary } from "./extraction/extraction-manager";
 
 function ensureDir(dir: string): void {
   if (!fs.existsSync(dir)) {
@@ -184,6 +185,7 @@ export function generateDeliveryReport(
     productDiscovery: "PASS" | "FAIL";
     detailExtraction: "PASS" | "FAIL";
     cmsGenerator: "PASS" | "FAIL";
+    verification: "PASS" | "FAIL";
     dashboard: "PASS" | "FAIL";
   }
 ): DeliveryReportOutput {
@@ -298,6 +300,35 @@ export function generateDeliveryReport(
       missingMetadata: 0,
       generationSuccessRate: 0,
     },
+    extractionRecovery: (() => {
+      const summary = getExtractionMetricsSummary();
+      const totalExtractionProducts = totalProducts || 1;
+      return {
+        chromeMcpSuccessRate: summary.totalUrls > 0 ? Math.round((summary.primarySuccessCount / summary.totalUrls) * 100) : 0,
+        jcodesmoreRecoveryCount: summary.recoveryL1Count,
+        firecrawlRecoveryCount: summary.recoveryL2Count,
+        recoverySuccessRate: summary.totalUrls > 0 ? Math.round(((summary.recoveryL1Count + summary.recoveryL2Count) / summary.totalUrls) * 100) : 0,
+        averageRetryCount: summary.averageAttempts,
+        averageExtractionTimeMs: summary.averageDurationMs,
+        totalFailedUrls: summary.failedCount,
+        overallExtractionSuccessRate: Math.round((totalExtracted / totalExtractionProducts) * 100),
+      };
+    })(),
+    verification: (() => {
+      const vr = db.prepare("SELECT * FROM verification_reports ORDER BY id DESC LIMIT 1").get() as VerificationReport | undefined;
+      const ar = db.prepare("SELECT * FROM audit_reports ORDER BY id DESC LIMIT 1").get() as AuditReport | undefined;
+      const rr = db.prepare("SELECT * FROM repair_reports ORDER BY id DESC LIMIT 1").get() as RepairReport | undefined;
+      return {
+        overallStatus: (vr?.overall_status || "SKIPPED") as string,
+        totalChecks: vr?.total_checks || 0,
+        passedChecks: vr?.passed_checks || 0,
+        failedChecks: vr?.failed_checks || 0,
+        auditIssues: ar?.total_issues || 0,
+        repairsFixed: rr?.fixed_count || 0,
+        buildStatus: "SKIPPED" as string,
+        deploymentStatus: "SKIPPED" as string,
+      };
+    })(),
     status: allChecksPass && totalUrls > 0 ? "PASS" : "FAIL",
     checks,
   };

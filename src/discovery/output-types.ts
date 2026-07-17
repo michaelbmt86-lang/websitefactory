@@ -108,6 +108,26 @@ export interface DeliveryReportOutput {
     missingMetadata: number;
     generationSuccessRate: number;
   };
+  extractionRecovery: {
+    chromeMcpSuccessRate: number;
+    jcodesmoreRecoveryCount: number;
+    firecrawlRecoveryCount: number;
+    recoverySuccessRate: number;
+    averageRetryCount: number;
+    averageExtractionTimeMs: number;
+    totalFailedUrls: number;
+    overallExtractionSuccessRate: number;
+  };
+  verification: {
+    overallStatus: string;
+    totalChecks: number;
+    passedChecks: number;
+    failedChecks: number;
+    auditIssues: number;
+    repairsFixed: number;
+    buildStatus: string;
+    deploymentStatus: string;
+  };
   status: "PASS" | "FAIL";
   checks: {
     typecheck: "PASS" | "FAIL";
@@ -117,6 +137,7 @@ export interface DeliveryReportOutput {
     productDiscovery: "PASS" | "FAIL";
     detailExtraction: "PASS" | "FAIL";
     cmsGenerator: "PASS" | "FAIL";
+    verification: "PASS" | "FAIL";
     dashboard: "PASS" | "FAIL";
   };
 }

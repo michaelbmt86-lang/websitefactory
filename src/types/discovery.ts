@@ -360,6 +360,31 @@ export interface ProductDiscoverySummaryOutput {
 
 export type ExtractionStatus = "pending" | "extracting" | "completed" | "failed" | "retrying";
 
+export type ExtractionEngineName = "chrome-devtools-mcp" | "jcodesmore-browser" | "firecrawl";
+
+export type RecoveryStatus = "primary" | "recovery-l1" | "recovery-l2" | "failed";
+
+export interface ExtractionEngineResult {
+  success: boolean;
+  engine: ExtractionEngineName;
+  html: string | null;
+  title: string | null;
+  durationMs: number;
+  error?: string;
+}
+
+export interface ExtractionMetrics {
+  id: number;
+  url: string;
+  primary_engine: string;
+  successful_engine: string | null;
+  attempts: number;
+  duration_ms: number;
+  failure_reason: string | null;
+  status: string;
+  created_at: string;
+}
+
 export interface ExtractedProduct {
   id: number;
   url: string;
@@ -386,6 +411,10 @@ export interface ExtractedProduct {
   error_message: string;
   retry_count: number;
   extraction_time_ms: number;
+  extraction_engine: string;
+  last_attempt: string;
+  failure_reason: string;
+  recovery_status: string;
   created_at: string;
   updated_at: string;
 }
@@ -415,6 +444,10 @@ export interface ExtractedProductInput {
   error_message?: string;
   retry_count?: number;
   extraction_time_ms?: number;
+  extraction_engine?: string;
+  last_attempt?: string;
+  failure_reason?: string;
+  recovery_status?: string;
 }
 
 export interface MediaAsset {
@@ -899,6 +932,173 @@ export interface CmsSitemapOutput {
 }
 
 // ============================================================================
+// DELIVERY & VERIFICATION TYPES
+// ============================================================================
+
+export type VerificationStatus = "PASS" | "WARNING" | "FAILED" | "SKIPPED";
+export type AuditSeverity = "error" | "warning" | "info";
+export type RepairAction = "fixed" | "skipped" | "failed";
+
+export interface VerificationCheck {
+  name: string;
+  status: VerificationStatus;
+  message: string;
+  details?: Record<string, unknown>;
+}
+
+export interface VerificationReport {
+  id: number;
+  site_url: string;
+  timestamp: string;
+  total_checks: number;
+  passed_checks: number;
+  warning_checks: number;
+  failed_checks: number;
+  skipped_checks: number;
+  overall_status: VerificationStatus;
+  pages_json: string;
+  products_json: string;
+  media_json: string;
+  links_json: string;
+  seo_json: string;
+  schema_json: string;
+  navigation_json: string;
+  build_json: string;
+  deployment_json: string;
+  created_at: string;
+}
+
+export interface AuditIssue {
+  category: string;
+  severity: AuditSeverity;
+  message: string;
+  entity_type: string;
+  entity_id: number | null;
+  entity_slug: string;
+  fixable: boolean;
+}
+
+export interface AuditReport {
+  id: number;
+  site_url: string;
+  timestamp: string;
+  total_issues: number;
+  error_count: number;
+  warning_count: number;
+  info_count: number;
+  fixable_count: number;
+  overall_status: VerificationStatus;
+  issues_json: string;
+  created_at: string;
+}
+
+export interface RepairActionRecord {
+  category: string;
+  action: RepairAction;
+  message: string;
+  entity_type: string;
+  entity_id: number | null;
+  entity_slug: string;
+  before_value: string;
+  after_value: string;
+}
+
+export interface RepairReport {
+  id: number;
+  site_url: string;
+  timestamp: string;
+  total_actions: number;
+  fixed_count: number;
+  skipped_count: number;
+  failed_count: number;
+  overall_status: VerificationStatus;
+  actions_json: string;
+  created_at: string;
+}
+
+export interface DeploymentReport {
+  id: number;
+  site_url: string;
+  timestamp: string;
+  git_status: string;
+  commit_count: number;
+  last_commit: string;
+  build_output: string;
+  build_success: boolean;
+  vercel_status: string;
+  cloudflare_status: string;
+  env_vars_count: number;
+  overall_status: VerificationStatus;
+  details_json: string;
+  created_at: string;
+}
+
+export interface VerificationResult {
+  siteUrl: string;
+  startTimeMs: number;
+  endTimeMs: number;
+  verificationTimeMs: number;
+  totalChecks: number;
+  passedChecks: number;
+  warningChecks: number;
+  failedChecks: number;
+  skippedChecks: number;
+  overallStatus: VerificationStatus;
+  auditIssues: number;
+  auditFixable: number;
+  repairsAttempted: number;
+  repairsFixed: number;
+  buildStatus: VerificationStatus;
+  deploymentStatus: VerificationStatus;
+}
+
+export interface FullDeliveryReport {
+  siteUrl: string;
+  generatedAt: string;
+  verification: {
+    overallStatus: VerificationStatus;
+    totalChecks: number;
+    passedChecks: number;
+    warningChecks: number;
+    failedChecks: number;
+    pagesVerified: number;
+    productsVerified: number;
+    mediaVerified: number;
+    linksVerified: number;
+    seoVerified: number;
+    schemaVerified: number;
+  };
+  audit: {
+    overallStatus: VerificationStatus;
+    totalIssues: number;
+    errorCount: number;
+    warningCount: number;
+    fixableCount: number;
+  };
+  repair: {
+    overallStatus: VerificationStatus;
+    totalActions: number;
+    fixedCount: number;
+    skippedCount: number;
+    failedCount: number;
+  };
+  build: {
+    status: VerificationStatus;
+    typecheck: VerificationStatus;
+    lint: VerificationStatus;
+    build: VerificationStatus;
+  };
+  deployment: {
+    status: VerificationStatus;
+    gitClean: boolean;
+    lastCommit: string;
+    vercelStatus: string;
+    cloudflareStatus: string;
+  };
+  overallSuccessRate: number;
+}
+
+// ============================================================================
 // DELIVERY REPORT
 // ============================================================================
 
@@ -947,6 +1147,26 @@ export interface DeliveryReport {
     missingMetadata: number;
     generationSuccessRate: number;
   };
+  extractionRecovery: {
+    chromeMcpSuccessRate: number;
+    jcodesmoreRecoveryCount: number;
+    firecrawlRecoveryCount: number;
+    recoverySuccessRate: number;
+    averageRetryCount: number;
+    averageExtractionTimeMs: number;
+    totalFailedUrls: number;
+    overallExtractionSuccessRate: number;
+  };
+  verification: {
+    overallStatus: VerificationStatus;
+    totalChecks: number;
+    passedChecks: number;
+    failedChecks: number;
+    auditIssues: number;
+    repairsFixed: number;
+    buildStatus: VerificationStatus;
+    deploymentStatus: VerificationStatus;
+  };
   status: "PASS" | "FAIL";
   checks: {
     typecheck: "PASS" | "FAIL";
@@ -956,6 +1176,7 @@ export interface DeliveryReport {
     productDiscovery: "PASS" | "FAIL";
     detailExtraction: "PASS" | "FAIL";
     cmsGenerator: "PASS" | "FAIL";
+    verification: "PASS" | "FAIL";
     dashboard: "PASS" | "FAIL";
   };
 }
