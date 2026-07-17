@@ -23,6 +23,15 @@ type DashboardData = {
     brokenProducts: number;
     productsByCategory: Record<string, number>;
   } | null;
+  detailExtraction: {
+    totalProducts: number;
+    completed: number;
+    failed: number;
+    coverage: number;
+    totalImages: number;
+    productsWithSEO: number;
+    productsWithSchema: number;
+  } | null;
 };
 
 export default function DashboardHome() {
@@ -32,7 +41,7 @@ export default function DashboardHome() {
   useEffect(() => {
     async function load() {
       try {
-        const [settingsRes, productsRes, categoriesRes, pagesRes, mediaRes, navRes, discoveryRes, productDiscoveryRes] = await Promise.all([
+        const [settingsRes, productsRes, categoriesRes, pagesRes, mediaRes, navRes, discoveryRes, productDiscoveryRes, detailExtractionRes] = await Promise.all([
           fetch("/api/settings", { cache: "no-store" }),
           fetch("/api/products", { cache: "no-store" }),
           fetch("/api/categories", { cache: "no-store" }),
@@ -41,6 +50,7 @@ export default function DashboardHome() {
           fetch("/api/navigation", { cache: "no-store" }),
           fetch("/api/discovery", { cache: "no-store" }),
           fetch("/api/product-discovery", { cache: "no-store" }),
+          fetch("/api/detail-extraction", { cache: "no-store" }),
         ]);
 
         const settings = await settingsRes.json();
@@ -51,8 +61,9 @@ export default function DashboardHome() {
         const navigation = await navRes.json();
         const discovery = await discoveryRes.json();
         const productDiscovery = await productDiscoveryRes.json();
+        const detailExtraction = await detailExtractionRes.json();
 
-        setData({ settings, products, categories, pages, media, navigation, discovery, productDiscovery });
+        setData({ settings, products, categories, pages, media, navigation, discovery, productDiscovery, detailExtraction });
       } catch (error) {
         console.error("Failed to load dashboard data:", error);
       } finally {
@@ -101,6 +112,12 @@ export default function DashboardHome() {
           <NavLink href="/dashboard/discovery/urls" label="Discovered URLs" icon="🔗" />
           <NavLink href="/dashboard/product-discovery" label="Product Discovery" icon="🛒" />
           <NavLink href="/dashboard/product-discovery/products" label="Product URLs" icon="📦" />
+          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Detail Extraction</p>
+          <NavLink href="/dashboard/detail-extraction" label="Extraction Overview" icon="🔍" />
+          <NavLink href="/dashboard/detail-extraction/products" label="Extracted Products" icon="📦" />
+          <NavLink href="/dashboard/detail-extraction/images" label="Images" icon="🖼️" />
+          <NavLink href="/dashboard/detail-extraction/seo" label="SEO" icon="📋" />
+          <NavLink href="/dashboard/detail-extraction/schema" label="Schema" icon="📐" />
           <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Settings</p>
           <NavLink href="/dashboard/settings" label="General" icon="⚙️" />
           <NavLink href="/dashboard/seo" label="SEO" icon="🔍" />
@@ -216,6 +233,40 @@ export default function DashboardHome() {
           </div>
         )}
 
+        {/* Detail Extraction Stats */}
+        {data.detailExtraction && (
+          <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <StatCard
+              title="Extracted Products"
+              value={data.detailExtraction.completed}
+              icon="🔍"
+              href="/dashboard/detail-extraction"
+              color="indigo"
+            />
+            <StatCard
+              title="Product Images"
+              value={data.detailExtraction.totalImages}
+              icon="🖼️"
+              href="/dashboard/detail-extraction/images"
+              color="purple"
+            />
+            <StatCard
+              title="SEO Coverage"
+              value={`${data.detailExtraction.productsWithSEO}%`}
+              icon="📋"
+              href="/dashboard/detail-extraction/seo"
+              color="green"
+            />
+            <StatCard
+              title="Schema Coverage"
+              value={`${data.detailExtraction.productsWithSchema}%`}
+              icon="📐"
+              href="/dashboard/detail-extraction/schema"
+              color="teal"
+            />
+          </div>
+        )}
+
         {/* Quick Actions */}
         <div className="mb-8">
           <h3 className="mb-4 text-lg font-semibold text-gray-900">Quick Actions</h3>
@@ -325,10 +376,10 @@ function StatCard({
   color,
 }: {
   title: string;
-  value: number;
+  value: string | number;
   icon: string;
   href: string;
-  color: "green" | "blue" | "purple" | "orange" | "teal" | "red";
+  color: "green" | "blue" | "purple" | "orange" | "teal" | "red" | "indigo" | "cyan" | "slate";
 }) {
   const colorClasses = {
     green: "bg-green-50 text-green-600",
@@ -337,6 +388,9 @@ function StatCard({
     orange: "bg-orange-50 text-orange-600",
     teal: "bg-teal-50 text-teal-600",
     red: "bg-red-50 text-red-600",
+    indigo: "bg-indigo-50 text-indigo-600",
+    cyan: "bg-cyan-50 text-cyan-600",
+    slate: "bg-slate-50 text-slate-600",
   };
 
   return (

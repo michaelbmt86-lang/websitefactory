@@ -204,6 +204,57 @@ function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS idx_product_urls_product_slug ON product_urls(product_slug);
     CREATE INDEX IF NOT EXISTS idx_product_urls_source_page ON product_urls(source_page);
     CREATE INDEX IF NOT EXISTS idx_product_urls_is_duplicate ON product_urls(is_duplicate);
+
+    CREATE TABLE IF NOT EXISTS extracted_products (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      url TEXT NOT NULL,
+      slug TEXT NOT NULL,
+      title TEXT DEFAULT '',
+      subtitle TEXT DEFAULT '',
+      description TEXT DEFAULT '',
+      short_description TEXT DEFAULT '',
+      category TEXT DEFAULT '',
+      subcategory TEXT DEFAULT '',
+      brand TEXT DEFAULT '',
+      model TEXT DEFAULT '',
+      sku TEXT DEFAULT '',
+      language TEXT DEFAULT 'en',
+      images_json TEXT DEFAULT '[]',
+      gallery_json TEXT DEFAULT '[]',
+      downloads_json TEXT DEFAULT '[]',
+      specifications_json TEXT DEFAULT '[]',
+      seo_json TEXT DEFAULT '{}',
+      schema_json TEXT DEFAULT '[]',
+      related_products_json TEXT DEFAULT '[]',
+      faq_json TEXT DEFAULT '[]',
+      status TEXT NOT NULL DEFAULT 'pending',
+      error_message TEXT DEFAULT '',
+      retry_count INTEGER DEFAULT 0,
+      extraction_time_ms INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(url)
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_extracted_products_slug ON extracted_products(slug);
+    CREATE INDEX IF NOT EXISTS idx_extracted_products_status ON extracted_products(status);
+    CREATE INDEX IF NOT EXISTS idx_extracted_products_category ON extracted_products(category);
+
+    CREATE TABLE IF NOT EXISTS media_assets (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      product_id INTEGER NOT NULL,
+      type TEXT NOT NULL DEFAULT 'image',
+      url TEXT NOT NULL,
+      alt TEXT DEFAULT '',
+      width INTEGER,
+      height INTEGER,
+      hash TEXT DEFAULT '',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (product_id) REFERENCES extracted_products(id)
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_media_assets_product_id ON media_assets(product_id);
+    CREATE INDEX IF NOT EXISTS idx_media_assets_type ON media_assets(type);
   `);
 
   // Seed settings (single row, insert if empty)

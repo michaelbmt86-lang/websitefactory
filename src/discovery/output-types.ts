@@ -1,5 +1,5 @@
 // ============================================================================
-// OUTPUT TYPES (Site Discovery Engine)
+// OUTPUT TYPES (Site Discovery + Product Discovery + Detail Extraction)
 //
 // Types for the JSON output files. Separate from core types to avoid circular deps.
 // ============================================================================
@@ -87,6 +87,16 @@ export interface DeliveryReportOutput {
     discoveryTimeMs: number;
     productsByCategory: Record<string, number>;
   };
+  detailExtraction: {
+    productsExtracted: number;
+    images: number;
+    downloads: number;
+    specifications: number;
+    seoCoverage: number;
+    schemaCoverage: number;
+    brokenAssets: number;
+    extractionSuccessRate: number;
+  };
   status: "PASS" | "FAIL";
   checks: {
     typecheck: "PASS" | "FAIL";
@@ -94,6 +104,7 @@ export interface DeliveryReportOutput {
     build: "PASS" | "FAIL";
     discovery: "PASS" | "FAIL";
     productDiscovery: "PASS" | "FAIL";
+    detailExtraction: "PASS" | "FAIL";
     dashboard: "PASS" | "FAIL";
   };
 }

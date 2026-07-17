@@ -8,7 +8,7 @@
 import fs from "fs";
 import path from "path";
 import db from "@/lib/db";
-import type { SiteUrl, ProductUrl } from "@/types/discovery";
+import type { SiteUrl, ProductUrl, ExtractedProduct } from "@/types/discovery";
 import type {
   SiteMapOutput,
   UrlGraphOutput,
@@ -182,6 +182,7 @@ export function generateDeliveryReport(
     build: "PASS" | "FAIL";
     discovery: "PASS" | "FAIL";
     productDiscovery: "PASS" | "FAIL";
+    detailExtraction: "PASS" | "FAIL";
     dashboard: "PASS" | "FAIL";
   }
 ): DeliveryReportOutput {
@@ -224,6 +225,33 @@ export function generateDeliveryReport(
     productsByCategory[p.category] = (productsByCategory[p.category] || 0) + 1;
   }
 
+  // Detail Extraction metrics
+  const extractedProducts = db.prepare("SELECT * FROM extracted_products WHERE status = 'completed'").all() as ExtractedProduct[];
+  const totalExtracted = extractedProducts.length;
+  let totalImages = 0;
+  let totalDownloads = 0;
+  let totalSpecs = 0;
+  let seoCount = 0;
+  let schemaCount = 0;
+  for (const ep of extractedProducts) {
+    try { totalImages += JSON.parse(ep.images_json || "[]").length; } catch { /* skip */ }
+    try { totalDownloads += JSON.parse(ep.downloads_json || "[]").length; } catch { /* skip */ }
+    try { totalSpecs += JSON.parse(ep.specifications_json || "[]").length; } catch { /* skip */ }
+    try {
+      const seo = JSON.parse(ep.seo_json || "{}");
+      if (seo.title || seo.metaDescription) seoCount++;
+    } catch { /* skip */ }
+    try {
+      const schema = JSON.parse(ep.schema_json || "[]");
+      if (schema.length > 0) schemaCount++;
+    } catch { /* skip */ }
+  }
+  const failedExtractions = db.prepare("SELECT COUNT(*) as count FROM extracted_products WHERE status = 'failed'").get() as { count: number };
+  const totalProductUrlsForRate = totalProducts || 1;
+  const extractionSuccessRate = Math.round((totalExtracted / totalProductUrlsForRate) * 100);
+  const seoCoverage = totalExtracted > 0 ? Math.round((seoCount / totalExtracted) * 100) : 0;
+  const schemaCoveragePct = totalExtracted > 0 ? Math.round((schemaCount / totalExtracted) * 100) : 0;
+
   const output: DeliveryReportOutput = {
     generatedAt: new Date().toISOString(),
     siteUrl,
@@ -247,6 +275,16 @@ export function generateDeliveryReport(
       coveragePercent: productCoverage,
       discoveryTimeMs: 0,
       productsByCategory,
+    },
+    detailExtraction: {
+      productsExtracted: totalExtracted,
+      images: totalImages,
+      downloads: totalDownloads,
+      specifications: totalSpecs,
+      seoCoverage,
+      schemaCoverage: schemaCoveragePct,
+      brokenAssets: failedExtractions.count,
+      extractionSuccessRate,
     },
     status: allChecksPass && totalUrls > 0 ? "PASS" : "FAIL",
     checks,

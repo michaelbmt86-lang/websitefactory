@@ -42,6 +42,19 @@ export default async function DashboardLayout({
           <SidebarLink href="/dashboard/product-discovery" label="Product Discovery" />
           <SidebarLink href="/dashboard/product-discovery/products" label="Product URLs" />
           <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">
+            Detail Extraction
+          </p>
+          <SidebarLink href="/dashboard/detail-extraction" label="Extraction Overview" />
+          <SidebarLink href="/dashboard/detail-extraction/products" label="Extracted Products" />
+          <SidebarLink href="/dashboard/detail-extraction/images" label="Images" />
+          <SidebarLink href="/dashboard/detail-extraction/media" label="Media Library" />
+          <SidebarLink href="/dashboard/detail-extraction/specifications" label="Specifications" />
+          <SidebarLink href="/dashboard/detail-extraction/downloads" label="Downloads" />
+          <SidebarLink href="/dashboard/detail-extraction/seo" label="SEO" />
+          <SidebarLink href="/dashboard/detail-extraction/schema" label="Schema" />
+          <SidebarLink href="/dashboard/detail-extraction/related" label="Related Products" />
+          <SidebarLink href="/dashboard/detail-extraction/faq" label="FAQ" />
+          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">
             Settings
           </p>
           <SidebarLink href="/dashboard/settings" label="General" />

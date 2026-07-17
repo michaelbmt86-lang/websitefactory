@@ -79,6 +79,7 @@ export async function POST(request: Request) {
       build: "PASS",
       discovery: "PASS",
       productDiscovery: "PASS",
+      detailExtraction: "PASS",
       dashboard: "PASS",
     });
 

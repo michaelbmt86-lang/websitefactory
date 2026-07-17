@@ -1,7 +1,7 @@
 // ============================================================================
-// DISCOVERY MODULE (Site Discovery Engine)
+// DISCOVERY MODULE (Site + Product + Detail Extraction Engines)
 //
-// Barrel export for the complete site + product discovery engine.
+// Barrel export for the complete discovery engine.
 // ============================================================================
 
 // Site Discovery
@@ -17,3 +17,13 @@ export { ProductDiscoveryEngine, discoverProducts } from "./product-discovery-en
 export { classifyProduct, extractProductSlug, extractProductName, extractPrice, extractSku, extractImageUrl, checkInStock } from "./product-classifier";
 export { detectPagination, buildPaginationQueue } from "./pagination-handler";
 export { generateProductIndexJson, generateCategoryIndexJson, generateProductDiscoverySummary } from "./product-output-generator";
+
+// Detail Extraction
+export { DetailExtractionEngine, extractProductDetails } from "./detail-extraction-engine";
+export { extractTitle, extractSubtitle, extractDescription, extractShortDescription, extractImages, extractDownloads, extractSpecifications, extractSEO, extractSchema, extractFAQ, extractBreadcrumbs, extractPageStructure } from "./dom-extractor";
+export { extractAllMedia, getMediaAssetsForProduct, getAllMediaAssets } from "./media-extractor";
+export { analyzeNetworkData } from "./network-analyzer";
+export { prepareHtmlForExtraction, extractAccordionContent, extractTabContent } from "./dynamic-renderer";
+export { analyzeWithGemini } from "./gemini-analyzer";
+export { validateExtractionQuality } from "./quality-validator";
+export { generateProductsJson, generateMediaLibraryJson, generateSEOLibraryJson, generateSchemaLibraryJson } from "./detail-output-generator";
