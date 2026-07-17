@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-07-17T09:31:44.617Z",
+  "siteUrl": "https://www.solidhydrogen.tech",
+  "discovery": {
+    "totalUrls": 10,
+    "categories": 2,
+    "discoveryCoverage": 100,
+    "brokenUrls": 0,
+    "depthStatistics": {
+      "maxDepth": 0,
+      "averageDepth": 0,
+      "distribution": {
+        "0": 10
+      }
+    },
+    "pageTypeBreakdown": {
+      "Home": 1,
+      "Article": 5,
+      "Blog": 1,
+      "Category": 2,
+      "Unknown": 1
+    }
+  },
+  "productDiscovery": {
+    "totalProducts": 0,
+    "totalCategories": 0,
+    "duplicateCount": 0,
+    "brokenProductUrls": 0,
+    "coveragePercent": 0,
+    "discoveryTimeMs": 0,
+    "productsByCategory": {}
+  },
+  "detailExtraction": {
+    "productsExtracted": 0,
+    "images": 0,
+    "downloads": 0,
+    "specifications": 0,
+    "seoCoverage": 0,
+    "schemaCoverage": 0,
+    "brokenAssets": 0,
+    "extractionSuccessRate": 0
+  },
+  "cmsGenerator": {
+    "pagesGenerated": 0,
+    "brandsGenerated": 0,
+    "collectionsGenerated": 0,
+    "blogPostsGenerated": 0,
+    "seoCoverage": 0,
+    "searchCoverage": 0,
+    "brokenLinks": 0,
+    "missingMetadata": 0,
+    "generationSuccessRate": 0
+  },
+  "extractionRecovery": {
+    "chromeMcpSuccessRate": 0,
+    "jcodesmoreRecoveryCount": 0,
+    "firecrawlRecoveryCount": 0,
+    "recoverySuccessRate": 0,
+    "averageRetryCount": 0,
+    "averageExtractionTimeMs": 0,
+    "totalFailedUrls": 0,
+    "overallExtractionSuccessRate": 0
+  },
+  "verification": {
+    "overallStatus": "SKIPPED",
+    "totalChecks": 0,
+    "passedChecks": 0,
+    "failedChecks": 0,
+    "auditIssues": 0,
+    "repairsFixed": 0,
+    "buildStatus": "SKIPPED",
+    "deploymentStatus": "SKIPPED"
+  },
+  "status": "PASS",
+  "checks": {
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "build": "PASS",
+    "discovery": "PASS",
+    "productDiscovery": "PASS",
+    "detailExtraction": "PASS",
+    "cmsGenerator": "PASS",
+    "verification": "PASS",
+    "dashboard": "PASS"
+  }
+}

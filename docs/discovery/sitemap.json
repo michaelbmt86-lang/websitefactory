@@ -1,0 +1,85 @@
+{
+  "siteUrl": "https://www.solidhydrogen.tech",
+  "generatedAt": "2026-07-17T09:33:28.005Z",
+  "totalUrls": 13,
+  "urls": [
+    {
+      "url": "https://www.solidhydrogen.tech/blog",
+      "lastmod": "2026-07-17 09:33:27",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
+      "lastmod": "2026-07-17 09:33:27",
+      "changefreq": "weekly",
+      "priority": 0.7
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "lastmod": "2026-07-17 09:33:27",
+      "changefreq": "weekly",
+      "priority": 0.7
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/blog/plant-to-packaging-biopak-story",
+      "lastmod": "2026-07-17 09:33:27",
+      "changefreq": "weekly",
+      "priority": 0.7
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-and-en2core-technology-partner-to-dramatically-reduce-the-cost-of-low-carbon-hydrogen",
+      "lastmod": "2026-07-17 09:33:27",
+      "changefreq": "weekly",
+      "priority": 0.7
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-and-international-consortium-secure-aud-2-5m-to-demonstrate-low-cost-hydrogen-product",
+      "lastmod": "2026-07-17 09:33:27",
+      "changefreq": "weekly",
+      "priority": 0.7
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
+      "lastmod": "2026-07-17 09:33:27",
+      "changefreq": "weekly",
+      "priority": 0.7
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/blog/complete-guide-composting-home",
+      "lastmod": "2026-07-17 09:33:27",
+      "changefreq": "weekly",
+      "priority": 0.7
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/blog/compostable-packaging-matters-australian-businesses",
+      "lastmod": "2026-07-17 09:33:27",
+      "changefreq": "weekly",
+      "priority": 0.7
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/products",
+      "lastmod": "2026-07-17 09:33:27",
+      "changefreq": "monthly",
+      "priority": 0.9
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/copy-of-home",
+      "lastmod": "2026-07-17 09:33:27",
+      "changefreq": "monthly",
+      "priority": 0.9
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/",
+      "lastmod": "2026-07-17 09:33:27",
+      "changefreq": "monthly",
+      "priority": 1
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/technology",
+      "lastmod": "2026-07-17 09:33:27",
+      "changefreq": "monthly",
+      "priority": 0.5
+    }
+  ]
+}

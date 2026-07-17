@@ -1,0 +1,80 @@
+{
+  "siteUrl": "https://www.solidhydrogen.tech",
+  "generatedAt": "2026-07-17T09:31:44.615Z",
+  "totalUrls": 10,
+  "crawledUrls": 10,
+  "brokenUrls": 0,
+  "skippedUrls": 0,
+  "discoveredUrls": 0,
+  "maxDepth": 0,
+  "averageDepth": 0,
+  "urlsByType": {
+    "Home": 1,
+    "Article": 5,
+    "Blog": 1,
+    "Category": 2,
+    "Unknown": 1
+  },
+  "urlsByStatus": {
+    "crawled": 10
+  },
+  "depthDistribution": {
+    "0": 10
+  },
+  "discoverySources": {
+    "header-nav": 1,
+    "xml-sitemap": 9
+  },
+  "topPages": [
+    {
+      "url": "https://www.solidhydrogen.tech/",
+      "pageType": "Home",
+      "depth": 0
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/products",
+      "pageType": "Category",
+      "depth": 0
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/copy-of-home",
+      "pageType": "Category",
+      "depth": 0
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/blog",
+      "pageType": "Blog",
+      "depth": 0
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "pageType": "Article",
+      "depth": 0
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-and-international-consortium-secure-aud-2-5m-to-demonstrate-low-cost-hydrogen-product",
+      "pageType": "Article",
+      "depth": 0
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
+      "pageType": "Article",
+      "depth": 0
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
+      "pageType": "Article",
+      "depth": 0
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-and-en2core-technology-partner-to-dramatically-reduce-the-cost-of-low-carbon-hydrogen",
+      "pageType": "Article",
+      "depth": 0
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/technology",
+      "pageType": "Unknown",
+      "depth": 0
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "siteUrl": "https://www.solidhydrogen.tech",
+  "generatedAt": "2026-07-17T09:31:44.606Z",
+  "totalUrls": 10,
+  "urls": [
+    {
+      "url": "https://www.solidhydrogen.tech/",
+      "slug": "",
+      "depth": 0,
+      "pageType": "Home",
+      "status": "crawled",
+      "priority": 100,
+      "title": "Home | Solidhydrogen",
+      "parentUrl": null
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/products",
+      "slug": "products",
+      "depth": 0,
+      "pageType": "Category",
+      "status": "crawled",
+      "priority": 90,
+      "title": "Products | Solidhydrogen",
+      "parentUrl": null
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/copy-of-home",
+      "slug": "copy-of-home",
+      "depth": 0,
+      "pageType": "Category",
+      "status": "crawled",
+      "priority": 90,
+      "title": "Products | Solidhydrogen",
+      "parentUrl": null
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/blog",
+      "slug": "blog",
+      "depth": 0,
+      "pageType": "Blog",
+      "status": "crawled",
+      "priority": 75,
+      "title": "Blog | Solidhydrogen",
+      "parentUrl": null
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "slug": "beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "depth": 0,
+      "pageType": "Article",
+      "status": "crawled",
+      "priority": 70,
+      "title": "Beyond Storage: Why Metal Hydrides Are the &quot;Holy Grail&quot; for Hydrogen Purification and Efficiency",
+      "parentUrl": null
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-and-international-consortium-secure-aud-2-5m-to-demonstrate-low-cost-hydrogen-product",
+      "slug": "solidhydrogen-and-international-consortium-secure-aud-2-5m-to-demonstrate-low-cost-hydrogen-product",
+      "depth": 0,
+      "pageType": "Article",
+      "status": "crawled",
+      "priority": 70,
+      "title": "SolidHydrogen and international consortium secure $AUD 2.5M to demonstrate low-cost Hydrogen production and new cooling applications.",
+      "parentUrl": null
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
+      "slug": "solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
+      "depth": 0,
+      "pageType": "Article",
+      "status": "crawled",
+      "priority": 70,
+      "title": "SolidHydrogen successful in grant to remove PFAS in water with NSSN",
+      "parentUrl": null
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
+      "slug": "defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
+      "depth": 0,
+      "pageType": "Article",
+      "status": "crawled",
+      "priority": 70,
+      "title": "#Hydrogen #EnergyStorage #SolidStateHydrogen #CleanTech #EnergyTransition #Engineering #Science #SolidHydrogen",
+      "parentUrl": null
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-and-en2core-technology-partner-to-dramatically-reduce-the-cost-of-low-carbon-hydrogen",
+      "slug": "solidhydrogen-and-en2core-technology-partner-to-dramatically-reduce-the-cost-of-low-carbon-hydrogen",
+      "depth": 0,
+      "pageType": "Article",
+      "status": "crawled",
+      "priority": 70,
+      "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
+      "parentUrl": null
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/technology",
+      "slug": "technology",
+      "depth": 0,
+      "pageType": "Unknown",
+      "status": "crawled",
+      "priority": 45,
+      "title": "Technology | Solidhydrogen",
+      "parentUrl": null
+    }
+  ]
+}

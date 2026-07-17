@@ -1,0 +1,151 @@
+{
+  "siteUrl": "https://www.solidhydrogen.tech",
+  "generatedAt": "2026-07-17T09:31:44.613Z",
+  "root": "https://www.solidhydrogen.tech/",
+  "maxDepth": 0,
+  "totalNodes": 10,
+  "totalEdges": 0,
+  "nodes": [
+    {
+      "id": "https://www.solidhydrogen.tech/",
+      "url": "https://www.solidhydrogen.tech/",
+      "slug": "",
+      "depth": 0,
+      "parent": null,
+      "pageType": "Home",
+      "status": "crawled",
+      "priority": 100,
+      "discoveredBy": [
+        "header-nav"
+      ],
+      "childCount": 0
+    },
+    {
+      "id": "https://www.solidhydrogen.tech/post/beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "url": "https://www.solidhydrogen.tech/post/beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "slug": "beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "depth": 0,
+      "parent": null,
+      "pageType": "Article",
+      "status": "crawled",
+      "priority": 70,
+      "discoveredBy": [
+        "xml-sitemap"
+      ],
+      "childCount": 0
+    },
+    {
+      "id": "https://www.solidhydrogen.tech/post/solidhydrogen-and-international-consortium-secure-aud-2-5m-to-demonstrate-low-cost-hydrogen-product",
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-and-international-consortium-secure-aud-2-5m-to-demonstrate-low-cost-hydrogen-product",
+      "slug": "solidhydrogen-and-international-consortium-secure-aud-2-5m-to-demonstrate-low-cost-hydrogen-product",
+      "depth": 0,
+      "parent": null,
+      "pageType": "Article",
+      "status": "crawled",
+      "priority": 70,
+      "discoveredBy": [
+        "xml-sitemap"
+      ],
+      "childCount": 0
+    },
+    {
+      "id": "https://www.solidhydrogen.tech/post/solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
+      "slug": "solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
+      "depth": 0,
+      "parent": null,
+      "pageType": "Article",
+      "status": "crawled",
+      "priority": 70,
+      "discoveredBy": [
+        "xml-sitemap"
+      ],
+      "childCount": 0
+    },
+    {
+      "id": "https://www.solidhydrogen.tech/post/defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
+      "url": "https://www.solidhydrogen.tech/post/defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
+      "slug": "defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
+      "depth": 0,
+      "parent": null,
+      "pageType": "Article",
+      "status": "crawled",
+      "priority": 70,
+      "discoveredBy": [
+        "xml-sitemap"
+      ],
+      "childCount": 0
+    },
+    {
+      "id": "https://www.solidhydrogen.tech/post/solidhydrogen-and-en2core-technology-partner-to-dramatically-reduce-the-cost-of-low-carbon-hydrogen",
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-and-en2core-technology-partner-to-dramatically-reduce-the-cost-of-low-carbon-hydrogen",
+      "slug": "solidhydrogen-and-en2core-technology-partner-to-dramatically-reduce-the-cost-of-low-carbon-hydrogen",
+      "depth": 0,
+      "parent": null,
+      "pageType": "Article",
+      "status": "crawled",
+      "priority": 70,
+      "discoveredBy": [
+        "xml-sitemap"
+      ],
+      "childCount": 0
+    },
+    {
+      "id": "https://www.solidhydrogen.tech/blog",
+      "url": "https://www.solidhydrogen.tech/blog",
+      "slug": "blog",
+      "depth": 0,
+      "parent": null,
+      "pageType": "Blog",
+      "status": "crawled",
+      "priority": 75,
+      "discoveredBy": [
+        "xml-sitemap"
+      ],
+      "childCount": 0
+    },
+    {
+      "id": "https://www.solidhydrogen.tech/products",
+      "url": "https://www.solidhydrogen.tech/products",
+      "slug": "products",
+      "depth": 0,
+      "parent": null,
+      "pageType": "Category",
+      "status": "crawled",
+      "priority": 90,
+      "discoveredBy": [
+        "xml-sitemap"
+      ],
+      "childCount": 0
+    },
+    {
+      "id": "https://www.solidhydrogen.tech/technology",
+      "url": "https://www.solidhydrogen.tech/technology",
+      "slug": "technology",
+      "depth": 0,
+      "parent": null,
+      "pageType": "Unknown",
+      "status": "crawled",
+      "priority": 45,
+      "discoveredBy": [
+        "xml-sitemap"
+      ],
+      "childCount": 0
+    },
+    {
+      "id": "https://www.solidhydrogen.tech/copy-of-home",
+      "url": "https://www.solidhydrogen.tech/copy-of-home",
+      "slug": "copy-of-home",
+      "depth": 0,
+      "parent": null,
+      "pageType": "Category",
+      "status": "crawled",
+      "priority": 90,
+      "discoveredBy": [
+        "xml-sitemap"
+      ],
+      "childCount": 0
+    }
+  ],
+  "edges": []
+}

@@ -1,0 +1,353 @@
+{
+  "siteUrl": "https://www.solidhydrogen.tech",
+  "timestamp": "2026-07-17T09:37:08.479Z",
+  "issues": [
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"Technology\" points to non-existent page: #technology",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#technology",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"Team\" points to non-existent page: #team",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#team",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"Benefits\" points to non-existent page: #benefits",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#benefits",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"Products\" points to non-existent page: #products",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#products",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"Use Cases\" points to non-existent page: #use-cases",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#use-cases",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"Blog\" points to non-existent page: #blog",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#blog",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"SHOP\" points to non-existent page: #",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"CUSTOM\" points to non-existent page: /custom-packaging",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "custom-packaging",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"INDUSTRY\" points to non-existent page: /industry",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "industry",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"SUSTAINABILITY\" points to non-existent page: /environmental-responsibility",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "environmental-responsibility",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"NEWS\" points to non-existent page: /resources",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "resources",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"SHOP\" points to non-existent page: #",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"CUSTOM\" points to non-existent page: /custom-packaging",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "custom-packaging",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"INDUSTRY\" points to non-existent page: /industry",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "industry",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"SUSTAINABILITY\" points to non-existent page: /environmental-responsibility",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "environmental-responsibility",
+      "fixable": true
+    },
+    {
+      "category": "missing-pages",
+      "severity": "error",
+      "message": "Navigation link \"NEWS\" points to non-existent page: /resources",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "resources",
+      "fixable": true
+    },
+    {
+      "category": "missing-seo",
+      "severity": "warning",
+      "message": "Page \"Home | Solidhydrogen\" missing SEO metadata",
+      "entity_type": "page",
+      "entity_id": 1,
+      "entity_slug": "",
+      "fixable": true
+    },
+    {
+      "category": "missing-seo",
+      "severity": "warning",
+      "message": "Page \"Products | Solidhydrogen\" missing SEO metadata",
+      "entity_type": "page",
+      "entity_id": 2,
+      "entity_slug": "products",
+      "fixable": true
+    },
+    {
+      "category": "missing-seo",
+      "severity": "warning",
+      "message": "Page \"Products | Solidhydrogen\" missing SEO metadata",
+      "entity_type": "page",
+      "entity_id": 3,
+      "entity_slug": "copy-of-home",
+      "fixable": true
+    },
+    {
+      "category": "missing-seo",
+      "severity": "warning",
+      "message": "Page \"Blog | Solidhydrogen\" missing SEO metadata",
+      "entity_type": "page",
+      "entity_id": 4,
+      "entity_slug": "blog",
+      "fixable": true
+    },
+    {
+      "category": "missing-seo",
+      "severity": "warning",
+      "message": "Page \"Beyond Storage: Why Metal Hydrides Are the &quot;Holy Grail&quot; for Hydrogen Purification and Efficiency\" missing SEO metadata",
+      "entity_type": "page",
+      "entity_id": 5,
+      "entity_slug": "beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "fixable": true
+    },
+    {
+      "category": "missing-seo",
+      "severity": "warning",
+      "message": "Page \"SolidHydrogen and international consortium secure $AUD 2.5M to demonstrate low-cost Hydrogen production and new cooling applications.\" missing SEO metadata",
+      "entity_type": "page",
+      "entity_id": 6,
+      "entity_slug": "solidhydrogen-and-international-consortium-secure-aud-2-5m-to-demonstrate-low-cost-hydrogen-product",
+      "fixable": true
+    },
+    {
+      "category": "missing-seo",
+      "severity": "warning",
+      "message": "Page \"SolidHydrogen successful in grant to remove PFAS in water with NSSN\" missing SEO metadata",
+      "entity_type": "page",
+      "entity_id": 7,
+      "entity_slug": "solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
+      "fixable": true
+    },
+    {
+      "category": "missing-seo",
+      "severity": "warning",
+      "message": "Page \"#Hydrogen #EnergyStorage #SolidStateHydrogen #CleanTech #EnergyTransition #Engineering #Science #SolidHydrogen\" missing SEO metadata",
+      "entity_type": "page",
+      "entity_id": 8,
+      "entity_slug": "defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
+      "fixable": true
+    },
+    {
+      "category": "missing-seo",
+      "severity": "warning",
+      "message": "Page \"SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen\" missing SEO metadata",
+      "entity_type": "page",
+      "entity_id": 9,
+      "entity_slug": "solidhydrogen-and-en2core-technology-partner-to-dramatically-reduce-the-cost-of-low-carbon-hydrogen",
+      "fixable": true
+    },
+    {
+      "category": "missing-seo",
+      "severity": "warning",
+      "message": "Page \"Technology | Solidhydrogen\" missing SEO metadata",
+      "entity_type": "page",
+      "entity_id": 10,
+      "entity_slug": "technology",
+      "fixable": true
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"Products | Solidhydrogen\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 2,
+      "entity_slug": "products",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"Products | Solidhydrogen\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 3,
+      "entity_slug": "copy-of-home",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"Blog | Solidhydrogen\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 4,
+      "entity_slug": "blog",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"Technology | Solidhydrogen\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 10,
+      "entity_slug": "technology",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"The Complete Guide to Composting at Home\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 11,
+      "entity_slug": "blog-complete-guide-composting-home",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"Why Compostable Packaging Matters for Australian Businesses\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 12,
+      "entity_slug": "blog-compostable-packaging-matters-australian-businesses",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"From Plant to Packaging: The BioPak Story\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 13,
+      "entity_slug": "blog-plant-to-packaging-biopak-story",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"Team\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 14,
+      "entity_slug": "team",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"Benefits\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 15,
+      "entity_slug": "benefits",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"Contact Us\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 16,
+      "entity_slug": "contact",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"Use Cases\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 17,
+      "entity_slug": "use-cases",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"About SolidHydrogen\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 18,
+      "entity_slug": "about",
+      "fixable": false
+    }
+  ],
+  "totalIssues": 38,
+  "errorCount": 16,
+  "warningCount": 10,
+  "infoCount": 12,
+  "fixableCount": 26
+}
