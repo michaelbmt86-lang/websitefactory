@@ -1,3 +1,13 @@
+// ============================================================================
+// DASHBOARD LAYOUT (Website Factory Framework)
+//
+// Patterns:
+//   - Server-side auth check via requireAuth() — redirects to /login if invalid
+//   - Sidebar shell with navigation links (customizable per site)
+//   - Displays authenticated username in footer
+//   - Middleware handles token format validation before this runs
+// ============================================================================
+
 import { requireAuth } from "@/lib/auth";
 import Link from "next/link";
 
@@ -24,6 +34,11 @@ export default async function DashboardLayout({
           <SidebarLink href="/dashboard/pages" label="Pages" />
           <SidebarLink href="/dashboard/navigation" label="Navigation" />
           <SidebarLink href="/dashboard/media" label="Media" />
+          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">
+            Discovery
+          </p>
+          <SidebarLink href="/dashboard/discovery" label="Site Discovery" />
+          <SidebarLink href="/dashboard/discovery/urls" label="Discovered URLs" />
           <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">
             Settings
           </p>

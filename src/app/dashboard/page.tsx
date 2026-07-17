@@ -10,6 +10,12 @@ type DashboardData = {
   pages: { id: number; title: string }[];
   media: { id: number; filename: string }[];
   navigation: { id: number; label: string }[];
+  discovery: {
+    totalUrls: number;
+    urlsByType: Record<string, number>;
+    urlsByStatus: Record<string, number>;
+    brokenUrls: { url: string; statusCode: number | null }[];
+  } | null;
 };
 
 export default function DashboardHome() {
@@ -19,13 +25,14 @@ export default function DashboardHome() {
   useEffect(() => {
     async function load() {
       try {
-        const [settingsRes, productsRes, categoriesRes, pagesRes, mediaRes, navRes] = await Promise.all([
+        const [settingsRes, productsRes, categoriesRes, pagesRes, mediaRes, navRes, discoveryRes] = await Promise.all([
           fetch("/api/settings", { cache: "no-store" }),
           fetch("/api/products", { cache: "no-store" }),
           fetch("/api/categories", { cache: "no-store" }),
           fetch("/api/pages", { cache: "no-store" }),
           fetch("/api/media", { cache: "no-store" }),
           fetch("/api/navigation", { cache: "no-store" }),
+          fetch("/api/discovery", { cache: "no-store" }),
         ]);
 
         const settings = await settingsRes.json();
@@ -34,8 +41,9 @@ export default function DashboardHome() {
         const pages = await pagesRes.json();
         const media = await mediaRes.json();
         const navigation = await navRes.json();
+        const discovery = await discoveryRes.json();
 
-        setData({ settings, products, categories, pages, media, navigation });
+        setData({ settings, products, categories, pages, media, navigation, discovery });
       } catch (error) {
         console.error("Failed to load dashboard data:", error);
       } finally {
@@ -79,6 +87,9 @@ export default function DashboardHome() {
           <NavLink href="/dashboard/pages" label="Pages" icon="📄" />
           <NavLink href="/dashboard/navigation" label="Navigation" icon="🧭" />
           <NavLink href="/dashboard/media" label="Media" icon="🖼️" />
+          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Discovery</p>
+          <NavLink href="/dashboard/discovery" label="Site Discovery" icon="🔍" />
+          <NavLink href="/dashboard/discovery/urls" label="Discovered URLs" icon="🔗" />
           <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Settings</p>
           <NavLink href="/dashboard/settings" label="General" icon="⚙️" />
           <NavLink href="/dashboard/seo" label="SEO" icon="🔍" />
@@ -125,6 +136,40 @@ export default function DashboardHome() {
             color="orange"
           />
         </div>
+
+        {/* Discovery Stats */}
+        {data.discovery && (
+          <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <StatCard
+              title="Discovered URLs"
+              value={data.discovery.totalUrls}
+              icon="🔗"
+              href="/dashboard/discovery"
+              color="blue"
+            />
+            <StatCard
+              title="Site Categories"
+              value={data.discovery.urlsByType?.["Category"] ?? 0}
+              icon="📂"
+              href="/dashboard/discovery"
+              color="teal"
+            />
+            <StatCard
+              title="Site Products"
+              value={(data.discovery.urlsByType?.["Product Detail"] ?? 0) + (data.discovery.urlsByType?.["Product Listing"] ?? 0)}
+              icon="🛍️"
+              href="/dashboard/discovery"
+              color="purple"
+            />
+            <StatCard
+              title="Broken URLs"
+              value={data.discovery.brokenUrls?.length ?? 0}
+              icon="⚠️"
+              href="/dashboard/discovery"
+              color="red"
+            />
+          </div>
+        )}
 
         {/* Quick Actions */}
         <div className="mb-8">
@@ -238,13 +283,15 @@ function StatCard({
   value: number;
   icon: string;
   href: string;
-  color: "green" | "blue" | "purple" | "orange";
+  color: "green" | "blue" | "purple" | "orange" | "teal" | "red";
 }) {
   const colorClasses = {
     green: "bg-green-50 text-green-600",
     blue: "bg-blue-50 text-blue-600",
     purple: "bg-purple-50 text-purple-600",
     orange: "bg-orange-50 text-orange-600",
+    teal: "bg-teal-50 text-teal-600",
+    red: "bg-red-50 text-red-600",
   };
 
   return (
