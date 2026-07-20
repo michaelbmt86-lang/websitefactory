@@ -1,0 +1,111 @@
+{
+  "name": "cms-generation-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable CMS generation workflow definition — 8 sequential phases from data ingestion to quality validation.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": "2026-07-18T00:00:00Z",
+  "workflow": {
+    "type": "cms-generation",
+    "totalSteps": 8,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "siteUrl": {
+        "type": "string",
+        "required": true,
+        "description": "Target site URL for CMS generation"
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "generate-pages",
+        "name": "Generate CMS Pages",
+        "description": "Read site_urls and extracted_products tables, map page types, generate CMS pages with SEO metadata",
+        "input": "siteUrl",
+        "output": "cms-pages-generated",
+        "tablesRead": ["site_urls", "extracted_products"],
+        "tablesWrite": ["cms_pages"],
+        "failureAction": "log-and-continue"
+      },
+      {
+        "step": 2,
+        "id": "generate-brands",
+        "name": "Generate Brands",
+        "description": "Extract unique brands from extracted_products, count products per brand, generate brand entries",
+        "input": "siteUrl",
+        "output": "cms-brands-generated",
+        "tablesRead": ["extracted_products"],
+        "tablesWrite": ["cms_brands"],
+        "failureAction": "log-and-continue"
+      },
+      {
+        "step": 3,
+        "id": "generate-collections",
+        "name": "Generate Collections",
+        "description": "Group products by category, create collections with product references",
+        "input": "siteUrl",
+        "output": "cms-collections-generated",
+        "tablesRead": ["extracted_products"],
+        "tablesWrite": ["cms_collections"],
+        "failureAction": "log-and-continue"
+      },
+      {
+        "step": 4,
+        "id": "generate-blog",
+        "name": "Generate Blog Posts",
+        "description": "Convert posts table entries to CMS blog-post pages",
+        "input": "siteUrl",
+        "output": "cms-blog-generated",
+        "tablesRead": ["posts", "cms_pages"],
+        "tablesWrite": ["cms_pages"],
+        "failureAction": "log-and-continue"
+      },
+      {
+        "step": 5,
+        "id": "generate-seo",
+        "name": "Generate SEO Metadata",
+        "description": "Generate SEO entries for all CMS pages with meta tags, OG tags, canonical URLs",
+        "input": "siteUrl",
+        "output": "cms-seo-generated",
+        "tablesRead": ["cms_pages"],
+        "tablesWrite": ["cms_seo"],
+        "failureAction": "log-and-continue"
+      },
+      {
+        "step": 6,
+        "id": "generate-search-index",
+        "name": "Generate Search Index",
+        "description": "Build full-text search index across pages, products, brands, collections, blog posts",
+        "input": "siteUrl",
+        "output": "cms-search-generated",
+        "tablesRead": ["cms_pages", "extracted_products", "cms_brands", "cms_collections"],
+        "tablesWrite": ["cms_search_index"],
+        "failureAction": "log-and-continue"
+      },
+      {
+        "step": 7,
+        "id": "generate-output-files",
+        "name": "Generate Output Files",
+        "description": "Generate manifest, search index JSON, navigation JSON, sitemap XML and JSON",
+        "input": "siteUrl",
+        "output": "cms-output-generated",
+        "tablesRead": ["cms_pages", "cms_brands", "cms_collections", "cms_seo", "cms_search_index"],
+        "tablesWrite": [],
+        "outputFiles": ["website-manifest.json", "search-index.json", "navigation.json", "sitemap.xml", "sitemap.json"],
+        "failureAction": "log-and-continue"
+      },
+      {
+        "step": 8,
+        "id": "validate-quality",
+        "name": "Validate CMS Quality",
+        "description": "Run quality validation checks — metadata, SEO, links, duplicates, descriptions",
+        "input": "cms-output-generated",
+        "output": "cms-quality-result",
+        "tablesRead": ["cms_pages", "cms_brands", "cms_collections", "cms_seo"],
+        "tablesWrite": [],
+        "failureAction": "log-and-continue"
+      }
+    ]
+  }
+}

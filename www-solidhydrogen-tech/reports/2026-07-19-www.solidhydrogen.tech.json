@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-07-19T16:54:44.800Z",
+  "targetWebsite": "https://www.solidhydrogen.tech",
+  "targetDomain": "www.solidhydrogen.tech",
+  "environment": "development",
+  "github": {
+    "repository": "websitefactory",
+    "commit": "1c50110",
+    "branch": "master"
+  },
+  "vercel": {
+    "projectName": "solidhydrogen",
+    "projectId": "prj_x6yny7r3DjzxE4sZ7zFT3LNm3YKK",
+    "deploymentId": "",
+    "deploymentUrl": ""
+  },
+  "cloudflare": {
+    "zoneId": "",
+    "sslMode": "full",
+    "dns": []
+  },
+  "dashboard": {
+    "url": "https://www.solidhydrogen.tech/dashboard",
+    "username": "michaelbmt86@gmail.com",
+    "password": "",
+    "firstLoginRequired": true
+  },
+  "deployment": {
+    "duration": "1.7s",
+    "status": "FAIL"
+  },
+  "verification": {
+    "homepage": false,
+    "routes": false,
+    "dashboard": false,
+    "login": false,
+    "seo": true,
+    "robots": true,
+    "sitemap": true,
+    "ssl": false,
+    "dns": false
+  },
+  "repairHistory": [],
+  "factoryVersion": "1.0.0",
+  "notes": ""
+}

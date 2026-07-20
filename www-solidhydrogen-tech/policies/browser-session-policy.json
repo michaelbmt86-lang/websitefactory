@@ -1,0 +1,52 @@
+{
+  "name": "browser-session-policy",
+  "version": "1.0.0",
+  "description": "Defines browser session lifecycle behaviour — session creation, activation, idle timeout, cleanup, and recovery rules.",
+  "owner": "layer-4-browser-extraction",
+  "enabled": true,
+  "rules": {
+    "sessionCreation": {
+      "description": "Rules for creating new browser sessions",
+      "requireEngineName": true,
+      "requireSessionConfig": false,
+      "defaultTimeoutMs": 60000,
+      "defaultUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "defaultViewport": { "width": 1920, "height": 1080 },
+      "maxSessionsPerEngine": 1,
+      "totalMaxSessions": 3
+    },
+    "sessionLifecycle": {
+      "description": "Session state transition rules",
+      "allowedTransitions": {
+        "created": ["active", "failed", "closed"],
+        "active": ["busy", "idle", "failed", "closed"],
+        "busy": ["active", "failed", "timeout"],
+        "idle": ["active", "closed", "timeout"],
+        "failed": ["closed", "recovered"],
+        "closed": [],
+        "recovered": ["active", "busy"],
+        "timeout": ["closed", "recovered"]
+      },
+      "autoCloseOnIdle": true,
+      "idleTimeoutMs": 30000,
+      "autoCloseOnFailure": true
+    },
+    "sessionCleanup": {
+      "description": "Session resource cleanup rules",
+      "cleanupOnCompletion": true,
+      "cleanupOnFailure": true,
+      "forceCleanupAfterMs": 120000,
+      "releaseMemory": true,
+      "closeConnections": true,
+      "logCleanupEvents": true
+    },
+    "sessionRecovery": {
+      "description": "Session recovery behaviour",
+      "autoRecoverOnTimeout": false,
+      "autoRecoverOnFailure": false,
+      "maxRecoveryAttempts": 1,
+      "recoveryDelayMs": 1000,
+      "reportRecoveryToLayer3": true
+    }
+  }
+}

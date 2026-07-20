@@ -1,0 +1,46 @@
+{
+  "name": "transaction-policy",
+  "version": "1.0.0",
+  "description": "Defines transaction behaviour for the Layer 6 Data Storage Layer — when to use transactions, isolation levels, commit/rollback rules.",
+  "owner": "layer-6-data-storage",
+  "enabled": true,
+  "rules": {
+    "transactionUsage": {
+      "description": "When transactions must be used",
+      "bulkInsert": true,
+      "bulkUpdate": true,
+      "bulkDelete": true,
+      "multiTableWrite": true,
+      "seedData": true,
+      "cmsGeneration": true,
+      "extractionBatch": true,
+      "singleRowWrite": false
+    },
+    "isolationLevel": {
+      "description": "Transaction isolation configuration",
+      "defaultIsolation": "DEFERRED",
+      "readWriteTransaction": "IMMEDIATE",
+      "exclusiveTransaction": "EXCLUSIVE"
+    },
+    "commitRules": {
+      "description": "When to commit transactions",
+      "commitOnSuccess": true,
+      "autoCommit": true,
+      "logCommitDuration": true,
+      "commitTimeoutMs": 30000
+    },
+    "rollbackRules": {
+      "description": "When to rollback transactions",
+      "rollbackOnError": true,
+      "rollbackOnTimeout": true,
+      "logRollbackReason": true,
+      "preservePartialResults": false
+    },
+    "nestingRules": {
+      "description": "Transaction nesting behaviour",
+      "allowSavepoints": true,
+      "maxSavepoints": 10,
+      "nestedTransactionAction": "savepoint"
+    }
+  }
+}

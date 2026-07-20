@@ -1,0 +1,81 @@
+{
+  "name": "cms-delivery-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable CMS delivery workflow definition — output file generation, packaging, and deployment preparation.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": "2026-07-18T00:00:00Z",
+  "workflow": {
+    "type": "cms-delivery",
+    "totalSteps": 6,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "siteUrl": {
+        "type": "string",
+        "required": true,
+        "description": "Target site URL for delivery"
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "read-cms-data",
+        "name": "Read CMS Data",
+        "description": "Read all CMS tables to assemble data for output files",
+        "input": "siteUrl",
+        "output": "cms-data",
+        "tablesRead": ["cms_pages", "cms_brands", "cms_collections", "cms_seo", "cms_search_index"],
+        "failureAction": "return-read-error"
+      },
+      {
+        "step": 2,
+        "id": "generate-manifest",
+        "name": "Generate Website Manifest",
+        "description": "Generate website-manifest.json with pages, brands, collections, categories, blog posts",
+        "input": "cms-data",
+        "output": "manifest-data",
+        "outputFile": "website-manifest.json",
+        "failureAction": "log-and-continue"
+      },
+      {
+        "step": 3,
+        "id": "generate-search-output",
+        "name": "Generate Search Index Output",
+        "description": "Generate search-index.json with all indexed entities and keywords",
+        "input": "cms-data",
+        "output": "search-data",
+        "outputFile": "search-index.json",
+        "failureAction": "log-and-continue"
+      },
+      {
+        "step": 4,
+        "id": "generate-navigation-output",
+        "name": "Generate Navigation Output",
+        "description": "Generate navigation.json with hierarchical main nav and footer nav",
+        "input": "cms-data",
+        "output": "navigation-data",
+        "outputFile": "navigation.json",
+        "failureAction": "log-and-continue"
+      },
+      {
+        "step": 5,
+        "id": "generate-sitemap-output",
+        "name": "Generate Sitemap Output",
+        "description": "Generate sitemap.xml and sitemap.json with URL priority scoring",
+        "input": "cms-data",
+        "output": "sitemap-data",
+        "outputFiles": ["sitemap.xml", "sitemap.json"],
+        "failureAction": "log-and-continue"
+      },
+      {
+        "step": 6,
+        "id": "package-delivery",
+        "name": "Package Delivery",
+        "description": "Verify all output files are written, compute delivery metrics",
+        "input": "manifest-data, search-data, navigation-data, sitemap-data",
+        "output": "delivery-status",
+        "failureAction": "return-delivery-error"
+      }
+    ]
+  }
+}

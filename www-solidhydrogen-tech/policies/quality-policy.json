@@ -1,0 +1,65 @@
+{
+  "name": "quality-policy",
+  "version": "1.0.0",
+  "description": "Defines extraction quality standards for the Layer 3 Extraction Manager — minimum thresholds for DOM completeness, asset completeness, image coverage, SEO completeness, schema completeness, and overall extraction score.",
+  "owner": "layer-3-extraction-manager",
+  "enabled": true,
+  "rules": {
+    "minimumDomCompleteness": {
+      "description": "Minimum percentage of DOM elements successfully extracted",
+      "threshold": 70,
+      "unit": "percent",
+      "enforcement": "advisory",
+      "action": "flag-low-quality"
+    },
+    "minimumAssetCompleteness": {
+      "description": "Minimum percentage of assets (images, videos, downloads) successfully extracted",
+      "threshold": 60,
+      "unit": "percent",
+      "enforcement": "advisory",
+      "action": "flag-low-quality"
+    },
+    "minimumImageCoverage": {
+      "description": "Minimum percentage of product images successfully extracted",
+      "threshold": 50,
+      "unit": "percent",
+      "enforcement": "advisory",
+      "action": "flag-low-quality"
+    },
+    "minimumSeoCompleteness": {
+      "description": "Minimum percentage of SEO fields (title, meta description, keywords) successfully extracted",
+      "threshold": 80,
+      "unit": "percent",
+      "enforcement": "advisory",
+      "action": "flag-low-quality"
+    },
+    "minimumSchemaCompleteness": {
+      "description": "Minimum percentage of schema.org structured data successfully extracted",
+      "threshold": 50,
+      "unit": "percent",
+      "enforcement": "advisory",
+      "action": "flag-low-quality"
+    },
+    "minimumExtractionScore": {
+      "description": "Minimum overall extraction quality score (weighted average of all dimensions)",
+      "threshold": 65,
+      "unit": "score-0-100",
+      "enforcement": "advisory",
+      "action": "flag-low-quality"
+    },
+    "qualityDimensions": {
+      "description": "Weights for each quality dimension in overall score",
+      "domCompleteness": 0.25,
+      "assetCompleteness": 0.20,
+      "imageCoverage": 0.20,
+      "seoCompleteness": 0.20,
+      "schemaCompleteness": 0.15
+    },
+    "enforcement": {
+      "description": "Quality validation is advisory — low-quality extractions are flagged but not blocked",
+      "blockStorage": false,
+      "logIssues": true,
+      "includeInReport": true
+    }
+  }
+}

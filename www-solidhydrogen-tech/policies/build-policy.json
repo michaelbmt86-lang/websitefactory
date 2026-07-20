@@ -1,0 +1,55 @@
+{
+  "name": "build-policy",
+  "version": "1.0.0",
+  "description": "Defines build validation requirements, quality gates, and compilation standards for the Website Factory output.",
+  "owner": "layer-2-execution-engine",
+  "enabled": true,
+  "rules": {
+    "requiredChecks": {
+      "description": "All of these must pass before any deployment or phase transition",
+      "typecheck": {
+        "command": "npm run typecheck",
+        "description": "TypeScript strict mode compilation check",
+        "required": true
+      },
+      "lint": {
+        "command": "npm run lint",
+        "description": "ESLint with next/core-web-vitals and typescript rules",
+        "required": true
+      },
+      "build": {
+        "command": "npm run build",
+        "description": "Next.js 16 production build (standalone output)",
+        "required": true
+      }
+    },
+    "combinedCheck": {
+      "command": "npm run check",
+      "description": "Runs lint + typecheck + build sequentially",
+      "usedFor": "Quick validation before commit"
+    },
+    "typescriptStrictMode": {
+      "description": "All TypeScript code must compile under strict mode",
+      "enabled": true,
+      "noAny": true,
+      "target": "ES2017"
+    },
+    "nextJsBuild": {
+      "framework": "next.js",
+      "version": "16.2.1",
+      "output": "standalone",
+      "appRouter": true,
+      "reactVersion": "19.2.4"
+    },
+    "builderAgentVerification": {
+      "description": "Each builder agent must verify typecheck passes before finishing",
+      "command": "npx tsc --noEmit",
+      "required": true
+    },
+    "mergeVerification": {
+      "description": "After merging worktree branches, full build must pass",
+      "command": "npm run build",
+      "required": true
+    }
+  }
+}

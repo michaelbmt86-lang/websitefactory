@@ -1,0 +1,43 @@
+{
+  "title": "Discovery Runtime Behaviour Proof",
+  "targetUrl": "https://www.solidhydrogen.tech",
+  "timestamp": "2026-07-18T15:30:00.000Z",
+  "crawlMode": "sitemap-first + homepage hybrid",
+  "crawlModeEvidence": {
+    "phase1_sitemap": "discoverSitemaps() + crawlSitemaps() found 9 URLs from sitemap.xml (sitemap-parser.ts:73-105, 144-166)",
+    "phase2_sitemap_seed": "9 sitemap entries seeded into BFS queue at depth=0 (discovery-engine.ts:70-81)",
+    "phase3_homepage": "crawlPage(baseUrl, 0, null, 'header-nav') crawled homepage at depth=0 (discovery-engine.ts:84)",
+    "phase4_bfs": "bfsCrawl() ran but queue was empty — all links from homepage already visited (discovery-engine.ts:87)"
+  },
+  "depthDistribution": {
+    "0": 10,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0
+  },
+  "discoverySources": {
+    "xml-sitemap": 9,
+    "header-nav": 1
+  },
+  "recursiveCrawlPerformed": false,
+  "recursiveCrawlEvidence": "All 9 sitemap URLs were already in this.visited before homepage crawl discovered them. The homepage crawlPage() at depth 0 found internal links (header-nav, footer-nav, page-body), but normalizeUrl() + this.visited.has() check (discovery-engine.ts:115) returned true for all of them. Queue remained empty. BFS loop (discovery-engine.ts:192) terminated immediately.",
+  "browserLayerInvoked": false,
+  "browserLayerEvidence": "Page extraction uses fetchText() (Node.js fetch) in page-extractor.ts:261. No Chrome DevTools MCP, no Puppeteer, no Playwright is called during discovery. The only browser reference is in detail extraction (Layer 3), not Layer 1 discovery.",
+  "urlCountExplanation": {
+    "totalUrls": 10,
+    "reason": "Site sitemap contained exactly 9 URLs. Homepage added 1. All internal links from homepage matched already-visited URLs.",
+    "limitReached": false,
+    "depthStopped": false,
+    "sitemapOnly": "Hybrid — sitemap provided base set, homepage crawl found no additional URLs",
+    "robotsBlocked": false,
+    "timeout": false
+  },
+  "files": {
+    "serverLog": "_server.log:9 — 'POST /api/discovery 200 in 17.1s'",
+    "crawlSummary": "docs/discovery/crawl-summary.json — depthStats: {0:10}",
+    "urlGraph": "docs/discovery/url-graph.json — totalEdges: 0, all nodes depth: 0",
+    "discoveryReports": "22 files in docs/discovery/"
+  }
+}

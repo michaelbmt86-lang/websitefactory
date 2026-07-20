@@ -1,0 +1,123 @@
+{
+  "name": "browser-session-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable browser session workflow definition — session lifecycle management, state transitions, health monitoring, and cleanup.",
+  "owner": "layer-4-browser-extraction",
+  "enabled": true,
+  "workflow": {
+    "type": "browser-session",
+    "totalSteps": 8,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "engine": {
+        "type": "string",
+        "required": true,
+        "description": "Browser engine to create session for"
+      },
+      "sessionConfig": {
+        "type": "object",
+        "required": false,
+        "properties": {
+          "timeoutMs": { "type": "number", "default": 60000 },
+          "userAgent": { "type": "string" },
+          "viewport": { "type": "object" }
+        }
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "validate-session-request",
+        "name": "Validate Session Request",
+        "description": "Validate engine name, check session limits, verify engine availability",
+        "input": "engine, sessionConfig",
+        "output": "validated-request",
+        "failureAction": "return-validation-error"
+      },
+      {
+        "step": 2,
+        "id": "create-session",
+        "name": "Create Session",
+        "description": "Initialize browser session with specified engine and configuration",
+        "input": "validated-request",
+        "output": "browser-session",
+        "failureAction": "return-creation-error"
+      },
+      {
+        "step": 3,
+        "id": "monitor-session-health",
+        "name": "Monitor Session Health",
+        "description": "Track session health state (created → active → busy → idle → closed)",
+        "input": "browser-session",
+        "output": "health-status",
+        "failureAction": "transition-to-failed-state"
+      },
+      {
+        "step": 4,
+        "id": "track-session-metrics",
+        "name": "Track Session Metrics",
+        "description": "Record session metrics (navigations, captures, failures, lifetime)",
+        "input": "browser-session, health-status",
+        "output": "session-metrics",
+        "failureAction": "log-metrics-error-continue"
+      },
+      {
+        "step": 5,
+        "id": "detect-session-issues",
+        "name": "Detect Session Issues",
+        "description": "Detect timeouts, memory limits, consecutive failures, and health degradation",
+        "input": "health-status, session-metrics",
+        "output": "issue-detection",
+        "failureAction": "transition-to-failed-state"
+      },
+      {
+        "step": 6,
+        "id": "handle-session-recovery",
+        "name": "Handle Session Recovery",
+        "description": "Attempt session recovery if issues detected and recoverable",
+        "input": "issue-detection",
+        "output": "recovery-result",
+        "failureAction": "transition-to-failed-state"
+      },
+      {
+        "step": 7,
+        "id": "cleanup-session",
+        "name": "Cleanup Session",
+        "description": "Release session resources, close connections, free memory",
+        "input": "browser-session",
+        "output": "cleanup-status",
+        "failureAction": "force-terminate"
+      },
+      {
+        "step": 8,
+        "id": "record-session-history",
+        "name": "Record Session History",
+        "description": "Record session lifecycle in browser history for Layer 3 consumption",
+        "input": "browser-session, session-metrics, cleanup-status",
+        "output": "session-history-record",
+        "failureAction": "log-history-error-continue"
+      }
+    ],
+    "sessionStates": [
+      { "state": "created", "description": "Session initialized but not yet active" },
+      { "state": "active", "description": "Session is ready for navigation" },
+      { "state": "busy", "description": "Session is processing a request" },
+      { "state": "idle", "description": "Session is active but not processing" },
+      { "state": "failed", "description": "Session has encountered an error" },
+      { "state": "closed", "description": "Session has been closed and cleaned up" },
+      { "state": "recovered", "description": "Session has recovered from failure" },
+      { "state": "timeout", "description": "Session has timed out" }
+    ],
+    "stateTransitions": {
+      "created": ["active", "failed", "closed"],
+      "active": ["busy", "idle", "failed", "closed"],
+      "busy": ["active", "failed", "timeout"],
+      "idle": ["active", "closed", "timeout"],
+      "failed": ["closed", "recovered"],
+      "closed": [],
+      "recovered": ["active", "busy"],
+      "timeout": ["closed", "recovered"]
+    }
+  }
+}

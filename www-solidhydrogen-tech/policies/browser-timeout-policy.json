@@ -1,0 +1,56 @@
+{
+  "name": "browser-timeout-policy",
+  "version": "1.0.0",
+  "description": "Defines browser timeout behaviour — navigation timeouts, capture timeouts, session timeouts, and per-engine timeout configuration.",
+  "owner": "layer-4-browser-extraction",
+  "enabled": true,
+  "rules": {
+    "navigationTimeout": {
+      "description": "Timeout for URL navigation",
+      "defaultMs": 30000,
+      "minMs": 5000,
+      "maxMs": 120000,
+      "perEngine": {
+        "chrome-devtools-mcp": { "ms": 60000, "description": "Full browser navigation" },
+        "jcodesmore-browser": { "ms": 30000, "description": "HTTP fetch with browser headers" },
+        "firecrawl": { "ms": 45000, "description": "API or fallback parser" }
+      },
+      "abortOnTimeout": true,
+      "logTimeoutEvents": true
+    },
+    "captureTimeout": {
+      "description": "Timeout for DOM content capture",
+      "defaultMs": 15000,
+      "minMs": 3000,
+      "maxMs": 60000,
+      "perEngine": {
+        "chrome-devtools-mcp": { "ms": 30000, "description": "Full DOM capture" },
+        "jcodesmore-browser": { "ms": 15000, "description": "HTML text capture" },
+        "firecrawl": { "ms": 20000, "description": "API response capture" }
+      },
+      "abortOnTimeout": true
+    },
+    "sessionTimeout": {
+      "description": "Maximum session lifetime",
+      "defaultMs": 120000,
+      "minMs": 30000,
+      "maxMs": 300000,
+      "forceCloseOnTimeout": true,
+      "logTimeoutEvents": true
+    },
+    "idleTimeout": {
+      "description": "Session idle timeout before auto-close",
+      "defaultMs": 30000,
+      "minMs": 10000,
+      "maxMs": 60000,
+      "autoClose": true
+    },
+    "overallExtractionTimeout": {
+      "description": "Maximum time for complete extraction (all engines combined)",
+      "defaultMs": 180000,
+      "minMs": 60000,
+      "maxMs": 600000,
+      "abortAllOnTimeout": true
+    }
+  }
+}

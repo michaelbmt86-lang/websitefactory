@@ -1,0 +1,119 @@
+{
+  "siteUrl": "https://www.solidhydrogen.tech",
+  "generatedAt": "2026-07-20T02:58:06.332Z",
+  "version": "1.0.0",
+  "pages": [
+    {
+      "url": "https://www.solidhydrogen.tech/blog",
+      "slug": "blog",
+      "title": "Products | Solidhydrogen",
+      "pageType": "blog-listing",
+      "status": "published"
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/blog/plant-to-packaging-biopak-story",
+      "slug": "blog-plant-to-packaging-biopak-story",
+      "title": "From Plant to Packaging: The BioPak Story",
+      "pageType": "blog-post",
+      "status": "published"
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/blog/complete-guide-composting-home",
+      "slug": "blog-complete-guide-composting-home",
+      "title": "The Complete Guide to Composting at Home",
+      "pageType": "blog-post",
+      "status": "published"
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/blog/compostable-packaging-matters-australian-businesses",
+      "slug": "blog-compostable-packaging-matters-australian-businesses",
+      "title": "Why Compostable Packaging Matters for Australian Businesses",
+      "pageType": "blog-post",
+      "status": "published"
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/technology",
+      "slug": "technology",
+      "title": "Products | Solidhydrogen",
+      "pageType": "category",
+      "status": "published"
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/products",
+      "slug": "products",
+      "title": "Products | Solidhydrogen",
+      "pageType": "category",
+      "status": "published"
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/copy-of-home",
+      "slug": "copy-of-home",
+      "title": "Products | Solidhydrogen",
+      "pageType": "category",
+      "status": "published"
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/",
+      "slug": "",
+      "title": "Home | Solidhydrogen",
+      "pageType": "homepage",
+      "status": "published"
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-and-international-consortium-secure-aud-2-5m-to-demonstrate-low-cost-hydrogen-product",
+      "slug": "solidhydrogen-and-international-consortium-secure-aud-2-5m-to-demonstrate-low-cost-hydrogen-product",
+      "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "slug": "beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
+      "slug": "solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
+      "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
+      "slug": "defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
+      "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/solidhydrogen-and-en2core-technology-partner-to-dramatically-reduce-the-cost-of-low-carbon-hydrogen",
+      "slug": "solidhydrogen-and-en2core-technology-partner-to-dramatically-reduce-the-cost-of-low-carbon-hydrogen",
+      "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
+      "pageType": "page",
+      "status": "published"
+    }
+  ],
+  "brands": [],
+  "collections": [],
+  "categories": [],
+  "blog": [
+    {
+      "title": "From Plant to Packaging: The BioPak Story",
+      "slug": "blog-plant-to-packaging-biopak-story",
+      "excerpt": "Learn about our journey from a small Australian startup to global leaders in sustainable packaging."
+    },
+    {
+      "title": "The Complete Guide to Composting at Home",
+      "slug": "blog-complete-guide-composting-home",
+      "excerpt": "Learn how to start composting at home and reduce your environmental impact with simple, practical steps."
+    },
+    {
+      "title": "Why Compostable Packaging Matters for Australian Businesses",
+      "slug": "blog-compostable-packaging-matters-australian-businesses",
+      "excerpt": "Discover how switching to compostable packaging can benefit your business and the environment."
+    }
+  ],
+  "totalEntities": 16
+}

@@ -1,0 +1,27 @@
+{
+  "siteUrl": "https://www.biopak.com",
+  "generatedAt": "2026-07-19T00:20:36.416Z",
+  "totalUrls": 2,
+  "urls": [
+    {
+      "url": "https://www.biopak.com/",
+      "slug": "",
+      "depth": 0,
+      "pageType": "Home",
+      "status": "broken",
+      "priority": 100,
+      "title": "shopping-cart",
+      "parentUrl": null
+    },
+    {
+      "url": "https://www.biopak.com/redirectUrl",
+      "slug": "redirectUrl",
+      "depth": 1,
+      "pageType": "Unknown",
+      "status": "broken",
+      "priority": 40,
+      "title": "loading-indicator",
+      "parentUrl": "https://www.biopak.com/"
+    }
+  ]
+}

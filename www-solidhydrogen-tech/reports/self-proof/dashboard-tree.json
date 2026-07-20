@@ -1,0 +1,228 @@
+{
+  "generatedAt": "2026-07-18",
+  "source": "SQLite + Code Audit",
+  "dashboard": {
+    "path": "/dashboard",
+    "depth": 0,
+    "dataSource": "Multiple API calls",
+    "children": [
+      {
+        "path": "/dashboard/discovery",
+        "depth": 1,
+        "dataSource": "GET /api/discovery → site_urls",
+        "tables": ["site_urls"],
+        "children": [
+          {
+            "path": "/dashboard/discovery/urls",
+            "depth": 2,
+            "dataSource": "GET /api/discovery → site_urls",
+            "tables": ["site_urls"],
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "/dashboard/product-discovery",
+        "depth": 1,
+        "dataSource": "GET /api/product-discovery → product_urls",
+        "tables": ["product_urls"],
+        "children": [
+          {
+            "path": "/dashboard/product-discovery/products",
+            "depth": 2,
+            "dataSource": "GET /api/product-discovery → product_urls",
+            "tables": ["product_urls"],
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "/dashboard/detail-extraction",
+        "depth": 1,
+        "dataSource": "GET /api/detail-extraction → extracted_products, media_assets",
+        "tables": ["extracted_products", "media_assets"],
+        "children": [
+          {
+            "path": "/dashboard/detail-extraction/products",
+            "depth": 2,
+            "dataSource": "GET /api/detail-extraction → extracted_products",
+            "tables": ["extracted_products"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/detail-extraction/images",
+            "depth": 2,
+            "dataSource": "GET /api/detail-extraction → extracted_products.images_json",
+            "tables": ["extracted_products"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/detail-extraction/seo",
+            "depth": 2,
+            "dataSource": "GET /api/detail-extraction → extracted_products.seo_json",
+            "tables": ["extracted_products"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/detail-extraction/schema",
+            "depth": 2,
+            "dataSource": "GET /api/detail-extraction → extracted_products.schema_json",
+            "tables": ["extracted_products"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/detail-extraction/specifications",
+            "depth": 2,
+            "dataSource": "GET /api/detail-extraction → extracted_products.specifications_json",
+            "tables": ["extracted_products"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/detail-extraction/media",
+            "depth": 2,
+            "dataSource": "GET /api/detail-extraction → extracted_products (images+downloads)",
+            "tables": ["extracted_products"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/detail-extraction/faq",
+            "depth": 2,
+            "dataSource": "GET /api/detail-extraction → extracted_products.faq_json",
+            "tables": ["extracted_products"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/detail-extraction/downloads",
+            "depth": 2,
+            "dataSource": "GET /api/detail-extraction → extracted_products.downloads_json",
+            "tables": ["extracted_products"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/detail-extraction/related",
+            "depth": 2,
+            "dataSource": "GET /api/detail-extraction → extracted_products.related_products_json",
+            "tables": ["extracted_products"],
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "/dashboard/cms-generator",
+        "depth": 1,
+        "dataSource": "GET /api/cms-generator → cms_pages, cms_brands, cms_collections, cms_seo, cms_search_index",
+        "tables": ["cms_pages", "cms_brands", "cms_collections", "cms_seo", "cms_search_index"],
+        "children": [
+          {
+            "path": "/dashboard/cms-generator/pages",
+            "depth": 2,
+            "dataSource": "GET /api/cms-generator → cms_pages",
+            "tables": ["cms_pages"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/cms-generator/brands",
+            "depth": 2,
+            "dataSource": "GET /api/cms-generator → cms_brands",
+            "tables": ["cms_brands"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/cms-generator/collections",
+            "depth": 2,
+            "dataSource": "GET /api/cms-generator → cms_collections",
+            "tables": ["cms_collections"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/cms-generator/blog",
+            "depth": 2,
+            "dataSource": "GET /api/cms-generator → cms_pages (blog-post)",
+            "tables": ["cms_pages"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/cms-generator/seo",
+            "depth": 2,
+            "dataSource": "GET /api/cms-generator → cms_seo",
+            "tables": ["cms_seo"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/cms-generator/search",
+            "depth": 2,
+            "dataSource": "GET /api/cms-generator → cms_search_index",
+            "tables": ["cms_search_index"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/cms-generator/quality",
+            "depth": 2,
+            "dataSource": "GET /api/cms-generator → quality validation",
+            "tables": ["cms_pages", "cms_brands", "cms_collections"],
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "/dashboard/verification",
+        "depth": 1,
+        "dataSource": "GET /api/verification → verification_reports, audit_reports, repair_reports",
+        "tables": ["verification_reports", "audit_reports", "repair_reports"],
+        "children": [
+          {
+            "path": "/dashboard/verification/audit",
+            "depth": 2,
+            "dataSource": "GET /api/verification → audit_reports",
+            "tables": ["audit_reports"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/verification/repair",
+            "depth": 2,
+            "dataSource": "GET /api/verification → repair_reports",
+            "tables": ["repair_reports"],
+            "children": []
+          },
+          {
+            "path": "/dashboard/verification/build",
+            "depth": 2,
+            "dataSource": "GET /api/verification → build status",
+            "tables": [],
+            "children": []
+          },
+          {
+            "path": "/dashboard/verification/deployment",
+            "depth": 2,
+            "dataSource": "GET /api/verification → deployment_reports",
+            "tables": ["deployment_reports"],
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "/dashboard/images",
+        "depth": 1,
+        "dataSource": "GET /api/images → images",
+        "tables": ["images"],
+        "children": []
+      },
+      {
+        "path": "/dashboard/videos",
+        "depth": 1,
+        "dataSource": "GET /api/videos → videos",
+        "tables": ["videos"],
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "maxDepth": 2,
+    "totalNodes": 26,
+    "leafNodes": 20,
+    "branchNodes": 6,
+    "tablesReferenced": 16,
+    "brokenNodes": 0,
+    "missingNodes": 0
+  }
+}

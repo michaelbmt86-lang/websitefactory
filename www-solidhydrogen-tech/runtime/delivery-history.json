@@ -1,0 +1,63 @@
+{
+  "name": "delivery-history",
+  "version": "1.0.0",
+  "description": "Delivery pipeline history — deployment records, verification results, and event logs",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "lastUpdated": null,
+  "history": {
+    "deployments": [],
+    "rollbacks": [],
+    "verifications": []
+  },
+  "schemas": {
+    "deploymentRecord": {
+      "fields": {
+        "id": "string — unique deployment identifier",
+        "domain": "string — target domain",
+        "environment": "string — production/preview/development",
+        "gitCommit": "string — git commit SHA",
+        "gitBranch": "string — git branch name",
+        "vercelProjectId": "string — Vercel project ID",
+        "vercelDeploymentUrl": "string — Vercel deployment URL",
+        "startedAt": "string — ISO timestamp",
+        "completedAt": "string — ISO timestamp",
+        "duration": "number — total duration in ms",
+        "status": "string — success/failed/rolled-back",
+        "stepsCompleted": "number — steps completed before failure",
+        "failureStep": "string|null — step ID that failed"
+      }
+    },
+    "rollbackRecord": {
+      "fields": {
+        "id": "string — unique rollback identifier",
+        "triggerDeploymentId": "string — deployment that triggered rollback",
+        "targetDeploymentId": "string — deployment rolled back to",
+        "reason": "string — rollback reason",
+        "startedAt": "string — ISO timestamp",
+        "completedAt": "string — ISO timestamp",
+        "duration": "number — total duration in ms",
+        "status": "string — success/failed",
+        "verificationPassed": "boolean — post-rollback verification result"
+      }
+    },
+    "verificationRecord": {
+      "fields": {
+        "id": "string — unique verification identifier",
+        "deploymentId": "string — deployment being verified",
+        "totalChecks": "number — total checks run",
+        "passedChecks": "number — checks that passed",
+        "failedChecks": "number — checks that failed",
+        "verdict": "string — PASS/FAIL/WARN",
+        "timestamp": "string — ISO timestamp",
+        "duration": "number — verification duration in ms",
+        "details": "array — individual check results"
+      }
+    }
+  },
+  "limits": {
+    "maxDeployments": 100,
+    "maxRollbacks": 50,
+    "maxVerifications": 200
+  }
+}

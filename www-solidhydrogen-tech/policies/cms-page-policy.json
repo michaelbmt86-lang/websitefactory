@@ -1,0 +1,56 @@
+{
+  "name": "cms-page-policy",
+  "version": "1.0.0",
+  "description": "Defines rules for CMS page generation — page type mapping, content sourcing, slug generation, and SEO field population.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": "2026-07-18T00:00:00Z",
+  "rules": {
+    "pageTypeMapping": {
+      "description": "Map site_urls page_type to CMS page_type",
+      "mappings": {
+        "Home": "home",
+        "Category": "category",
+        "Product Listing": "product-listing",
+        "Product Detail": "product-detail",
+        "About": "about",
+        "Contact": "contact",
+        "Blog": "blog-listing",
+        "Blog Post": "blog-post",
+        "FAQ": "faq",
+        "Service": "service",
+        "Landing": "landing",
+        "Custom": "page",
+        "Unknown": "page"
+      }
+    },
+    "contentSourcing": {
+      "description": "Where page content comes from",
+      "title": "site_urls.title || site_urls.h1 || 'Untitled'",
+      "description": "site_urls.meta_description || ''",
+      "metaTitle": "site_urls.meta_title || site_urls.title",
+      "metaDescription": "site_urls.meta_description",
+      "ogTitle": "site_urls.title",
+      "ogDescription": "site_urls.meta_description"
+    },
+    "productPageGeneration": {
+      "description": "Generate product detail pages from extracted_products",
+      "sourceTable": "extracted_products",
+      "skipExisting": true,
+      "seoSource": "extracted_products.seo_json (parsed)",
+      "schemaSource": "extracted_products.schema_json (parsed)"
+    },
+    "slugGeneration": {
+      "description": "Slug generation rules",
+      "strategy": "url-to-slug",
+      "lowercase": true,
+      "replaceSpaces": true,
+      "replaceSpecialChars": true,
+      "maxLength": 200
+    },
+    "conflictResolution": {
+      "description": "How to handle duplicate URLs",
+      "strategy": "INSERT OR REPLACE",
+      "uniqueColumn": "url"
+    }
+  }
+}

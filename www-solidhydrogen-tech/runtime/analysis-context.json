@@ -1,0 +1,48 @@
+{
+  "name": "analysis-context",
+  "version": "1.0.0",
+  "description": "Runtime metadata for analysis context — active analysis sessions, current analysis state, and analysis configuration.",
+  "owner": "layer-5-ai-analysis",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 5 AI Analysis Layer. No existing code depends on it yet.",
+  "activeSessions": [],
+  "configuration": {
+    "maxConcurrentAnalyses": 3,
+    "analysisTimeoutMs": 120000,
+    "normalizationTimeoutMs": 30000,
+    "extractionTimeoutMs": 60000,
+    "generationTimeoutMs": 60000,
+    "validationTimeoutMs": 30000,
+    "geminiTimeoutMs": 60000,
+    "retryLimit": 2,
+    "retryDelayMs": 1000,
+    "enableCaching": true,
+    "cacheExpirationMs": 3600000
+  },
+  "sessionRecord": {
+    "description": "Schema for each active session in activeSessions",
+    "fields": {
+      "id": "string — unique session ID",
+      "url": "string — URL being analyzed",
+      "state": "string — normalizing|extracting|analyzing|generating|validating|completed|failed",
+      "currentStep": "string — current workflow step",
+      "startTime": "string — ISO 8601 timestamp",
+      "lastActivity": "string — ISO 8601 timestamp",
+      "modules": "string[] — modules involved in this analysis",
+      "retryCount": "number — current retry count"
+    }
+  },
+  "stateTransitions": {
+    "description": "Valid state transitions for analysis sessions",
+    "transitions": {
+      "normalizing": ["extracting", "failed"],
+      "extracting": ["analyzing", "failed"],
+      "analyzing": ["generating", "failed"],
+      "generating": ["validating", "failed"],
+      "validating": ["completed", "failed"],
+      "completed": [],
+      "failed": []
+    }
+  },
+  "lastUpdated": null
+}

@@ -1,0 +1,51 @@
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  globalIgnores([
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    "src/app/dashboard/benefits/**",
+    "src/app/dashboard/footer/**",
+    "src/app/dashboard/footer-consolidated/**",
+    "src/app/dashboard/footer-details/**",
+    "src/app/dashboard/header/**",
+    "src/app/dashboard/header-consolidated/**",
+    "src/app/dashboard/header-settings/**",
+    "src/app/dashboard/hero/**",
+    "src/app/dashboard/hero-animated/**",
+    "src/app/dashboard/hero-consolidated/**",
+    "src/app/dashboard/images/**",
+    "src/app/dashboard/media-consolidated/**",
+    "src/app/dashboard/seo/**",
+    "src/app/dashboard/team/**",
+    "src/app/dashboard/team-consolidated/**",
+    "src/app/dashboard/team-section-text/**",
+    "src/app/dashboard/technology-consolidated/**",
+    "src/app/dashboard/technology-section/**",
+    "src/app/dashboard/theme/**",
+    "src/app/dashboard/videos/**",
+    "deployment/**",
+    "scripts/**",
+    "src/analyzer/**",
+    "src/app/api/benefits/**",
+    "src/app/api/footer/**",
+    "src/app/api/footer-details/**",
+    "src/app/api/header-settings/**",
+    "src/app/api/hero/**",
+    "src/app/api/hero-animated/**",
+    "src/app/api/images/**",
+    "src/app/api/team/**",
+    "src/app/api/team-section-text/**",
+    "src/app/api/technology-section/**",
+    "src/app/api/theme/**",
+    "src/app/api/videos/**",
+  ]),
+]);
+
+export default eslintConfig;

@@ -1,0 +1,50 @@
+{
+  "name": "browser-status",
+  "version": "1.0.0",
+  "description": "Runtime metadata for browser extraction status — current state of each browser engine, active sessions, and session health.",
+  "owner": "layer-4-browser-extraction",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 4 Browser Extraction Layer. No existing code depends on it yet.",
+  "engines": {
+    "chrome-devtools-mcp": {
+      "name": "chrome-devtools-mcp",
+      "displayName": "Chrome DevTools MCP",
+      "status": "unknown",
+      "lastHealthCheck": null,
+      "lastSuccessfulExtraction": null,
+      "lastFailedExtraction": null,
+      "consecutiveFailures": 0,
+      "activeSessions": 0,
+      "totalSessionsToday": 0,
+      "currentSession": null
+    },
+    "jcodesmore-browser": {
+      "name": "jcodesmore-browser",
+      "displayName": "JCodesMore Browser",
+      "status": "unknown",
+      "lastHealthCheck": null,
+      "lastSuccessfulExtraction": null,
+      "lastFailedExtraction": null,
+      "consecutiveFailures": 0,
+      "activeSessions": 0,
+      "totalSessionsToday": 0,
+      "currentSession": null
+    },
+    "firecrawl": {
+      "name": "firecrawl",
+      "displayName": "Firecrawl Recovery Engine",
+      "status": "unknown",
+      "lastHealthCheck": null,
+      "lastSuccessfulExtraction": null,
+      "lastFailedExtraction": null,
+      "consecutiveFailures": 0,
+      "activeSessions": 0,
+      "totalSessionsToday": 0,
+      "currentSession": null
+    }
+  },
+  "overallStatus": "idle",
+  "activeSessions": 0,
+  "totalSessionsToday": 0,
+  "lastUpdated": null
+}

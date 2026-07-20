@@ -1,0 +1,48 @@
+{
+  "name": "github-policy",
+  "version": "2.0.0",
+  "description": "GitHub repository management policy governing code push, branch management, and repository operations — Monorepo mode",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "policy": {
+    "scope": "github-integration",
+    "principle": "All websites deployed to ONE monorepo (michaelbmt86-lang/websitefactory). Each domain gets its own folder. Code is pushed via Git Data API. Never create additional repositories.",
+    "rules": {
+      "authentication": {
+        "method": "personal-access-token",
+        "envVar": "GITHUB_TOKEN",
+        "requiredScopes": ["repo", "admin:repo_hook"],
+        "description": "GitHub token must have repo and webhook scopes"
+      },
+      "repository": {
+        "mode": "monorepo",
+        "monorepo": "michaelbmt86-lang/websitefactory",
+        "visibility": "private",
+        "defaultBranch": "main",
+        "protectDefaultBranch": false,
+        "description": "Single monorepo for all website deployments. Never create additional repositories."
+      },
+      "projectFolders": {
+        "namingStrategy": "domain-with-dots-replaced-by-hyphens",
+        "example": "websitefactorytest.online → websitefactorytest-online",
+        "rule": "If project folder already exists → update it. If not → create it. Never duplicate folders."
+      },
+      "push": {
+        "method": "git-data-api",
+        "scope": "folder-only",
+        "requireCommitMessage": true,
+        "requireTreeIntegrity": true,
+        "description": "Code is pushed via GitHub Git Data API. push_code MUST only commit/update/push the current project folder. Never overwrite other project folders."
+      },
+      "webhooks": {
+        "createOnDeploy": true,
+        "events": ["push", "pull_request"],
+        "description": "Webhooks are created during deployment for CI/CD triggers"
+      },
+      "cleanup": {
+        "deleteRepoOnRollback": false,
+        "description": "Repository is never deleted during rollback — only deployment is reverted"
+      }
+    }
+  }
+}

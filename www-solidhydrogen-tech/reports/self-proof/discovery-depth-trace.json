@@ -1,0 +1,84 @@
+{
+  "title": "Discovery Depth Parameter Trace",
+  "targetUrl": "https://www.solidhydrogen.tech",
+  "timestamp": "2026-07-18T15:30:00.000Z",
+  "request": {
+    "url": "https://www.solidhydrogen.tech",
+    "maxDepth": 5,
+    "maxPages": 500
+  },
+  "response": {
+    "success": true,
+    "totalUrls": 10,
+    "maxDepth": 0,
+    "depthStats": { "0": 10 }
+  },
+  "parameterFlow": [
+    {
+      "layer": "API Route",
+      "file": "src/app/api/discovery/route.ts",
+      "line": 56,
+      "code": "const { url, maxDepth = 5, maxPages = 500 } = body;",
+      "receivedValue": 5,
+      "forwardedValue": 5,
+      "changed": false
+    },
+    {
+      "layer": "API Route → Engine",
+      "file": "src/app/api/discovery/route.ts",
+      "line": 70,
+      "code": "const result = await discoverSite(url, { maxDepth, maxPages });",
+      "receivedValue": 5,
+      "forwardedValue": 5,
+      "changed": false
+    },
+    {
+      "layer": "discoverSite()",
+      "file": "src/discovery/discovery-engine.ts",
+      "line": 325,
+      "code": "const engine = new DiscoveryEngine(baseUrl, options);",
+      "receivedValue": 5,
+      "forwardedValue": 5,
+      "changed": false
+    },
+    {
+      "layer": "DiscoveryEngine constructor",
+      "file": "src/discovery/discovery-engine.ts",
+      "line": 56,
+      "code": "this.options = { ...DEFAULT_OPTIONS, ...options };",
+      "receivedValue": 5,
+      "forwardedValue": 5,
+      "changed": false
+    },
+    {
+      "layer": "bfsCrawl()",
+      "file": "src/discovery/discovery-engine.ts",
+      "line": 189,
+      "code": "const maxDepth = this.options.maxDepth ?? 5;",
+      "receivedValue": 5,
+      "forwardedValue": 5,
+      "changed": false
+    },
+    {
+      "layer": "bfsCrawl() filter",
+      "file": "src/discovery/discovery-engine.ts",
+      "line": 194,
+      "code": "const validBatch = batch.filter(item => item.depth <= maxDepth);",
+      "receivedValue": "5 (as limit)",
+      "forwardedValue": "All depth-0 items pass filter",
+      "changed": false,
+      "note": "Correctly used as crawl depth ceiling. All 10 items had depth=0."
+    },
+    {
+      "layer": "generateResults()",
+      "file": "src/discovery/discovery-engine.ts",
+      "line": 312,
+      "code": "maxDepth: Math.max(...Object.keys(depthStats).map(Number), 0),",
+      "receivedValue": "depthStats = { 0: 10 }",
+      "forwardedValue": "Math.max(0, 0) = 0",
+      "changed": false,
+      "note": "This computes ACTUAL max depth of crawled URLs, not requested limit. Semantics differ."
+    }
+  ],
+  "conclusion": "maxDepth=5 was received, forwarded, and correctly used as BFS depth ceiling at every layer. The value was NEVER altered. The result.maxDepth=0 reflects the actual maximum depth of crawled pages (all 10 at depth 0), not the requested maxDepth limit."
+}

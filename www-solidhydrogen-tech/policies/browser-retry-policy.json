@@ -1,0 +1,44 @@
+{
+  "name": "browser-retry-policy",
+  "version": "1.0.0",
+  "description": "Defines browser retry behaviour — retry rules for browser-level failures, navigation errors, capture errors, and session failures.",
+  "owner": "layer-4-browser-extraction",
+  "enabled": true,
+  "rules": {
+    "navigationRetry": {
+      "description": "Retry behaviour for navigation failures",
+      "maxAttempts": 2,
+      "delayMs": 2000,
+      "backoffMultiplier": 2,
+      "maxDelayMs": 16000,
+      "retryableErrors": ["ECONNRESET", "ETIMEDOUT", "ENOTFOUND", "ECONNREFUSED", "500", "502", "503", "504"],
+      "nonRetryableErrors": ["404", "403", "401"],
+      "strategy": "retry-same-engine"
+    },
+    "captureRetry": {
+      "description": "Retry behaviour for DOM capture failures",
+      "maxAttempts": 2,
+      "delayMs": 1000,
+      "backoffMultiplier": 2,
+      "maxDelayMs": 8000,
+      "retryableErrors": ["empty-dom", "capture-timeout", "session-lost"],
+      "strategy": "retry-same-engine"
+    },
+    "sessionRetry": {
+      "description": "Retry behaviour for session failures",
+      "maxAttempts": 1,
+      "delayMs": 3000,
+      "backoffMultiplier": 1,
+      "maxDelayMs": 3000,
+      "retryableErrors": ["session-crash", "session-timeout", "memory-limit"],
+      "strategy": "create-new-session"
+    },
+    "overallRetry": {
+      "description": "Overall retry budget across all engines",
+      "maxTotalRetries": 6,
+      "maxRetriesPerEngine": 2,
+      "resetBudgetOnSuccess": true,
+      "logAllRetries": true
+    }
+  }
+}

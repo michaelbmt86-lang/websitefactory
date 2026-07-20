@@ -1,0 +1,87 @@
+{
+  "name": "cms-validation-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable CMS validation workflow definition — pre-generation and post-generation validation checks.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": "2026-07-18T00:00:00Z",
+  "workflow": {
+    "type": "cms-validation",
+    "totalSteps": 6,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "siteUrl": {
+        "type": "string",
+        "required": true,
+        "description": "Target site URL for validation"
+      },
+      "phase": {
+        "type": "string",
+        "required": true,
+        "description": "Validation phase: pre-generation or post-generation"
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "check-upstream-data",
+        "name": "Check Upstream Data Availability",
+        "description": "Verify site_urls and extracted_products tables have data for CMS generation",
+        "input": "siteUrl",
+        "output": "upstream-data-status",
+        "tablesRead": ["site_urls", "extracted_products"],
+        "failureAction": "return-upstream-data-error"
+      },
+      {
+        "step": 2,
+        "id": "check-schema-compatibility",
+        "name": "Check Schema Compatibility",
+        "description": "Verify CMS tables exist and have expected schema",
+        "input": "siteUrl",
+        "output": "schema-status",
+        "tablesRead": ["cms_pages", "cms_brands", "cms_collections", "cms_seo", "cms_search_index"],
+        "failureAction": "return-schema-error"
+      },
+      {
+        "step": 3,
+        "id": "validate-metadata-completeness",
+        "name": "Validate Metadata Completeness",
+        "description": "Check CMS pages have required meta tags, descriptions, OG tags",
+        "input": "schema-status",
+        "output": "metadata-status",
+        "tablesRead": ["cms_pages"],
+        "failureAction": "log-warnings-continue"
+      },
+      {
+        "step": 4,
+        "id": "validate-seo-coverage",
+        "name": "Validate SEO Coverage",
+        "description": "Calculate SEO coverage percentage across CMS pages",
+        "input": "metadata-status",
+        "output": "seo-coverage",
+        "tablesRead": ["cms_seo"],
+        "failureAction": "log-warnings-continue"
+      },
+      {
+        "step": 5,
+        "id": "validate-link-integrity",
+        "name": "Validate Link Integrity",
+        "description": "Check canonical URLs point to existing pages, detect broken internal links",
+        "input": "seo-coverage",
+        "output": "link-status",
+        "tablesRead": ["cms_seo", "cms_pages"],
+        "failureAction": "log-warnings-continue"
+      },
+      {
+        "step": 6,
+        "id": "validate-duplicate-slugs",
+        "name": "Validate Duplicate Slugs",
+        "description": "Check for duplicate slugs within same entity type across all CMS tables",
+        "input": "link-status",
+        "output": "slug-status",
+        "tablesRead": ["cms_pages", "cms_brands", "cms_collections", "cms_seo"],
+        "failureAction": "log-warnings-continue"
+      }
+    ]
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "name": "deployment-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable mirror of deployment/deployment.workflow.json — the 12-step deployment pipeline with 19-check delivery verification.",
+  "sourceOfTruth": "deployment/deployment.workflow.json",
+  "owner": "layer-2-execution-engine",
+  "enabled": true,
+  "workflow": {
+    "type": "deployment",
+    "totalSteps": 12,
+    "failFast": true,
+    "continueOnError": false,
+    "strategy": {
+      "alwaysCreateNewProject": true,
+      "reuseExistingProject": false,
+      "projectNameStrategy": "slug",
+      "cleanupOldProject": false
+    },
+    "providers": {
+      "deployment": "vercel",
+      "versionControl": "github",
+      "dns": "cloudflare"
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "create_project",
+        "provider": "vercel",
+        "required": true,
+        "description": "Create unique Vercel project from site slug"
+      },
+      {
+        "step": 2,
+        "id": "connect_github",
+        "provider": "github",
+        "required": true,
+        "description": "Link GitHub repository to Vercel project"
+      },
+      {
+        "step": 3,
+        "id": "configure_env",
+        "provider": "vercel",
+        "required": true,
+        "description": "Set environment variables (NODE_ENV, DOMAIN, GITHUB_REPO, ADMIN_EMAIL, ADMIN_PASSWORD)"
+      },
+      {
+        "step": 4,
+        "id": "deploy_project",
+        "provider": "vercel",
+        "required": true,
+        "description": "Trigger production deployment, poll until READY + PROMOTED"
+      },
+      {
+        "step": 5,
+        "id": "bind_domain",
+        "provider": "vercel",
+        "required": true,
+        "description": "Bind both apex and www domains to Vercel project"
+      },
+      {
+        "step": 6,
+        "id": "configure_cloudflare_dns",
+        "provider": "cloudflare",
+        "required": true,
+        "description": "Create A record (76.76.21.21 proxied) and www CNAME (cname.vercel-dns.com)"
+      },
+      {
+        "step": 7,
+        "id": "verify_dns",
+        "provider": "system",
+        "required": true,
+        "description": "Confirm DNS records exist and propagate"
+      },
+      {
+        "step": 8,
+        "id": "verify_https",
+        "provider": "system",
+        "required": true,
+        "description": "Both domains return HTTP 200 with valid TLS"
+      },
+      {
+        "step": 9,
+        "id": "verify_homepage",
+        "provider": "system",
+        "required": true,
+        "description": "Homepage returns 200 and is >30KB"
+      },
+      {
+        "step": 10,
+        "id": "verify_dashboard_login",
+        "provider": "browser",
+        "required": true,
+        "description": "Login form accessible at /login"
+      },
+      {
+        "step": 11,
+        "id": "verify_admin_account",
+        "provider": "system",
+        "required": true,
+        "description": "GET /api/auth/me returns 200 with admin user"
+      },
+      {
+        "step": 12,
+        "id": "delivery_complete",
+        "provider": "delivery",
+        "required": true,
+        "description": "Run 19-check delivery verification, generate archived report"
+      }
+    ],
+    "deliveryVerification": {
+      "totalChecks": 19,
+      "checks": [
+        "github_repo_exists",
+        "vercel_project_exists",
+        "deployment_ready",
+        "production_deployment",
+        "custom_domain_bound",
+        "https_apex_200",
+        "https_www_200",
+        "dns_configured",
+        "homepage_status_and_size",
+        "dashboard_200",
+        "dashboard_login_works",
+        "admin_account_exists",
+        "admin_login_succeeds",
+        "admin_dashboard_loads",
+        "no_not_found_errors",
+        "no_404_pages",
+        "no_500_errors",
+        "no_525_ssl_errors",
+        "cloudflare_dns_verified"
+      ]
+    }
+  }
+}

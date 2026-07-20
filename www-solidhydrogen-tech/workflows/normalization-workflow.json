@@ -1,0 +1,109 @@
+{
+  "name": "normalization-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable normalization workflow definition — HTML normalization, CSS normalization, media normalization, and structured data normalization.",
+  "owner": "layer-5-ai-analysis",
+  "enabled": true,
+  "workflow": {
+    "type": "normalization",
+    "totalSteps": 8,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "html": {
+        "type": "string",
+        "required": true,
+        "description": "Raw HTML content from Layer 4"
+      },
+      "url": {
+        "type": "string",
+        "required": true,
+        "description": "Source URL for relative URL resolution"
+      },
+      "structuredData": {
+        "type": "array",
+        "required": false,
+        "description": "JSON-LD and microdata from the page"
+      },
+      "networkData": {
+        "type": "array",
+        "required": false,
+        "description": "API endpoints and embedded JSON"
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "strip-unwanted-elements",
+        "name": "Strip Unwanted Elements",
+        "description": "Remove scripts, styles, comments, and non-semantic elements from HTML",
+        "input": "html",
+        "output": "stripped-html",
+        "failureAction": "return-original-html"
+      },
+      {
+        "step": 2,
+        "id": "decode-html-entities",
+        "name": "Decode HTML Entities",
+        "description": "Decode HTML entities — &amp; to &, &nbsp; to space, &#xxx; to characters",
+        "input": "stripped-html",
+        "output": "decoded-html",
+        "failureAction": "return-stripped-html"
+      },
+      {
+        "step": 3,
+        "id": "normalize-whitespace",
+        "name": "Normalize Whitespace",
+        "description": "Normalize whitespace — multiple spaces to single space, trim leading/trailing, normalize line breaks",
+        "input": "decoded-html",
+        "output": "normalized-html",
+        "failureAction": "return-decoded-html"
+      },
+      {
+        "step": 4,
+        "id": "extract-normalize-css",
+        "name": "Extract and Normalize CSS",
+        "description": "Extract inline styles and external stylesheets, normalize CSS properties and values",
+        "input": "normalized-html",
+        "output": "normalized-css",
+        "failureAction": "return-empty-css"
+      },
+      {
+        "step": 5,
+        "id": "extract-normalize-media",
+        "name": "Extract and Normalize Media",
+        "description": "Extract images, videos, downloads; deduplicate by URL and hash; validate URLs; categorize by type",
+        "input": "normalized-html, url",
+        "output": "normalized-media",
+        "failureAction": "return-partial-media"
+      },
+      {
+        "step": 6,
+        "id": "normalize-urls",
+        "name": "Normalize URLs",
+        "description": "Resolve relative URLs to absolute; normalize protocol; remove trailing slashes; deduplicate",
+        "input": "normalized-html, url",
+        "output": "normalized-urls",
+        "failureAction": "log-url-normalization-failure-continue"
+      },
+      {
+        "step": 7,
+        "id": "normalize-structured-data",
+        "name": "Normalize Structured Data",
+        "description": "Normalize JSON-LD, microdata — extract product data, organization, breadcrumbs, FAQ, schema",
+        "input": "structuredData, networkData",
+        "output": "normalized-structured-data",
+        "failureAction": "return-empty-structured-data"
+      },
+      {
+        "step": 8,
+        "id": "return-normalization-result",
+        "name": "Return Normalization Result",
+        "description": "Bundle all normalization results into a single output object",
+        "input": "normalized-html, normalized-css, normalized-media, normalized-urls, normalized-structured-data",
+        "output": "normalization-result",
+        "failureAction": "return-partial-normalization-result"
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "targetUrl": "https://www.solidhydrogen.tech",
+  "timestamp": "2026-07-17T09:36:11.667Z",
+  "durationMs": 3,
+  "source": {
+    "textContent": "docs/research/www.solidhydrogen.tech/text-content.json",
+    "globalExtraction": "docs/research/www.solidhydrogen.tech/global-extraction.json",
+    "pageTopology": "docs/research/www.solidhydrogen.tech/PAGE_TOPOLOGY.md"
+  },
+  "imported": {
+    "pages": 5,
+    "seo": 5,
+    "searchIndex": 5,
+    "media": 0
+  },
+  "skipped": {
+    "pages": 1,
+    "seo": 0,
+    "searchIndex": 0
+  },
+  "duplicates": {
+    "pages": 1,
+    "seo": 0
+  },
+  "errors": []
+}

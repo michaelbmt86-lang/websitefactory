@@ -1,0 +1,69 @@
+▲ Next.js 16.2.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.4:3000
+- Environments: .env.local, .env
+✓ Ready in 586ms
+
+ GET / 200 in 588ms (next.js: 209ms, application-code: 379ms)
+ GET / 200 in 99ms (next.js: 4ms, application-code: 94ms)
+ POST /api/discovery 200 in 17.1s (next.js: 108ms, application-code: 17.0s)
+ POST /api/discovery 200 in 9.3s (next.js: 56ms, application-code: 9.2s)
+ GET /api/discovery 200 in 10ms (next.js: 3ms, application-code: 7ms)
+ GET / 200 in 135ms (next.js: 4ms, application-code: 131ms)
+ POST /api/discovery 200 in 13.7s (next.js: 4ms, application-code: 13.7s)
+ POST /api/discovery 200 in 2.6s (next.js: 2ms, application-code: 2.6s)
+ GET /api/discovery 200 in 8ms (next.js: 3ms, application-code: 5ms)
+ POST /api/product-discovery 200 in 50ms (next.js: 35ms, application-code: 15ms)
+ GET /api/categories 200 in 37ms (next.js: 32ms, application-code: 6ms)
+ GET /api/products 200 in 36ms (next.js: 31ms, application-code: 5ms)
+ GET /api/media 200 in 36ms (next.js: 30ms, application-code: 6ms)
+ GET /api/seo 200 in 218ms (next.js: 211ms, application-code: 7ms)
+ GET /api/pages 200 in 35ms (next.js: 30ms, application-code: 5ms)
+ GET /api/navigation 200 in 35ms (next.js: 30ms, application-code: 5ms)
+ GET /api/images 200 in 125ms (next.js: 120ms, application-code: 5ms)
+ GET / 200 in 408ms (next.js: 120ms, application-code: 287ms)
+ POST /api/discovery 200 in 48s (next.js: 66ms, application-code: 48s)
+ GET /api/discovery 200 in 8ms (next.js: 3ms, application-code: 6ms)
+ POST /api/product-discovery 200 in 80ms (next.js: 60ms, application-code: 20ms)
+ POST /api/detail-extraction 200 in 58ms (next.js: 45ms, application-code: 13ms)
+[verification] Starting verification for https://www.biopak.com
+[verification] Running verifiers...
+[verification] Checks: 5 PASS, 2 WARN, 3 FAIL, 0 SKIP
+[verification] Running audit...
+[verification] Audit: 38 issues (16 errors, 26 fixable)
+[verification] Running repairs...
+[verification] Repairs: 10 fixed, 16 skipped, 0 failed
+[verification] Complete: {
+  status: 'FAILED',
+  checks: '5/10',
+  audit: '38 issues',
+  repairs: '10/26',
+  time: '26ms'
+}
+ POST /api/verification 200 in 89ms (next.js: 49ms, application-code: 41ms)
+[cms-generator] Starting CMS generation for https://www.biopak.com
+[cms-generator] Generating pages...
+[cms-generator] Generated 0 pages
+[cms-generator] Generating brands...
+[cms-generator] Generated 0 brands
+[cms-generator] Generating collections...
+[cms-generator] Generated 0 collections
+[cms-generator] Generating blog posts...
+[cms-generator] Generated 3 blog posts
+[cms-generator] Generating SEO metadata...
+[cms-generator] Generated 3 SEO entries
+[cms-generator] Building search index...
+[cms-generator] Built search index with 6 entries
+[cms-generator] Generating output files...
+[cms-generator] Validating quality...
+[cms-generator] Found 0 quality issues
+[cms-generator] CMS generation complete: {
+  pages: 0,
+  brands: 0,
+  collections: 0,
+  blog: 3,
+  seo: '100%',
+  search: '100%',
+  time: '32ms'
+}
+ POST /api/cms-generator 200 in 96ms (next.js: 49ms, application-code: 46ms)

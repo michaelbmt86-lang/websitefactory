@@ -1,0 +1,42 @@
+{
+  "name": "cms-health",
+  "version": "1.0.0",
+  "description": "Runtime metadata for CMS generation health — generation health state, scoring, and quality indicators.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 7 CMS Generation Layer. No existing code depends on it yet.",
+  "generation": {
+    "healthState": "unknown",
+    "healthScore": null,
+    "lastHealthCheck": null,
+    "nextHealthCheck": null
+  },
+  "metrics": {
+    "successRate": null,
+    "failureRate": null,
+    "avgGenerationDurationMs": null,
+    "totalGenerations": 0,
+    "successfulGenerations": 0,
+    "failedGenerations": 0,
+    "timeoutCount": 0,
+    "partialGenerationCount": 0,
+    "qualityCheckFailures": 0,
+    "outputFileFailures": 0
+  },
+  "quality": {
+    "seoCoverage": null,
+    "metadataCompleteness": null,
+    "linkIntegrity": null,
+    "duplicateSlugCount": 0,
+    "brokenLinkCount": 0,
+    "missingMetadataCount": 0,
+    "totalIssues": 0
+  },
+  "trend": {
+    "direction": "stable",
+    "changePercent": 0,
+    "windowSize": 10
+  },
+  "overallHealth": "unknown",
+  "healthCheckIntervalMs": 300000
+}

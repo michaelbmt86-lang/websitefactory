@@ -1,0 +1,31 @@
+{
+  "name": "browser-session",
+  "version": "1.0.0",
+  "description": "Runtime metadata for browser sessions — session lifecycle tracking, active sessions, and session history.",
+  "owner": "layer-4-browser-extraction",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 4 Browser Extraction Layer. No existing code depends on it yet.",
+  "activeSessions": {},
+  "sessionHistory": [],
+  "sessionLimits": {
+    "maxActiveSessions": 3,
+    "maxSessionsPerEngine": 1,
+    "maxHistoryRecords": 100,
+    "sessionTimeoutMs": 60000,
+    "idleTimeoutMs": 30000
+  },
+  "sessionStates": {
+    "created": { "description": "Session initialized but not yet active", "count": 0 },
+    "active": { "description": "Session is ready for navigation", "count": 0 },
+    "busy": { "description": "Session is processing a request", "count": 0 },
+    "idle": { "description": "Session is active but not processing", "count": 0 },
+    "failed": { "description": "Session has encountered an error", "count": 0 },
+    "closed": { "description": "Session has been closed and cleaned up", "count": 0 },
+    "recovered": { "description": "Session has recovered from failure", "count": 0 },
+    "timeout": { "description": "Session has timed out", "count": 0 }
+  },
+  "totalSessionsCreated": 0,
+  "totalSessionsClosed": 0,
+  "totalSessionsFailed": 0,
+  "lastUpdated": null
+}

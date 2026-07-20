@@ -1,0 +1,14 @@
+{
+  "currentPhase": "idle",
+  "runningTask": null,
+  "completedTasks": [],
+  "failedTasks": [],
+  "currentTarget": null,
+  "currentDomain": null,
+  "executionTime": 0,
+  "startTime": null,
+  "endTime": null,
+  "overallStatus": "idle",
+  "lastUpdated": null,
+  "note": "This file is generated automatically by the Layer 2 Execution Engine. No existing code depends on it yet."
+}

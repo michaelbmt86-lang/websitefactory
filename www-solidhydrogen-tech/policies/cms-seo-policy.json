@@ -1,0 +1,42 @@
+{
+  "name": "cms-seo-policy",
+  "version": "1.0.0",
+  "description": "Defines rules for SEO metadata generation — meta tags, Open Graph tags, canonical URLs, and structured data.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": "2026-07-18T00:00:00Z",
+  "rules": {
+    "metaTagGeneration": {
+      "description": "Generate meta tags for each CMS page",
+      "metaTitle": "page.meta_title || page.title",
+      "metaDescription": "page.meta_description || page.description.slice(0, 160)",
+      "maxLength": {
+        "metaTitle": 60,
+        "metaDescription": 160
+      }
+    },
+    "openGraphTags": {
+      "description": "Generate Open Graph tags",
+      "ogTitle": "page.og_title || page.title",
+      "ogDescription": "page.og_description || page.meta_description",
+      "ogImage": "page.og_image || '/images/hero-bg.jpg'",
+      "ogType": "website"
+    },
+    "canonicalUrl": {
+      "description": "Generate canonical URLs",
+      "strategy": "use-page-url",
+      "prefix": "https://",
+      "stripTrailingSlash": true
+    },
+    "schemaJson": {
+      "description": "Structured data (JSON-LD) handling",
+      "sourceFromPage": true,
+      "fallbackToEmpty": true,
+      "defaultSchemaType": "WebPage"
+    },
+    "seoCoverage": {
+      "description": "SEO coverage calculation",
+      "formula": "pagesWithMeta / totalPages * 100",
+      "minimumCoverage": 80
+    }
+  }
+}

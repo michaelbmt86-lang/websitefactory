@@ -1,0 +1,63 @@
+{
+  "name": "extraction-policy",
+  "version": "1.0.0",
+  "description": "Defines extraction behaviour for the Layer 3 Extraction Manager — engine selection, retry, recovery, and output normalization rules.",
+  "owner": "layer-3-extraction-manager",
+  "enabled": true,
+  "rules": {
+    "engineSelection": {
+      "description": "Deterministic engine selection based on priority chain",
+      "priority": ["chrome-devtools-mcp", "jcodesmore-browser", "firecrawl"],
+      "fallbackEnabled": true,
+      "maxEnginesPerAttempt": 3,
+      "firecrawlNeverPrimary": true
+    },
+    "retry": {
+      "description": "Retry behaviour for failed extraction attempts",
+      "maxAttempts": 2,
+      "delayMs": 2000,
+      "backoffMultiplier": 2,
+      "maxDelayMs": 30000,
+      "retryableErrors": ["ECONNRESET", "ETIMEDOUT", "429", "500", "502", "503", "504"],
+      "strategy": "retry-same-engine-then-fallback"
+    },
+    "recovery": {
+      "description": "Recovery switching behaviour when primary engine fails",
+      "enabled": true,
+      "chain": [
+        {
+          "level": "primary",
+          "engine": "chrome-devtools-mcp",
+          "failureAction": "retry-then-fallback"
+        },
+        {
+          "level": "recovery-l1",
+          "engine": "jcodesmore-browser",
+          "failureAction": "retry-then-fallback"
+        },
+        {
+          "level": "recovery-l2",
+          "engine": "firecrawl",
+          "failureAction": "retry-then-terminal-failure"
+        }
+      ],
+      "terminalFailureAction": "record-failure-skip-product"
+    },
+    "normalization": {
+      "description": "Output normalization behaviour",
+      "strategy": "dom-extraction-plus-heuristic",
+      "fallbackToPartial": true,
+      "logMissingFields": true
+    },
+    "stateManagement": {
+      "description": "Product extraction state transitions",
+      "allowedTransitions": {
+        "pending": ["extracting", "failed"],
+        "extracting": ["completed", "failed", "retrying"],
+        "retrying": ["extracting", "failed"],
+        "completed": [],
+        "failed": ["retrying", "pending"]
+      }
+    }
+  }
+}

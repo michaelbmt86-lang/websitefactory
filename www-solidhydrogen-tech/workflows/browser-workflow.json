@@ -1,0 +1,126 @@
+{
+  "name": "browser-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable browser extraction workflow definition — browser session lifecycle, navigation, DOM capture, dynamic rendering, and content validation.",
+  "owner": "layer-4-browser-extraction",
+  "enabled": true,
+  "workflow": {
+    "type": "browser-extraction",
+    "totalSteps": 10,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "url": {
+        "type": "string",
+        "required": true,
+        "description": "Target URL to navigate to and capture"
+      },
+      "engine": {
+        "type": "string",
+        "required": true,
+        "description": "Browser engine to use (chrome-devtools-mcp, jcodesmore-browser, firecrawl)"
+      },
+      "options": {
+        "type": "object",
+        "required": false,
+        "properties": {
+          "timeoutMs": { "type": "number", "default": 60000 },
+          "userAgent": { "type": "string", "default": "Chrome/120.0.0.0" },
+          "viewport": { "type": "object", "default": { "width": 1920, "height": 1080 } }
+        }
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "create-browser-session",
+        "name": "Create Browser Session",
+        "description": "Initialize a new browser session for the specified engine",
+        "input": "engine, options",
+        "output": "browser-session",
+        "failureAction": "return-session-failure-to-layer3"
+      },
+      {
+        "step": 2,
+        "id": "navigate-to-url",
+        "name": "Navigate to URL",
+        "description": "Navigate the browser session to the target URL with timeout",
+        "input": "browser-session, url",
+        "output": "navigation-result",
+        "failureAction": "return-navigation-failure-to-layer3"
+      },
+      {
+        "step": 3,
+        "id": "capture-dom-content",
+        "name": "Capture DOM Content",
+        "description": "Extract the full DOM/HTML content from the current page",
+        "input": "browser-session, navigation-result",
+        "output": "raw-html",
+        "failureAction": "return-capture-failure-to-layer3"
+      },
+      {
+        "step": 4,
+        "id": "apply-dynamic-rendering",
+        "name": "Apply Dynamic Rendering",
+        "description": "Expand hidden content, lazy-loaded elements, accordions, and tabs",
+        "input": "raw-html",
+        "output": "rendered-html",
+        "failureAction": "fallback-to-raw-html"
+      },
+      {
+        "step": 5,
+        "id": "expand-lazy-loading",
+        "name": "Expand Lazy Loading",
+        "description": "Convert data-src to src, expand noscript tags, remove lazy-load constraints",
+        "input": "rendered-html",
+        "output": "expanded-html",
+        "failureAction": "fallback-to-rendered-html"
+      },
+      {
+        "step": 6,
+        "id": "expand-hidden-content",
+        "name": "Expand Hidden Content",
+        "description": "Remove display:none, height:0, visibility:hidden, aria-hidden constraints",
+        "input": "expanded-html",
+        "output": "final-html",
+        "failureAction": "fallback-to-expanded-html"
+      },
+      {
+        "step": 7,
+        "id": "discover-page-assets",
+        "name": "Discover Page Assets",
+        "description": "Identify and catalog page assets (images, videos, downloads, JSON-LD)",
+        "input": "final-html, url",
+        "output": "asset-manifest",
+        "failureAction": "return-partial-asset-list"
+      },
+      {
+        "step": 8,
+        "id": "validate-browser-output",
+        "name": "Validate Browser Output",
+        "description": "Validate that captured HTML meets minimum quality thresholds",
+        "input": "final-html, asset-manifest",
+        "output": "validation-result",
+        "failureAction": "return-validation-failure-to-layer3"
+      },
+      {
+        "step": 9,
+        "id": "report-browser-metrics",
+        "name": "Report Browser Metrics",
+        "description": "Record navigation time, capture time, asset count, and session metrics",
+        "input": "navigation-result, validation-result, asset-manifest",
+        "output": "browser-metrics",
+        "failureAction": "log-metrics-failure-continue"
+      },
+      {
+        "step": 10,
+        "id": "close-browser-session",
+        "name": "Close Browser Session",
+        "description": "Clean up browser session resources and close session",
+        "input": "browser-session",
+        "output": "cleanup-status",
+        "failureAction": "log-cleanup-failure-force-terminate"
+      }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "cms-schema-policy",
+  "version": "1.0.0",
+  "description": "Defines rules for schema/structured data generation — JSON-LD, entity types, and validation.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": "2026-07-18T00:00:00Z",
+  "rules": {
+    "schemaSource": {
+      "description": "Where structured data comes from",
+      "primarySource": "extracted_products.schema_json",
+      "secondarySource": "site_urls.json_ld",
+      "fallbackToEmpty": true
+    },
+    "entityTypes": {
+      "description": "Schema types supported",
+      "supported": ["WebPage", "Product", "Brand", "Collection", "BlogPosting", "Organization", "BreadcrumbList"],
+      "defaultType": "WebPage"
+    },
+    "schemaInjection": {
+      "description": "How schema is injected into CMS entities",
+      "pages": "cms_pages.schema_json — copied from site_urls.json_ld or extracted_products.schema_json",
+      "seo": "cms_seo.schema_json — copied from cms_pages.schema_json",
+      "products": "extracted_products.schema_json — preserved as-is"
+    },
+    "validation": {
+      "description": "Schema validation rules",
+      "requireType": true,
+      "requireContext": true,
+      "validJsonLd": true,
+      "maxSchemaSize": 10000
+    },
+    "outputSchema": {
+      "description": "Schema output format",
+      "format": "json-ld",
+      "wrapInScript": false,
+      "prettyPrint": true
+    }
+  }
+}

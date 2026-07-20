@@ -1,0 +1,110 @@
+{
+  "name": "quality-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable quality validation workflow definition — extraction quality assessment, scoring, and reporting.",
+  "owner": "layer-3-extraction-manager",
+  "enabled": true,
+  "workflow": {
+    "type": "quality-validation",
+    "totalSteps": 5,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "extractedProduct": {
+        "type": "ExtractedProduct",
+        "required": true,
+        "description": "Extracted product data to validate"
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "assess-dom-completeness",
+        "name": "Assess DOM Completeness",
+        "description": "Calculate percentage of DOM elements successfully extracted (title, description, specifications, FAQ)",
+        "input": "extractedProduct",
+        "output": "dom-completeness-score",
+        "threshold": 70,
+        "failureAction": "flag-low-quality"
+      },
+      {
+        "step": 2,
+        "id": "assess-asset-completeness",
+        "name": "Assess Asset Completeness",
+        "description": "Calculate percentage of assets (images, videos, downloads) successfully extracted",
+        "input": "extractedProduct",
+        "output": "asset-completeness-score",
+        "threshold": 60,
+        "failureAction": "flag-low-quality"
+      },
+      {
+        "step": 3,
+        "id": "assess-seo-completeness",
+        "name": "Assess SEO Completeness",
+        "description": "Calculate percentage of SEO fields (title, meta description, keywords) successfully extracted",
+        "input": "extractedProduct",
+        "output": "seo-completeness-score",
+        "threshold": 80,
+        "failureAction": "flag-low-quality"
+      },
+      {
+        "step": 4,
+        "id": "calculate-overall-score",
+        "name": "Calculate Overall Score",
+        "description": "Calculate weighted average of all quality dimensions per quality-policy.json weights",
+        "input": "dom-completeness-score, asset-completeness-score, seo-completeness-score",
+        "output": "overall-quality-score",
+        "weights": {
+          "domCompleteness": 0.25,
+          "assetCompleteness": 0.20,
+          "imageCoverage": 0.20,
+          "seoCompleteness": 0.20,
+          "schemaCompleteness": 0.15
+        },
+        "failureAction": "flag-low-quality"
+      },
+      {
+        "step": 5,
+        "id": "generate-quality-report",
+        "name": "Generate Quality Report",
+        "description": "Generate structured quality report with scores, issues, and recommendations",
+        "input": "overall-quality-score",
+        "output": "quality-report",
+        "failureAction": "log-report-generation-failure-continue"
+      }
+    ],
+    "qualityDimensions": {
+      "domCompleteness": {
+        "description": "Percentage of DOM elements successfully extracted",
+        "fields": ["title", "description", "short_description", "specifications", "faq"],
+        "weight": 0.25
+      },
+      "assetCompleteness": {
+        "description": "Percentage of assets successfully extracted",
+        "fields": ["images", "videos", "downloads"],
+        "weight": 0.20
+      },
+      "imageCoverage": {
+        "description": "Percentage of product images successfully extracted",
+        "fields": ["images_json", "gallery_json"],
+        "weight": 0.20
+      },
+      "seoCompleteness": {
+        "description": "Percentage of SEO fields successfully extracted",
+        "fields": ["seo_json"],
+        "weight": 0.20
+      },
+      "schemaCompleteness": {
+        "description": "Percentage of schema.org structured data successfully extracted",
+        "fields": ["schema_json"],
+        "weight": 0.15
+      }
+    },
+    "enforcement": {
+      "blockStorage": false,
+      "logIssues": true,
+      "includeInReport": true,
+      "note": "Quality validation is advisory — low-quality extractions are flagged but not blocked"
+    }
+  }
+}

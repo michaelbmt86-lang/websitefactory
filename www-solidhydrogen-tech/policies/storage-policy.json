@@ -1,0 +1,46 @@
+{
+  "name": "storage-policy",
+  "version": "1.0.0",
+  "description": "Defines storage behaviour for the Layer 6 Data Storage Layer — write patterns, read patterns, batch operations, and query optimization.",
+  "owner": "layer-6-data-storage",
+  "enabled": true,
+  "rules": {
+    "writePatterns": {
+      "description": "Rules for writing data to SQLite",
+      "preferUpsert": true,
+      "useOnConflict": true,
+      "avoidManualSelectThenInsert": true,
+      "batchSizeLimit": 1000,
+      "wrapBulkWritesInTransactions": true,
+      "logWriteErrors": true,
+      "returnAffectedRows": true
+    },
+    "readPatterns": {
+      "description": "Rules for reading data from SQLite",
+      "usePreparedStatements": true,
+      "avoidSelectStar": false,
+      "useIndexHints": false,
+      "limitResultSets": true,
+      "defaultLimit": 100,
+      "maxLimit": 10000,
+      "usePagination": true
+    },
+    "batchOperations": {
+      "description": "Rules for batch database operations",
+      "wrapInTransaction": true,
+      "commitOnSuccess": true,
+      "rollbackOnError": true,
+      "logBatchResults": true,
+      "reportPartialFailures": true,
+      "maxBatchSize": 5000
+    },
+    "queryOptimization": {
+      "description": "Query performance optimization rules",
+      "useIndexes": true,
+      "avoidFullTableScan": true,
+      "useExplainForSlowQueries": true,
+      "slowQueryThresholdMs": 1000,
+      "logSlowQueries": true
+    }
+  }
+}

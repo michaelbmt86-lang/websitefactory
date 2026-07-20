@@ -1,0 +1,52 @@
+{
+  "name": "vercel-policy",
+  "version": "2.0.0",
+  "description": "Vercel deployment policy governing project creation, deployment, environment variables, and domain binding — Monorepo mode with glotalk team",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "policy": {
+    "scope": "vercel-deployment",
+    "principle": "Each domain gets ONE independent Vercel project under the glotalk team. rootDirectory points to the domain folder in the monorepo. Deployments are production-targeted.",
+    "rules": {
+      "team": {
+        "teamId": "glotalk",
+        "description": "All Vercel projects are created under the glotalk team"
+      },
+      "projectCreation": {
+        "alwaysCreateNew": false,
+        "updateIfExists": true,
+        "namingStrategy": "normalized-domain",
+        "framework": "nextjs",
+        "rootDirectory": "required",
+        "description": "Project name = normalized domain (e.g. websitefactorytest-online). rootDirectory = domain folder in monorepo. If project exists → update."
+      },
+      "deployment": {
+        "target": "production",
+        "source": "git",
+        "pollInterval": 10000,
+        "pollAttempts": 30,
+        "pollTimeout": 300000,
+        "requiredState": "READY",
+        "requiredSubstate": "PROMOTED",
+        "description": "Deployment triggers production build and polls until READY + PROMOTED"
+      },
+      "environmentVariables": {
+        "encrypt": true,
+        "scopes": ["production", "preview", "development"],
+        "requiredVars": ["NODE_ENV", "DOMAIN", "GITHUB_REPO", "ADMIN_EMAIL", "ADMIN_PASSWORD"],
+        "description": "All environment variables are encrypted and available in all scopes"
+      },
+      "domainBinding": {
+        "bindApex": true,
+        "bindWww": true,
+        "handleConflict": "409-retrieve-existing",
+        "description": "Both apex and www domains are bound. 409 conflicts are resolved by retrieving existing binding."
+      },
+      "projectCleanup": {
+        "deleteOldProject": false,
+        "verifyBeforeCleanup": true,
+        "description": "Old projects are not automatically deleted. Cleanup requires explicit verification."
+      }
+    }
+  }
+}

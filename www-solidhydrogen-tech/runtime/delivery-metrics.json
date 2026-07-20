@@ -1,0 +1,39 @@
+{
+  "name": "delivery-metrics",
+  "version": "1.0.0",
+  "description": "Delivery pipeline metrics — timing, success rates, and deployment statistics",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "lastUpdated": null,
+  "metrics": {
+    "totalDeployments": 0,
+    "successfulDeployments": 0,
+    "failedDeployments": 0,
+    "rolledBackDeployments": 0,
+    "successRate": 0,
+    "averageDeploymentTime": 0,
+    "averageVerificationTime": 0
+  },
+  "timings": {
+    "build": { "average": 0, "p50": 0, "p95": 0, "max": 0, "unit": "ms" },
+    "gitPush": { "average": 0, "p50": 0, "p95": 0, "max": 0, "unit": "ms" },
+    "vercelDeploy": { "average": 0, "p50": 0, "p95": 0, "max": 0, "unit": "ms" },
+    "dnsConfigure": { "average": 0, "p50": 0, "p95": 0, "max": 0, "unit": "ms" },
+    "dnsVerify": { "average": 0, "p50": 0, "p95": 0, "max": 0, "unit": "ms" },
+    "httpsVerify": { "average": 0, "p50": 0, "p95": 0, "max": 0, "unit": "ms" },
+    "productionVerify": { "average": 0, "p50": 0, "p95": 0, "max": 0, "unit": "ms" },
+    "totalPipeline": { "average": 0, "p50": 0, "p95": 0, "max": 0, "unit": "ms" }
+  },
+  "verificationChecks": {
+    "totalChecks": 0,
+    "passedChecks": 0,
+    "failedChecks": 0,
+    "skippedChecks": 0,
+    "averageChecksPerDeployment": 0
+  },
+  "retention": {
+    "maxHistoryRecords": 100,
+    "maxDaysRetained": 90,
+    "description": "Deployment metrics retained for 90 days, max 100 records"
+  }
+}

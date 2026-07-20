@@ -1,0 +1,45 @@
+{
+  "name": "sqlite-policy",
+  "version": "1.0.0",
+  "description": "Defines SQLite behaviour for the Layer 6 Data Storage Layer — single source of truth, connection management, pragma configuration, and database lifecycle.",
+  "owner": "layer-6-data-storage",
+  "enabled": true,
+  "rules": {
+    "singleSourceOfTruth": {
+      "description": "SQLite is the only persistent database — no secondary databases, no duplicated storage",
+      "sqliteIsOnlyDatabase": true,
+      "noSecondaryDatabase": true,
+      "noDuplicatedStorage": true,
+      "noCmsOwnedStorage": true,
+      "noDashboardOwnedStorage": true,
+      "allLayersReadWriteThroughLayer6": true
+    },
+    "connectionManagement": {
+      "description": "Database connection lifecycle management",
+      "library": "better-sqlite3",
+      "connectionMode": "synchronous",
+      "singletonInstance": true,
+      "connectionPerRequest": false,
+      "maxRetries": 3,
+      "retryDelayMs": 1000
+    },
+    "pragmaConfiguration": {
+      "description": "SQLite pragma settings for performance and integrity",
+      "journalMode": "WAL",
+      "synchronous": "NORMAL",
+      "foreignKeys": "ON",
+      "cacheSize": -8000,
+      "tempStore": "MEMORY",
+      "mmapSize": 268435456
+    },
+    "databaseLifecycle": {
+      "description": "Database file lifecycle management",
+      "localPath": "database/site.db",
+      "vercelPath": "/tmp/database/site.db",
+      "autoCreateDirectory": true,
+      "autoCreateDatabase": true,
+      "autoInitializeSchema": true,
+      "autoRunMigrations": true
+    }
+  }
+}

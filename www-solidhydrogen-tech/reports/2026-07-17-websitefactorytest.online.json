@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-07-17T09:49:42.292Z",
+  "targetWebsite": "",
+  "targetDomain": "websitefactorytest.online",
+  "environment": "test",
+  "github": {
+    "repository": "michaelbmt86-lang/websitefactory",
+    "commit": "7e4e30c",
+    "branch": "master"
+  },
+  "vercel": {
+    "projectName": "websitefactorytest",
+    "projectId": "prj_QjdtNuQlMHdrVppAAzFHPmB5wKXm",
+    "deploymentId": "",
+    "deploymentUrl": ""
+  },
+  "cloudflare": {
+    "zoneId": "",
+    "sslMode": "full",
+    "dns": []
+  },
+  "dashboard": {
+    "url": "https://websitefactorytest.online/dashboard",
+    "username": "michaelbmt86@gmail.com",
+    "password": "",
+    "firstLoginRequired": true
+  },
+  "deployment": {
+    "duration": "3.7s",
+    "status": "FAIL"
+  },
+  "verification": {
+    "homepage": false,
+    "routes": false,
+    "dashboard": false,
+    "login": false,
+    "seo": true,
+    "robots": true,
+    "sitemap": true,
+    "ssl": false,
+    "dns": false
+  },
+  "repairHistory": [],
+  "factoryVersion": "1.0.0",
+  "notes": ""
+}

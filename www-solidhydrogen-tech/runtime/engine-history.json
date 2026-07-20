@@ -1,0 +1,57 @@
+{
+  "name": "engine-history",
+  "version": "1.0.0",
+  "description": "Runtime metadata for extraction engine history — recent extraction attempts, recovery events, and failure records.",
+  "owner": "layer-3-extraction-manager",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 3 Extraction Manager. No existing code depends on it yet.",
+  "recentExtractions": [],
+  "recentRecoveries": [],
+  "recentFailures": [],
+  "historyLimits": {
+    "maxRecentExtractions": 100,
+    "maxRecentRecoveries": 50,
+    "maxRecentFailures": 50
+  },
+  "extractionRecord": {
+    "description": "Schema for each extraction record in recentExtractions",
+    "fields": {
+      "id": "string — unique extraction ID",
+      "url": "string — target URL",
+      "engine": "string — engine used",
+      "status": "string — success|failed|timeout|rate-limited",
+      "durationMs": "number — extraction duration in milliseconds",
+      "retryCount": "number — number of retries attempted",
+      "recoveryLevel": "string — primary|recovery-l1|recovery-l2",
+      "failureReason": "string|null — failure reason if failed",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "recoveryRecord": {
+    "description": "Schema for each recovery record in recentRecoveries",
+    "fields": {
+      "id": "string — unique recovery ID",
+      "url": "string — target URL",
+      "fromEngine": "string — engine that failed",
+      "toEngine": "string — engine switched to",
+      "reason": "string — recovery trigger reason",
+      "success": "boolean — whether recovery succeeded",
+      "durationMs": "number — recovery duration in milliseconds",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "failureRecord": {
+    "description": "Schema for each failure record in recentFailures",
+    "fields": {
+      "id": "string — unique failure ID",
+      "url": "string — target URL",
+      "engine": "string — engine that failed",
+      "category": "string — network|timeout|parsing|rate-limit|unknown",
+      "error": "string — error message",
+      "allEnginesFailed": "boolean — whether all engines failed",
+      "productSkipped": "boolean — whether product was skipped",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "lastUpdated": null
+}

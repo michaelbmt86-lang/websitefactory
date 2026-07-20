@@ -1,0 +1,44 @@
+{
+  "name": "cms-status",
+  "version": "1.0.0",
+  "description": "Runtime metadata for CMS generation status — current generation state, phase progress, and table statuses.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 7 CMS Generation Layer. No existing code depends on it yet.",
+  "generation": {
+    "overallStatus": "idle",
+    "currentPhase": null,
+    "phasesCompleted": 0,
+    "totalPhases": 8,
+    "lastGeneration": null,
+    "lastSuccessfulGeneration": null,
+    "lastFailedGeneration": null,
+    "consecutiveFailures": 0,
+    "activeGenerations": 0
+  },
+  "phases": {
+    "pages": { "name": "pages", "status": "pending", "recordsGenerated": 0, "durationMs": 0, "lastRun": null },
+    "brands": { "name": "brands", "status": "pending", "recordsGenerated": 0, "durationMs": 0, "lastRun": null },
+    "collections": { "name": "collections", "status": "pending", "recordsGenerated": 0, "durationMs": 0, "lastRun": null },
+    "blog": { "name": "blog", "status": "pending", "recordsGenerated": 0, "durationMs": 0, "lastRun": null },
+    "seo": { "name": "seo", "status": "pending", "recordsGenerated": 0, "durationMs": 0, "lastRun": null },
+    "search-index": { "name": "search-index", "status": "pending", "recordsGenerated": 0, "durationMs": 0, "lastRun": null },
+    "output-files": { "name": "output-files", "status": "pending", "filesGenerated": 0, "durationMs": 0, "lastRun": null },
+    "quality-validation": { "name": "quality-validation", "status": "pending", "issuesFound": 0, "durationMs": 0, "lastRun": null }
+  },
+  "tables": {
+    "cms_pages": { "name": "cms_pages", "rowCount": 0, "lastWrite": null, "status": "unknown" },
+    "cms_brands": { "name": "cms_brands", "rowCount": 0, "lastWrite": null, "status": "unknown" },
+    "cms_collections": { "name": "cms_collections", "rowCount": 0, "lastWrite": null, "status": "unknown" },
+    "cms_seo": { "name": "cms_seo", "rowCount": 0, "lastWrite": null, "status": "unknown" },
+    "cms_search_index": { "name": "cms_search_index", "rowCount": 0, "lastWrite": null, "status": "unknown" }
+  },
+  "outputFiles": {
+    "website-manifest.json": { "exists": false, "sizeBytes": 0, "lastGenerated": null },
+    "search-index.json": { "exists": false, "sizeBytes": 0, "lastGenerated": null },
+    "navigation.json": { "exists": false, "sizeBytes": 0, "lastGenerated": null },
+    "sitemap.xml": { "exists": false, "sizeBytes": 0, "lastGenerated": null },
+    "sitemap.json": { "exists": false, "sizeBytes": 0, "lastGenerated": null }
+  },
+  "lastUpdated": null
+}

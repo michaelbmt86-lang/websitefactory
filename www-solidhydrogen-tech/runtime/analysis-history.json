@@ -1,0 +1,75 @@
+{
+  "name": "analysis-history",
+  "version": "1.0.0",
+  "description": "Runtime metadata for analysis history — recent normalization events, extraction events, generation events, and failure records.",
+  "owner": "layer-5-ai-analysis",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 5 AI Analysis Layer. No existing code depends on it yet.",
+  "recentNormalizations": [],
+  "recentExtractions": [],
+  "recentGenerations": [],
+  "recentFailures": [],
+  "historyLimits": {
+    "maxRecentNormalizations": 100,
+    "maxRecentExtractions": 100,
+    "maxRecentGenerations": 100,
+    "maxRecentFailures": 50
+  },
+  "normalizationRecord": {
+    "description": "Schema for each normalization record in recentNormalizations",
+    "fields": {
+      "id": "string — unique normalization ID",
+      "url": "string — source URL",
+      "module": "string — normalization module (html, css, media, url)",
+      "status": "string — success|failed|partial",
+      "inputSizeBytes": "number — input HTML size in bytes",
+      "outputSizeBytes": "number — output HTML size in bytes",
+      "reductionPercent": "number — size reduction percentage",
+      "durationMs": "number — normalization duration in milliseconds",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "extractionRecord": {
+    "description": "Schema for each extraction record in recentExtractions",
+    "fields": {
+      "id": "string — unique extraction ID",
+      "url": "string — source URL",
+      "module": "string — extraction module (dom, gemini, seo, cms)",
+      "status": "string — success|failed|partial",
+      "fieldsExtracted": "number — number of fields extracted",
+      "specsExtracted": "number — number of specifications extracted",
+      "faqExtracted": "number — number of FAQ items extracted",
+      "imagesExtracted": "number — number of images extracted",
+      "durationMs": "number — extraction duration in milliseconds",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "generationRecord": {
+    "description": "Schema for each generation record in recentGenerations",
+    "fields": {
+      "id": "string — unique generation ID",
+      "url": "string — source URL",
+      "module": "string — generation module (json, cms, seo, report)",
+      "status": "string — success|failed|partial",
+      "itemsGenerated": "number — number of items generated",
+      "outputSizeBytes": "number — output size in bytes",
+      "durationMs": "number — generation duration in milliseconds",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "failureRecord": {
+    "description": "Schema for each failure record in recentFailures",
+    "fields": {
+      "id": "string — unique failure ID",
+      "url": "string — source URL",
+      "module": "string — module that failed",
+      "type": "string — normalization|extraction|generation|validation",
+      "category": "string — parsing|timeout|data|unknown",
+      "error": "string — error message",
+      "recoverable": "boolean — whether failure is recoverable",
+      "durationMs": "number — duration before failure",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "lastUpdated": null
+}

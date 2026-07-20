@@ -1,0 +1,69 @@
+{
+  "name": "cms-analysis-policy",
+  "version": "1.0.0",
+  "description": "Defines CMS generation analysis behaviour for the Layer 5 AI Analysis Layer — page generation, brand generation, collection generation, blog generation, and quality validation.",
+  "owner": "layer-5-ai-analysis",
+  "enabled": true,
+  "rules": {
+    "pageGeneration": {
+      "description": "CMS page generation rules",
+      "generatePagesFromSiteUrls": true,
+      "generatePagesFromProducts": true,
+      "generatePagesFromCategories": true,
+      "assignPageTypes": true,
+      "assignSeoMetadata": true,
+      "assignSchemaMarkup": true,
+      "deduplicateBySlug": true,
+      "fallbackPageTitleFromUrl": true
+    },
+    "brandGeneration": {
+      "description": "CMS brand generation rules",
+      "extractBrandsFromProducts": true,
+      "deduplicateByBrandName": true,
+      "generateBrandPages": true,
+      "generateBrandSeo": true,
+      "assignBrandLogos": true,
+      "fallbackBrandFromProductBrand": true
+    },
+    "collectionGeneration": {
+      "description": "CMS collection generation rules",
+      "extractCollectionsFromCategories": true,
+      "deduplicateByCollectionSlug": true,
+      "generateCollectionPages": true,
+      "generateCollectionSeo": true,
+      "assignProductsToCollections": true,
+      "fallbackCollectionFromCategory": true
+    },
+    "blogGeneration": {
+      "description": "CMS blog post generation rules",
+      "generatePostsFromDiscoveredContent": true,
+      "deduplicateByPostSlug": true,
+      "generatePostSeo": true,
+      "assignPostCategories": true,
+      "assignPostTags": true,
+      "fallbackPostTitleFromUrl": true
+    },
+    "searchIndex": {
+      "description": "Search index generation rules",
+      "indexAllPages": true,
+      "indexAllProducts": true,
+      "indexAllBrands": true,
+      "indexAllCollections": true,
+      "indexAllBlogPosts": true,
+      "includeTitle": true,
+      "includeDescription": true,
+      "includeTags": true,
+      "includeCategory": true
+    },
+    "qualityValidation": {
+      "description": "CMS quality validation rules",
+      "validateAllPagesHaveTitle": true,
+      "validateAllPagesHaveDescription": true,
+      "validateAllPagesHaveSeo": true,
+      "validateAllBrandsHaveName": true,
+      "validateAllCollectionsHaveSlug": true,
+      "validateAllPostsHaveTitle": true,
+      "minCmsQualityScore": 0.80
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "project_name": "websitefactorytest.online",
+  "project_slug": "websitefactorytest-online",
+  "target_domain": "websitefactorytest.online",
+  "reference_website": "https://www.solidhydrogen.tech",
+  "github_repository": "michaelbmt86-lang/websitefactory",
+  "environment": "test",
+  "registrar": "namecheap",
+  "dns_provider": "cloudflare",
+  "deployment_provider": "vercel"
+}

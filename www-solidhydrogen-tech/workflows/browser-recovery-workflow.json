@@ -1,0 +1,99 @@
+{
+  "name": "browser-recovery-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable browser recovery workflow definition — browser-level failure handling, session recovery, and failure reporting to Layer 3.",
+  "owner": "layer-4-browser-extraction",
+  "enabled": true,
+  "criticalConstraint": "Layer 4 does NOT switch engines. Engine switching is Layer 3 responsibility. Layer 4 reports failures to Layer 3.",
+  "workflow": {
+    "type": "browser-recovery",
+    "totalSteps": 5,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "failureType": {
+        "type": "string",
+        "required": true,
+        "description": "Type of browser failure (navigation, capture, session, timeout, memory)"
+      },
+      "engine": {
+        "type": "string",
+        "required": true,
+        "description": "Engine that experienced the failure"
+      },
+      "url": {
+        "type": "string",
+        "required": true,
+        "description": "Target URL that failed"
+      },
+      "sessionId": {
+        "type": "string",
+        "required": true,
+        "description": "Browser session ID that failed"
+      },
+      "error": {
+        "type": "string",
+        "required": true,
+        "description": "Error message from the failure"
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "receive-browser-failure",
+        "name": "Receive Browser Failure",
+        "description": "Receive browser failure event, log failure details, categorize failure type",
+        "input": "failureType, engine, url, sessionId, error",
+        "output": "failure-record",
+        "failureAction": "log-failure-continue"
+      },
+      {
+        "step": 2,
+        "id": "cleanup-failed-session",
+        "name": "Cleanup Failed Session",
+        "description": "Clean up resources from the failed browser session",
+        "input": "failure-record, sessionId",
+        "output": "cleanup-status",
+        "failureAction": "force-terminate-session"
+      },
+      {
+        "step": 3,
+        "id": "determine-recoverability",
+        "name": "Determine Recoverability",
+        "description": "Assess whether the failure is recoverable at the browser level",
+        "input": "failure-record",
+        "output": "recoverability-assessment",
+        "failureAction": "report-as-unrecoverable-to-layer3"
+      },
+      {
+        "step": 4,
+        "id": "attempt-browser-recovery",
+        "name": "Attempt Browser Recovery",
+        "description": "If recoverable, attempt browser-level recovery (new session, retry navigation)",
+        "input": "recoverability-assessment",
+        "output": "recovery-result",
+        "failureAction": "report-as-unrecoverable-to-layer3"
+      },
+      {
+        "step": 5,
+        "id": "report-recovery-status",
+        "name": "Report Recovery Status",
+        "description": "Report recovery status to Layer 3 for engine switching decision",
+        "input": "recovery-result",
+        "output": "recovery-status-to-layer3",
+        "failureAction": "log-reporting-failure"
+      }
+    ],
+    "failureTypes": {
+      "navigation": { "description": "URL navigation failed", "recoverable": true },
+      "capture": { "description": "DOM capture failed", "recoverable": true },
+      "session": { "description": "Browser session crashed or became invalid", "recoverable": true },
+      "timeout": { "description": "Browser operation timed out", "recoverable": true },
+      "memory": { "description": "Browser ran out of memory", "recoverable": false }
+    },
+    "recoveryActions": {
+      "recoverable": "create-new-session-and-retry",
+      "unrecoverable": "report-failure-to-layer3"
+    }
+  }
+}

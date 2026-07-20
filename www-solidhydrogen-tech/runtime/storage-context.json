@@ -1,0 +1,51 @@
+{
+  "name": "storage-context",
+  "version": "1.0.0",
+  "description": "Runtime metadata for storage context — active operations, configuration, and storage state management.",
+  "owner": "layer-6-data-storage",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 6 Data Storage Layer. No existing code depends on it yet.",
+  "activeOperations": [],
+  "configuration": {
+    "databasePath": "database/site.db",
+    "vercelPath": "/tmp/database/site.db",
+    "journalMode": "WAL",
+    "foreignKeys": true,
+    "synchronous": "NORMAL",
+    "cacheSize": 8000,
+    "tempStore": "MEMORY",
+    "mmapSize": 268435456,
+    "maxRetries": 3,
+    "retryDelayMs": 1000,
+    "transactionTimeoutMs": 30000,
+    "queryTimeoutMs": 60000,
+    "enableWALCheckpoint": true,
+    "enableIntegrityCheck": true,
+    "integrityCheckIntervalMs": 86400000
+  },
+  "operationRecord": {
+    "description": "Schema for each active operation in activeOperations",
+    "fields": {
+      "id": "string — unique operation ID",
+      "type": "string — write|read|transaction|migration|backup|recovery",
+      "table": "string|null — target table",
+      "startTime": "string — ISO 8601 timestamp",
+      "lastActivity": "string — ISO 8601 timestamp",
+      "statements": "number — number of SQL statements",
+      "status": "string — pending|running|completed|failed"
+    }
+  },
+  "stateTransitions": {
+    "description": "Valid state transitions for storage operations",
+    "transitions": {
+      "idle": ["writing", "reading", "migrating", "backing-up", "recovering"],
+      "writing": ["idle", "failed"],
+      "reading": ["idle", "failed"],
+      "migrating": ["idle", "failed"],
+      "backing-up": ["idle", "failed"],
+      "recovering": ["idle", "failed"],
+      "failed": ["idle"]
+    }
+  },
+  "lastUpdated": null
+}

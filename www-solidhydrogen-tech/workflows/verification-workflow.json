@@ -1,0 +1,75 @@
+{
+  "name": "verification-workflow",
+  "version": "1.0.0",
+  "description": "Post-deployment verification workflow running comprehensive health checks on the live production site",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "workflow": {
+    "id": "verification-workflow",
+    "trigger": "post-deployment",
+    "failFast": false,
+    "continueOnError": true,
+    "steps": [
+      {
+        "step": 1,
+        "id": "verify-infrastructure",
+        "name": "Verify Infrastructure",
+        "description": "Check GitHub repo exists, Vercel project exists, deployment READY + PROMOTED",
+        "action": "infra-check",
+        "outputs": ["github-ok", "vercel-ok", "deployment-ready"],
+        "dependencies": [],
+        "failureAction": "log-failure"
+      },
+      {
+        "step": 2,
+        "id": "verify-network",
+        "name": "Verify Network Layer",
+        "description": "Check DNS resolution, HTTPS certificates, no 525 SSL errors on both domains",
+        "action": "network-check",
+        "outputs": ["dns-ok", "https-ok", "no-ssl-errors"],
+        "dependencies": ["verify-infrastructure"],
+        "failureAction": "log-failure"
+      },
+      {
+        "step": 3,
+        "id": "verify-content",
+        "name": "Verify Content Delivery",
+        "description": "Check homepage >5KB, dashboard accessible, no 404/500 errors on key routes",
+        "action": "content-check",
+        "outputs": ["homepage-ok", "dashboard-ok", "no-errors"],
+        "dependencies": ["verify-network"],
+        "failureAction": "log-failure"
+      },
+      {
+        "step": 4,
+        "id": "verify-auth",
+        "name": "Verify Authentication",
+        "description": "Check login form accessible, admin account exists, POST /api/auth/login succeeds",
+        "action": "auth-check",
+        "outputs": ["login-ok", "admin-ok", "auth-flow-ok"],
+        "dependencies": ["verify-content"],
+        "failureAction": "log-failure"
+      },
+      {
+        "step": 5,
+        "id": "verify-seo",
+        "name": "Verify SEO & Standards",
+        "description": "Check robots.txt, sitemap.xml, meta tags present on homepage",
+        "action": "seo-check",
+        "outputs": ["robots-ok", "sitemap-ok", "meta-ok"],
+        "dependencies": ["verify-content"],
+        "failureAction": "log-failure"
+      },
+      {
+        "step": 6,
+        "id": "aggregate-results",
+        "name": "Aggregate Verification Results",
+        "description": "Combine all check results into final verification verdict (PASS/FAIL/WARN)",
+        "action": "aggregate",
+        "outputs": ["verification-verdict", "check-summary"],
+        "dependencies": ["verify-auth", "verify-seo"],
+        "failureAction": "none"
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "executionId": null,
+  "workflowVersion": "1.0.0",
+  "policyVersion": "1.0.0",
+  "architectureVersion": "1.0.0",
+  "gitCommit": null,
+  "nodeVersion": null,
+  "sqliteVersion": null,
+  "opencodeVersion": null,
+  "executionMode": null,
+  "target": null,
+  "domain": null,
+  "note": "Execution metadata is populated at the start of each execution run. This file is generated automatically."
+}

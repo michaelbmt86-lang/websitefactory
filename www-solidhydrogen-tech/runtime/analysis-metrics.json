@@ -1,0 +1,117 @@
+{
+  "name": "analysis-metrics",
+  "version": "1.0.0",
+  "description": "Runtime metadata for analysis metrics — normalization time, extraction time, analysis time, generation time, quality score, and coverage metrics per module.",
+  "owner": "layer-5-ai-analysis",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 5 AI Analysis Layer. No existing code depends on it yet.",
+  "modules": {
+    "normalization": {
+      "name": "normalization",
+      "displayName": "HTML/CSS/Media Normalization",
+      "metrics": {
+        "normalizationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+        "htmlStripTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "cssExtractionTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "mediaNormalizationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "urlNormalizationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "inputHtmlSizeBytes": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "outputHtmlSizeBytes": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "mediaAssetsProcessed": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "urlsNormalized": { "total": 0, "avg": 0, "min": 0, "max": 0 }
+      },
+      "lastUpdated": null
+    },
+    "gemini-analyzer": {
+      "name": "gemini-analyzer",
+      "displayName": "Gemini Heuristic Analyzer",
+      "metrics": {
+        "analysisTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+        "heuristicParseTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "normalizationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "fieldsExtracted": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "specsExtracted": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "faqExtracted": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "tagsExtracted": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "breadcrumbsExtracted": { "total": 0, "avg": 0, "min": 0, "max": 0 }
+      },
+      "lastUpdated": null
+    },
+    "dom-extractor": {
+      "name": "dom-extractor",
+      "displayName": "DOM Data Extractor",
+      "metrics": {
+        "extractionTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+        "titleExtractionTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "specExtractionTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "faqExtractionTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "structureExtractionTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "titlesExtracted": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "specsExtracted": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "faqExtracted": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "breadcrumbsExtracted": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "imagesExtracted": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "downloadsExtracted": { "total": 0, "avg": 0, "min": 0, "max": 0 }
+      },
+      "lastUpdated": null
+    },
+    "seo-generator": {
+      "name": "seo-generator",
+      "displayName": "SEO Metadata Generator",
+      "metrics": {
+        "generationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+        "metaTagTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "ogTagTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "schemaTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "seoPagesGenerated": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "seoCoveragePercent": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "fallbacksUsed": { "total": 0, "avg": 0 }
+      },
+      "lastUpdated": null
+    },
+    "cms-generator": {
+      "name": "cms-generator",
+      "displayName": "CMS Content Generator",
+      "metrics": {
+        "generationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+        "pageGenerationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "brandGenerationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "collectionGenerationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "blogGenerationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "pagesGenerated": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "brandsGenerated": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "collectionsGenerated": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "blogPostsGenerated": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "searchIndexSize": { "total": 0, "avg": 0, "min": 0, "max": 0 }
+      },
+      "lastUpdated": null
+    },
+    "quality-validator": {
+      "name": "quality-validator",
+      "displayName": "Quality Validator",
+      "metrics": {
+        "validationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+        "scoringTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "reportTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "totalIssuesFound": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "errorsFound": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "warningsFound": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "qualityScore": { "total": 0, "avg": 0, "min": 0, "max": 0 }
+      },
+      "lastUpdated": null
+    }
+  },
+  "overallMetrics": {
+    "totalAnalyses": 0,
+    "totalNormalizations": 0,
+    "totalExtractions": 0,
+    "totalGenerations": 0,
+    "totalValidations": 0,
+    "overallAvgAnalysisMs": 0,
+    "overallAvgNormalizationMs": 0,
+    "overallAvgExtractionMs": 0,
+    "overallAvgGenerationMs": 0,
+    "overallAvgQualityScore": 0
+  },
+  "lastUpdated": null
+}

@@ -1,0 +1,17 @@
+import { NextRequest, NextResponse } from "next/server";
+import db from "@/lib/db";
+
+export async function GET() {
+  const row = db.prepare("SELECT * FROM header_settings LIMIT 1").get();
+  return NextResponse.json(row);
+}
+
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  db.prepare(`
+    UPDATE header_settings SET
+      contact_button_label = ?, contact_email = ?, logo = ?, logo_alt = ?
+    WHERE id = 1
+  `).run(body.contact_button_label, body.contact_email, body.logo, body.logo_alt);
+  return NextResponse.json({ success: true });
+}

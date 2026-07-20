@@ -1,0 +1,52 @@
+{
+  "name": "browser-policy",
+  "version": "1.0.0",
+  "description": "Defines browser extraction behaviour for the Layer 4 Browser Extraction Layer — engine execution, session management, content capture, and output validation rules.",
+  "owner": "layer-4-browser-extraction",
+  "enabled": true,
+  "rules": {
+    "engineExecution": {
+      "description": "Browser engine execution behaviour — Layer 4 executes the engine that Layer 3 specifies",
+      "enginePriority": ["chrome-devtools-mcp", "jcodesmore-browser", "firecrawl"],
+      "firecrawlNeverPrimary": true,
+      "engineSelectionOwner": "layer-3-extraction-manager",
+      "layer4Role": "execute-only"
+    },
+    "sessionManagement": {
+      "description": "Browser session lifecycle management",
+      "sessionTimeoutMs": 60000,
+      "maxConcurrentSessions": 3,
+      "cleanupOnCompletion": true,
+      "cleanupOnFailure": true,
+      "sessionStates": ["created", "active", "busy", "idle", "failed", "closed", "recovered", "timeout"]
+    },
+    "contentCapture": {
+      "description": "DOM content capture behaviour",
+      "minimumContentLength": 100,
+      "captureTitle": true,
+      "captureFullHtml": true,
+      "includeScripts": false,
+      "includeStyles": false,
+      "validationRequired": true
+    },
+    "dynamicRendering": {
+      "description": "Server-side dynamic rendering behaviour",
+      "expandHiddenContent": true,
+      "expandLazyLoaded": true,
+      "expandNoscript": true,
+      "expandAccordions": true,
+      "expandTabs": true,
+      "fallbackToOriginal": true
+    },
+    "assetDiscovery": {
+      "description": "Page asset discovery behaviour",
+      "discoverImages": true,
+      "discoverVideos": true,
+      "discoverDownloads": true,
+      "discoverJsonLd": true,
+      "discoverNoscript": true,
+      "discoverMetaTags": true,
+      "normalizeUrls": true
+    }
+  }
+}

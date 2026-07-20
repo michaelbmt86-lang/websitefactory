@@ -1,0 +1,49 @@
+{
+  "name": "cloudflare-policy",
+  "version": "1.0.0",
+  "description": "Cloudflare DNS and SSL policy governing DNS record management, SSL configuration, and CDN proxy settings",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "policy": {
+    "scope": "cloudflare-dns-ssl",
+    "principle": "Cloudflare manages DNS resolution and SSL termination. Apex domain is proxied through Cloudflare CDN. WWW is DNS-only.",
+    "rules": {
+      "authentication": {
+        "method": "api-token",
+        "envVar": "CLOUDFLARE_API_TOKEN",
+        "requiredPermissions": ["Zone:DNS:Edit", "Zone:Zone:Read"],
+        "description": "Cloudflare API token must have DNS edit and zone read permissions"
+      },
+      "dnsRecords": {
+        "apex": {
+          "type": "A",
+          "value": "76.76.21.21",
+          "proxied": true,
+          "ttl": 1,
+          "description": "Apex domain points to Vercel IP, proxied through Cloudflare CDN"
+        },
+        "www": {
+          "type": "CNAME",
+          "value": "cname.vercel-dns.com",
+          "proxied": false,
+          "ttl": 1,
+          "description": "WWW subdomain CNAMEs to Vercel, DNS-only (no CDN proxy)"
+        }
+      },
+      "ssl": {
+        "mode": "full",
+        "universalSsl": true,
+        "description": "SSL mode set to 'full' for end-to-end encryption via Cloudflare Universal SSL"
+      },
+      "zoneLookup": {
+        "required": true,
+        "failOnMissing": true,
+        "description": "Zone must exist in Cloudflare before DNS records can be created"
+      },
+      "cleanup": {
+        "removeOrphanedRecords": false,
+        "description": "Orphaned DNS records are not automatically removed"
+      }
+    }
+  }
+}

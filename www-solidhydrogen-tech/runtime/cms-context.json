@@ -1,0 +1,46 @@
+{
+  "name": "cms-context",
+  "version": "1.0.0",
+  "description": "Runtime metadata for CMS generation context — active operations, configuration, and generation state management.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 7 CMS Generation Layer. No existing code depends on it yet.",
+  "activeOperations": [],
+  "configuration": {
+    "maxRetries": 0,
+    "retryDelayMs": 0,
+    "phaseTimeoutMs": 30000,
+    "totalTimeoutMs": 300000,
+    "outputPath": "docs/discovery",
+    "enableQualityValidation": true,
+    "enableOutputFiles": true,
+    "enableSearchIndex": true,
+    "enableSitemap": true
+  },
+  "operationRecord": {
+    "description": "Schema for each active operation in activeOperations",
+    "fields": {
+      "id": "string — unique operation ID",
+      "type": "string — generation|validation|delivery",
+      "siteUrl": "string — target site URL",
+      "currentPhase": "string — current phase name",
+      "phasesCompleted": "number — phases completed",
+      "startTime": "string — ISO 8601 timestamp",
+      "lastActivity": "string — ISO 8601 timestamp",
+      "status": "string — pending|running|completed|failed"
+    }
+  },
+  "stateTransitions": {
+    "description": "Valid state transitions for CMS generation",
+    "transitions": {
+      "idle": ["generating", "validating", "delivering", "failed"],
+      "generating": ["validating", "completed", "failed", "partial"],
+      "validating": ["delivering", "completed", "failed"],
+      "delivering": ["completed", "failed"],
+      "completed": ["idle"],
+      "failed": ["idle"],
+      "partial": ["idle"]
+    }
+  },
+  "lastUpdated": null
+}

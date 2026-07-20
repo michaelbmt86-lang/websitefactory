@@ -1,0 +1,131 @@
+{
+  "siteUrl": "https://www.solidhydrogen.tech",
+  "timestamp": "2026-07-20T02:58:06.382Z",
+  "checks": [
+    {
+      "name": "pages",
+      "status": "PASS",
+      "message": "13 pages verified successfully",
+      "details": {
+        "total": 13,
+        "issues": [],
+        "dupeSlugs": 0
+      }
+    },
+    {
+      "name": "products",
+      "status": "WARNING",
+      "message": "No extracted products found"
+    },
+    {
+      "name": "media",
+      "status": "WARNING",
+      "message": "No media assets found"
+    },
+    {
+      "name": "links",
+      "status": "PASS",
+      "message": "13 pages checked. 0 link issues.",
+      "details": {
+        "totalPages": 13,
+        "brokenCanonical": 0,
+        "brokenNav": 0,
+        "issues": []
+      }
+    },
+    {
+      "name": "seo",
+      "status": "FAILED",
+      "message": "SEO coverage: 23% (13 entries). 4 issues.",
+      "details": {
+        "total": 13,
+        "coverage": 23,
+        "seoEntries": 13,
+        "issues": [
+          "10 pages missing meta description",
+          "10 pages missing OG description",
+          "3 pages missing canonical",
+          "13 pages missing structured data"
+        ]
+      }
+    },
+    {
+      "name": "schema",
+      "status": "FAILED",
+      "message": "Schema coverage: 0% (0 pages, 0 products).",
+      "details": {
+        "totalPages": 13,
+        "totalProducts": 0,
+        "pagesWithSchema": 0,
+        "productsWithSchema": 0,
+        "coverage": 0,
+        "issues": [
+          "No pages have structured data"
+        ]
+      }
+    },
+    {
+      "name": "navigation",
+      "status": "FAILED",
+      "message": "18 nav links. 2 issues.",
+      "details": {
+        "total": 18,
+        "brokenNavLinks": 18,
+        "missingLabels": 0,
+        "issues": [
+          "12 duplicate sort orders",
+          "18 broken navigation links"
+        ]
+      }
+    },
+    {
+      "name": "build",
+      "status": "PASS",
+      "message": "All build checks passed",
+      "details": {
+        "typecheck": "PASS",
+        "lint": "PASS",
+        "build": "PASS",
+        "issues": []
+      }
+    },
+    {
+      "name": "deployment",
+      "status": "PASS",
+      "message": "Deployment ready",
+      "details": {
+        "gitClean": true,
+        "hasRemote": true,
+        "missingEnvVars": [],
+        "issues": []
+      }
+    },
+    {
+      "name": "sqlite",
+      "status": "PASS",
+      "message": "38 tables. 0 issues.",
+      "details": {
+        "tables": 38,
+        "missingTables": [],
+        "counts": {
+          "products": 0,
+          "categories": 6,
+          "navigation": 18,
+          "pages": 0,
+          "settings": 1,
+          "site_urls": 10,
+          "product_urls": 0,
+          "extracted_products": 0,
+          "media_assets": 0,
+          "cms_pages": 13,
+          "cms_brands": 0,
+          "cms_collections": 0,
+          "cms_seo": 13,
+          "cms_search_index": 16
+        },
+        "issues": []
+      }
+    }
+  ],
+  "overallStatus": "FAILED"
+}

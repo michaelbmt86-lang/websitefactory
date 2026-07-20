@@ -1,0 +1,48 @@
+{
+  "name": "repair-policy",
+  "version": "1.0.0",
+  "description": "Defines automatic repair behaviour for issues detected during verification — what can be auto-fixed, what requires manual intervention, and repair limits.",
+  "owner": "layer-2-execution-engine",
+  "enabled": true,
+  "rules": {
+    "autoRepairable": {
+      "description": "Issues that can be automatically repaired without manual intervention",
+      "categories": [
+        "missing-alt-attributes",
+        "broken-internal-links",
+        "missing-seo-metadata",
+        "missing-schema-markup",
+        "duplicate-slug-resolved",
+        "missing-sitemap-entries",
+        "broken-media-references"
+      ],
+      "maxAutoRepairAttempts": 3
+    },
+    "manualIntervention": {
+      "description": "Issues that require human review and cannot be auto-repaired",
+      "categories": [
+        "build-failure-after-repair",
+        "type-error-in-generated-component",
+        "missing-critical-asset",
+        "database-schema-mismatch",
+        "deployment-configuration-error"
+      ],
+      "action": "log-issue-and-abort-phase"
+    },
+    "repairScope": {
+      "description": "Repairs are limited to issues introduced by the current execution, not pre-existing issues",
+      "currentExecutionOnly": true,
+      "preserveExistingBehaviour": true
+    },
+    "auditEngine": {
+      "description": "The audit engine identifies issues but does not modify code directly",
+      "readOnly": false,
+      "generatesReport": true
+    },
+    "repairEngine": {
+      "description": "The repair engine applies fixes identified by the audit engine",
+      "dryRunOption": true,
+      "reportPath": "docs/discovery/repair-report.json"
+    }
+  }
+}

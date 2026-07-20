@@ -1,0 +1,46 @@
+{
+  "name": "delivery-policy",
+  "version": "1.0.0",
+  "description": "Master delivery pipeline policy governing the full deployment lifecycle from build to production verification",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "policy": {
+    "scope": "deployment-pipeline",
+    "principle": "Only verified artifacts from upstream layers may be deployed. Deployment is irreversible without explicit rollback.",
+    "rules": {
+      "preDeployment": {
+        "requireBuild": true,
+        "requireTypecheck": true,
+        "requireLint": true,
+        "requireQualityValidation": true,
+        "requireUpstreamVerification": true,
+        "description": "All upstream layers must pass validation before deployment proceeds"
+      },
+      "deploymentOrder": {
+        "sequence": ["github-push", "vercel-deploy", "cloudflare-dns", "production-verify"],
+        "failFast": true,
+        "continueOnError": false,
+        "description": "Deployment steps execute sequentially. Failure at any step halts the pipeline."
+      },
+      "artifactIntegrity": {
+        "requireStandaloneOutput": true,
+        "requireDockerBuild": false,
+        "requireGitCommit": true,
+        "description": "Build artifacts must be standalone Next.js output with a valid git commit"
+      },
+      "postDeployment": {
+        "requireHealthCheck": true,
+        "requireDnsVerification": true,
+        "requireHttpsVerification": true,
+        "requireProductionVerification": true,
+        "description": "Post-deployment verification must confirm the site is live and accessible"
+      },
+      "rollback": {
+        "enabled": true,
+        "automatic": false,
+        "requireApproval": true,
+        "description": "Rollback is available but requires explicit approval. Not triggered automatically."
+      }
+    }
+  }
+}

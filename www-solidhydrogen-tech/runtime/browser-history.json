@@ -1,0 +1,76 @@
+{
+  "name": "browser-history",
+  "version": "1.0.0",
+  "description": "Runtime metadata for browser history — recent navigation events, capture events, session events, and failure records.",
+  "owner": "layer-4-browser-extraction",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 4 Browser Extraction Layer. No existing code depends on it yet.",
+  "recentNavigations": [],
+  "recentCaptures": [],
+  "recentSessions": [],
+  "recentFailures": [],
+  "historyLimits": {
+    "maxRecentNavigations": 100,
+    "maxRecentCaptures": 100,
+    "maxRecentSessions": 50,
+    "maxRecentFailures": 50
+  },
+  "navigationRecord": {
+    "description": "Schema for each navigation record in recentNavigations",
+    "fields": {
+      "id": "string — unique navigation ID",
+      "url": "string — target URL",
+      "engine": "string — engine used",
+      "status": "string — success|failed|timeout|redirected",
+      "finalUrl": "string|null — final URL after redirects",
+      "responseCode": "number|null — HTTP response code",
+      "durationMs": "number — navigation duration in milliseconds",
+      "sessionId": "string — browser session ID",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "captureRecord": {
+    "description": "Schema for each capture record in recentCaptures",
+    "fields": {
+      "id": "string — unique capture ID",
+      "url": "string — target URL",
+      "engine": "string — engine used",
+      "status": "string — success|failed|empty|invalid",
+      "contentLength": "number — HTML content length in bytes",
+      "title": "string|null — captured page title",
+      "durationMs": "number — capture duration in milliseconds",
+      "sessionId": "string — browser session ID",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "sessionRecord": {
+    "description": "Schema for each session record in recentSessions",
+    "fields": {
+      "id": "string — unique session ID",
+      "engine": "string — engine used",
+      "status": "string — created|active|closed|failed|timeout",
+      "startTime": "string — ISO 8601 timestamp",
+      "endTime": "string|null — ISO 8601 timestamp",
+      "durationMs": "number|null — total session duration",
+      "navigations": "number — total navigations in session",
+      "captures": "number — total captures in session",
+      "failures": "number — total failures in session",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "failureRecord": {
+    "description": "Schema for each failure record in recentFailures",
+    "fields": {
+      "id": "string — unique failure ID",
+      "url": "string — target URL",
+      "engine": "string — engine that failed",
+      "type": "string — navigation|capture|session|timeout|memory",
+      "category": "string — network|timeout|parsing|session|unknown",
+      "error": "string — error message",
+      "recoverable": "boolean — whether failure is recoverable",
+      "sessionId": "string — browser session ID",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "lastUpdated": null
+}

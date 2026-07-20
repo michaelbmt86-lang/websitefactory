@@ -1,0 +1,127 @@
+{
+  "name": "storage-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable storage workflow definition — receive data, validate, normalize, upsert, maintain relationships, and return status.",
+  "owner": "layer-6-data-storage",
+  "enabled": true,
+  "workflow": {
+    "type": "storage",
+    "totalSteps": 10,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "tableName": {
+        "type": "string",
+        "required": true,
+        "description": "Target table name for storage"
+      },
+      "records": {
+        "type": "array",
+        "required": true,
+        "description": "Array of records to store"
+      },
+      "operation": {
+        "type": "string",
+        "required": true,
+        "description": "Operation type: insert, update, upsert, delete"
+      },
+      "conflictColumn": {
+        "type": "string",
+        "required": false,
+        "description": "Column to use for conflict detection in upsert"
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "receive-structured-data",
+        "name": "Receive Structured Data",
+        "description": "Accept structured data from upstream layers and validate input format",
+        "input": "tableName, records, operation",
+        "output": "validated-input",
+        "failureAction": "return-input-validation-error"
+      },
+      {
+        "step": 2,
+        "id": "validate-schema",
+        "name": "Validate Schema",
+        "description": "Validate incoming records against target table schema — check required fields, types, constraints",
+        "input": "validated-input",
+        "output": "schema-validated-records",
+        "failureAction": "return-schema-validation-errors"
+      },
+      {
+        "step": 3,
+        "id": "normalize-records",
+        "name": "Normalize Records",
+        "description": "Normalize data for storage — trim strings, normalize URLs, compute slugs, set defaults, cast types",
+        "input": "schema-validated-records",
+        "output": "normalized-records",
+        "failureAction": "apply-defaults-continue"
+      },
+      {
+        "step": 4,
+        "id": "begin-transaction",
+        "name": "Begin Transaction",
+        "description": "Start a database transaction for atomicity",
+        "input": "normalized-records",
+        "output": "transaction-context",
+        "failureAction": "return-transaction-error"
+      },
+      {
+        "step": 5,
+        "id": "upsert-records",
+        "name": "UPSERT Records",
+        "description": "Insert new records or update existing ones — handle conflicts via ON CONFLICT or manual SELECT-then-UPDATE",
+        "input": "normalized-records, transaction-context",
+        "output": "upsert-results",
+        "failureAction": "rollback-transaction"
+      },
+      {
+        "step": 6,
+        "id": "maintain-relationships",
+        "name": "Maintain Relationships",
+        "description": "Ensure foreign key references are valid — check parent records exist, update related records",
+        "input": "upsert-results",
+        "output": "relationship-results",
+        "failureAction": "log-orphaned-references-continue"
+      },
+      {
+        "step": 7,
+        "id": "commit-transaction",
+        "name": "Commit Transaction",
+        "description": "Commit the transaction to persist all changes atomically",
+        "input": "transaction-context, upsert-results, relationship-results",
+        "output": "commit-result",
+        "failureAction": "rollback-transaction"
+      },
+      {
+        "step": 8,
+        "id": "update-indexes",
+        "name": "Update Indexes",
+        "description": "Ensure affected indexes are updated after data changes",
+        "input": "commit-result",
+        "output": "index-status",
+        "failureAction": "log-index-update-failure-continue"
+      },
+      {
+        "step": 9,
+        "id": "compute-statistics",
+        "name": "Compute Statistics",
+        "description": "Update table statistics — record counts, last modified timestamps",
+        "input": "commit-result",
+        "output": "statistics",
+        "failureAction": "log-statistics-failure-continue"
+      },
+      {
+        "step": 10,
+        "id": "return-storage-status",
+        "name": "Return Storage Status",
+        "description": "Return structured status — inserted/updated counts, affected rows, duration",
+        "input": "commit-result, statistics",
+        "output": "storage-status",
+        "failureAction": "return-partial-status"
+      }
+    ]
+  }
+}

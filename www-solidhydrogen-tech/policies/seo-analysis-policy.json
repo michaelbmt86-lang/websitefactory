@@ -1,0 +1,56 @@
+{
+  "name": "seo-analysis-policy",
+  "version": "1.0.0",
+  "description": "Defines SEO analysis behaviour for the Layer 5 AI Analysis Layer — SEO metadata generation, analysis, coverage requirements, and fallback rules.",
+  "owner": "layer-5-ai-analysis",
+  "enabled": true,
+  "rules": {
+    "seoGeneration": {
+      "description": "SEO metadata generation rules",
+      "generateMetaTitle": true,
+      "generateMetaDescription": true,
+      "generateOgTitle": true,
+      "generateOgDescription": true,
+      "generateOgImage": true,
+      "generateCanonical": true,
+      "generateSchemaJson": true,
+      "fallbackFromPageTitle": true,
+      "fallbackFromPageDescription": true,
+      "maxMetaTitleLength": 60,
+      "maxMetaDescriptionLength": 160,
+      "maxOgDescriptionLength": 200
+    },
+    "seoAnalysis": {
+      "description": "SEO analysis and validation rules",
+      "analyzeMetaTags": true,
+      "analyzeOpenGraph": true,
+      "analyzeSchemaMarkup": true,
+      "analyzeBreadcrumbs": true,
+      "analyzeHeadings": true,
+      "analyzeAltText": true,
+      "analyzeInternalLinks": true,
+      "analyzeCanonical": true,
+      "analyzeRobots": true,
+      "analyzeSitemap": true
+    },
+    "seoCoverage": {
+      "description": "SEO coverage requirements",
+      "minMetaTitleCoverage": 0.95,
+      "minMetaDescriptionCoverage": 0.90,
+      "minOgTagCoverage": 0.80,
+      "minSchemaCoverage": 0.50,
+      "minBreadcrumbsCoverage": 0.70,
+      "minAltTextCoverage": 0.80
+    },
+    "seoFallback": {
+      "description": "SEO fallback behaviour when original data is missing",
+      "fallbackMetaTitleFromPageTitle": true,
+      "fallbackMetaDescriptionFromPageDescription": true,
+      "fallbackOgTitleFromMetaTitle": true,
+      "fallbackOgDescriptionFromMetaDescription": true,
+      "fallbackCanonicalFromPageUrl": true,
+      "fallbackSchemaFromPageType": true,
+      "logFallbacks": true
+    }
+  }
+}

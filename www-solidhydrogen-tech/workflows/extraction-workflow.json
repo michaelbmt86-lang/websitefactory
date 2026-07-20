@@ -1,0 +1,105 @@
+{
+  "name": "extraction-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable extraction workflow definition — multi-engine extraction with deterministic fallback, retry, and normalization.",
+  "owner": "layer-3-extraction-manager",
+  "enabled": true,
+  "workflow": {
+    "type": "extraction",
+    "totalSteps": 8,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "url": {
+        "type": "string",
+        "required": true,
+        "description": "Target URL to extract product details from"
+      },
+      "options": {
+        "type": "object",
+        "required": false,
+        "properties": {
+          "concurrency": { "type": "number", "default": 3 },
+          "maxRetries": { "type": "number", "default": 2 },
+          "resumeFromFailure": { "type": "boolean", "default": true },
+          "useRecovery": { "type": "boolean", "default": true }
+        }
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "receive-extraction-request",
+        "name": "Receive Extraction Request",
+        "description": "Parse incoming extraction request, validate URL, extract options",
+        "input": "POST /api/detail-extraction body",
+        "output": "validated-request",
+        "failureAction": "return-400-error"
+      },
+      {
+        "step": 2,
+        "id": "select-primary-engine",
+        "name": "Select Primary Engine",
+        "description": "Select Chrome DevTools MCP as primary engine per engine-priority policy",
+        "input": "validated-request",
+        "output": "engine-selection",
+        "engine": "chrome-devtools-mcp",
+        "failureAction": "fallback-to-recovery-l1"
+      },
+      {
+        "step": 3,
+        "id": "attempt-extraction",
+        "name": "Attempt Extraction",
+        "description": "Execute extraction with selected engine, apply timeout, capture result",
+        "input": "engine-selection",
+        "output": "extraction-result",
+        "failureAction": "detect-failure-type"
+      },
+      {
+        "step": 4,
+        "id": "detect-failure-type",
+        "name": "Detect Failure Type",
+        "description": "Categorize failure as network, timeout, parsing, rate-limit, or unknown",
+        "input": "extraction-result",
+        "output": "failure-category",
+        "failureAction": "apply-retry-policy"
+      },
+      {
+        "step": 5,
+        "id": "apply-retry-policy",
+        "name": "Apply Retry Policy",
+        "description": "Retry with exponential backoff per retry-policy.json extractionEngines rules",
+        "input": "failure-category",
+        "output": "retry-result",
+        "failureAction": "execute-recovery-switching"
+      },
+      {
+        "step": 6,
+        "id": "execute-recovery-switching",
+        "name": "Execute Recovery Switching",
+        "description": "Switch to next engine in priority chain (Chrome DevTools → JCodesMore → Firecrawl)",
+        "input": "retry-result",
+        "output": "recovery-result",
+        "failureAction": "record-terminal-failure"
+      },
+      {
+        "step": 7,
+        "id": "normalize-output",
+        "name": "Normalize Extraction Output",
+        "description": "Transform raw HTML to standardized ExtractedProduct format using DOM extraction and heuristic normalization",
+        "input": "extraction-result",
+        "output": "normalized-product",
+        "failureAction": "mark-as-partial"
+      },
+      {
+        "step": 8,
+        "id": "validate-and-store",
+        "name": "Validate Quality and Store",
+        "description": "Validate extraction quality per quality-policy.json, store product in SQLite, record metrics",
+        "input": "normalized-product",
+        "output": "stored-product",
+        "failureAction": "log-quality-issues-continue"
+      }
+    ]
+  }
+}

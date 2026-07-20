@@ -1,0 +1,188 @@
+{
+  "name": "clone-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable mirror of .claude/skills/clone-website/SKILL.md — the 5-phase website reverse-engineering workflow.",
+  "sourceOfTruth": ".claude/skills/clone-website/SKILL.md",
+  "owner": "layer-2-execution-engine",
+  "enabled": true,
+  "workflow": {
+    "type": "clone",
+    "totalPhases": 5,
+    "sequential": true,
+    "parallelWithinPhase": true,
+    "input": {
+      "targetUrls": {
+        "type": "string[]",
+        "required": true,
+        "description": "One or more URLs to clone"
+      },
+      "executionMode": {
+        "type": "string",
+        "default": "clone",
+        "enum": ["clone", "rebuild", "update"]
+      }
+    },
+    "phases": [
+      {
+        "phase": 1,
+        "id": "reconnaissance",
+        "name": "Reconnaissance",
+        "description": "Navigate to target URL, capture screenshots, extract global styles, perform interaction sweep, map page topology",
+        "parallel": false,
+        "gateRequired": false,
+        "tasks": [
+          {
+            "id": "take-screenshots",
+            "name": "Take Screenshots",
+            "description": "Full-page screenshots at desktop (1440px) and mobile (390px)",
+            "tool": "chrome-devtools-mcp",
+            "output": "docs/design-references/"
+          },
+          {
+            "id": "global-extraction",
+            "name": "Global Extraction",
+            "description": "Extract fonts, colors, favicons, meta tags, global UI patterns",
+            "tool": "chrome-devtools-mcp",
+            "output": "docs/research/"
+          },
+          {
+            "id": "interaction-sweep",
+            "name": "Mandatory Interaction Sweep",
+            "description": "Scroll sweep, click sweep, hover sweep, responsive sweep at 3 viewports",
+            "tool": "chrome-devtools-mcp",
+            "output": "docs/research/BEHAVIORS.md"
+          },
+          {
+            "id": "page-topology",
+            "name": "Page Topology Mapping",
+            "description": "Map every section, document visual order, fixed/sticky overlays, layout structure",
+            "tool": "chrome-devtools-mcp",
+            "output": "docs/research/PAGE_TOPOLOGY.md"
+          }
+        ]
+      },
+      {
+        "phase": 2,
+        "id": "foundation-build",
+        "name": "Foundation Build",
+        "description": "Sequential setup of fonts, globals.css, TypeScript types, SVG icons, asset download",
+        "parallel": false,
+        "gateRequired": true,
+        "gateCommand": "npm run build",
+        "tasks": [
+          {
+            "id": "update-fonts",
+            "name": "Update Fonts in layout.tsx",
+            "description": "Configure fonts to match target site"
+          },
+          {
+            "id": "update-globals-css",
+            "name": "Update globals.css",
+            "description": "Color tokens, spacing, keyframe animations, utility classes"
+          },
+          {
+            "id": "create-types",
+            "name": "Create TypeScript Interfaces",
+            "description": "Define content structures in src/types/"
+          },
+          {
+            "id": "extract-svgs",
+            "name": "Extract SVG Icons",
+            "description": "Deduplicate and save as React components in icons.tsx"
+          },
+          {
+            "id": "download-assets",
+            "name": "Download Global Assets",
+            "description": "Generate and run download script for images, videos, fonts"
+          }
+        ]
+      },
+      {
+        "phase": 3,
+        "id": "component-extraction",
+        "name": "Component Specification & Dispatch",
+        "description": "Per-section extraction, spec file writing, builder agent dispatch, worktree merge",
+        "parallel": true,
+        "gateRequired": true,
+        "gateCommand": "npm run build",
+        "tasks": [
+          {
+            "id": "extract-section",
+            "name": "Extract Section CSS",
+            "description": "Run CSS extraction script via browser MCP for each section",
+            "tool": "chrome-devtools-mcp"
+          },
+          {
+            "id": "write-spec-file",
+            "name": "Write Component Spec File",
+            "description": "Write spec to docs/research/components/<name>.spec.md",
+            "output": "docs/research/components/"
+          },
+          {
+            "id": "dispatch-builder",
+            "name": "Dispatch Builder Agent",
+            "description": "Hand spec file to builder agent in worktree",
+            "complexityBudget": 150
+          },
+          {
+            "id": "merge-worktree",
+            "name": "Merge Worktree Branch",
+            "description": "Merge builder output into main, resolve conflicts, verify build"
+          }
+        ],
+        "loop": "per-section-top-to-bottom"
+      },
+      {
+        "phase": 4,
+        "id": "page-assembly",
+        "name": "Page Assembly",
+        "description": "Wire all sections into page.tsx, connect content, implement page-level behaviors",
+        "parallel": false,
+        "gateRequired": true,
+        "gateCommand": "npm run build",
+        "tasks": [
+          {
+            "id": "wire-components",
+            "name": "Wire Section Components",
+            "description": "Import and compose all sections in src/app/page.tsx"
+          },
+          {
+            "id": "connect-content",
+            "name": "Connect Real Content",
+            "description": "Pass actual text and assets to component props"
+          },
+          {
+            "id": "page-behaviors",
+            "name": "Implement Page-Level Behaviors",
+            "description": "Scroll snap, scroll-driven animations, intersection observers, smooth scroll"
+          }
+        ]
+      },
+      {
+        "phase": 5,
+        "id": "visual-qa",
+        "name": "Visual QA Diff",
+        "description": "Side-by-side comparison, section-by-section verification, interactive testing",
+        "parallel": false,
+        "gateRequired": false,
+        "tasks": [
+          {
+            "id": "side-by-side-comparison",
+            "name": "Side-by-Side Comparison",
+            "description": "Compare original and clone at desktop (1440px) and mobile (390px)"
+          },
+          {
+            "id": "discrepancy-fix",
+            "name": "Fix Discrepancies",
+            "description": "Check spec file, re-extract if needed, fix component to match spec"
+          },
+          {
+            "id": "interactive-testing",
+            "name": "Interactive Testing",
+            "description": "Test all scroll behaviors, click interactions, hover effects, animations"
+          }
+        ]
+      }
+    ]
+  }
+}

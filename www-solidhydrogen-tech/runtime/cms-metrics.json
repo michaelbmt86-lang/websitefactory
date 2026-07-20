@@ -1,0 +1,46 @@
+{
+  "name": "cms-metrics",
+  "version": "1.0.0",
+  "description": "Runtime metadata for CMS generation metrics — generation duration, record counts, coverage percentages, and performance indicators.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 7 CMS Generation Layer. No existing code depends on it yet.",
+  "generation": {
+    "totalDurationMs": 0,
+    "avgDurationMs": 0,
+    "minDurationMs": 0,
+    "maxDurationMs": 0,
+    "p95DurationMs": 0
+  },
+  "phases": {
+    "pages": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+    "brands": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+    "collections": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+    "blog": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+    "seo": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+    "searchIndex": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+    "outputFiles": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+    "qualityValidation": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 }
+  },
+  "records": {
+    "pagesGenerated": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+    "brandsGenerated": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+    "collectionsGenerated": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+    "blogPostsGenerated": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+    "seoEntriesGenerated": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+    "searchEntriesGenerated": { "total": 0, "avg": 0, "min": 0, "max": 0 }
+  },
+  "coverage": {
+    "seoCoverage": { "avg": 0, "min": 0, "max": 0 },
+    "metadataCompleteness": { "avg": 0, "min": 0, "max": 0 },
+    "linkIntegrity": { "avg": 0, "min": 0, "max": 0 },
+    "searchCoverage": { "avg": 0, "min": 0, "max": 0 }
+  },
+  "outputFiles": {
+    "manifestSizeBytes": { "avg": 0, "min": 0, "max": 0 },
+    "searchIndexSizeBytes": { "avg": 0, "min": 0, "max": 0 },
+    "navigationSizeBytes": { "avg": 0, "min": 0, "max": 0 },
+    "sitemapSizeBytes": { "avg": 0, "min": 0, "max": 0 }
+  },
+  "lastUpdated": null
+}

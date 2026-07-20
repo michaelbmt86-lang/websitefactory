@@ -1,0 +1,45 @@
+{
+  "siteUrl": "https://www.biopak.com",
+  "generatedAt": "2026-07-19T00:20:36.418Z",
+  "root": "https://www.biopak.com/",
+  "maxDepth": 1,
+  "totalNodes": 2,
+  "totalEdges": 1,
+  "nodes": [
+    {
+      "id": "https://www.biopak.com/",
+      "url": "https://www.biopak.com/",
+      "slug": "",
+      "depth": 0,
+      "parent": null,
+      "pageType": "Home",
+      "status": "broken",
+      "priority": 100,
+      "discoveredBy": [
+        "header-nav"
+      ],
+      "childCount": 1
+    },
+    {
+      "id": "https://www.biopak.com/redirectUrl",
+      "url": "https://www.biopak.com/redirectUrl",
+      "slug": "redirectUrl",
+      "depth": 1,
+      "parent": "https://www.biopak.com/",
+      "pageType": "Unknown",
+      "status": "broken",
+      "priority": 40,
+      "discoveredBy": [
+        "page-body"
+      ],
+      "childCount": 0
+    }
+  ],
+  "edges": [
+    {
+      "source": "https://www.biopak.com/",
+      "target": "https://www.biopak.com/redirectUrl",
+      "type": "content"
+    }
+  ]
+}

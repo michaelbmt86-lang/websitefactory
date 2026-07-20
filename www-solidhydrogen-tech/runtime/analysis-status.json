@@ -1,0 +1,80 @@
+{
+  "name": "analysis-status",
+  "version": "1.0.0",
+  "description": "Runtime metadata for AI analysis status — current state of each analysis module, active analyses, and analysis health.",
+  "owner": "layer-5-ai-analysis",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 5 AI Analysis Layer. No existing code depends on it yet.",
+  "modules": {
+    "normalization": {
+      "name": "normalization",
+      "displayName": "HTML/CSS/Media Normalization",
+      "status": "unknown",
+      "lastHealthCheck": null,
+      "lastSuccessfulAnalysis": null,
+      "lastFailedAnalysis": null,
+      "consecutiveFailures": 0,
+      "activeAnalyses": 0,
+      "totalAnalysesToday": 0
+    },
+    "gemini-analyzer": {
+      "name": "gemini-analyzer",
+      "displayName": "Gemini Heuristic Analyzer",
+      "status": "unknown",
+      "lastHealthCheck": null,
+      "lastSuccessfulAnalysis": null,
+      "lastFailedAnalysis": null,
+      "consecutiveFailures": 0,
+      "activeAnalyses": 0,
+      "totalAnalysesToday": 0
+    },
+    "dom-extractor": {
+      "name": "dom-extractor",
+      "displayName": "DOM Data Extractor",
+      "status": "unknown",
+      "lastHealthCheck": null,
+      "lastSuccessfulAnalysis": null,
+      "lastFailedAnalysis": null,
+      "consecutiveFailures": 0,
+      "activeAnalyses": 0,
+      "totalAnalysesToday": 0
+    },
+    "seo-generator": {
+      "name": "seo-generator",
+      "displayName": "SEO Metadata Generator",
+      "status": "unknown",
+      "lastHealthCheck": null,
+      "lastSuccessfulAnalysis": null,
+      "lastFailedAnalysis": null,
+      "consecutiveFailures": 0,
+      "activeAnalyses": 0,
+      "totalAnalysesToday": 0
+    },
+    "cms-generator": {
+      "name": "cms-generator",
+      "displayName": "CMS Content Generator",
+      "status": "unknown",
+      "lastHealthCheck": null,
+      "lastSuccessfulAnalysis": null,
+      "lastFailedAnalysis": null,
+      "consecutiveFailures": 0,
+      "activeAnalyses": 0,
+      "totalAnalysesToday": 0
+    },
+    "quality-validator": {
+      "name": "quality-validator",
+      "displayName": "Quality Validator",
+      "status": "unknown",
+      "lastHealthCheck": null,
+      "lastSuccessfulAnalysis": null,
+      "lastFailedAnalysis": null,
+      "consecutiveFailures": 0,
+      "activeAnalyses": 0,
+      "totalAnalysesToday": 0
+    }
+  },
+  "overallStatus": "idle",
+  "activeAnalyses": 0,
+  "totalAnalysesToday": 0,
+  "lastUpdated": null
+}

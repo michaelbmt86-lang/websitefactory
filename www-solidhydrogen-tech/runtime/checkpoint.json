@@ -1,0 +1,16 @@
+{
+  "currentPhase": null,
+  "completedPhases": [],
+  "timestamp": null,
+  "currentWorkflow": null,
+  "currentTarget": null,
+  "currentDomain": null,
+  "executionContext": {
+    "executionId": null,
+    "workflowVersion": null,
+    "policyVersion": null,
+    "gitCommit": null,
+    "nodeVersion": null
+  },
+  "note": "Checkpoint framework only. Resume logic is NOT implemented. No code automatically loads or restores from this file."
+}

@@ -1,0 +1,67 @@
+{
+  "name": "cms-history",
+  "version": "1.0.0",
+  "description": "Runtime metadata for CMS generation history — recent generation events, quality check results, and failure records.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 7 CMS Generation Layer. No existing code depends on it yet.",
+  "recentGenerations": [],
+  "recentQualityChecks": [],
+  "recentOutputFiles": [],
+  "recentFailures": [],
+  "historyLimits": {
+    "maxRecentGenerations": 50,
+    "maxRecentQualityChecks": 50,
+    "maxRecentOutputFiles": 50,
+    "maxRecentFailures": 50
+  },
+  "generationRecord": {
+    "description": "Schema for each generation record in recentGenerations",
+    "fields": {
+      "id": "string — unique generation ID",
+      "siteUrl": "string — target site URL",
+      "status": "string — success|failed|partial",
+      "phasesCompleted": "number — phases completed (0-8)",
+      "totalPhases": "number — total phases (8)",
+      "pagesGenerated": "number — CMS pages generated",
+      "brandsGenerated": "number — brands generated",
+      "collectionsGenerated": "number — collections generated",
+      "blogPostsGenerated": "number — blog posts generated",
+      "seoEntriesGenerated": "number — SEO entries generated",
+      "searchEntriesGenerated": "number — search entries generated",
+      "qualityScore": "number|null — quality validation score",
+      "issuesFound": "number — quality issues found",
+      "durationMs": "number — total generation duration",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "qualityCheckRecord": {
+    "description": "Schema for each quality check record in recentQualityChecks",
+    "fields": {
+      "id": "string — unique check ID",
+      "siteUrl": "string — target site URL",
+      "totalChecks": "number — total checks performed",
+      "passedChecks": "number — checks that passed",
+      "warningChecks": "number — checks with warnings",
+      "failedChecks": "number — checks that failed",
+      "overallStatus": "string — PASS|WARN|FAIL",
+      "issues": "array — list of quality issues",
+      "durationMs": "number — check duration",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "failureRecord": {
+    "description": "Schema for each failure record in recentFailures",
+    "fields": {
+      "id": "string — unique failure ID",
+      "siteUrl": "string — target site URL",
+      "phase": "string — phase that failed",
+      "type": "string — data|write|output|validation|unknown",
+      "error": "string — error message",
+      "recoverable": "boolean — whether failure is recoverable",
+      "durationMs": "number — duration before failure",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "lastUpdated": null
+}

@@ -1,0 +1,69 @@
+{
+  "name": "storage-history",
+  "version": "1.0.0",
+  "description": "Runtime metadata for storage history — recent write events, read events, transaction events, and failure records.",
+  "owner": "layer-6-data-storage",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 6 Data Storage Layer. No existing code depends on it yet.",
+  "recentWrites": [],
+  "recentReads": [],
+  "recentTransactions": [],
+  "recentFailures": [],
+  "historyLimits": {
+    "maxRecentWrites": 100,
+    "maxRecentReads": 100,
+    "maxRecentTransactions": 100,
+    "maxRecentFailures": 50
+  },
+  "writeRecord": {
+    "description": "Schema for each write record in recentWrites",
+    "fields": {
+      "id": "string — unique write ID",
+      "table": "string — target table name",
+      "operation": "string — insert|update|upsert|delete",
+      "recordsAffected": "number — number of rows affected",
+      "durationMs": "number — write duration in milliseconds",
+      "transactionId": "string|null — associated transaction ID",
+      "status": "string — success|failed|partial",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "readRecord": {
+    "description": "Schema for each read record in recentReads",
+    "fields": {
+      "id": "string — unique read ID",
+      "table": "string — source table name",
+      "queryType": "string — select|count|aggregate|join",
+      "rowsReturned": "number — number of rows returned",
+      "durationMs": "number — read duration in milliseconds",
+      "status": "string — success|failed|empty",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "transactionRecord": {
+    "description": "Schema for each transaction record in recentTransactions",
+    "fields": {
+      "id": "string — unique transaction ID",
+      "operation": "string — begin|commit|rollback|savepoint",
+      "tables": "string[] — tables involved",
+      "statements": "number — number of statements in transaction",
+      "durationMs": "number — transaction duration in milliseconds",
+      "status": "string — committed|rolled-back|timeout",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "failureRecord": {
+    "description": "Schema for each failure record in recentFailures",
+    "fields": {
+      "id": "string — unique failure ID",
+      "table": "string — table where failure occurred",
+      "operation": "string — operation that failed",
+      "type": "string — constraint|timeout|corruption|disk-full|lock|unknown",
+      "error": "string — error message",
+      "recoverable": "boolean — whether failure is recoverable",
+      "durationMs": "number — duration before failure",
+      "timestamp": "string — ISO 8601 timestamp"
+    }
+  },
+  "lastUpdated": null
+}

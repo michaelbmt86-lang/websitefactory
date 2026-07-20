@@ -1,0 +1,57 @@
+{
+  "title": "Discovery Depth Root Cause",
+  "targetUrl": "https://www.solidhydrogen.tech",
+  "timestamp": "2026-07-18T15:30:00.000Z",
+  "rootCause": "Semantic mismatch between requested maxDepth (a crawl limit) and result.maxDepth (actual achieved crawl depth). The result.maxDepth field reports the maximum depth of URLs actually found in the crawl, NOT the requested depth limit. Since all 10 URLs were seeded from the sitemap at depth 0, no URLs were ever crawled at depth > 0, making the actual maxDepth = 0 even though the requested limit was 5.",
+  "confidence": "100%",
+  "blockingLayer": "Result Generation",
+  "blockingModule": "DiscoveryEngine",
+  "blockingFunction": "generateResults",
+  "blockingFile": "src/discovery/discovery-engine.ts",
+  "blockingLine": 312,
+  "blockingCode": "maxDepth: Math.max(...Object.keys(depthStats).map(Number), 0)",
+  "explanation": {
+    "requested_maxDepth": "A LIMIT — how deep the BFS crawl should go (ceiling). Value: 5.",
+    "result_maxDepth": "A MEASUREMENT — the actual maximum depth of crawled pages. Value: 0.",
+    "why_they_differ": "The sitemap contained all 10 URLs of this small site. All were seeded at depth 0. The homepage crawl at depth 0 found links to the same URLs (already visited). BFS queue was empty. No depth 1+ pages were ever discovered.",
+    "is_this_a_bug": "No. This is correct behavior for a small site fully covered by its sitemap. The result.maxDepth accurately reflects what happened. However, the field name is semantically ambiguous — it could be misinterpreted as the requested limit."
+  },
+  "evidence_chain": [
+    {
+      "step": 1,
+      "description": "Sitemap parser found 9 URLs in sitemap.xml",
+      "file": "src/discovery/sitemap-parser.ts",
+      "lines": "73-105, 144-166"
+    },
+    {
+      "step": 2,
+      "description": "9 sitemap URLs seeded into BFS queue at depth=0",
+      "file": "src/discovery/discovery-engine.ts",
+      "lines": "70-81"
+    },
+    {
+      "step": 3,
+      "description": "Homepage crawled at depth=0, discovered internal links",
+      "file": "src/discovery/discovery-engine.ts",
+      "line": 84
+    },
+    {
+      "step": 4,
+      "description": "All homepage links already in this.visited (from sitemap)",
+      "file": "src/discovery/discovery-engine.ts",
+      "line": 115
+    },
+    {
+      "step": 5,
+      "description": "BFS queue empty, loop terminated immediately",
+      "file": "src/discovery/discovery-engine.ts",
+      "lines": "192-201"
+    },
+    {
+      "step": 6,
+      "description": "generateResults computed maxDepth from actual depthStats (all 0)",
+      "file": "src/discovery/discovery-engine.ts",
+      "line": 312
+    }
+  ]
+}

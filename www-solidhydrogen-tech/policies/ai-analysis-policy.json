@@ -1,0 +1,48 @@
+{
+  "name": "ai-analysis-policy",
+  "version": "1.0.0",
+  "description": "Defines AI analysis behaviour for the Layer 5 AI Analysis Layer — analysis modes, input handling, output generation, and quality thresholds.",
+  "owner": "layer-5-ai-analysis",
+  "enabled": true,
+  "rules": {
+    "analysisModes": {
+      "description": "Available analysis modes — Gemini analysis is analysis-only, never crawls",
+      "modes": ["heuristic", "gemini-api", "hybrid"],
+      "defaultMode": "heuristic",
+      "geminiIsAnalysisOnly": true,
+      "geminiNeverCrawls": true,
+      "geminiNeverReplacesBrowser": true
+    },
+    "inputHandling": {
+      "description": "How Layer 5 receives and processes input from Layer 4",
+      "requireCleanHandoff": true,
+      "requireHtmlNormalization": true,
+      "requireMediaNormalization": true,
+      "requireCssNormalization": true,
+      "maxInputHtmlSizeBytes": 10485760,
+      "minInputContentLength": 100,
+      "allowEmptyStructuredData": true,
+      "allowEmptyNetworkData": true
+    },
+    "outputGeneration": {
+      "description": "Output generation behaviour — structured JSON, CMS content, SEO metadata",
+      "generateStructuredJson": true,
+      "generateCmsContent": true,
+      "generateSeoMetadata": true,
+      "generateAnalysisReport": true,
+      "generateComponentInventory": true,
+      "outputFormat": "json",
+      "includeTimestamps": true
+    },
+    "qualityThresholds": {
+      "description": "Minimum quality thresholds for analysis output",
+      "minDomCompleteness": 0.70,
+      "minAssetCompleteness": 0.60,
+      "minSeoCoverage": 0.80,
+      "minSchemaCoverage": 0.50,
+      "minFaqCoverage": 0.30,
+      "minSpecsCoverage": 0.40,
+      "maxDuplicateRate": 0.05
+    }
+  }
+}

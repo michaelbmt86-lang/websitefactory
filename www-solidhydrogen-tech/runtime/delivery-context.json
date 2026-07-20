@@ -1,0 +1,64 @@
+{
+  "name": "delivery-context",
+  "version": "1.0.0",
+  "description": "Delivery pipeline context — active deployment state, configuration, and environment",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "lastUpdated": null,
+  "context": {
+    "activeDeployment": null,
+    "phase": "idle",
+    "configuration": null
+  },
+  "configuration": {
+    "domain": {
+      "registrar": "namecheap",
+      "dnsProvider": "cloudflare",
+      "deploymentProvider": "vercel",
+      "configFile": "deployment/domain.config.json"
+    },
+    "providers": {
+      "github": {
+        "envVar": "GITHUB_TOKEN",
+        "method": "git-data-api",
+        "repository": null
+      },
+      "vercel": {
+        "envVar": "VERCEL_TOKEN",
+        "apiVersion": "v13",
+        "framework": "nextjs",
+        "pollInterval": 10000,
+        "pollAttempts": 30
+      },
+      "cloudflare": {
+        "envVar": "CLOUDFLARE_API_TOKEN",
+        "apiVersion": "v4",
+        "sslMode": "full"
+      }
+    },
+    "verification": {
+      "preDeploymentChecks": 10,
+      "postDeploymentChecks": 19,
+      "dnsPollAttempts": 10,
+      "dnsPollInterval": 5000,
+      "httpsPollAttempts": 10,
+      "httpsPollInterval": 10000
+    },
+    "rollback": {
+      "enabled": true,
+      "automatic": false,
+      "requireApproval": true
+    }
+  },
+  "stateTransitions": {
+    "idle": ["building"],
+    "building": ["pushing", "failed"],
+    "pushing": ["deploying", "failed"],
+    "deploying": ["configuring", "failed"],
+    "configuring": ["verifying", "failed"],
+    "verifying": ["completed", "failed", "rolling-back"],
+    "completed": ["idle"],
+    "failed": ["rolling-back", "idle"],
+    "rolling-back": ["idle"]
+  }
+}

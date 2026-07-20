@@ -1,0 +1,65 @@
+{
+  "name": "rollback-workflow",
+  "version": "1.0.0",
+  "description": "Rollback workflow for reverting failed deployments to previous known-good state",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "workflow": {
+    "id": "rollback-workflow",
+    "trigger": "manual",
+    "failFast": true,
+    "continueOnError": false,
+    "steps": [
+      {
+        "step": 1,
+        "id": "detect-failure",
+        "name": "Detect Deployment Failure",
+        "description": "Identify failed deployment from verification report or manual trigger",
+        "action": "detect",
+        "outputs": ["failure-reason", "failed-deployment-id"],
+        "dependencies": [],
+        "failureAction": "abort"
+      },
+      {
+        "step": 2,
+        "id": "backup-current",
+        "name": "Backup Current State",
+        "description": "Archive current deployment state before rollback for comparison",
+        "action": "backup",
+        "outputs": ["backup-snapshot"],
+        "dependencies": ["detect-failure"],
+        "failureAction": "abort"
+      },
+      {
+        "step": 3,
+        "id": "vercel-rollback",
+        "name": "Revert Vercel Deployment",
+        "description": "Revert Vercel project to last successful deployment via API",
+        "action": "vercel-rollback",
+        "outputs": ["reverted-deployment-id"],
+        "dependencies": ["backup-current"],
+        "failureAction": "abort"
+      },
+      {
+        "step": 4,
+        "id": "verify-rollback",
+        "name": "Verify Rollback Success",
+        "description": "Confirm reverted deployment is LIVE, HTTPS valid, homepage accessible",
+        "action": "verify",
+        "outputs": ["rollback-verified"],
+        "dependencies": ["vercel-rollback"],
+        "failureAction": "abort"
+      },
+      {
+        "step": 5,
+        "id": "archive-rollback",
+        "name": "Archive Rollback Report",
+        "description": "Document rollback event in delivery report archive",
+        "action": "report",
+        "outputs": ["rollback-report-path"],
+        "dependencies": ["verify-rollback"],
+        "failureAction": "log-and-continue"
+      }
+    ]
+  }
+}

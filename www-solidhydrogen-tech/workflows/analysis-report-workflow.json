@@ -1,0 +1,100 @@
+{
+  "name": "analysis-report-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable analysis report workflow definition — quality assessment, component inventory, SEO coverage, normalization metrics, and final report generation.",
+  "owner": "layer-5-ai-analysis",
+  "enabled": true,
+  "workflow": {
+    "type": "analysis-report",
+    "totalSteps": 7,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "extractionResults": {
+        "type": "object",
+        "required": true,
+        "description": "Results from the extraction and analysis pipeline"
+      },
+      "normalizationResults": {
+        "type": "object",
+        "required": false,
+        "description": "Results from the normalization workflow"
+      },
+      "componentInventory": {
+        "type": "array",
+        "required": false,
+        "description": "Identified reusable components"
+      },
+      "seoResults": {
+        "type": "object",
+        "required": false,
+        "description": "SEO metadata generation results"
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "assess-extraction-quality",
+        "name": "Assess Extraction Quality",
+        "description": "Evaluate extraction completeness — check for missing images, SEO, schema, specs, duplicates, broken media",
+        "input": "extractionResults",
+        "output": "quality-assessment",
+        "failureAction": "return-partial-quality-assessment"
+      },
+      {
+        "step": 2,
+        "id": "calculate-quality-score",
+        "name": "Calculate Quality Score",
+        "description": "Calculate weighted quality score from completeness checks — dom, assets, seo, schema, faq, specs",
+        "input": "quality-assessment",
+        "output": "quality-score",
+        "failureAction": "return-default-quality-score"
+      },
+      {
+        "step": 3,
+        "id": "generate-component-report",
+        "name": "Generate Component Report",
+        "description": "Generate component inventory — identified components, confidence scores, placement suggestions",
+        "input": "componentInventory",
+        "output": "component-report",
+        "failureAction": "return-empty-component-report"
+      },
+      {
+        "step": 4,
+        "id": "generate-seo-report",
+        "name": "Generate SEO Report",
+        "description": "Generate SEO coverage report — meta titles, descriptions, OG tags, schema, breadcrumbs coverage percentages",
+        "input": "seoResults",
+        "output": "seo-report",
+        "failureAction": "return-partial-seo-report"
+      },
+      {
+        "step": 5,
+        "id": "generate-normalization-report",
+        "name": "Generate Normalization Report",
+        "description": "Generate normalization metrics — HTML cleaned, CSS extracted, media normalized, URLs resolved",
+        "input": "normalizationResults",
+        "output": "normalization-report",
+        "failureAction": "return-empty-normalization-report"
+      },
+      {
+        "step": 6,
+        "id": "compile-final-report",
+        "name": "Compile Final Report",
+        "description": "Compile all sub-reports into a single analysis report with summary, scores, and recommendations",
+        "input": "quality-assessment, quality-score, component-report, seo-report, normalization-report",
+        "output": "final-report",
+        "failureAction": "return-partial-final-report"
+      },
+      {
+        "step": 7,
+        "id": "return-report-to-layer3",
+        "name": "Return Report to Layer 3",
+        "description": "Return the final analysis report to Layer 3 for storage and dashboard display",
+        "input": "final-report",
+        "output": "report-delivery-status",
+        "failureAction": "log-delivery-failure-continue"
+      }
+    ]
+  }
+}

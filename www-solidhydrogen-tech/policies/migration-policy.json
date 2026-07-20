@@ -1,0 +1,43 @@
+{
+  "name": "migration-policy",
+  "version": "1.0.0",
+  "description": "Defines migration behaviour for the Layer 6 Data Storage Layer — schema versioning, migration execution, rollback procedures, and version tracking.",
+  "owner": "layer-6-data-storage",
+  "enabled": true,
+  "rules": {
+    "schemaVersioning": {
+      "description": "Schema version tracking rules",
+      "useVersionTable": true,
+      "versionTableName": "schema_version",
+      "trackVersionNumber": true,
+      "trackAppliedAt": true,
+      "trackMigrationName": true,
+      "trackChecksum": true
+    },
+    "migrationExecution": {
+      "description": "How migrations are executed",
+      "autoRunPendingMigrations": true,
+      "runOnStartup": true,
+      "runBeforeSeeding": true,
+      "logMigrationStart": true,
+      "logMigrationEnd": true,
+      "logMigrationDuration": true,
+      "timeoutMs": 60000
+    },
+    "rollbackRules": {
+      "description": "Migration rollback procedures",
+      "autoRollbackOnError": true,
+      "preservePartialMigrations": false,
+      "logRollbackReason": true,
+      "notifyOnRollback": true
+    },
+    "migrationFileRules": {
+      "description": "Migration file organization rules",
+      "namingConvention": "{timestamp}-{description}.sql",
+      "oneMigrationPerFile": true,
+      "includeUpAndDown": true,
+      "testBeforeApply": true,
+      "backupBeforeApply": true
+    }
+  }
+}

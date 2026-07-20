@@ -1,0 +1,71 @@
+{
+  "name": "architecture-lock",
+  "version": "1.0.0",
+  "description": "Defines the fixed architecture boundaries of the Website Factory — layer responsibilities, modification rules, and scope constraints.",
+  "owner": "layer-2-execution-engine",
+  "enabled": true,
+  "rules": {
+    "layers": {
+      "layer1": {
+        "name": "JCodesMore",
+        "role": "Task Orchestration",
+        "responsibility": "Receives user commands, dispatches Layer 2, aggregates results"
+      },
+      "layer2": {
+        "name": "OpenCode",
+        "role": "Execution Engine",
+        "responsibility": "Executes workflows, calls Layer 3, manages retries, generates reports"
+      },
+      "layer3": {
+        "name": "Subsystems",
+        "role": "Service Layer",
+        "components": [
+          "Extraction Manager",
+          "Chrome DevTools MCP",
+          "JCodesMore Recovery",
+          "Firecrawl Recovery",
+          "Gemini Analyzer",
+          "SQLite",
+          "CMS Generator",
+          "Dashboard",
+          "GitHub",
+          "Vercel",
+          "Cloudflare"
+        ],
+        "responsibility": "Performs domain-specific operations when called by Layer 2"
+      }
+    },
+    "modificationRules": {
+      "description": "Rules governing what can and cannot be modified during infrastructure upgrades",
+      "allowed": [
+        "Add new files to policies/",
+        "Add new files to workflows/",
+        "Add new files to runtime/",
+        "Add new documentation to docs/architecture/"
+      ],
+      "forbidden": [
+        "Modify existing source code in src/",
+        "Modify existing deployment code in deployment/",
+        "Modify existing scripts in scripts/",
+        "Modify SKILL.md or AGENTS.md",
+        "Change SQLite schema",
+        "Change API endpoints",
+        "Change Dashboard pages",
+        "Change CMS Generator logic",
+        "Change Discovery Engine logic",
+        "Change Extraction Engine logic",
+        "Change Verification Engine logic"
+      ]
+    },
+    "dataCompleteness": {
+      "description": "This upgrade must never reduce data completeness in any system",
+      "rules": [
+        "Never reduce extraction completeness",
+        "Never reduce dashboard completeness",
+        "Never reduce SQLite consistency",
+        "Never reduce CMS output quality",
+        "Never reduce verification coverage"
+      ]
+    }
+  }
+}

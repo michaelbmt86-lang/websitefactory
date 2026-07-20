@@ -1,0 +1,160 @@
+{
+  "name": "ai-analysis-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable AI analysis workflow definition — receive extraction data, normalize, analyze, generate structured output, and return results to Layer 3.",
+  "owner": "layer-5-ai-analysis",
+  "enabled": true,
+  "workflow": {
+    "type": "ai-analysis",
+    "totalSteps": 12,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "url": {
+        "type": "string",
+        "required": true,
+        "description": "Target URL of the page being analyzed"
+      },
+      "html": {
+        "type": "string",
+        "required": true,
+        "description": "Raw HTML content from Layer 4 extraction"
+      },
+      "structuredData": {
+        "type": "array",
+        "required": false,
+        "description": "JSON-LD and microdata from the page"
+      },
+      "networkData": {
+        "type": "array",
+        "required": false,
+        "description": "API endpoints and embedded JSON from network analysis"
+      },
+      "existingSpecs": {
+        "type": "array",
+        "required": false,
+        "description": "Previously extracted specifications"
+      },
+      "existingFaq": {
+        "type": "array",
+        "required": false,
+        "description": "Previously extracted FAQ items"
+      },
+      "existingStructure": {
+        "type": "object",
+        "required": false,
+        "description": "Previously extracted page structure"
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "receive-extraction-data",
+        "name": "Receive Extraction Data",
+        "description": "Accept raw extraction output from Layer 4 and validate input structure",
+        "input": "url, html, structuredData, networkData",
+        "output": "validated-input",
+        "failureAction": "return-input-validation-error-to-layer3"
+      },
+      {
+        "step": 2,
+        "id": "validate-completeness",
+        "name": "Validate Extraction Completeness",
+        "description": "Assess extraction completeness — check for missing fields, empty content, insufficient data",
+        "input": "validated-input",
+        "output": "completeness-report",
+        "failureAction": "log-issues-continue-with-available-data"
+      },
+      {
+        "step": 3,
+        "id": "normalize-html",
+        "name": "Normalize HTML",
+        "description": "Clean and normalize raw HTML — strip scripts, styles, comments; decode entities; normalize whitespace",
+        "input": "validated-input.html",
+        "output": "normalized-html",
+        "failureAction": "fallback-to-original-html"
+      },
+      {
+        "step": 4,
+        "id": "normalize-css",
+        "name": "Normalize CSS",
+        "description": "Extract and normalize CSS data — inline styles, external stylesheets, design tokens",
+        "input": "normalized-html",
+        "output": "normalized-css",
+        "failureAction": "return-empty-css-data"
+      },
+      {
+        "step": 5,
+        "id": "normalize-media",
+        "name": "Normalize Media",
+        "description": "Normalize media assets — deduplicate, validate URLs, categorize, extract metadata",
+        "input": "normalized-html, validated-input.url",
+        "output": "normalized-media",
+        "failureAction": "return-partial-media-list"
+      },
+      {
+        "step": 6,
+        "id": "extract-semantic-structure",
+        "name": "Extract Semantic Structure",
+        "description": "Extract semantic structure — title, description, headings, sections, navigation, breadcrumbs, FAQ, specifications",
+        "input": "normalized-html, validated-input.structuredData, validated-input.networkData",
+        "output": "semantic-structure",
+        "failureAction": "return-partial-structure"
+      },
+      {
+        "step": 7,
+        "id": "identify-reusable-components",
+        "name": "Identify Reusable Components",
+        "description": "Identify reusable UI components — hero sections, product grids, feature blocks, testimonials, footers",
+        "input": "semantic-structure, normalized-html",
+        "output": "component-inventory",
+        "failureAction": "return-empty-component-list"
+      },
+      {
+        "step": 8,
+        "id": "run-gemini-analysis",
+        "name": "Run Gemini Analysis",
+        "description": "Run Gemini analyzer for normalization — extract title, description, specs, FAQ, tags, breadcrumbs",
+        "input": "normalized-html, validated-input.structuredData, validated-input.networkData, validated-input.existingSpecs, validated-input.existingFaq, validated-input.existingStructure",
+        "output": "gemini-result",
+        "failureAction": "fallback-to-heuristic-analysis"
+      },
+      {
+        "step": 9,
+        "id": "generate-structured-json",
+        "name": "Generate Structured JSON",
+        "description": "Generate structured JSON output — products.json, media-library.json, seo-library.json, schema-library.json",
+        "input": "gemini-result, normalized-media, semantic-structure",
+        "output": "structured-json",
+        "failureAction": "generate-partial-json"
+      },
+      {
+        "step": 10,
+        "id": "generate-cms-content",
+        "name": "Generate CMS-Ready Content",
+        "description": "Generate CMS-ready content — pages, brands, collections, blog posts, search index",
+        "input": "gemini-result, normalized-media, validated-input.url",
+        "output": "cms-content",
+        "failureAction": "generate-partial-cms"
+      },
+      {
+        "step": 11,
+        "id": "generate-seo-metadata",
+        "name": "Generate SEO Metadata",
+        "description": "Generate SEO metadata for all CMS pages — meta titles, descriptions, OG tags, canonical, schema",
+        "input": "cms-content, gemini-result",
+        "output": "seo-metadata",
+        "failureAction": "generate-fallback-seo"
+      },
+      {
+        "step": 12,
+        "id": "return-normalized-output",
+        "name": "Return Normalized Output",
+        "description": "Return normalized, structured output to Layer 3 for storage and CMS generation",
+        "input": "gemini-result, structured-json, cms-content, seo-metadata, completeness-report, component-inventory",
+        "output": "normalized-output",
+        "failureAction": "return-partial-output-to-layer3"
+      }
+    ]
+  }
+}

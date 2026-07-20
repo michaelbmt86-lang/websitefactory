@@ -1,0 +1,59 @@
+{
+  "name": "storage-metrics",
+  "version": "1.0.0",
+  "description": "Runtime metadata for storage metrics — write duration, read duration, transaction duration, table sizes, index sizes, and query performance.",
+  "owner": "layer-6-data-storage",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 6 Data Storage Layer. No existing code depends on it yet",
+  "database": {
+    "totalSizeBytes": 0,
+    "pageSizeBytes": 4096,
+    "totalPages": 0,
+    "freelistPages": 0,
+    "walSizeBytes": 0
+  },
+  "operations": {
+    "writeDuration": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+    "readDuration": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+    "transactionDuration": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+    "upsertDuration": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+    "batchDuration": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+    "migrationDuration": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 }
+  },
+  "tables": {
+    "products": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "categories": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "navigation": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "pages": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "settings": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "media": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "users": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "posts": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "logs": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "site_urls": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "product_urls": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "extracted_products": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "media_assets": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "cms_pages": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "cms_brands": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "cms_collections": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "cms_seo": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "cms_search_index": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "verification_reports": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "audit_reports": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "repair_reports": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "deployment_reports": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 },
+    "extraction_metrics": { "sizeBytes": 0, "rowCount": 0, "indexCount": 0, "avgRowBytes": 0 }
+  },
+  "overallMetrics": {
+    "totalWrites": 0,
+    "totalReads": 0,
+    "totalTransactions": 0,
+    "totalUpserts": 0,
+    "totalBatches": 0,
+    "overallAvgWriteMs": 0,
+    "overallAvgReadMs": 0,
+    "overallAvgTransactionMs": 0
+  },
+  "lastUpdated": null
+}

@@ -1,0 +1,39 @@
+{
+  "name": "https-policy",
+  "version": "1.0.0",
+  "description": "HTTPS and SSL/TLS verification policy governing certificate validation, protocol enforcement, and error detection",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "policy": {
+    "scope": "https-verification",
+    "principle": "All production domains must serve valid HTTPS. SSL is managed by Cloudflare Universal SSL and Vercel managed certificates.",
+    "rules": {
+      "certificateManagement": {
+        "sslProvider": "cloudflare-universal-ssl",
+        "backupProvider": "vercel-managed-certs",
+        "autoRenew": true,
+        "description": "SSL certificates are auto-renewed by Cloudflare with Vercel as backup"
+      },
+      "verification": {
+        "checkApex": true,
+        "checkWww": true,
+        "requiredStatus": 200,
+        "pollAttempts": 10,
+        "pollInterval": 10000,
+        "description": "Both apex and www must return HTTP 200 over HTTPS"
+      },
+      "errorDetection": {
+        "check525SslHandshake": true,
+        "check526InvalidSsl": true,
+        "check301Redirects": true,
+        "description": "Detect SSL handshake failures, invalid certificate errors, and redirect loops"
+      },
+      "protocols": {
+        "minVersion": "TLSv1.2",
+        "hsts": true,
+        "hstsMaxAge": 31536000,
+        "description": "Minimum TLS 1.2, HSTS enabled with 1-year max-age"
+      }
+    }
+  }
+}

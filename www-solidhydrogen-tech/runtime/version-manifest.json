@@ -1,0 +1,12 @@
+{
+  "workflowVersion": "1.0.0",
+  "policyVersion": "1.0.0",
+  "architectureVersion": "1.0.0",
+  "databaseVersion": "0.3.1",
+  "dashboardVersion": "0.3.1",
+  "cmsVersion": "0.3.1",
+  "deploymentVersion": "3.0.0",
+  "factoryVersion": "1.0.0",
+  "packageVersion": "0.3.1",
+  "note": "Version manifest aggregates version numbers from all subsystems. Updated when any subsystem version changes."
+}

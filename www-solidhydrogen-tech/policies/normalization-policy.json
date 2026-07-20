@@ -1,0 +1,69 @@
+{
+  "name": "normalization-policy",
+  "version": "1.0.0",
+  "description": "Defines normalization behaviour for the Layer 5 AI Analysis Layer — HTML, CSS, media, and structured data normalization rules.",
+  "owner": "layer-5-ai-analysis",
+  "enabled": true,
+  "rules": {
+    "htmlNormalization": {
+      "description": "HTML normalization rules — clean, decode, and normalize raw HTML",
+      "stripScripts": true,
+      "stripStyles": true,
+      "stripComments": true,
+      "decodeEntities": true,
+      "normalizeWhitespace": true,
+      "lowercaseAttributes": true,
+      "normalizeQuotes": true,
+      "removeDuplicateAttributes": true,
+      "preserveDataAttributes": true,
+      "preserveAriaAttributes": true,
+      "preserveSemanticElements": true
+    },
+    "cssNormalization": {
+      "description": "CSS normalization rules — extract and normalize CSS data",
+      "extractInlineStyles": true,
+      "extractExternalStylesheets": true,
+      "extractDesignTokens": true,
+      "extractColorPalette": true,
+      "extractTypography": true,
+      "extractSpacing": true,
+      "normalizeUrls": true,
+      "deduplicateSelectors": true
+    },
+    "mediaNormalization": {
+      "description": "Media normalization rules — deduplicate, categorize, and validate media assets",
+      "deduplicateByHash": true,
+      "deduplicateByUrl": true,
+      "categorizeByType": true,
+      "normalizeUrls": true,
+      "validateUrls": true,
+      "extractMetadata": true,
+      "requireAltText": false,
+      "minImageWidth": 0,
+      "minImageHeight": 0,
+      "maxFileSizeBytes": 52428800
+    },
+    "structuredDataNormalization": {
+      "description": "Structured data normalization rules — normalize JSON-LD, microdata, RDFa",
+      "normalizeJsonLd": true,
+      "normalizeMicrodata": true,
+      "normalizeRdfa": false,
+      "extractProductData": true,
+      "extractOrganizationData": true,
+      "extractBreadcrumbData": true,
+      "extractFaqData": true,
+      "extractSchemaData": true
+    },
+    "outputNormalization": {
+      "description": "Output normalization rules — normalize final output before storage",
+      "normalizeUrls": true,
+      "normalizeSlugs": true,
+      "normalizeTitles": true,
+      "normalizeDescriptions": true,
+      "trimWhitespace": true,
+      "maxLengthTitle": 200,
+      "maxLengthDescription": 5000,
+      "maxLengthShortDescription": 300
+    }
+  }
+}

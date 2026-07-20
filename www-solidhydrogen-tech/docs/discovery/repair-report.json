@@ -1,0 +1,290 @@
+{
+  "siteUrl": "https://www.solidhydrogen.tech",
+  "timestamp": "2026-07-20T02:58:06.385Z",
+  "actions": [
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"Technology\" points to non-existent page: #technology",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#technology",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"Team\" points to non-existent page: #team",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#team",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"Benefits\" points to non-existent page: #benefits",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#benefits",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"Products\" points to non-existent page: #products",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#products",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"Use Cases\" points to non-existent page: #use-cases",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#use-cases",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"Blog\" points to non-existent page: #blog",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#blog",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"SHOP\" points to non-existent page: #",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"CUSTOM\" points to non-existent page: /custom-packaging",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "custom-packaging",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"INDUSTRY\" points to non-existent page: /industry",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "industry",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"SUSTAINABILITY\" points to non-existent page: /environmental-responsibility",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "environmental-responsibility",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"NEWS\" points to non-existent page: /resources",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "resources",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"ABOUT US\" points to non-existent page: /about",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "about",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"SHOP\" points to non-existent page: #",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "#",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"CUSTOM\" points to non-existent page: /custom-packaging",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "custom-packaging",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"INDUSTRY\" points to non-existent page: /industry",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "industry",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"SUSTAINABILITY\" points to non-existent page: /environmental-responsibility",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "environmental-responsibility",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"NEWS\" points to non-existent page: /resources",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "resources",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-pages",
+      "action": "skipped",
+      "message": "Missing page requires manual creation: Navigation link \"ABOUT US\" points to non-existent page: /about",
+      "entity_type": "page",
+      "entity_id": null,
+      "entity_slug": "about",
+      "before_value": "",
+      "after_value": ""
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Home | Solidhydrogen\"",
+      "entity_type": "page",
+      "entity_id": 308,
+      "entity_slug": "",
+      "before_value": "",
+      "after_value": "title: Home | Solidhydrogen, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Products | Solidhydrogen\"",
+      "entity_type": "page",
+      "entity_id": 309,
+      "entity_slug": "technology",
+      "before_value": "",
+      "after_value": "title: Products | Solidhydrogen, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Products | Solidhydrogen\"",
+      "entity_type": "page",
+      "entity_id": 310,
+      "entity_slug": "products",
+      "before_value": "",
+      "after_value": "title: Products | Solidhydrogen, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Products | Solidhydrogen\"",
+      "entity_type": "page",
+      "entity_id": 311,
+      "entity_slug": "copy-of-home",
+      "before_value": "",
+      "after_value": "title: Products | Solidhydrogen, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Products | Solidhydrogen\"",
+      "entity_type": "page",
+      "entity_id": 312,
+      "entity_slug": "blog",
+      "before_value": "",
+      "after_value": "title: Products | Solidhydrogen, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen\"",
+      "entity_type": "page",
+      "entity_id": 313,
+      "entity_slug": "solidhydrogen-and-international-consortium-secure-aud-2-5m-to-demonstrate-low-cost-hydrogen-product",
+      "before_value": "",
+      "after_value": "title: SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen\"",
+      "entity_type": "page",
+      "entity_id": 314,
+      "entity_slug": "beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "before_value": "",
+      "after_value": "title: SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen\"",
+      "entity_type": "page",
+      "entity_id": 315,
+      "entity_slug": "solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
+      "before_value": "",
+      "after_value": "title: SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen\"",
+      "entity_type": "page",
+      "entity_id": 316,
+      "entity_slug": "defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
+      "before_value": "",
+      "after_value": "title: SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen\"",
+      "entity_type": "page",
+      "entity_id": 317,
+      "entity_slug": "solidhydrogen-and-en2core-technology-partner-to-dramatically-reduce-the-cost-of-low-carbon-hydrogen",
+      "before_value": "",
+      "after_value": "title: SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen, desc: ..."
+    }
+  ],
+  "totalActions": 28,
+  "fixedCount": 10,
+  "skippedCount": 18,
+  "failedCount": 0
+}

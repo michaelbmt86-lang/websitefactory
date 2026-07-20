@@ -1,0 +1,105 @@
+{
+  "name": "delivery-workflow",
+  "version": "1.0.0",
+  "description": "Master delivery pipeline workflow orchestrating build, push, deploy, DNS, and verification",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "workflow": {
+    "id": "delivery-workflow",
+    "trigger": "manual",
+    "failFast": true,
+    "continueOnError": false,
+    "steps": [
+      {
+        "step": 1,
+        "id": "build-artifacts",
+        "name": "Build Production Artifacts",
+        "description": "Run npm run check (lint + typecheck + build) to produce standalone Next.js output",
+        "action": "build",
+        "outputs": ["build-output", "static-files", "standalone-server"],
+        "dependencies": [],
+        "failureAction": "abort"
+      },
+      {
+        "step": 2,
+        "id": "git-push",
+        "name": "Push to GitHub",
+        "description": "Commit and push build artifacts to GitHub repository via Git Data API",
+        "action": "git-push",
+        "outputs": ["git-commit-sha", "git-branch"],
+        "dependencies": ["build-artifacts"],
+        "failureAction": "abort"
+      },
+      {
+        "step": 3,
+        "id": "vercel-deploy",
+        "name": "Deploy to Vercel",
+        "description": "Create Vercel project, configure environment, trigger production deployment, poll until READY",
+        "action": "vercel-deploy",
+        "outputs": ["vercel-project-id", "vercel-deployment-url"],
+        "dependencies": ["git-push"],
+        "failureAction": "abort"
+      },
+      {
+        "step": 4,
+        "id": "bind-domain",
+        "name": "Bind Custom Domain",
+        "description": "Bind apex and www domains to Vercel project",
+        "action": "domain-bind",
+        "outputs": ["domain-bound"],
+        "dependencies": ["vercel-deploy"],
+        "failureAction": "abort"
+      },
+      {
+        "step": 5,
+        "id": "configure-dns",
+        "name": "Configure Cloudflare DNS",
+        "description": "Create A record (proxied) and CNAME (DNS-only) in Cloudflare",
+        "action": "dns-configure",
+        "outputs": ["dns-records-created"],
+        "dependencies": ["domain-bind"],
+        "failureAction": "abort"
+      },
+      {
+        "step": 6,
+        "id": "verify-dns",
+        "name": "Verify DNS Propagation",
+        "description": "Poll DNS resolution for apex and www domains (10 attempts × 5s)",
+        "action": "dns-verify",
+        "outputs": ["dns-resolved"],
+        "dependencies": ["dns-configure"],
+        "failureAction": "abort"
+      },
+      {
+        "step": 7,
+        "id": "verify-https",
+        "name": "Verify HTTPS Certificates",
+        "description": "Fetch https://domain and https://www.domain, verify HTTP 200 (10 attempts × 10s)",
+        "action": "https-verify",
+        "outputs": ["https-valid"],
+        "dependencies": ["dns-verify"],
+        "failureAction": "abort"
+      },
+      {
+        "step": 8,
+        "id": "verify-production",
+        "name": "Production Verification",
+        "description": "Run 19-check post-deployment validation (homepage, dashboard, login, admin, error pages)",
+        "action": "production-verify",
+        "outputs": ["verification-report"],
+        "dependencies": ["https-verify"],
+        "failureAction": "abort"
+      },
+      {
+        "step": 9,
+        "id": "archive-report",
+        "name": "Archive Delivery Report",
+        "description": "Generate and archive deployment report to reports/YYYY-MM-DD-{domain}.json",
+        "action": "report-archive",
+        "outputs": ["delivery-report-path"],
+        "dependencies": ["production-verify"],
+        "failureAction": "log-and-continue"
+      }
+    ]
+  }
+}

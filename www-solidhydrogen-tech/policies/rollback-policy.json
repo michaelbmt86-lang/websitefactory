@@ -1,0 +1,43 @@
+{
+  "name": "rollback-policy",
+  "version": "1.0.0",
+  "description": "Rollback and recovery policy governing deployment revert, DNS cleanup, and domain unbinding procedures",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "policy": {
+    "scope": "rollback-recovery",
+    "principle": "Rollback is available for failed deployments but requires explicit approval. Rollback reverts deployment but preserves domain binding and DNS records.",
+    "rules": {
+      "trigger": {
+        "automatic": false,
+        "manualApproval": true,
+        "conditions": ["verification-failure", "health-check-failure", "manual-override"],
+        "description": "Rollback is triggered manually after verification failure or explicit override"
+      },
+      "vercelRollback": {
+        "method": "revert-to-previous-deployment",
+        "preserveProject": true,
+        "description": "Revert Vercel project to the last successful deployment. Project itself is preserved."
+      },
+      "dnsCleanup": {
+        "removeRecords": false,
+        "description": "DNS records are NOT removed during rollback. Domain remains pointed to Vercel."
+      },
+      "domainUnbinding": {
+        "unbindDomain": false,
+        "description": "Domain remains bound to Vercel project during rollback."
+      },
+      "verification": {
+        "requirePostRollbackCheck": true,
+        "verifyHttps": true,
+        "verifyHomepage": true,
+        "description": "Post-rollback verification confirms the reverted deployment is live and accessible."
+      },
+      "reporting": {
+        "generateRollbackReport": true,
+        "archiveReport": true,
+        "description": "Rollback events are documented in delivery reports."
+      }
+    }
+  }
+}

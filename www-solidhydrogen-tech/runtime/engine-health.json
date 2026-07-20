@@ -1,0 +1,94 @@
+{
+  "name": "engine-health",
+  "version": "1.0.0",
+  "description": "Runtime metadata for extraction engine health — success rates, average durations, error distributions, and health trends.",
+  "owner": "layer-3-extraction-manager",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 3 Extraction Manager. No existing code depends on it yet.",
+  "engines": {
+    "chrome-devtools-mcp": {
+      "name": "chrome-devtools-mcp",
+      "displayName": "Chrome DevTools MCP",
+      "healthState": "unknown",
+      "metrics": {
+        "successRate": null,
+        "failureRate": null,
+        "avgDurationMs": null,
+        "p95DurationMs": null,
+        "p99DurationMs": null,
+        "totalAttempts": 0,
+        "totalSuccesses": 0,
+        "totalFailures": 0,
+        "timeoutCount": 0,
+        "rateLimitCount": 0,
+        "networkErrorCount": 0,
+        "parseErrorCount": 0,
+        "unknownErrorCount": 0
+      },
+      "trend": {
+        "direction": "stable",
+        "changePercent": 0,
+        "windowSize": 50
+      },
+      "lastHealthCheck": null,
+      "nextHealthCheck": null
+    },
+    "jcodesmore-browser": {
+      "name": "jcodesmore-browser",
+      "displayName": "JCodesMore Recovery Engine",
+      "healthState": "unknown",
+      "metrics": {
+        "successRate": null,
+        "failureRate": null,
+        "avgDurationMs": null,
+        "p95DurationMs": null,
+        "p99DurationMs": null,
+        "totalAttempts": 0,
+        "totalSuccesses": 0,
+        "totalFailures": 0,
+        "timeoutCount": 0,
+        "rateLimitCount": 0,
+        "networkErrorCount": 0,
+        "parseErrorCount": 0,
+        "unknownErrorCount": 0
+      },
+      "trend": {
+        "direction": "stable",
+        "changePercent": 0,
+        "windowSize": 50
+      },
+      "lastHealthCheck": null,
+      "nextHealthCheck": null
+    },
+    "firecrawl": {
+      "name": "firecrawl",
+      "displayName": "Firecrawl Recovery Engine",
+      "healthState": "unknown",
+      "metrics": {
+        "successRate": null,
+        "failureRate": null,
+        "avgDurationMs": null,
+        "p95DurationMs": null,
+        "p99DurationMs": null,
+        "totalAttempts": 0,
+        "totalSuccesses": 0,
+        "totalFailures": 0,
+        "timeoutCount": 0,
+        "rateLimitCount": 0,
+        "networkErrorCount": 0,
+        "parseErrorCount": 0,
+        "unknownErrorCount": 0
+      },
+      "trend": {
+        "direction": "stable",
+        "changePercent": 0,
+        "windowSize": 50
+      },
+      "lastHealthCheck": null,
+      "nextHealthCheck": null
+    }
+  },
+  "overallHealth": "unknown",
+  "lastFullHealthCheck": null,
+  "healthCheckIntervalMs": 300000
+}

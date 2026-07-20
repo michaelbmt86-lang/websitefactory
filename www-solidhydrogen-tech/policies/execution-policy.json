@@ -1,0 +1,54 @@
+{
+  "name": "execution-policy",
+  "version": "1.0.0",
+  "description": "Governs the overall execution lifecycle of the Website Factory pipeline — phase ordering, gate conditions, and abort criteria.",
+  "owner": "layer-2-execution-engine",
+  "enabled": true,
+  "rules": {
+    "phaseOrdering": {
+      "description": "Phases must execute in defined order. A phase cannot start until the previous phase completes or is explicitly skipped.",
+      "enforced": true,
+      "phases": [
+        "reconnaissance",
+        "foundation-build",
+        "component-extraction",
+        "page-assembly",
+        "visual-qa",
+        "verification",
+        "deployment"
+      ]
+    },
+    "gateConditions": {
+      "description": "Each phase transition requires a gate check before proceeding.",
+      "buildGate": {
+        "description": "npm run build must pass before proceeding to the next phase",
+        "command": "npm run build",
+        "required": true
+      },
+      "typecheckGate": {
+        "description": "TypeScript compilation must pass",
+        "command": "npm run typecheck",
+        "required": true
+      },
+      "lintGate": {
+        "description": "ESLint must pass",
+        "command": "npm run lint",
+        "required": true
+      }
+    },
+    "abortCriteria": {
+      "description": "Execution must abort immediately if any of these conditions are met.",
+      "conditions": [
+        "build fails after 3 repair attempts",
+        "target URL is unreachable after 3 retries",
+        "browser MCP is unavailable",
+        "required environment variables are missing"
+      ]
+    },
+    "parallelExecution": {
+      "description": "Builder agents may execute in parallel within a phase, but phases themselves are sequential.",
+      "allowed": true,
+      "maxConcurrentBuilders": 4
+    }
+  }
+}

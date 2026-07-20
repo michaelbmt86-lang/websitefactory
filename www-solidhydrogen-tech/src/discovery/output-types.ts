@@ -1,0 +1,143 @@
+// ============================================================================
+// OUTPUT TYPES (Site Discovery + Product Discovery + Detail Extraction)
+//
+// Types for the JSON output files. Separate from core types to avoid circular deps.
+// ============================================================================
+
+export interface SiteMapOutput {
+  siteUrl: string;
+  generatedAt: string;
+  totalUrls: number;
+  urls: {
+    url: string;
+    slug: string;
+    depth: number;
+    pageType: string;
+    status: string;
+    priority: number;
+    title: string;
+    parentUrl: string | null;
+  }[];
+}
+
+export interface UrlGraphOutput {
+  siteUrl: string;
+  generatedAt: string;
+  root: string;
+  maxDepth: number;
+  totalNodes: number;
+  totalEdges: number;
+  nodes: {
+    id: string;
+    url: string;
+    slug: string;
+    depth: number;
+    parent: string | null;
+    pageType: string;
+    status: string;
+    priority: number;
+    discoveredBy: string[];
+    childCount: number;
+  }[];
+  edges: {
+    source: string;
+    target: string;
+    type: string;
+  }[];
+}
+
+export interface CrawlSummaryOutput {
+  siteUrl: string;
+  generatedAt: string;
+  totalUrls: number;
+  crawledUrls: number;
+  brokenUrls: number;
+  skippedUrls: number;
+  discoveredUrls: number;
+  maxDepth: number;
+  averageDepth: number;
+  urlsByType: Record<string, number>;
+  urlsByStatus: Record<string, number>;
+  depthDistribution: Record<string, number>;
+  discoverySources: Record<string, number>;
+  topPages: { url: string; pageType: string; depth: number }[];
+}
+
+export interface DeliveryReportOutput {
+  generatedAt: string;
+  siteUrl: string;
+  discovery: {
+    totalUrls: number;
+    categories: number;
+    discoveryCoverage: number;
+    brokenUrls: number;
+    depthStatistics: {
+      maxDepth: number;
+      averageDepth: number;
+      distribution: Record<string, number>;
+    };
+    pageTypeBreakdown: Record<string, number>;
+  };
+  productDiscovery: {
+    totalProducts: number;
+    totalCategories: number;
+    duplicateCount: number;
+    brokenProductUrls: number;
+    coveragePercent: number;
+    discoveryTimeMs: number;
+    productsByCategory: Record<string, number>;
+  };
+  detailExtraction: {
+    productsExtracted: number;
+    images: number;
+    downloads: number;
+    specifications: number;
+    seoCoverage: number;
+    schemaCoverage: number;
+    brokenAssets: number;
+    extractionSuccessRate: number;
+  };
+  cmsGenerator: {
+    pagesGenerated: number;
+    brandsGenerated: number;
+    collectionsGenerated: number;
+    blogPostsGenerated: number;
+    seoCoverage: number;
+    searchCoverage: number;
+    brokenLinks: number;
+    missingMetadata: number;
+    generationSuccessRate: number;
+  };
+  extractionRecovery: {
+    chromeMcpSuccessRate: number;
+    jcodesmoreRecoveryCount: number;
+    firecrawlRecoveryCount: number;
+    recoverySuccessRate: number;
+    averageRetryCount: number;
+    averageExtractionTimeMs: number;
+    totalFailedUrls: number;
+    overallExtractionSuccessRate: number;
+  };
+  verification: {
+    overallStatus: string;
+    totalChecks: number;
+    passedChecks: number;
+    failedChecks: number;
+    auditIssues: number;
+    repairsFixed: number;
+    buildStatus: string;
+    deploymentStatus: string;
+  };
+  status: "PASS" | "FAIL";
+  checks: {
+    typecheck: "PASS" | "FAIL";
+    lint: "PASS" | "FAIL";
+    build: "PASS" | "FAIL";
+    discovery: "PASS" | "FAIL";
+    productDiscovery: "PASS" | "FAIL";
+    detailExtraction: "PASS" | "FAIL";
+    cmsGenerator: "PASS" | "FAIL";
+    verification: "PASS" | "FAIL";
+    dashboard: "PASS" | "FAIL";
+  };
+}

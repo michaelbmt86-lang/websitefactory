@@ -1,0 +1,46 @@
+{
+  "name": "delivery-health",
+  "version": "1.0.0",
+  "description": "Delivery pipeline health state — scoring, thresholds, and monitoring configuration",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "health": {
+    "state": "unknown",
+    "score": 0,
+    "lastChecked": null
+  },
+  "states": {
+    "healthy": { "label": "Healthy", "description": "All deployment checks passing" },
+    "degraded": { "label": "Degraded", "description": "Some checks failing but site accessible" },
+    "unhealthy": { "label": "Unhealthy", "description": "Critical checks failing" },
+    "unknown": { "label": "Unknown", "description": "Health not yet assessed" }
+  },
+  "scoreWeights": {
+    "infrastructure": 0.25,
+    "network": 0.25,
+    "content": 0.25,
+    "authentication": 0.15,
+    "seo": 0.10
+  },
+  "thresholds": {
+    "healthy": 90,
+    "degraded": 70,
+    "unhealthy": 0
+  },
+  "checks": {
+    "github-repo": { "category": "infrastructure", "weight": 0.5, "critical": true },
+    "vercel-project": { "category": "infrastructure", "weight": 0.5, "critical": true },
+    "dns-resolution": { "category": "network", "weight": 0.4, "critical": true },
+    "https-apex": { "category": "network", "weight": 0.3, "critical": true },
+    "https-www": { "category": "network", "weight": 0.3, "critical": true },
+    "homepage-status": { "category": "content", "weight": 0.3, "critical": true },
+    "dashboard-access": { "category": "content", "weight": 0.2, "critical": false },
+    "error-pages": { "category": "content", "weight": 0.2, "critical": false },
+    "ssl-errors": { "category": "content", "weight": 0.3, "critical": true },
+    "login-form": { "category": "authentication", "weight": 0.4, "critical": false },
+    "admin-account": { "category": "authentication", "weight": 0.3, "critical": false },
+    "admin-login": { "category": "authentication", "weight": 0.3, "critical": false },
+    "robots-txt": { "category": "seo", "weight": 0.5, "critical": false },
+    "sitemap-xml": { "category": "seo", "weight": 0.5, "critical": false }
+  }
+}

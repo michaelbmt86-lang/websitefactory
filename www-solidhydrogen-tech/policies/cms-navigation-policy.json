@@ -1,0 +1,48 @@
+{
+  "name": "cms-navigation-policy",
+  "version": "1.0.0",
+  "description": "Defines rules for navigation and menu generation — hierarchy, sorting, external links, and output format.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": "2026-07-18T00:00:00Z",
+  "rules": {
+    "mainNavigation": {
+      "description": "Main navigation structure",
+      "sections": ["Home", "Collections", "Brands", "Blog", "Contact"],
+      "hierarchy": true,
+      "includeChildren": true,
+      "maxDepth": 2
+    },
+    "collectionNavigation": {
+      "description": "Collections as navigation items",
+      "source": "cms_collections",
+      "sortBy": "name",
+      "includeProductCount": true,
+      "childrenFrom": "cms_pages (page_type=category)"
+    },
+    "brandNavigation": {
+      "description": "Brands as navigation items",
+      "source": "cms_brands",
+      "sortBy": "name",
+      "includeProductCount": true,
+      "childrenFrom": "cms_pages (source_table=extracted_products)"
+    },
+    "footerNavigation": {
+      "description": "Footer navigation structure",
+      "sections": ["Products", "Company"],
+      "includeLinks": true,
+      "sortBy": "sort_order"
+    },
+    "externalLinks": {
+      "description": "External link handling",
+      "allowExternal": true,
+      "markAsExternal": true,
+      "openInNewTab": true
+    },
+    "outputFormat": {
+      "description": "Navigation output format",
+      "format": "json",
+      "path": "docs/discovery/navigation.json",
+      "structure": "hierarchical"
+    }
+  }
+}

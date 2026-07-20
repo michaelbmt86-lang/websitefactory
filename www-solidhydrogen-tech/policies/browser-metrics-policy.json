@@ -1,0 +1,121 @@
+{
+  "name": "browser-metrics-policy",
+  "version": "1.0.0",
+  "description": "Defines browser metrics tracking behaviour — which metrics to track, retention, aggregation, and reporting rules.",
+  "owner": "layer-4-browser-extraction",
+  "enabled": true,
+  "rules": {
+    "metricsDefinitions": {
+      "description": "Browser-level metrics definitions",
+      "metrics": {
+        "navigationTime": {
+          "description": "Time to navigate to URL",
+          "unit": "ms",
+          "aggregation": ["avg", "min", "max", "p95", "p99"],
+          "perEngine": true,
+          "perUrl": false
+        },
+        "domReadyTime": {
+          "description": "Time for DOM to be ready after navigation",
+          "unit": "ms",
+          "aggregation": ["avg", "min", "max", "p95", "p99"],
+          "perEngine": true,
+          "perUrl": false
+        },
+        "networkIdleTime": {
+          "description": "Time until network becomes idle",
+          "unit": "ms",
+          "aggregation": ["avg", "min", "max", "p95"],
+          "perEngine": true,
+          "perUrl": false
+        },
+        "assetCount": {
+          "description": "Number of assets discovered on page",
+          "unit": "count",
+          "aggregation": ["avg", "min", "max"],
+          "perEngine": true,
+          "perUrl": true
+        },
+        "requestCount": {
+          "description": "Number of HTTP requests made",
+          "unit": "count",
+          "aggregation": ["avg", "min", "max"],
+          "perEngine": true,
+          "perUrl": false
+        },
+        "responseCount": {
+          "description": "Number of HTTP responses received",
+          "unit": "count",
+          "aggregation": ["avg", "min", "max"],
+          "perEngine": true,
+          "perUrl": false
+        },
+        "retryCount": {
+          "description": "Number of retries per extraction",
+          "unit": "count",
+          "aggregation": ["avg", "total"],
+          "perEngine": true,
+          "perUrl": false
+        },
+        "recoveryCount": {
+          "description": "Number of recovery events per extraction",
+          "unit": "count",
+          "aggregation": ["avg", "total"],
+          "perEngine": true,
+          "perUrl": false
+        },
+        "browserLifetime": {
+          "description": "Total browser session lifetime",
+          "unit": "ms",
+          "aggregation": ["avg", "min", "max"],
+          "perEngine": true,
+          "perUrl": false
+        },
+        "memoryUsage": {
+          "description": "Browser memory usage",
+          "unit": "bytes",
+          "aggregation": ["avg", "max"],
+          "perEngine": true,
+          "perUrl": false
+        },
+        "screenshotCount": {
+          "description": "Number of screenshots taken",
+          "unit": "count",
+          "aggregation": ["total", "avg"],
+          "perEngine": true,
+          "perUrl": false
+        },
+        "domSize": {
+          "description": "DOM size in elements and bytes",
+          "unit": "mixed",
+          "aggregation": ["avg", "max"],
+          "perEngine": true,
+          "perUrl": true,
+          "subMetrics": ["elements", "depth", "htmlSizeBytes"]
+        }
+      }
+    },
+    "retention": {
+      "description": "Metrics retention rules",
+      "maxRecordsPerEngine": 1000,
+      "maxRecordsOverall": 5000,
+      "retentionDays": 30,
+      "compressOldRecords": true,
+      "archiveAfterDays": 7
+    },
+    "aggregation": {
+      "description": "Metrics aggregation rules",
+      "windows": ["last10", "last50", "last100", "overall"],
+      "recalculateOnWrite": true,
+      "logAggregationEvents": false
+    },
+    "reporting": {
+      "description": "Metrics reporting rules",
+      "reportToLayer3": true,
+      "reportFormat": "json",
+      "includeTimestamps": true,
+      "includeEngineBreakdown": true,
+      "includeOverallSummary": true
+    }
+  }
+}

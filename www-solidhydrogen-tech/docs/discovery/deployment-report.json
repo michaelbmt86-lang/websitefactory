@@ -1,0 +1,44 @@
+{
+  "domain": "websitefactorytest.online",
+  "environment": "test",
+  "timestamp": "2026-07-17T09:52:00.000Z",
+  "git": {
+    "repository": "michaelbmt86-lang/websitefactory",
+    "branch": "master",
+    "commit": "7e4e30c",
+    "commitMessage": "PoC: solidhydrogen.tech end-to-end pipeline validation"
+  },
+  "vercel": {
+    "projectName": "websitefactory-prod",
+    "projectId": "prj_QjdtNuQlMHdrVppAAzFHPmB5wKXm",
+    "productionUrl": "https://websitefactory-prod-li4u9o2ib-glotalk.vercel.app",
+    "aliasUrl": "https://websitefactorytest.online",
+    "buildTime": "38s",
+    "totalDeployTime": "58s",
+    "framework": "nextjs",
+    "nodeVersion": "24.15.0",
+    "buildStatus": "READY"
+  },
+  "cloudflare": {
+    "dnsResolved": true,
+    "ips": ["76.76.21.22", "66.33.60.129", "108.162.194.112", "162.159.38.112", "172.64.34.112"],
+    "sslActive": true,
+    "cdnActive": true
+  },
+  "verification": {
+    "homepage": { "status": 200, "size": 64593 },
+    "login": { "status": 200, "size": 11530 },
+    "robots": { "status": 200 },
+    "sitemap": { "status": 200, "size": 2046 },
+    "apiSettings": { "status": 200 },
+    "apiAuth": { "status": 200 }
+  },
+  "pipelineResult": {
+    "siteDiscovery": { "urls": 10, "broken": 0, "status": "PASS" },
+    "productDiscovery": { "products": 0, "status": "PASS" },
+    "detailExtraction": { "extracted": 0, "status": "PASS" },
+    "cmsGeneration": { "pages": 18, "seo": 18, "searchIndex": 26, "status": "PASS" },
+    "researchImporter": { "pages": 5, "status": "PASS" },
+    "verification": { "passed": 5, "total": 10, "status": "PARTIAL" }
+  }
+}

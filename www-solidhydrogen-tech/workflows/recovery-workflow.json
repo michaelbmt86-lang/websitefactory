@@ -1,0 +1,99 @@
+{
+  "name": "recovery-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable recovery workflow definition — detect corruption, attempt repair, fallback to backup, and report status.",
+  "owner": "layer-6-data-storage",
+  "enabled": true,
+  "workflow": {
+    "type": "recovery",
+    "totalSteps": 8,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "databasePath": {
+        "type": "string",
+        "required": true,
+        "description": "Path to the database file to recover"
+      },
+      "errorType": {
+        "type": "string",
+        "required": true,
+        "description": "Error type: corruption, lock, timeout, disk-full, unknown"
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "detect-corruption",
+        "name": "Detect Corruption",
+        "description": "Run PRAGMA integrity_check to identify corruption type and severity",
+        "input": "databasePath",
+        "output": "corruption-report",
+        "failureAction": "assume-full-corruption-proceed"
+      },
+      {
+        "step": 2,
+        "id": "backup-current-state",
+        "name": "Backup Current State",
+        "description": "Create a backup of the current (potentially corrupted) state for forensic analysis",
+        "input": "corruption-report, databasePath",
+        "output": "forensic-backup",
+        "failureAction": "log-backup-failure-proceed"
+      },
+      {
+        "step": 3,
+        "id": "attempt-repair",
+        "name": "Attempt Repair",
+        "description": "Attempt to repair the database — WAL checkpoint, index rebuild, vacuum",
+        "input": "corruption-report, databasePath",
+        "output": "repair-result",
+        "failureAction": "proceed-to-fallback"
+      },
+      {
+        "step": 4,
+        "id": "verify-repair",
+        "name": "Verify Repair",
+        "description": "Run integrity_check again to confirm repair was successful",
+        "input": "repair-result",
+        "output": "verification-result",
+        "failureAction": "proceed-to-fallback"
+      },
+      {
+        "step": 5,
+        "id": "fallback-to-backup",
+        "name": "Fallback to Backup",
+        "description": "If repair failed, restore from the most recent valid backup",
+        "input": "verification-result, databasePath",
+        "output": "restore-result",
+        "failureAction": "proceed-to-seed-data"
+      },
+      {
+        "step": 6,
+        "id": "fallback-to-seed-data",
+        "name": "Fallback to Seed Data",
+        "description": "If no valid backup exists, recreate database from schema and seed data",
+        "input": "restore-result, databasePath",
+        "output": "seed-result",
+        "failureAction": "return-recovery-failed"
+      },
+      {
+        "step": 7,
+        "id": "verify-recovery",
+        "name": "Verify Recovery",
+        "description": "Run integrity_check and verify table structure after recovery",
+        "input": "seed-result",
+        "output": "recovery-verification",
+        "failureAction": "return-recovery-failed"
+      },
+      {
+        "step": 8,
+        "id": "return-recovery-status",
+        "name": "Return Recovery Status",
+        "description": "Return structured status — recovery method, tables restored, data integrity",
+        "input": "recovery-verification",
+        "output": "recovery-status",
+        "failureAction": "return-partial-recovery-status"
+      }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "name": "cms-generation-policy",
+  "version": "1.0.0",
+  "description": "Defines rules and constraints for CMS generation operations — orchestrator behavior, phase sequencing, error handling, and output packaging.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": "2026-07-18T00:00:00Z",
+  "rules": {
+    "orchestration": {
+      "description": "CMS generation runs 8 sequential phases",
+      "phases": ["pages", "brands", "collections", "blog", "seo", "search-index", "output-files", "quality-validation"],
+      "sequential": true,
+      "rollbackOnFailure": false,
+      "partialResultAllowed": true
+    },
+    "dataSources": {
+      "description": "CMS generation reads from upstream tables only",
+      "allowedReadTables": ["site_urls", "extracted_products", "posts", "categories"],
+      "allowedWriteTables": ["cms_pages", "cms_brands", "cms_collections", "cms_seo", "cms_search_index"],
+      "noCrossLayerWrites": true
+    },
+    "idempotency": {
+      "description": "CMS generation must be idempotent — re-running produces same result",
+      "pageGeneration": "INSERT OR REPLACE on cms_pages (url UNIQUE)",
+      "brandGeneration": "DELETE ALL + INSERT (full rebuild)",
+      "collectionGeneration": "DELETE ALL + INSERT (full rebuild)",
+      "seoGeneration": "DELETE ALL + INSERT (full rebuild)",
+      "searchIndexGeneration": "DELETE ALL + INSERT (full rebuild)"
+    },
+    "outputPackaging": {
+      "description": "Output files written to docs/discovery/",
+      "allowedPaths": ["docs/discovery/"],
+      "files": ["website-manifest.json", "search-index.json", "navigation.json", "sitemap.xml", "sitemap.json"],
+      "atomicWrite": false,
+      "backupBeforeWrite": false
+    },
+    "errorHandling": {
+      "description": "Error handling rules for CMS generation",
+      "onPhaseFailure": "log-and-continue",
+      "onWriteFailure": "throw-and-abort",
+      "onOutputFailure": "log-and-continue",
+      "maxRetries": 0,
+      "retryDelayMs": 0
+    }
+  }
+}

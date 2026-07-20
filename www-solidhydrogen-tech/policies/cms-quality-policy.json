@@ -1,0 +1,70 @@
+{
+  "name": "cms-quality-policy",
+  "version": "1.0.0",
+  "description": "Defines rules for CMS quality validation — metadata completeness, SEO coverage, link integrity, and issue severity.",
+  "owner": "layer-7-cms-generation",
+  "generatedAt": "2026-07-18T00:00:00Z",
+  "rules": {
+    "validationChecks": {
+      "description": "Quality validation checks performed",
+      "checks": [
+        {
+          "id": "missing-metadata",
+          "description": "CMS pages missing meta title or meta description",
+          "severity": "warning",
+          "scope": "cms_pages"
+        },
+        {
+          "id": "missing-seo",
+          "description": "CMS pages missing Open Graph tags",
+          "severity": "warning",
+          "scope": "cms_pages"
+        },
+        {
+          "id": "empty-description",
+          "description": "CMS entities with empty descriptions",
+          "severity": "warning",
+          "scope": "cms_pages, cms_brands, cms_collections"
+        },
+        {
+          "id": "missing-image",
+          "description": "Brands/Collections missing images",
+          "severity": "info",
+          "scope": "cms_brands, cms_collections"
+        },
+        {
+          "id": "duplicate-slug",
+          "description": "Duplicate slugs within same entity type",
+          "severity": "error",
+          "scope": "all cms tables"
+        },
+        {
+          "id": "broken-link",
+          "description": "Canonical URLs pointing to non-existent pages",
+          "severity": "error",
+          "scope": "cms_seo"
+        }
+      ]
+    },
+    "severityLevels": {
+      "description": "Issue severity levels",
+      "error": "Must be fixed before deployment",
+      "warning": "Should be fixed, blocks quality gate",
+      "info": "Informational, does not block"
+    },
+    "qualityGate": {
+      "description": "Quality gate thresholds",
+      "minSeoCoverage": 80,
+      "maxBrokenLinks": 0,
+      "maxDuplicateSlugs": 0,
+      "maxMissingMetadata": 10
+    },
+    "reporting": {
+      "description": "Quality reporting rules",
+      "includeIssueList": true,
+      "includeAggregateCounts": true,
+      "groupBySeverity": true,
+      "groupByEntityType": true
+    }
+  }
+}

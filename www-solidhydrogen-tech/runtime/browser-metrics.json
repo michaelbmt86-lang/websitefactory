@@ -1,0 +1,79 @@
+{
+  "name": "browser-metrics",
+  "version": "1.0.0",
+  "description": "Runtime metadata for browser metrics — navigation time, DOM ready time, network idle time, asset count, request count, response count, retry count, recovery count, browser lifetime, memory usage, screenshot count, DOM size.",
+  "owner": "layer-4-browser-extraction",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 4 Browser Extraction Layer. No existing code depends on it yet.",
+  "engines": {
+    "chrome-devtools-mcp": {
+      "name": "chrome-devtools-mcp",
+      "displayName": "Chrome DevTools MCP",
+      "metrics": {
+        "navigationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+        "domReadyTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+        "networkIdleTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "assetCount": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "requestCount": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "responseCount": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "retryCount": { "total": 0, "avg": 0 },
+        "recoveryCount": { "total": 0, "avg": 0 },
+        "browserLifetime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0 },
+        "memoryUsage": { "avgBytes": 0, "maxBytes": 0 },
+        "screenshotCount": { "total": 0, "avg": 0 },
+        "domSize": { "avgElements": 0, "avgDepth": 0, "avgHtmlSizeBytes": 0, "maxHtmlSizeBytes": 0 }
+      },
+      "lastUpdated": null
+    },
+    "jcodesmore-browser": {
+      "name": "jcodesmore-browser",
+      "displayName": "JCodesMore Browser",
+      "metrics": {
+        "navigationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+        "domReadyTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+        "networkIdleTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "assetCount": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "requestCount": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "responseCount": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "retryCount": { "total": 0, "avg": 0 },
+        "recoveryCount": { "total": 0, "avg": 0 },
+        "browserLifetime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0 },
+        "memoryUsage": { "avgBytes": 0, "maxBytes": 0 },
+        "screenshotCount": { "total": 0, "avg": 0 },
+        "domSize": { "avgElements": 0, "avgDepth": 0, "avgHtmlSizeBytes": 0, "maxHtmlSizeBytes": 0 }
+      },
+      "lastUpdated": null
+    },
+    "firecrawl": {
+      "name": "firecrawl",
+      "displayName": "Firecrawl Recovery Engine",
+      "metrics": {
+        "navigationTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+        "domReadyTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0, "p99Ms": 0 },
+        "networkIdleTime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0, "p95Ms": 0 },
+        "assetCount": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "requestCount": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "responseCount": { "total": 0, "avg": 0, "min": 0, "max": 0 },
+        "retryCount": { "total": 0, "avg": 0 },
+        "recoveryCount": { "total": 0, "avg": 0 },
+        "browserLifetime": { "totalMs": 0, "avgMs": 0, "minMs": 0, "maxMs": 0 },
+        "memoryUsage": { "avgBytes": 0, "maxBytes": 0 },
+        "screenshotCount": { "total": 0, "avg": 0 },
+        "domSize": { "avgElements": 0, "avgDepth": 0, "avgHtmlSizeBytes": 0, "maxHtmlSizeBytes": 0 }
+      },
+      "lastUpdated": null
+    }
+  },
+  "overallMetrics": {
+    "totalNavigations": 0,
+    "totalCaptures": 0,
+    "totalAssetsDiscovered": 0,
+    "totalRequests": 0,
+    "totalRetries": 0,
+    "totalRecoveries": 0,
+    "overallAvgNavigationMs": 0,
+    "overallAvgCaptureMs": 0,
+    "overallAvgMemoryBytes": 0
+  },
+  "lastUpdated": null
+}

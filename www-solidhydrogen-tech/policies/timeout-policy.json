@@ -1,0 +1,49 @@
+{
+  "name": "timeout-policy",
+  "version": "1.0.0",
+  "description": "Defines timeout limits for the Layer 3 Extraction Manager — per-URL, per-engine, and overall extraction timeouts.",
+  "owner": "layer-3-extraction-manager",
+  "enabled": true,
+  "rules": {
+    "perUrlTimeout": {
+      "description": "Maximum time allowed for a single URL extraction attempt",
+      "timeoutMs": 60000,
+      "enforcement": "hard",
+      "action": "abort-and-retry"
+    },
+    "perEngineTimeout": {
+      "description": "Maximum time allowed per engine attempt",
+      "chrome-devtools-mcp": {
+        "timeoutMs": 60000,
+        "note": "Browser automation may be slow for complex pages"
+      },
+      "jcodesmore-browser": {
+        "timeoutMs": 30000,
+        "note": "HTTP fetch should be faster"
+      },
+      "firecrawl": {
+        "timeoutMs": 45000,
+        "note": "API call with managed scraping"
+      }
+    },
+    "overallExtractionTimeout": {
+      "description": "Maximum time allowed for entire extraction session",
+      "timeoutMs": 3600000,
+      "note": "1 hour default for full site extraction",
+      "enforcement": "soft",
+      "action": "log-warning-continue"
+    },
+    "retryDelayTimeout": {
+      "description": "Maximum delay between retries",
+      "maxDelayMs": 30000,
+      "enforcement": "hard"
+    },
+    "timeoutActions": {
+      "description": "Actions to take when timeouts occur",
+      "perUrlTimeout": "abort-attempt-retry-next-engine",
+      "perEngineTimeout": "abort-engine-fallback-to-next",
+      "overallTimeout": "log-warning-continue-extraction",
+      "retryDelayTimeout": "cap-delay-at-maximum"
+    }
+  }
+}

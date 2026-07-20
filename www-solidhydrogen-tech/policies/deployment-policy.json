@@ -1,0 +1,73 @@
+{
+  "name": "deployment-policy",
+  "version": "2.0.0",
+  "description": "Defines deployment behaviour — monorepo mode. Provider selection, project lifecycle, domain management, and delivery verification requirements.",
+  "owner": "layer-2-execution-engine",
+  "enabled": true,
+  "rules": {
+    "providers": {
+      "deployment": "vercel",
+      "versionControl": "github",
+      "dns": "cloudflare",
+      "note": "All three providers are required for a complete deployment"
+    },
+    "monorepo": {
+      "enabled": true,
+      "repository": "michaelbmt86-lang/websitefactory",
+      "folderNaming": "domain-with-dots-replaced-by-hyphens",
+      "example": "websitefactorytest.online → websitefactorytest-online",
+      "rule": "One permanent repository. Each domain gets its own folder. Never create additional repositories."
+    },
+    "projectLifecycle": {
+      "alwaysCreateNew": false,
+      "reuseExisting": true,
+      "updateIfExists": true,
+      "projectNameStrategy": "normalized-domain",
+      "vercelTeam": "glotalk",
+      "cleanupOldProject": false,
+      "verifyBeforeCleanup": true
+    },
+    "domainManagement": {
+      "bindBothApexAndWww": true,
+      "dnsProvider": "cloudflare",
+      "apexRecordType": "A",
+      "apexRecordContent": "76.76.21.21",
+      "apexProxied": true,
+      "wwwRecordType": "CNAME",
+      "wwwRecordContent": "cname.vercel-dns.com",
+      "wwwProxied": false
+    },
+    "deliveryVerification": {
+      "description": "19-check verification that runs after deployment completes",
+      "checksRequired": 19,
+      "allMustPass": true,
+      "checks": [
+        "github_repo_exists",
+        "vercel_project_exists",
+        "deployment_ready",
+        "production_deployment",
+        "custom_domain_bound",
+        "https_apex_200",
+        "https_www_200",
+        "dns_configured",
+        "homepage_status_and_size",
+        "dashboard_200",
+        "dashboard_login_works",
+        "admin_account_exists",
+        "admin_login_succeeds",
+        "admin_dashboard_loads",
+        "no_not_found_errors",
+        "no_404_pages",
+        "no_500_errors",
+        "no_525_ssl_errors",
+        "cloudflare_dns_verified"
+      ]
+    },
+    "reporting": {
+      "generateDeliveryReport": true,
+      "archiveReport": true,
+      "reportPath": "reports/",
+      "reportFormat": "json"
+    }
+  }
+}

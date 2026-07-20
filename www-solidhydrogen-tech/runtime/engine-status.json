@@ -1,0 +1,50 @@
+{
+  "name": "engine-status",
+  "version": "1.0.0",
+  "description": "Runtime metadata for extraction engine status — current state of each engine, last health check, and active recovery operations.",
+  "owner": "layer-3-extraction-manager",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 3 Extraction Manager. No existing code depends on it yet.",
+  "engines": {
+    "chrome-devtools-mcp": {
+      "name": "chrome-devtools-mcp",
+      "displayName": "Chrome DevTools MCP",
+      "status": "unknown",
+      "lastHealthCheck": null,
+      "lastSuccessfulExtraction": null,
+      "lastFailedExtraction": null,
+      "consecutiveFailures": 0,
+      "activeRequests": 0,
+      "queueDepth": 0,
+      "currentRecovery": null
+    },
+    "jcodesmore-browser": {
+      "name": "jcodesmore-browser",
+      "displayName": "JCodesMore Recovery Engine",
+      "status": "unknown",
+      "lastHealthCheck": null,
+      "lastSuccessfulExtraction": null,
+      "lastFailedExtraction": null,
+      "consecutiveFailures": 0,
+      "activeRequests": 0,
+      "queueDepth": 0,
+      "currentRecovery": null
+    },
+    "firecrawl": {
+      "name": "firecrawl",
+      "displayName": "Firecrawl Recovery Engine",
+      "status": "unknown",
+      "lastHealthCheck": null,
+      "lastSuccessfulExtraction": null,
+      "lastFailedExtraction": null,
+      "consecutiveFailures": 0,
+      "activeRequests": 0,
+      "queueDepth": 0,
+      "currentRecovery": null
+    }
+  },
+  "overallStatus": "idle",
+  "activeExtractions": 0,
+  "totalExtractionsToday": 0,
+  "lastUpdated": null
+}

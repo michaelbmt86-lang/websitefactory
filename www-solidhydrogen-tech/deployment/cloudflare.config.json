@@ -1,0 +1,6 @@
+{
+    "provider": "cloudflare",
+    "dns_management": true,
+    "ssl": true,
+    "proxy": true
+  }

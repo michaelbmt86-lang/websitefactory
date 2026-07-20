@@ -1,0 +1,90 @@
+{
+  "name": "backup-workflow",
+  "version": "1.0.0",
+  "description": "Machine-readable backup workflow definition — create backup, verify integrity, manage retention, and report status.",
+  "owner": "layer-6-data-storage",
+  "enabled": true,
+  "workflow": {
+    "type": "backup",
+    "totalSteps": 7,
+    "sequential": true,
+    "parallelWithinStep": false,
+    "input": {
+      "trigger": {
+        "type": "string",
+        "required": true,
+        "description": "Backup trigger: manual, scheduled, pre-deploy, pre-migration"
+      },
+      "databasePath": {
+        "type": "string",
+        "required": true,
+        "description": "Path to the source database file"
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "id": "validate-source",
+        "name": "Validate Source Database",
+        "description": "Check source database exists, is readable, and is not corrupted",
+        "input": "databasePath",
+        "output": "source-validation",
+        "failureAction": "return-source-validation-error"
+      },
+      {
+        "step": 2,
+        "id": "create-backup",
+        "name": "Create Backup",
+        "description": "Copy database file to backup location with timestamp naming",
+        "input": "source-validation, databasePath",
+        "output": "backup-result",
+        "failureAction": "return-backup-creation-error"
+      },
+      {
+        "step": 3,
+        "id": "verify-backup",
+        "name": "Verify Backup Integrity",
+        "description": "Run PRAGMA integrity_check on the backup file to ensure it is valid",
+        "input": "backup-result",
+        "output": "verification-result",
+        "failureAction": "delete-invalid-backup-try-again"
+      },
+      {
+        "step": 4,
+        "id": "manage-retention",
+        "name": "Manage Backup Retention",
+        "description": "Delete old backups exceeding retention limits — daily, weekly, monthly",
+        "input": "verification-result",
+        "output": "retention-result",
+        "failureAction": "log-retention-failure-continue"
+      },
+      {
+        "step": 5,
+        "id": "update-backup-manifest",
+        "name": "Update Backup Manifest",
+        "description": "Record backup metadata — filename, size, timestamp, trigger, checksum",
+        "input": "backup-result, verification-result",
+        "output": "manifest-update",
+        "failureAction": "log-manifest-failure-continue"
+      },
+      {
+        "step": 6,
+        "id": "compute-backup-statistics",
+        "name": "Compute Backup Statistics",
+        "description": "Calculate backup stats — total backups, total size, average size, retention compliance",
+        "input": "manifest-update",
+        "output": "backup-statistics",
+        "failureAction": "log-statistics-failure-continue"
+      },
+      {
+        "step": 7,
+        "id": "return-backup-status",
+        "name": "Return Backup Status",
+        "description": "Return structured status — backup file, size, duration, verification result",
+        "input": "backup-result, verification-result, backup-statistics",
+        "output": "backup-status",
+        "failureAction": "return-partial-backup-status"
+      }
+    ]
+  }
+}

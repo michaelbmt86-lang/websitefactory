@@ -1,0 +1,44 @@
+{
+  "name": "integrity-policy",
+  "version": "1.0.0",
+  "description": "Defines integrity behaviour for the Layer 6 Data Storage Layer — constraint enforcement, referential integrity, validation rules, and corruption detection.",
+  "owner": "layer-6-data-storage",
+  "enabled": true,
+  "rules": {
+    "constraintEnforcement": {
+      "description": "How database constraints are enforced",
+      "primaryKey": true,
+      "uniqueConstraints": true,
+      "notNullConstraints": true,
+      "defaultValues": true,
+      "checkConstraints": true,
+      "enumValidation": true
+    },
+    "referentialIntegrity": {
+      "description": "Foreign key and referential integrity rules",
+      "enforceForeignKeys": true,
+      "cascadeOnDelete": false,
+      "cascadeOnUpdate": false,
+      "setNullOnDelete": true,
+      "validateOnWrite": true,
+      "detectOrphans": true
+    },
+    "dataValidation": {
+      "description": "Data validation rules before write",
+      "validateRequiredFields": true,
+      "validateFieldTypes": true,
+      "validateFieldLengths": true,
+      "validateUrlFormat": true,
+      "validateJsonFormat": true,
+      "validateEnumValues": true
+    },
+    "corruptionDetection": {
+      "description": "Database corruption detection and handling",
+      "runIntegrityCheck": true,
+      "integrityCheckOnStartup": false,
+      "integrityCheckOnRead": false,
+      "integrityCheckInterval": "daily",
+      "logIntegrityResults": true
+    }
+  }
+}

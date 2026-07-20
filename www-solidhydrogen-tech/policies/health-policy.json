@@ -1,0 +1,82 @@
+{
+  "name": "health-policy",
+  "version": "1.0.0",
+  "description": "Defines engine health states and transitions for the Layer 3 Extraction Manager — engine lifecycle, health monitoring, and recovery behaviour.",
+  "owner": "layer-3-extraction-manager",
+  "enabled": true,
+  "rules": {
+    "engineStates": {
+      "description": "Possible health states for each extraction engine",
+      "alive": {
+        "description": "Engine is responsive and successfully completing extractions",
+        "indicators": ["success-rate-above-80", "avg-duration-within-2x-baseline", "no-recent-errors"],
+        "transitions": ["busy", "failed", "disabled"]
+      },
+      "busy": {
+        "description": "Engine is processing requests but may be slow",
+        "indicators": ["success-rate-50-80", "avg-duration-above-2x-baseline", "queue-depth-above-0"],
+        "transitions": ["alive", "failed", "disabled"]
+      },
+      "failed": {
+        "description": "Engine is returning errors or timing out",
+        "indicators": ["success-rate-below-50", "consecutive-failures-above-3", "timeout-errors"],
+        "transitions": ["alive", "disabled"]
+      },
+      "disabled": {
+        "description": "Engine is manually disabled or auto-disabled due to persistent failures",
+        "indicators": ["manual-disable", "auto-disable-after-10-consecutive-failures"],
+        "transitions": ["alive"]
+      },
+      "timeout": {
+        "description": "Engine is responding but exceeding timeout thresholds",
+        "indicators": ["avg-duration-above-5x-baseline", "timeout-errors-increasing"],
+        "transitions": ["alive", "failed", "disabled"]
+      }
+    },
+    "recoveryStates": {
+      "description": "States for recovery engine switching",
+      "recovery-running": {
+        "description": "Recovery engine is actively attempting extraction after primary failure",
+        "indicators": ["primary-failed", "fallback-engine-active"]
+      },
+      "recovery-completed": {
+        "description": "Recovery engine successfully completed extraction",
+        "indicators": ["fallback-success", "product-extracted"]
+      },
+      "recovery-failed": {
+        "description": "Recovery engine also failed — terminal failure",
+        "indicators": ["all-engines-failed", "product-skipped"]
+      }
+    },
+    "healthMonitoring": {
+      "description": "Rules for monitoring engine health",
+      "checkIntervalMs": 300000,
+      "windowSize": 50,
+      "autoDisableThreshold": 10,
+      "autoReenableAfter": 1800000,
+      "logHealthChanges": true
+    },
+    "transitions": {
+      "description": "Valid state transitions",
+      "allowed": [
+        ["alive", "busy"],
+        ["alive", "failed"],
+        ["alive", "disabled"],
+        ["busy", "alive"],
+        ["busy", "failed"],
+        ["busy", "disabled"],
+        ["failed", "alive"],
+        ["failed", "disabled"],
+        ["disabled", "alive"],
+        ["timeout", "alive"],
+        ["timeout", "failed"],
+        ["timeout", "disabled"]
+      ],
+      "forbidden": [
+        ["disabled", "busy"],
+        ["disabled", "failed"],
+        ["disabled", "timeout"]
+      ]
+    }
+  }
+}

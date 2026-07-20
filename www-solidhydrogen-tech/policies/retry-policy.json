@@ -1,0 +1,51 @@
+{
+  "name": "retry-policy",
+  "version": "1.0.0",
+  "description": "Defines retry behaviour for transient failures across all layers — API calls, extraction engines, build commands, and deployment steps.",
+  "owner": "layer-2-execution-engine",
+  "enabled": true,
+  "rules": {
+    "apiCalls": {
+      "description": "Retry policy for external API calls (Vercel, GitHub, Cloudflare, Firecrawl)",
+      "maxAttempts": 3,
+      "delayMs": 1000,
+      "backoffMultiplier": 2,
+      "maxDelayMs": 30000,
+      "retryableErrors": ["ECONNRESET", "ETIMEDOUT", "429", "500", "502", "503", "504"]
+    },
+    "extractionEngines": {
+      "description": "Retry policy for website extraction operations",
+      "maxAttempts": 2,
+      "delayMs": 2000,
+      "backoffMultiplier": 2,
+      "fallbackChain": ["chrome-devtools-mcp", "jcodesmore-browser", "firecrawl"],
+      "note": "On failure, try next engine in fallback chain before retrying same engine"
+    },
+    "buildCommands": {
+      "description": "Retry policy for npm build/lint/typecheck",
+      "maxAttempts": 2,
+      "delayMs": 500,
+      "backoffMultiplier": 1,
+      "note": "First failure triggers auto-repair, second failure is terminal for the build"
+    },
+    "deploymentSteps": {
+      "description": "Retry policy for deployment workflow steps",
+      "maxAttempts": 30,
+      "delayMs": 10000,
+      "backoffMultiplier": 1,
+      "note": "Deployment polling (e.g., waiting for Vercel READY state)"
+    },
+    "dnsPropagation": {
+      "description": "Retry policy for DNS propagation verification",
+      "maxAttempts": 10,
+      "delayMs": 5000,
+      "backoffMultiplier": 1
+    },
+    "httpVerification": {
+      "description": "Retry policy for HTTPS and homepage verification",
+      "maxAttempts": 5,
+      "delayMs": 10000,
+      "backoffMultiplier": 1
+    }
+  }
+}

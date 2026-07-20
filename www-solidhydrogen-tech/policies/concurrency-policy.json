@@ -1,0 +1,59 @@
+{
+  "name": "concurrency-policy",
+  "version": "1.0.0",
+  "description": "Defines concurrency limits for the Layer 3 Extraction Manager — parallel extraction control, rate limiting, and throttling rules.",
+  "owner": "layer-3-extraction-manager",
+  "enabled": true,
+  "rules": {
+    "extractionConcurrency": {
+      "description": "Maximum number of concurrent extraction operations",
+      "defaultConcurrency": 3,
+      "minConcurrency": 1,
+      "maxConcurrency": 10,
+      "enforcement": "hard",
+      "throttleOnRateLimit": true
+    },
+    "perEngineConcurrency": {
+      "description": "Maximum concurrent requests per engine",
+      "chrome-devtools-mcp": {
+        "maxConcurrent": 1,
+        "note": "Chrome DevTools MCP is single-threaded — one browser session at a time"
+      },
+      "jcodesmore-browser": {
+        "maxConcurrent": 3,
+        "note": "HTTP client supports parallel requests"
+      },
+      "firecrawl": {
+        "maxConcurrent": 2,
+        "note": "Firecrawl API has rate limits"
+      }
+    },
+    "rateLimiting": {
+      "description": "Rate limiting rules per engine",
+      "chrome-devtools-mcp": {
+        "requestsPerMinute": 30,
+        "backoffOnRateLimit": true,
+        "backoffMs": 5000
+      },
+      "jcodesmore-browser": {
+        "requestsPerMinute": 60,
+        "backoffOnRateLimit": true,
+        "backoffMs": 2000
+      },
+      "firecrawl": {
+        "requestsPerMinute": 20,
+        "backoffOnRateLimit": true,
+        "backoffMs": 10000,
+        "note": "Firecrawl API has strict rate limits"
+      }
+    },
+    "throttling": {
+      "description": "Throttling behaviour when rate limits are hit",
+      "enabled": true,
+      "strategy": "exponential-backoff",
+      "initialBackoffMs": 2000,
+      "maxBackoffMs": 30000,
+      "backoffMultiplier": 2
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "gemini-policy",
+  "version": "1.0.0",
+  "description": "Defines Gemini analysis behaviour for the Layer 5 AI Analysis Layer — Gemini is analysis-only, never crawls, never replaces Chrome DevTools MCP, JCodesMore, or Firecrawl.",
+  "owner": "layer-5-ai-analysis",
+  "enabled": true,
+  "rules": {
+    "geminiRole": {
+      "description": "Gemini is analysis-only — receives pre-extracted data from Layer 4",
+      "role": "analysis-only",
+      "neverCrawls": true,
+      "neverAcquiresWebpages": true,
+      "neverManagesBrowserSessions": true,
+      "neverStoresData": true,
+      "neverDeploys": true,
+      "neverRendersUi": true,
+      "receivesPreExtractedData": true
+    },
+    "geminiBoundary": {
+      "description": "Hard boundary constraints — Gemini must never cross into other layers",
+      "neverReplacesChromeDevToolsMcp": true,
+      "neverReplacesJCodesMore": true,
+      "neverReplacesFirecrawl": true,
+      "neverBecomesPrimaryEngine": true,
+      "enginePriorityUnchanged": true,
+      "priorityOrder": ["chrome-devtools-mcp", "jcodesmore-browser", "firecrawl", "gemini-analysis"]
+    },
+    "geminiInput": {
+      "description": "What Gemini receives as input",
+      "acceptsHtml": true,
+      "acceptsStructuredData": true,
+      "acceptsNetworkData": true,
+      "acceptsExistingSpecs": true,
+      "acceptsExistingFaq": true,
+      "acceptsExistingStructure": true,
+      "maxHtmlSizeBytes": 10485760
+    },
+    "geminiOutput": {
+      "description": "What Gemini produces as output",
+      "producesTitle": true,
+      "producesSubtitle": true,
+      "producesDescription": true,
+      "producesShortDescription": true,
+      "producesBrand": true,
+      "producesModel": true,
+      "producesSku": true,
+      "producesCategory": true,
+      "producesSubcategory": true,
+      "producesSpecifications": true,
+      "producesFaq": true,
+      "producesRelatedProducts": true,
+      "producesTags": true,
+      "producesCollection": true,
+      "producesBreadcrumbs": true
+    },
+    "geminiFallback": {
+      "description": "Fallback behaviour when Gemini analysis fails",
+      "fallbackToHeuristic": true,
+      "fallbackToOriginalData": true,
+      "logFailure": true,
+      "reportToLayer3": true
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "siteUrl": "https://www.solidhydrogen.tech",
+  "generatedAt": "2026-07-20T02:58:06.337Z",
+  "mainNav": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Blog",
+      "href": "/blog"
+    }
+  ],
+  "footerNav": [
+    {
+      "section": "Products",
+      "links": []
+    },
+    {
+      "section": "Company",
+      "links": []
+    }
+  ]
+}

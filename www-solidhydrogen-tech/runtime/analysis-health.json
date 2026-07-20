@@ -1,0 +1,172 @@
+{
+  "name": "analysis-health",
+  "version": "1.0.0",
+  "description": "Runtime metadata for analysis health — health states, health scores, error distributions, and health trends per analysis module.",
+  "owner": "layer-5-ai-analysis",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 5 AI Analysis Layer. No existing code depends on it yet.",
+  "modules": {
+    "normalization": {
+      "name": "normalization",
+      "displayName": "HTML/CSS/Media Normalization",
+      "healthState": "unknown",
+      "healthScore": null,
+      "metrics": {
+        "successRate": null,
+        "failureRate": null,
+        "avgDurationMs": null,
+        "p95DurationMs": null,
+        "totalAttempts": 0,
+        "totalSuccesses": 0,
+        "totalFailures": 0,
+        "htmlStripFailures": 0,
+        "cssExtractionFailures": 0,
+        "mediaNormalizationFailures": 0,
+        "urlNormalizationFailures": 0,
+        "unknownErrorCount": 0
+      },
+      "trend": {
+        "direction": "stable",
+        "changePercent": 0,
+        "windowSize": 50
+      },
+      "lastHealthCheck": null,
+      "nextHealthCheck": null
+    },
+    "gemini-analyzer": {
+      "name": "gemini-analyzer",
+      "displayName": "Gemini Heuristic Analyzer",
+      "healthState": "unknown",
+      "healthScore": null,
+      "metrics": {
+        "successRate": null,
+        "failureRate": null,
+        "avgDurationMs": null,
+        "p95DurationMs": null,
+        "totalAttempts": 0,
+        "totalSuccesses": 0,
+        "totalFailures": 0,
+        "heuristicParseFailures": 0,
+        "structuredDataFailures": 0,
+        "normalizationFailures": 0,
+        "unknownErrorCount": 0
+      },
+      "trend": {
+        "direction": "stable",
+        "changePercent": 0,
+        "windowSize": 50
+      },
+      "lastHealthCheck": null,
+      "nextHealthCheck": null
+    },
+    "dom-extractor": {
+      "name": "dom-extractor",
+      "displayName": "DOM Data Extractor",
+      "healthState": "unknown",
+      "healthScore": null,
+      "metrics": {
+        "successRate": null,
+        "failureRate": null,
+        "avgDurationMs": null,
+        "p95DurationMs": null,
+        "totalAttempts": 0,
+        "totalSuccesses": 0,
+        "totalFailures": 0,
+        "titleExtractFailures": 0,
+        "specExtractFailures": 0,
+        "faqExtractFailures": 0,
+        "structureExtractFailures": 0,
+        "unknownErrorCount": 0
+      },
+      "trend": {
+        "direction": "stable",
+        "changePercent": 0,
+        "windowSize": 50
+      },
+      "lastHealthCheck": null,
+      "nextHealthCheck": null
+    },
+    "seo-generator": {
+      "name": "seo-generator",
+      "displayName": "SEO Metadata Generator",
+      "healthState": "unknown",
+      "healthScore": null,
+      "metrics": {
+        "successRate": null,
+        "failureRate": null,
+        "avgDurationMs": null,
+        "p95DurationMs": null,
+        "totalAttempts": 0,
+        "totalSuccesses": 0,
+        "totalFailures": 0,
+        "metaTagFailures": 0,
+        "ogTagFailures": 0,
+        "schemaFailures": 0,
+        "unknownErrorCount": 0
+      },
+      "trend": {
+        "direction": "stable",
+        "changePercent": 0,
+        "windowSize": 50
+      },
+      "lastHealthCheck": null,
+      "nextHealthCheck": null
+    },
+    "cms-generator": {
+      "name": "cms-generator",
+      "displayName": "CMS Content Generator",
+      "healthState": "unknown",
+      "healthScore": null,
+      "metrics": {
+        "successRate": null,
+        "failureRate": null,
+        "avgDurationMs": null,
+        "p95DurationMs": null,
+        "totalAttempts": 0,
+        "totalSuccesses": 0,
+        "totalFailures": 0,
+        "pageGenerationFailures": 0,
+        "brandGenerationFailures": 0,
+        "collectionGenerationFailures": 0,
+        "blogGenerationFailures": 0,
+        "unknownErrorCount": 0
+      },
+      "trend": {
+        "direction": "stable",
+        "changePercent": 0,
+        "windowSize": 50
+      },
+      "lastHealthCheck": null,
+      "nextHealthCheck": null
+    },
+    "quality-validator": {
+      "name": "quality-validator",
+      "displayName": "Quality Validator",
+      "healthState": "unknown",
+      "healthScore": null,
+      "metrics": {
+        "successRate": null,
+        "failureRate": null,
+        "avgDurationMs": null,
+        "p95DurationMs": null,
+        "totalAttempts": 0,
+        "totalSuccesses": 0,
+        "totalFailures": 0,
+        "validationFailures": 0,
+        "scoringFailures": 0,
+        "reportGenerationFailures": 0,
+        "unknownErrorCount": 0
+      },
+      "trend": {
+        "direction": "stable",
+        "changePercent": 0,
+        "windowSize": 50
+      },
+      "lastHealthCheck": null,
+      "nextHealthCheck": null
+    }
+  },
+  "overallHealth": "unknown",
+  "lastFullHealthCheck": null,
+  "healthCheckIntervalMs": 300000
+}

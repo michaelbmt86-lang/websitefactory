@@ -1,0 +1,95 @@
+{
+  "name": "browser-health-policy",
+  "version": "1.0.0",
+  "description": "Defines browser health monitoring behaviour — health states, thresholds, scoring, and health check intervals.",
+  "owner": "layer-4-browser-extraction",
+  "enabled": true,
+  "rules": {
+    "healthStates": {
+      "description": "Browser health state definitions",
+      "states": {
+        "healthy": {
+          "description": "Browser is operating normally",
+          "minSuccessRate": 0.9,
+          "maxAvgDurationMs": 30000,
+          "maxConsecutiveFailures": 2,
+          "maxErrorRate": 0.1
+        },
+        "warning": {
+          "description": "Browser is experiencing degraded performance",
+          "minSuccessRate": 0.7,
+          "maxAvgDurationMs": 60000,
+          "maxConsecutiveFailures": 5,
+          "maxErrorRate": 0.3
+        },
+        "busy": {
+          "description": "Browser is processing requests",
+          "minSuccessRate": 0.5,
+          "maxAvgDurationMs": 120000,
+          "maxConsecutiveFailures": 10,
+          "maxErrorRate": 0.5
+        },
+        "recovering": {
+          "description": "Browser is recovering from failure",
+          "minSuccessRate": 0.0,
+          "maxAvgDurationMs": 300000,
+          "maxConsecutiveFailures": 15,
+          "maxErrorRate": 1.0
+        },
+        "failed": {
+          "description": "Browser has failed and is not operational",
+          "minSuccessRate": 0.0,
+          "maxAvgDurationMs": null,
+          "maxConsecutiveFailures": null,
+          "maxErrorRate": 1.0
+        },
+        "offline": {
+          "description": "Browser is offline or unreachable",
+          "minSuccessRate": 0.0,
+          "maxAvgDurationMs": null,
+          "maxConsecutiveFailures": null,
+          "maxErrorRate": 1.0
+        },
+        "recovery-complete": {
+          "description": "Browser has recovered from failure",
+          "minSuccessRate": 0.8,
+          "maxAvgDurationMs": 30000,
+          "maxConsecutiveFailures": 0,
+          "maxErrorRate": 0.2
+        }
+      }
+    },
+    "healthScoring": {
+      "description": "Health score calculation rules",
+      "weights": {
+        "successRate": 0.4,
+        "avgDuration": 0.2,
+        "errorRate": 0.2,
+        "consecutiveFailures": 0.2
+      },
+      "scoreRange": { "min": 0, "max": 100 },
+      "healthyThreshold": 80,
+      "warningThreshold": 50,
+      "failedThreshold": 20
+    },
+    "healthChecks": {
+      "description": "Health check scheduling rules",
+      "intervalMs": 300000,
+      "minIntervalMs": 60000,
+      "maxIntervalMs": 600000,
+      "checkOnExtraction": true,
+      "checkOnFailure": true,
+      "checkOnRecovery": true,
+      "logHealthChecks": true
+    },
+    "healthAlerts": {
+      "description": "Health alert rules",
+      "alertOnStateChange": true,
+      "alertOnDegradation": true,
+      "alertOnRecovery": true,
+      "alertOnConsecutiveFailures": true,
+      "consecutiveFailureThreshold": 3,
+      "logAlerts": true
+    }
+  }
+}

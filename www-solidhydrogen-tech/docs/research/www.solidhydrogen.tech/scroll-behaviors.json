@@ -1,0 +1,208 @@
+[
+  {
+    "scrollY": 0,
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "height": "106px",
+      "position": "sticky",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "visibleSections": [
+      {
+        "tag": "H1",
+        "text": "The future of"
+      },
+      {
+        "tag": "H1",
+        "text": "hydrogen is"
+      },
+      {
+        "tag": "H1",
+        "text": "SOLID"
+      }
+    ]
+  },
+  {
+    "scrollY": 394,
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "height": "106px",
+      "position": "sticky",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "visibleSections": [
+      {
+        "tag": "H1",
+        "text": "hydrogen is"
+      },
+      {
+        "tag": "H1",
+        "text": "SOLID"
+      }
+    ]
+  },
+  {
+    "scrollY": 788,
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "height": "106px",
+      "position": "sticky",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "visibleSections": [
+      {
+        "tag": "H1",
+        "text": "SOLIDHYDROGEN hydrides solutions have the following benefits"
+      }
+    ]
+  },
+  {
+    "scrollY": 1182,
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "height": "106px",
+      "position": "sticky",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "visibleSections": [
+      {
+        "tag": "H1",
+        "text": "SOLIDHYDROGEN hydrides solutions have the following benefits"
+      }
+    ]
+  },
+  {
+    "scrollY": 1577,
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "height": "106px",
+      "position": "sticky",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "visibleSections": []
+  },
+  {
+    "scrollY": 1971,
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "height": "106px",
+      "position": "sticky",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "visibleSections": [
+      {
+        "tag": "H1",
+        "text": "Our\nExecutive\nTeam"
+      },
+      {
+        "tag": "H2",
+        "text": "Prof. \nFrancois Aguey-Zinsou"
+      }
+    ]
+  },
+  {
+    "scrollY": 2365,
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "height": "106px",
+      "position": "sticky",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "visibleSections": [
+      {
+        "tag": "H1",
+        "text": "Our\nExecutive\nTeam"
+      },
+      {
+        "tag": "H2",
+        "text": "Prof. \nFrancois Aguey-Zinsou"
+      },
+      {
+        "tag": "H2",
+        "text": "Philippe Odouard"
+      }
+    ]
+  },
+  {
+    "scrollY": 2760,
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "height": "106px",
+      "position": "sticky",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "visibleSections": [
+      {
+        "tag": "H2",
+        "text": "Philippe Odouard"
+      }
+    ]
+  },
+  {
+    "scrollY": 3043,
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "height": "106px",
+      "position": "sticky",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "visibleSections": [
+      {
+        "tag": "H2",
+        "text": "Philippe Odouard"
+      }
+    ]
+  },
+  {
+    "scrollY": 3043,
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "height": "106px",
+      "position": "sticky",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "visibleSections": [
+      {
+        "tag": "H2",
+        "text": "Philippe Odouard"
+      }
+    ]
+  },
+  {
+    "scrollY": 3043,
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "height": "106px",
+      "position": "sticky",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "visibleSections": [
+      {
+        "tag": "H2",
+        "text": "Philippe Odouard"
+      }
+    ]
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "name": "delivery-status",
+  "version": "1.0.0",
+  "description": "Delivery pipeline status tracking — phase states, progress, and timing",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "lastUpdated": null,
+  "status": {
+    "currentPhase": "idle",
+    "currentStep": null,
+    "progress": 0,
+    "startedAt": null,
+    "completedAt": null,
+    "duration": null
+  },
+  "phases": {
+    "idle": { "label": "Idle", "description": "No deployment in progress" },
+    "building": { "label": "Building", "description": "Compiling production artifacts" },
+    "pushing": { "label": "Pushing", "description": "Pushing code to GitHub" },
+    "deploying": { "label": "Deploying", "description": "Deploying to Vercel" },
+    "configuring": { "label": "Configuring", "description": "Binding domains and DNS" },
+    "verifying": { "label": "Verifying", "description": "Running post-deployment checks" },
+    "completed": { "label": "Completed", "description": "Deployment successful" },
+    "failed": { "label": "Failed", "description": "Deployment failed" },
+    "rolling-back": { "label": "Rolling Back", "description": "Reverting to previous deployment" }
+  },
+  "steps": [
+    { "id": "build-artifacts", "phase": "building", "status": "pending" },
+    { "id": "git-push", "phase": "pushing", "status": "pending" },
+    { "id": "vercel-deploy", "phase": "deploying", "status": "pending" },
+    { "id": "domain-bind", "phase": "configuring", "status": "pending" },
+    { "id": "dns-configure", "phase": "configuring", "status": "pending" },
+    { "id": "dns-verify", "phase": "verifying", "status": "pending" },
+    { "id": "https-verify", "phase": "verifying", "status": "pending" },
+    { "id": "production-verify", "phase": "verifying", "status": "pending" },
+    { "id": "report-archive", "phase": "completed", "status": "pending" }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "name": "domain-policy",
+  "version": "1.0.0",
+  "description": "Domain binding and configuration policy governing domain registration, binding, and lifecycle management",
+  "owner": "layer-8-delivery-pipeline",
+  "generatedAt": null,
+  "policy": {
+    "scope": "domain-management",
+    "principle": "Each deployment binds a unique domain. Domain configuration is stored centrally. Registrar operations are external.",
+    "rules": {
+      "registration": {
+        "registrar": "namecheap",
+        "automated": false,
+        "description": "Domain registration is manual via Namecheap. Not automated in the pipeline."
+      },
+      "binding": {
+        "provider": "vercel",
+        "bindApex": true,
+        "bindWww": true,
+        "conflictResolution": "retrieve-existing",
+        "description": "Domains are bound to Vercel projects. Both apex and www are bound."
+      },
+      "dns": {
+        "provider": "cloudflare",
+        "recordTypes": ["A", "CNAME"],
+        "description": "DNS is managed through Cloudflare with A record for apex and CNAME for www"
+      },
+      "verification": {
+        "dnsPropagation": true,
+        "httpsCheck": true,
+        "dualDomain": true,
+        "description": "Both apex and www must resolve via DNS and respond over HTTPS"
+      },
+      "configuration": {
+        "configFile": "deployment/domain.config.json",
+        "requiredFields": ["domain", "environment", "registrar", "dns_provider", "deployment_provider"],
+        "description": "Domain configuration stored in central config file"
+      },
+      "cleanup": {
+        "unbindOnRollback": false,
+        "removeDnsOnRollback": false,
+        "description": "Domain binding and DNS records persist through rollback"
+      }
+    }
+  }
+}

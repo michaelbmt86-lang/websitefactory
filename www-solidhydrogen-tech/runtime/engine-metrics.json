@@ -1,0 +1,213 @@
+{
+  "name": "engine-metrics",
+  "version": "1.0.0",
+  "description": "Runtime metadata for extraction engine metrics — extraction time, retry count, recovery count, fallback count, success rate, failure rate, average duration, DOM size, media count, product count, SQLite writes.",
+  "owner": "layer-3-extraction-manager",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 3 Extraction Manager. No existing code depends on it yet.",
+  "engines": {
+    "chrome-devtools-mcp": {
+      "name": "chrome-devtools-mcp",
+      "displayName": "Chrome DevTools MCP",
+      "metrics": {
+        "extractionTime": {
+          "totalMs": 0,
+          "avgMs": 0,
+          "minMs": 0,
+          "maxMs": 0,
+          "p95Ms": 0,
+          "p99Ms": 0
+        },
+        "retryCount": {
+          "total": 0,
+          "avgPerExtraction": 0
+        },
+        "recoveryCount": {
+          "triggeredAsPrimary": 0,
+          "triggeredAsRecoveryL1": 0,
+          "triggeredAsRecoveryL2": 0
+        },
+        "fallbackCount": {
+          "fallbackFrom": 0,
+          "fallbackTo": 0
+        },
+        "successRate": {
+          "overall": 0,
+          "last10": 0,
+          "last50": 0,
+          "last100": 0
+        },
+        "failureRate": {
+          "overall": 0,
+          "last10": 0,
+          "last50": 0,
+          "last100": 0
+        },
+        "averageDuration": {
+          "overall": 0,
+          "successful": 0,
+          "failed": 0
+        },
+        "domSize": {
+          "avgElements": 0,
+          "avgDepth": 0,
+          "avgHtmlSizeBytes": 0
+        },
+        "mediaCount": {
+          "avgImages": 0,
+          "avgVideos": 0,
+          "avgDownloads": 0
+        },
+        "productCount": {
+          "totalExtracted": 0,
+          "successfulExtractions": 0,
+          "failedExtractions": 0
+        },
+        "sqliteWrites": {
+          "totalWrites": 0,
+          "avgWritesPerExtraction": 0
+        }
+      },
+      "lastUpdated": null
+    },
+    "jcodesmore-browser": {
+      "name": "jcodesmore-browser",
+      "displayName": "JCodesMore Recovery Engine",
+      "metrics": {
+        "extractionTime": {
+          "totalMs": 0,
+          "avgMs": 0,
+          "minMs": 0,
+          "maxMs": 0,
+          "p95Ms": 0,
+          "p99Ms": 0
+        },
+        "retryCount": {
+          "total": 0,
+          "avgPerExtraction": 0
+        },
+        "recoveryCount": {
+          "triggeredAsPrimary": 0,
+          "triggeredAsRecoveryL1": 0,
+          "triggeredAsRecoveryL2": 0
+        },
+        "fallbackCount": {
+          "fallbackFrom": 0,
+          "fallbackTo": 0
+        },
+        "successRate": {
+          "overall": 0,
+          "last10": 0,
+          "last50": 0,
+          "last100": 0
+        },
+        "failureRate": {
+          "overall": 0,
+          "last10": 0,
+          "last50": 0,
+          "last100": 0
+        },
+        "averageDuration": {
+          "overall": 0,
+          "successful": 0,
+          "failed": 0
+        },
+        "domSize": {
+          "avgElements": 0,
+          "avgDepth": 0,
+          "avgHtmlSizeBytes": 0
+        },
+        "mediaCount": {
+          "avgImages": 0,
+          "avgVideos": 0,
+          "avgDownloads": 0
+        },
+        "productCount": {
+          "totalExtracted": 0,
+          "successfulExtractions": 0,
+          "failedExtractions": 0
+        },
+        "sqliteWrites": {
+          "totalWrites": 0,
+          "avgWritesPerExtraction": 0
+        }
+      },
+      "lastUpdated": null
+    },
+    "firecrawl": {
+      "name": "firecrawl",
+      "displayName": "Firecrawl Recovery Engine",
+      "metrics": {
+        "extractionTime": {
+          "totalMs": 0,
+          "avgMs": 0,
+          "minMs": 0,
+          "maxMs": 0,
+          "p95Ms": 0,
+          "p99Ms": 0
+        },
+        "retryCount": {
+          "total": 0,
+          "avgPerExtraction": 0
+        },
+        "recoveryCount": {
+          "triggeredAsPrimary": 0,
+          "triggeredAsRecoveryL1": 0,
+          "triggeredAsRecoveryL2": 0
+        },
+        "fallbackCount": {
+          "fallbackFrom": 0,
+          "fallbackTo": 0
+        },
+        "successRate": {
+          "overall": 0,
+          "last10": 0,
+          "last50": 0,
+          "last100": 0
+        },
+        "failureRate": {
+          "overall": 0,
+          "last10": 0,
+          "last50": 0,
+          "last100": 0
+        },
+        "averageDuration": {
+          "overall": 0,
+          "successful": 0,
+          "failed": 0
+        },
+        "domSize": {
+          "avgElements": 0,
+          "avgDepth": 0,
+          "avgHtmlSizeBytes": 0
+        },
+        "mediaCount": {
+          "avgImages": 0,
+          "avgVideos": 0,
+          "avgDownloads": 0
+        },
+        "productCount": {
+          "totalExtracted": 0,
+          "successfulExtractions": 0,
+          "failedExtractions": 0
+        },
+        "sqliteWrites": {
+          "totalWrites": 0,
+          "avgWritesPerExtraction": 0
+        }
+      },
+      "lastUpdated": null
+    }
+  },
+  "overallMetrics": {
+    "totalExtractions": 0,
+    "totalSuccesses": 0,
+    "totalFailures": 0,
+    "overallSuccessRate": 0,
+    "overallAvgDurationMs": 0,
+    "totalRecoveryAttempts": 0,
+    "totalFallbacks": 0,
+    "totalRetries": 0
+  },
+  "lastUpdated": null
+}

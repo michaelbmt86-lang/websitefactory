@@ -1,0 +1,111 @@
+{
+  "report": "layer-4-validation-report",
+  "version": "1.0.0",
+  "date": "2026-07-18",
+  "step": "C — Regression Validation",
+  "summary": {
+    "totalChecks": 141,
+    "passed": 141,
+    "failed": 0,
+    "overallStatus": "PASS"
+  },
+  "policiesValidated": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "files": [
+      { "file": "policies/browser-policy.json", "valid": true, "name": "browser-policy", "version": "1.0.0", "owner": "layer-4-browser-extraction", "rules": 5 },
+      { "file": "policies/browser-session-policy.json", "valid": true, "name": "browser-session-policy", "version": "1.0.0", "owner": "layer-4-browser-extraction", "rules": 4 },
+      { "file": "policies/browser-timeout-policy.json", "valid": true, "name": "browser-timeout-policy", "version": "1.0.0", "owner": "layer-4-browser-extraction", "rules": 5 },
+      { "file": "policies/browser-retry-policy.json", "valid": true, "name": "browser-retry-policy", "version": "1.0.0", "owner": "layer-4-browser-extraction", "rules": 4 },
+      { "file": "policies/browser-health-policy.json", "valid": true, "name": "browser-health-policy", "version": "1.0.0", "owner": "layer-4-browser-extraction", "rules": 4 },
+      { "file": "policies/browser-metrics-policy.json", "valid": true, "name": "browser-metrics-policy", "version": "1.0.0", "owner": "layer-4-browser-extraction", "rules": 4 }
+    ]
+  },
+  "workflowsValidated": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "files": [
+      { "file": "workflows/browser-workflow.json", "valid": true, "name": "browser-workflow", "steps": 10, "sequential": true },
+      { "file": "workflows/browser-recovery-workflow.json", "valid": true, "name": "browser-recovery-workflow", "steps": 5, "sequential": true },
+      { "file": "workflows/browser-session-workflow.json", "valid": true, "name": "browser-session-workflow", "steps": 8, "sequential": true }
+    ]
+  },
+  "runtimeValidated": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "files": [
+      { "file": "runtime/browser-status.json", "valid": true, "name": "browser-status", "engines": 3 },
+      { "file": "runtime/browser-session.json", "valid": true, "name": "browser-session", "states": 8 },
+      { "file": "runtime/browser-health.json", "valid": true, "name": "browser-health", "engines": 3 },
+      { "file": "runtime/browser-metrics.json", "valid": true, "name": "browser-metrics", "engines": 3, "metricsPerEngine": 12 },
+      { "file": "runtime/browser-history.json", "valid": true, "name": "browser-history", "recordSchemas": 4 }
+    ]
+  },
+  "infrastructureModulesValidated": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0,
+    "files": [
+      { "file": "src/discovery/browser/browser-session.ts", "exists": true, "hasExports": true, "compiles": true },
+      { "file": "src/discovery/browser/browser-health.ts", "exists": true, "hasExports": true, "compiles": true },
+      { "file": "src/discovery/browser/browser-metrics.ts", "exists": true, "hasExports": true, "compiles": true },
+      { "file": "src/discovery/browser/browser-runtime.ts", "exists": true, "hasExports": true, "compiles": true },
+      { "file": "src/discovery/browser/browser-state.ts", "exists": true, "hasExports": true, "compiles": true },
+      { "file": "src/discovery/browser/browser-context.ts", "exists": true, "hasExports": true, "compiles": true },
+      { "file": "src/discovery/browser/browser-events.ts", "exists": true, "hasExports": true, "compiles": true }
+    ]
+  },
+  "browserValidation": {
+    "enginePriority": {
+      "primary": "chrome-devtools-mcp",
+      "recoveryL1": "jcodesmore-browser",
+      "recoveryL2": "firecrawl",
+      "firecrawlNeverPrimary": true,
+      "fixedPriorityChain": true,
+      "noCircularRecovery": true,
+      "status": "PASS"
+    },
+    "engineFilesIntact": {
+      "total": 11,
+      "passed": 11,
+      "failed": 0,
+      "status": "PASS"
+    }
+  },
+  "compatibility": {
+    "apiChanges": false,
+    "databaseChanges": false,
+    "dashboardChanges": false,
+    "discoveryChanges": false,
+    "cmsChanges": false,
+    "deploymentChanges": false,
+    "githubChanges": false,
+    "vercelChanges": false,
+    "cloudflareChanges": false,
+    "browserEngineReplacement": false,
+    "status": "PASS"
+  },
+  "architectureLock": {
+    "layer4OwnsBrowserExtractionOnly": true,
+    "layer3OwnsExtractionManagement": true,
+    "enginePriorityChainFixed": true,
+    "firecrawlNeverPrimary": true,
+    "noCircularRecovery": true,
+    "noApiChanges": true,
+    "noSqliteChanges": true,
+    "noBehaviourChanges": true,
+    "status": "PASS"
+  },
+  "buildResult": {
+    "typecheck": "PASS",
+    "lint": "PASS (4 warnings, 0 errors — pre-existing)",
+    "build": "PASS (98 pages generated)",
+    "compilationTime": "9.9s",
+    "typescriptTime": "6.5s",
+    "status": "PASS"
+  },
+  "overallStatus": "PASS"
+}

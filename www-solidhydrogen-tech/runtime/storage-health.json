@@ -1,0 +1,47 @@
+{
+  "name": "storage-health",
+  "version": "1.0.0",
+  "description": "Runtime metadata for storage health — database health state, integrity status, performance indicators, and error distributions.",
+  "owner": "layer-6-data-storage",
+  "generatedAt": null,
+  "note": "This file is generated automatically by the Layer 6 Data Storage Layer. No existing code depends on it yet.",
+  "database": {
+    "healthState": "unknown",
+    "healthScore": null,
+    "integrityCheck": {
+      "lastRun": null,
+      "result": "unknown",
+      "errors": 0,
+      "warnings": 0
+    },
+    "pragmas": {
+      "journalMode": { "current": "unknown", "expected": "wal", "status": "unknown" },
+      "foreignKeys": { "current": "unknown", "expected": "on", "status": "unknown" },
+      "synchronous": { "current": "unknown", "expected": "normal", "status": "unknown" },
+      "cacheSize": { "current": null, "expected": 8000, "status": "unknown" }
+    }
+  },
+  "metrics": {
+    "successRate": null,
+    "failureRate": null,
+    "avgWriteDurationMs": null,
+    "avgReadDurationMs": null,
+    "totalWrites": 0,
+    "totalReads": 0,
+    "totalFailures": 0,
+    "lockTimeoutCount": 0,
+    "corruptionCount": 0,
+    "diskFullCount": 0,
+    "constraintViolationCount": 0,
+    "foreignkeyViolationCount": 0,
+    "unknownErrorCount": 0
+  },
+  "trend": {
+    "direction": "stable",
+    "changePercent": 0,
+    "windowSize": 50
+  },
+  "overallHealth": "unknown",
+  "lastFullHealthCheck": null,
+  "healthCheckIntervalMs": 300000
+}

@@ -1,0 +1,40 @@
+{
+  "name": "backup-policy",
+  "version": "1.0.0",
+  "description": "Defines backup behaviour for the Layer 6 Data Storage Layer — backup frequency, retention, storage location, and recovery procedures.",
+  "owner": "layer-6-data-storage",
+  "enabled": true,
+  "rules": {
+    "backupFrequency": {
+      "description": "How often backups should be performed",
+      "autoBackupOnDeploy": true,
+      "autoBackupOnSchemaChange": true,
+      "scheduledBackupIntervalHours": 24,
+      "maxBackupsToRetain": 7,
+      "backupBeforeMigration": true
+    },
+    "backupStorage": {
+      "description": "Where backups are stored",
+      "localBackupPath": "database/backups/",
+      "backupNaming": "{database}.{timestamp}.backup.db",
+      "compressionEnabled": false,
+      "maxBackupSizeBytes": 104857600
+    },
+    "backupRetention": {
+      "description": "How long backups are retained",
+      "retainDailyBackups": 7,
+      "retainWeeklyBackups": 4,
+      "retainMonthlyBackups": 12,
+      "autoDeleteOldBackups": true,
+      "cleanupOnDeploy": false
+    },
+    "recoveryProcedures": {
+      "description": "Database recovery procedures",
+      "autoDetectCorruption": true,
+      "autoBackupBeforeRecovery": true,
+      "fallbackToLastBackup": true,
+      "fallbackToSeedData": true,
+      "logRecoveryAttempts": true
+    }
+  }
+}

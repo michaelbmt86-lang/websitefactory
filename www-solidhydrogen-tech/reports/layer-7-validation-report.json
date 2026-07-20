@@ -1,0 +1,129 @@
+{
+  "report": "Layer 7 — Validation Report",
+  "layer": 7,
+  "layerName": "CMS Generation",
+  "step": "C",
+  "stepName": "Regression Validation + Delivery",
+  "date": "2026-07-18",
+  "executionMode": "validation-only",
+  "architectureLock": "enabled",
+
+  "validationSummary": {
+    "totalChecks": 34,
+    "passed": 34,
+    "failed": 0,
+    "warnings": 0,
+    "overall": "PASS"
+  },
+
+  "policyValidation": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0,
+    "files": [
+      { "file": "cms-analysis-policy.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "hasDescription": true, "duplicateIds": false, "archLockCompliant": true },
+      { "file": "cms-generation-policy.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "hasDescription": true, "duplicateIds": false, "archLockCompliant": true },
+      { "file": "cms-page-policy.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "hasDescription": true, "duplicateIds": false, "archLockCompliant": true },
+      { "file": "cms-seo-policy.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "hasDescription": true, "duplicateIds": false, "archLockCompliant": true },
+      { "file": "cms-navigation-policy.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "hasDescription": true, "duplicateIds": false, "archLockCompliant": true },
+      { "file": "cms-schema-policy.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "hasDescription": true, "duplicateIds": false, "archLockCompliant": true },
+      { "file": "cms-quality-policy.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "hasDescription": true, "duplicateIds": false, "archLockCompliant": true }
+    ]
+  },
+
+  "workflowValidation": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "crossWorkflowDuplicateIds": false,
+    "files": [
+      { "file": "cms-generation-workflow.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "totalSteps": 8, "stepIdsUnique": true, "orderSequential": true, "dependenciesValid": true },
+      { "file": "cms-validation-workflow.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "totalSteps": 6, "stepIdsUnique": true, "orderSequential": true, "dependenciesValid": true },
+      { "file": "cms-delivery-workflow.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "totalSteps": 6, "stepIdsUnique": true, "orderSequential": true, "dependenciesValid": true }
+    ]
+  },
+
+  "runtimeValidation": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "files": [
+      { "file": "cms-status.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "hasTimestamp": true, "schemaConsistent": true },
+      { "file": "cms-health.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "hasTimestamp": true, "schemaConsistent": true },
+      { "file": "cms-metrics.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "hasTimestamp": true, "schemaConsistent": true },
+      { "file": "cms-history.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "hasTimestamp": true, "schemaConsistent": true },
+      { "file": "cms-context.json", "validJson": true, "hasName": true, "hasVersion": true, "version": "1.0.0", "hasTimestamp": true, "schemaConsistent": true }
+    ]
+  },
+
+  "typescriptValidation": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0,
+    "totalLines": 1037,
+    "circularDependencies": false,
+    "unusedImports": false,
+    "files": [
+      { "file": "cms-status.ts", "validTs": true, "exports": 11, "importsResolve": true, "circularDeps": false, "unusedRefs": false, "lines": 134 },
+      { "file": "cms-health.ts", "validTs": true, "exports": 12, "importsResolve": true, "circularDeps": false, "unusedRefs": false, "lines": 141 },
+      { "file": "cms-metrics.ts", "validTs": true, "exports": 11, "importsResolve": true, "circularDeps": false, "unusedRefs": false, "lines": 131 },
+      { "file": "cms-context.ts", "validTs": true, "exports": 6, "importsResolve": true, "circularDeps": false, "unusedRefs": false, "lines": 186 },
+      { "file": "cms-events.ts", "validTs": true, "exports": 15, "importsResolve": true, "circularDeps": false, "unusedRefs": false, "lines": 187 },
+      { "file": "cms-state.ts", "validTs": true, "exports": 11, "importsResolve": true, "circularDeps": false, "unusedRefs": false, "lines": 142 },
+      { "file": "cms-runtime.ts", "validTs": true, "exports": 9, "importsResolve": true, "circularDeps": false, "unusedRefs": false, "lines": 116 }
+    ]
+  },
+
+  "buildValidation": {
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "lintErrors": 0,
+    "lintWarnings": 4,
+    "lintWarningsPreExisting": true,
+    "build": "PASS",
+    "pagesGenerated": 98
+  },
+
+  "architectureLockValidation": {
+    "noCmsEngineChanges": true,
+    "noCmsTypeChanges": true,
+    "noCmsApiRouteChanges": true,
+    "noCmsDashboardChanges": true,
+    "noSqliteLogicChanges": true,
+    "noDiscoveryLogicChanges": true,
+    "noBrowserExtractionChanges": true,
+    "noAiAnalysisChanges": true,
+    "noBehaviourChanges": true,
+    "noSchemaModifications": true,
+    "noRuntimeIntegration": true,
+    "overall": "PASS"
+  },
+
+  "compatibilityValidation": {
+    "existingCmsGeneratorUnchanged": true,
+    "existingApisUnchanged": true,
+    "existingDatabaseUnchanged": true,
+    "existingDashboardUnchanged": true,
+    "existingOutputUnchanged": true,
+    "overall": "PASS"
+  },
+
+  "enginePriorityValidation": {
+    "chromeDevToolsMcpPrimary": true,
+    "jcodesmoreRecoveryL1": true,
+    "firecrawlRecoveryL2": true,
+    "cmsCodeReferencesEnginePriority": false,
+    "extractionChainUnchanged": true,
+    "overall": "PASS"
+  },
+
+  "fileChangeAnalysis": {
+    "newFilesCreated": 27,
+    "modifiedFiles": 0,
+    "deletedFiles": 0,
+    "existingSourceFilesModified": 0
+  },
+
+  "commit": "f0cbe43",
+  "overallVerdict": "PASS"
+}

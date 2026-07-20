@@ -1,0 +1,127 @@
+{
+  "report": "layer-5-validation-report",
+  "version": "1.0.0",
+  "generatedAt": "2026-07-18T00:00:00.000Z",
+  "layer": "layer-5-ai-analysis",
+  "step": "step-c-regression-validation",
+  "overallStatus": "PASS",
+  "summary": {
+    "totalChecks": 41,
+    "passed": 41,
+    "failed": 0,
+    "warnings": 4
+  },
+  "validation": {
+    "policies": {
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "files": [
+        { "file": "policies/ai-analysis-policy.json", "exists": true, "validJson": true, "hasRequiredFields": true, "status": "PASS" },
+        { "file": "policies/gemini-policy.json", "exists": true, "validJson": true, "hasRequiredFields": true, "status": "PASS" },
+        { "file": "policies/normalization-policy.json", "exists": true, "validJson": true, "hasRequiredFields": true, "status": "PASS" },
+        { "file": "policies/seo-analysis-policy.json", "exists": true, "validJson": true, "hasRequiredFields": true, "status": "PASS" },
+        { "file": "policies/cms-analysis-policy.json", "exists": true, "validJson": true, "hasRequiredFields": true, "status": "PASS" },
+        { "file": "policies/analysis-quality-policy.json", "exists": true, "validJson": true, "hasRequiredFields": true, "status": "PASS" }
+      ]
+    },
+    "workflows": {
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "files": [
+        { "file": "workflows/ai-analysis-workflow.json", "exists": true, "validJson": true, "hasRequiredFields": true, "steps": 12, "status": "PASS" },
+        { "file": "workflows/normalization-workflow.json", "exists": true, "validJson": true, "hasRequiredFields": true, "steps": 8, "status": "PASS" },
+        { "file": "workflows/analysis-report-workflow.json", "exists": true, "validJson": true, "hasRequiredFields": true, "steps": 7, "status": "PASS" }
+      ]
+    },
+    "runtime": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "files": [
+        { "file": "runtime/analysis-status.json", "exists": true, "validJson": true, "hasRequiredFields": true, "status": "PASS" },
+        { "file": "runtime/analysis-health.json", "exists": true, "validJson": true, "hasRequiredFields": true, "status": "PASS" },
+        { "file": "runtime/analysis-metrics.json", "exists": true, "validJson": true, "hasRequiredFields": true, "status": "PASS" },
+        { "file": "runtime/analysis-history.json", "exists": true, "validJson": true, "hasRequiredFields": true, "status": "PASS" },
+        { "file": "runtime/analysis-context.json", "exists": true, "validJson": true, "hasRequiredFields": true, "status": "PASS" }
+      ]
+    },
+    "typescriptModules": {
+      "total": 7,
+      "passed": 7,
+      "failed": 0,
+      "files": [
+        { "file": "src/discovery/analysis/analysis-runtime.ts", "exists": true, "typeOnly": true, "noImplementation": true, "status": "PASS" },
+        { "file": "src/discovery/analysis/analysis-status.ts", "exists": true, "typeOnly": true, "noImplementation": true, "status": "PASS" },
+        { "file": "src/discovery/analysis/analysis-health.ts", "exists": true, "typeOnly": true, "noImplementation": true, "status": "PASS" },
+        { "file": "src/discovery/analysis/analysis-metrics.ts", "exists": true, "typeOnly": true, "noImplementation": true, "status": "PASS" },
+        { "file": "src/discovery/analysis/analysis-context.ts", "exists": true, "typeOnly": true, "noImplementation": true, "status": "PASS" },
+        { "file": "src/discovery/analysis/analysis-events.ts", "exists": true, "typeOnly": true, "noImplementation": true, "status": "PASS" },
+        { "file": "src/discovery/analysis/analysis-state.ts", "exists": true, "typeOnly": true, "noImplementation": true, "status": "PASS" }
+      ]
+    },
+    "documentation": {
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "files": [
+        { "file": "docs/architecture/layer-5-ai-analysis.md", "exists": true, "validMarkdown": true, "status": "PASS" },
+        { "file": "docs/architecture/layer-5-gap-analysis.md", "exists": true, "validMarkdown": true, "status": "PASS" },
+        { "file": "docs/architecture/layer-5-audit-summary.md", "exists": true, "validMarkdown": true, "status": "PASS" },
+        { "file": "docs/architecture/layer-5-runtime.md", "exists": true, "validMarkdown": true, "status": "PASS" },
+        { "file": "docs/architecture/layer-5-policy-reference.md", "exists": true, "validMarkdown": true, "status": "PASS" },
+        { "file": "docs/architecture/layer-5-analysis-health.md", "exists": true, "validMarkdown": true, "status": "PASS" },
+        { "file": "docs/architecture/layer-5-analysis-metrics.md", "exists": true, "validMarkdown": true, "status": "PASS" },
+        { "file": "docs/architecture/layer-5-analysis-quality.md", "exists": true, "validMarkdown": true, "status": "PASS" },
+        { "file": "docs/architecture/layer-5-completion-report.md", "exists": true, "validMarkdown": true, "status": "PASS" }
+      ]
+    }
+  },
+  "architectureLock": {
+    "totalChecks": 8,
+    "passed": 8,
+    "failed": 0,
+    "checks": [
+      { "check": "gemini-remains-analysis-only", "status": "PASS", "evidence": "gemini-analyzer.ts has zero browser/crawl/fetch/Playwright code" },
+      { "check": "no-browser-capability-in-analysis-modules", "status": "PASS", "evidence": "zero playwright/chrome-devtools/puppeteer references in src/discovery/analysis/" },
+      { "check": "no-crawling-in-analysis-modules", "status": "PASS", "evidence": "zero fetch()/http.get/axios calls in src/discovery/analysis/" },
+      { "check": "no-recovery-capability-in-analysis-modules", "status": "PASS", "evidence": "recovery words are type literals only, zero implementation" },
+      { "check": "architecture-lock-file-exists", "status": "PASS", "evidence": "policies/architecture-lock.json present" },
+      { "check": "engine-priority-unchanged", "status": "PASS", "evidence": "chrome-devtools-mcp (P1) → jcodesmore-browser (P2) → firecrawl (P3)" },
+      { "check": "no-existing-files-modified", "status": "PASS", "evidence": "git diff HEAD~2 --diff-filter=M returned empty" },
+      { "check": "ts-modules-are-type-only", "status": "PASS", "evidence": "all 7 modules export only type/interface/const" }
+    ]
+  },
+  "compatibility": {
+    "totalChecks": 9,
+    "passed": 9,
+    "failed": 0,
+    "checks": [
+      { "check": "api-routes", "status": "PASS", "evidence": "zero API endpoint modifications" },
+      { "check": "database-schema", "status": "PASS", "evidence": "zero SQLite schema changes" },
+      { "check": "dashboard-ui", "status": "PASS", "evidence": "zero React component changes" },
+      { "check": "discovery-pipeline", "status": "PASS", "evidence": "zero discovery engine changes" },
+      { "check": "cms-pipeline", "status": "PASS", "evidence": "zero CMS generator changes" },
+      { "check": "deployment", "status": "PASS", "evidence": "zero Vercel/deployment changes" },
+      { "check": "github-actions", "status": "PASS", "evidence": "zero GitHub workflow changes" },
+      { "check": "vercel-config", "status": "PASS", "evidence": "zero Vercel config changes" },
+      { "check": "cloudflare", "status": "PASS", "evidence": "zero Cloudflare config changes" }
+    ]
+  },
+  "buildRegression": {
+    "lint": { "status": "PASS", "errors": 0, "warnings": 4, "warningNote": "4 pre-existing img element warnings, no new warnings" },
+    "typecheck": { "status": "PASS", "errors": 0 },
+    "build": { "status": "PASS", "framework": "Next.js 16.2.1", "pagesGenerated": 98 }
+  },
+  "commits": [
+    { "step": "step-a", "hash": "c354330", "description": "Architecture specification, gap analysis, audit summary" },
+    { "step": "step-b", "hash": "a2c149e", "description": "Infrastructure: 6 policies, 3 workflows, 5 runtime, 7 TS, 6 docs" },
+    { "step": "step-c", "hash": "pending", "description": "Regression validation, delivery report" }
+  ],
+  "knownGaps": [
+    { "gap": "R4 CSS Normalization missing", "severity": "MEDIUM", "recommendation": "Implement CSS design token extraction" },
+    { "gap": "R7 Component Identification missing", "severity": "HIGH", "recommendation": "Implement component identification from semantic structure" },
+    { "gap": "R1 boundary violation in detail-extraction-engine.ts", "severity": "HIGH", "recommendation": "Separate Layer 4 fetch from Layer 5 analysis" }
+  ]
+}

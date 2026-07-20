@@ -1,0 +1,68 @@
+{
+  "name": "analysis-quality-policy",
+  "version": "1.0.0",
+  "description": "Defines analysis quality behaviour for the Layer 5 AI Analysis Layer — quality scoring, validation rules, completeness thresholds, and report generation.",
+  "owner": "layer-5-ai-analysis",
+  "enabled": true,
+  "rules": {
+    "qualityScoring": {
+      "description": "Quality scoring rules for extraction and analysis",
+      "scoringModel": "weighted-average",
+      "weights": {
+        "domCompleteness": 0.25,
+        "assetCompleteness": 0.20,
+        "seoCoverage": 0.20,
+        "schemaCoverage": 0.15,
+        "faqCoverage": 0.10,
+        "specsCoverage": 0.10
+      },
+      "minPassingScore": 0.60,
+      "maxScore": 1.0,
+      "scoreRounding": 2
+    },
+    "completenessChecks": {
+      "description": "Extraction completeness validation checks",
+      "checkMissingImages": true,
+      "checkMissingSeo": true,
+      "checkMissingSchema": true,
+      "checkMissingSpecs": true,
+      "checkMissingFaq": true,
+      "checkBrokenDownloads": true,
+      "checkBrokenMedia": true,
+      "checkDuplicateProducts": true,
+      "checkDuplicateImages": true,
+      "checkEmptyTitles": true,
+      "checkEmptyDescriptions": true
+    },
+    "issueSeverity": {
+      "description": "Issue severity classification",
+      "errorSeverity": ["missing-image", "missing-title", "missing-description", "duplicate-product", "broken-download"],
+      "warningSeverity": ["missing-seo", "missing-schema", "missing-specs", "missing-faq", "missing-alt-text"],
+      "infoSeverity": ["short-description", "long-title", "missing-tags", "missing-collection"]
+    },
+    "reportGeneration": {
+      "description": "Analysis report generation rules",
+      "generateQualityReport": true,
+      "generateComponentReport": true,
+      "generateSeoReport": true,
+      "generateNormalizationReport": true,
+      "includeSummary": true,
+      "includeIssueList": true,
+      "includeRecommendations": true,
+      "includeTimestamps": true,
+      "includeDuration": true
+    },
+    "qualityThresholds": {
+      "description": "Quality thresholds for each category",
+      "domCompletenessThreshold": 0.70,
+      "assetCompletenessThreshold": 0.60,
+      "seoCoverageThreshold": 0.80,
+      "schemaCoverageThreshold": 0.50,
+      "faqCoverageThreshold": 0.30,
+      "specsCoverageThreshold": 0.40,
+      "overallQualityThreshold": 0.60,
+      "maxDuplicateRate": 0.05,
+      "maxBrokenMediaRate": 0.10
+    }
+  }
+}
