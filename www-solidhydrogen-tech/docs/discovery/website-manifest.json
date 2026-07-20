@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://www.solidhydrogen.tech",
-  "generatedAt": "2026-07-20T03:12:50.545Z",
+  "generatedAt": "2026-07-20T03:36:34.320Z",
   "version": "1.0.0",
   "pages": [
     {
@@ -67,13 +67,6 @@
       "status": "published"
     },
     {
-      "url": "https://www.solidhydrogen.tech/post/beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
-      "slug": "beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
-      "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
-      "pageType": "page",
-      "status": "published"
-    },
-    {
       "url": "https://www.solidhydrogen.tech/post/solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
       "slug": "solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
       "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
@@ -83,6 +76,13 @@
     {
       "url": "https://www.solidhydrogen.tech/post/defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
       "slug": "defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
+      "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://www.solidhydrogen.tech/post/beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "slug": "beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
       "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
       "pageType": "page",
       "status": "published"

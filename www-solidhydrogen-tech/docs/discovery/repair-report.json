@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://www.solidhydrogen.tech",
-  "timestamp": "2026-07-20T03:12:50.570Z",
+  "timestamp": "2026-07-20T03:36:34.355Z",
   "actions": [
     {
       "category": "missing-pages",
@@ -187,7 +187,7 @@
       "action": "fixed",
       "message": "Generated SEO metadata for \"Home | Solidhydrogen\"",
       "entity_type": "page",
-      "entity_id": 321,
+      "entity_id": 334,
       "entity_slug": "",
       "before_value": "",
       "after_value": "title: Home | Solidhydrogen, desc: ..."
@@ -197,7 +197,7 @@
       "action": "fixed",
       "message": "Generated SEO metadata for \"Products | Solidhydrogen\"",
       "entity_type": "page",
-      "entity_id": 322,
+      "entity_id": 335,
       "entity_slug": "technology",
       "before_value": "",
       "after_value": "title: Products | Solidhydrogen, desc: ..."
@@ -207,7 +207,7 @@
       "action": "fixed",
       "message": "Generated SEO metadata for \"Products | Solidhydrogen\"",
       "entity_type": "page",
-      "entity_id": 323,
+      "entity_id": 336,
       "entity_slug": "products",
       "before_value": "",
       "after_value": "title: Products | Solidhydrogen, desc: ..."
@@ -217,7 +217,7 @@
       "action": "fixed",
       "message": "Generated SEO metadata for \"Products | Solidhydrogen\"",
       "entity_type": "page",
-      "entity_id": 324,
+      "entity_id": 337,
       "entity_slug": "copy-of-home",
       "before_value": "",
       "after_value": "title: Products | Solidhydrogen, desc: ..."
@@ -227,7 +227,7 @@
       "action": "fixed",
       "message": "Generated SEO metadata for \"Products | Solidhydrogen\"",
       "entity_type": "page",
-      "entity_id": 325,
+      "entity_id": 338,
       "entity_slug": "blog",
       "before_value": "",
       "after_value": "title: Products | Solidhydrogen, desc: ..."
@@ -237,7 +237,7 @@
       "action": "fixed",
       "message": "Generated SEO metadata for \"SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen\"",
       "entity_type": "page",
-      "entity_id": 326,
+      "entity_id": 339,
       "entity_slug": "solidhydrogen-and-international-consortium-secure-aud-2-5m-to-demonstrate-low-cost-hydrogen-product",
       "before_value": "",
       "after_value": "title: SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen, desc: ..."
@@ -247,17 +247,7 @@
       "action": "fixed",
       "message": "Generated SEO metadata for \"SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen\"",
       "entity_type": "page",
-      "entity_id": 327,
-      "entity_slug": "beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
-      "before_value": "",
-      "after_value": "title: SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen, desc: ..."
-    },
-    {
-      "category": "missing-seo",
-      "action": "fixed",
-      "message": "Generated SEO metadata for \"SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen\"",
-      "entity_type": "page",
-      "entity_id": 328,
+      "entity_id": 340,
       "entity_slug": "solidhydrogen-successful-in-grant-to-remove-pfas-in-water-with-nssn",
       "before_value": "",
       "after_value": "title: SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen, desc: ..."
@@ -267,7 +257,7 @@
       "action": "fixed",
       "message": "Generated SEO metadata for \"SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen\"",
       "entity_type": "page",
-      "entity_id": 329,
+      "entity_id": 341,
       "entity_slug": "defeating-the-cost-of-exclusion-how-independent-science-validates-solid-state-hydrogen-as-the-saf",
       "before_value": "",
       "after_value": "title: SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen, desc: ..."
@@ -277,7 +267,17 @@
       "action": "fixed",
       "message": "Generated SEO metadata for \"SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen\"",
       "entity_type": "page",
-      "entity_id": 330,
+      "entity_id": 342,
+      "entity_slug": "beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "before_value": "",
+      "after_value": "title: SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen\"",
+      "entity_type": "page",
+      "entity_id": 343,
       "entity_slug": "solidhydrogen-and-en2core-technology-partner-to-dramatically-reduce-the-cost-of-low-carbon-hydrogen",
       "before_value": "",
       "after_value": "title: SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen, desc: ..."

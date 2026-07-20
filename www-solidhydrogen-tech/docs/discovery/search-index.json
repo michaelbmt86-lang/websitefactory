@@ -1,11 +1,11 @@
 {
   "siteUrl": "https://www.solidhydrogen.tech",
-  "generatedAt": "2026-07-20T03:12:50.547Z",
+  "generatedAt": "2026-07-20T03:36:34.322Z",
   "totalEntries": 16,
   "entries": [
     {
       "entityType": "blog",
-      "entityId": 333,
+      "entityId": 346,
       "title": "From Plant to Packaging: The BioPak Story",
       "description": "Learn about our journey from a small Australian startup to global leaders in sustainable packaging.",
       "keywords": "blog From Plant to Packaging: The BioPak Story Learn about our journey from a small Australian startup to global leaders in sustainable packaging.",
@@ -15,7 +15,7 @@
     },
     {
       "entityType": "blog",
-      "entityId": 331,
+      "entityId": 344,
       "title": "The Complete Guide to Composting at Home",
       "description": "Learn how to start composting at home and reduce your environmental impact with simple, practical steps.",
       "keywords": "blog The Complete Guide to Composting at Home Learn how to start composting at home and reduce your environmental impact with simple, practical steps.",
@@ -25,7 +25,7 @@
     },
     {
       "entityType": "blog",
-      "entityId": 332,
+      "entityId": 345,
       "title": "Why Compostable Packaging Matters for Australian Businesses",
       "description": "Discover how switching to compostable packaging can benefit your business and the environment.",
       "keywords": "blog Why Compostable Packaging Matters for Australian Businesses Discover how switching to compostable packaging can benefit your business and the environment.",
@@ -35,7 +35,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 333,
+      "entityId": 346,
       "title": "From Plant to Packaging: The BioPak Story",
       "description": "Learn about our journey from a small Australian startup to global leaders in sustainable packaging.",
       "keywords": "blog-post From Plant to Packaging: The BioPak Story Learn about our journey from a small Australian startup to global leaders in sustainable packaging.",
@@ -45,7 +45,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 321,
+      "entityId": 334,
       "title": "Home | Solidhydrogen",
       "description": "",
       "keywords": "homepage Home | Solidhydrogen",
@@ -55,7 +55,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 322,
+      "entityId": 335,
       "title": "Products | Solidhydrogen",
       "description": "",
       "keywords": "category Products | Solidhydrogen",
@@ -65,7 +65,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 323,
+      "entityId": 336,
       "title": "Products | Solidhydrogen",
       "description": "",
       "keywords": "category Products | Solidhydrogen",
@@ -75,7 +75,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 324,
+      "entityId": 337,
       "title": "Products | Solidhydrogen",
       "description": "",
       "keywords": "category Products | Solidhydrogen",
@@ -85,7 +85,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 325,
+      "entityId": 338,
       "title": "Products | Solidhydrogen",
       "description": "",
       "keywords": "blog-listing Products | Solidhydrogen",
@@ -95,7 +95,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 326,
+      "entityId": 339,
       "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
       "description": "",
       "keywords": "page SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
@@ -105,17 +105,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 327,
-      "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
-      "description": "",
-      "keywords": "page SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
-      "url": "https://www.solidhydrogen.tech/post/beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
-      "imageUrl": "",
-      "category": "page"
-    },
-    {
-      "entityType": "page",
-      "entityId": 328,
+      "entityId": 340,
       "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
       "description": "",
       "keywords": "page SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
@@ -125,7 +115,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 329,
+      "entityId": 341,
       "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
       "description": "",
       "keywords": "page SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
@@ -135,7 +125,17 @@
     },
     {
       "entityType": "page",
-      "entityId": 330,
+      "entityId": 342,
+      "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
+      "description": "",
+      "keywords": "page SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
+      "url": "https://www.solidhydrogen.tech/post/beyond-storage-why-metal-hydrides-are-the-holy-grail-for-hydrogen-purification-and-efficiency",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 343,
       "title": "SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
       "description": "",
       "keywords": "page SolidHydrogen and En2Core Technology Partner to Dramatically Reduce the Cost of Low Carbon Hydrogen",
@@ -145,7 +145,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 331,
+      "entityId": 344,
       "title": "The Complete Guide to Composting at Home",
       "description": "Learn how to start composting at home and reduce your environmental impact with simple, practical steps.",
       "keywords": "blog-post The Complete Guide to Composting at Home Learn how to start composting at home and reduce your environmental impact with simple, practical steps.",
@@ -155,7 +155,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 332,
+      "entityId": 345,
       "title": "Why Compostable Packaging Matters for Australian Businesses",
       "description": "Discover how switching to compostable packaging can benefit your business and the environment.",
       "keywords": "blog-post Why Compostable Packaging Matters for Australian Businesses Discover how switching to compostable packaging can benefit your business and the environment.",
