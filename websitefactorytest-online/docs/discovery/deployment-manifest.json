@@ -1,0 +1,37 @@
+{
+  "siteUrl": "https://sportsgoods.en.alibaba.com",
+  "generatedAt": "2026-07-21T03:22:41.652Z",
+  "projectName": "websitefactory",
+  "projectSlug": "websitefactorytest-online",
+  "targetDomain": "websitefactorytest.online",
+  "environment": "development",
+  "sourceUrl": "https://sportsgoods.en.alibaba.com",
+  "sourceDomain": "sportsgoods.en.alibaba.com",
+  "productDomain": "websitefactorytest.online",
+  "productSlug": "websitefactorytest-online",
+  "artifacts": {
+    "siteMap": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\site-map.json",
+    "urlGraph": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\url-graph.json",
+    "crawlSummary": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\crawl-summary.json",
+    "deliveryReport": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\delivery-report.json",
+    "websiteManifest": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\website-manifest.json",
+    "searchIndex": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\search-index.json",
+    "navigation": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\navigation.json",
+    "sitemap": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\sitemap.json",
+    "sitemapXml": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\sitemap.xml",
+    "verificationReport": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\verification-report.json",
+    "auditReport": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\audit-report.json",
+    "repairReport": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\repair-report.json"
+  },
+  "summary": {
+    "totalSiteUrls": 1,
+    "totalProductUrls": 0,
+    "totalExtractedProducts": 0,
+    "totalCmsPages": 4,
+    "totalBrands": 0,
+    "totalCollections": 0,
+    "totalBlogPosts": 3,
+    "seoCoverage": 75,
+    "searchCoverage": 100
+  }
+}

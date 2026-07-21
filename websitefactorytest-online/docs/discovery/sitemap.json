@@ -1,0 +1,32 @@
+{
+  "siteUrl": "https://sportsgoods.en.alibaba.com",
+  "productDomain": "websitefactorytest.online",
+  "generatedAt": "2026-07-21T03:22:41.634Z",
+  "totalUrls": 4,
+  "urls": [
+    {
+      "url": "https://websitefactorytest.online/blog/plant-to-packaging-biopak-story",
+      "lastmod": "2026-07-21 03:22:41",
+      "changefreq": "weekly",
+      "priority": 0.7
+    },
+    {
+      "url": "https://websitefactorytest.online/blog/complete-guide-composting-home",
+      "lastmod": "2026-07-21 03:22:41",
+      "changefreq": "weekly",
+      "priority": 0.7
+    },
+    {
+      "url": "https://websitefactorytest.online/blog/compostable-packaging-matters-australian-businesses",
+      "lastmod": "2026-07-21 03:22:41",
+      "changefreq": "weekly",
+      "priority": 0.7
+    },
+    {
+      "url": "https://websitefactorytest.online/",
+      "lastmod": "2026-07-21 03:22:41",
+      "changefreq": "monthly",
+      "priority": 1
+    }
+  ]
+}

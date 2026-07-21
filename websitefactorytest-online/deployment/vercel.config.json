@@ -1,0 +1,6 @@
+{
+  "provider": "vercel",
+  "template_project": "websitefactory",
+  "framework": "nextjs",
+  "auto_deploy": true
+}

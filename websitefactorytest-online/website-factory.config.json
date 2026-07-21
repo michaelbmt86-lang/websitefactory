@@ -1,0 +1,49 @@
+{
+    "factory": {
+      "name": "Website Factory",
+      "version": "2.0.0",
+      "mode": "production"
+    },
+  
+    "project": {
+      "root": "E:\\AI-Projects\\website-factory\\jcodemore"
+    },
+  
+    "deployment": {
+      "provider": "vercel",
+      "github": true,
+      "cloudflare": true,
+      "useWrangler": false,
+      "useCloudflareRestApi": true,
+
+      "mode": "monorepo",
+      "monorepo": "michaelbmt86-lang/websitefactory",
+      "vercelTeam": "glotalk",
+
+      "autoCreateProject": true,
+      "reuseProject": true,
+      "projectNameStrategy": "normalized-domain",
+      "cleanupOldProject": false,
+      "verifyAfterDeployment": true,
+      "verifyDashboard": true,
+      "verifyHttps": true,
+      "verifyHomepage": true
+    },
+  
+    "dashboard": {
+      "enabled": true,
+      "required": true
+    },
+  
+    "database": {
+      "provider": "sqlite"
+    },
+  
+    "ai": {
+      "provider": "gemini"
+    },
+  
+    "crawler": {
+      "provider": "firecrawl"
+    }
+  }

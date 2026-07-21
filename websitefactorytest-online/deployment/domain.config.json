@@ -1,0 +1,15 @@
+{
+  "source_url": "https://sportsgoods.en.alibaba.com",
+  "source_domain": "sportsgoods.en.alibaba.com",
+  "product_domain": "websitefactorytest.online",
+  "product_slug": "websitefactorytest-online",
+  "project_name": "websitefactorytest.online",
+  "project_slug": "websitefactorytest-online",
+  "target_domain": "websitefactorytest.online",
+  "reference_website": "https://sportsgoods.en.alibaba.com",
+  "github_repository": "michaelbmt86-lang/websitefactory",
+  "environment": "test",
+  "registrar": "namecheap",
+  "dns_provider": "cloudflare",
+  "deployment_provider": "vercel"
+}

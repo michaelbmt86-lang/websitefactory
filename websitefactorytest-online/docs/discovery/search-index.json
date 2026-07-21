@@ -1,0 +1,78 @@
+{
+  "siteUrl": "https://sportsgoods.en.alibaba.com",
+  "productDomain": "websitefactorytest.online",
+  "generatedAt": "2026-07-21T03:22:41.628Z",
+  "totalEntries": 7,
+  "entries": [
+    {
+      "entityType": "blog",
+      "entityId": 367,
+      "title": "From Plant to Packaging: The BioPak Story",
+      "description": "Learn about our journey from a small Australian startup to global leaders in sustainable packaging.",
+      "keywords": "blog From Plant to Packaging: The BioPak Story Learn about our journey from a small Australian startup to global leaders in sustainable packaging.",
+      "url": "https://websitefactorytest.online/blog/plant-to-packaging-biopak-story",
+      "imageUrl": "/images/blog/biopak-story.jpg",
+      "category": "blog"
+    },
+    {
+      "entityType": "blog",
+      "entityId": 365,
+      "title": "The Complete Guide to Composting at Home",
+      "description": "Learn how to start composting at home and reduce your environmental impact with simple, practical steps.",
+      "keywords": "blog The Complete Guide to Composting at Home Learn how to start composting at home and reduce your environmental impact with simple, practical steps.",
+      "url": "https://websitefactorytest.online/blog/complete-guide-composting-home",
+      "imageUrl": "/images/blog/composting-guide.jpg",
+      "category": "blog"
+    },
+    {
+      "entityType": "blog",
+      "entityId": 366,
+      "title": "Why Compostable Packaging Matters for Australian Businesses",
+      "description": "Discover how switching to compostable packaging can benefit your business and the environment.",
+      "keywords": "blog Why Compostable Packaging Matters for Australian Businesses Discover how switching to compostable packaging can benefit your business and the environment.",
+      "url": "https://websitefactorytest.online/blog/compostable-packaging-matters-australian-businesses",
+      "imageUrl": "/images/blog/business-composting.jpg",
+      "category": "blog"
+    },
+    {
+      "entityType": "page",
+      "entityId": 367,
+      "title": "From Plant to Packaging: The BioPak Story",
+      "description": "Learn about our journey from a small Australian startup to global leaders in sustainable packaging.",
+      "keywords": "blog-post From Plant to Packaging: The BioPak Story Learn about our journey from a small Australian startup to global leaders in sustainable packaging.",
+      "url": "https://websitefactorytest.online/blog/plant-to-packaging-biopak-story",
+      "imageUrl": "/images/blog/biopak-story.jpg",
+      "category": "blog-post"
+    },
+    {
+      "entityType": "page",
+      "entityId": 365,
+      "title": "The Complete Guide to Composting at Home",
+      "description": "Learn how to start composting at home and reduce your environmental impact with simple, practical steps.",
+      "keywords": "blog-post The Complete Guide to Composting at Home Learn how to start composting at home and reduce your environmental impact with simple, practical steps.",
+      "url": "https://websitefactorytest.online/blog/complete-guide-composting-home",
+      "imageUrl": "/images/blog/composting-guide.jpg",
+      "category": "blog-post"
+    },
+    {
+      "entityType": "page",
+      "entityId": 366,
+      "title": "Why Compostable Packaging Matters for Australian Businesses",
+      "description": "Discover how switching to compostable packaging can benefit your business and the environment.",
+      "keywords": "blog-post Why Compostable Packaging Matters for Australian Businesses Discover how switching to compostable packaging can benefit your business and the environment.",
+      "url": "https://websitefactorytest.online/blog/compostable-packaging-matters-australian-businesses",
+      "imageUrl": "/images/blog/business-composting.jpg",
+      "category": "blog-post"
+    },
+    {
+      "entityType": "page",
+      "entityId": 364,
+      "title": "验证码拦截",
+      "description": "",
+      "keywords": "homepage 验证码拦截",
+      "url": "https://websitefactorytest.online/",
+      "imageUrl": "",
+      "category": "homepage"
+    }
+  ]
+}

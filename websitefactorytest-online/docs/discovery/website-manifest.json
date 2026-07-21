@@ -1,0 +1,57 @@
+{
+  "siteUrl": "https://sportsgoods.en.alibaba.com",
+  "productDomain": "websitefactorytest.online",
+  "generatedAt": "2026-07-21T03:22:41.625Z",
+  "version": "1.0.0",
+  "pages": [
+    {
+      "url": "https://websitefactorytest.online/blog/plant-to-packaging-biopak-story",
+      "slug": "blog-plant-to-packaging-biopak-story",
+      "title": "From Plant to Packaging: The BioPak Story",
+      "pageType": "blog-post",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/blog/complete-guide-composting-home",
+      "slug": "blog-complete-guide-composting-home",
+      "title": "The Complete Guide to Composting at Home",
+      "pageType": "blog-post",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/blog/compostable-packaging-matters-australian-businesses",
+      "slug": "blog-compostable-packaging-matters-australian-businesses",
+      "title": "Why Compostable Packaging Matters for Australian Businesses",
+      "pageType": "blog-post",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/",
+      "slug": "",
+      "title": "验证码拦截",
+      "pageType": "homepage",
+      "status": "published"
+    }
+  ],
+  "brands": [],
+  "collections": [],
+  "categories": [],
+  "blog": [
+    {
+      "title": "From Plant to Packaging: The BioPak Story",
+      "slug": "blog-plant-to-packaging-biopak-story",
+      "excerpt": "Learn about our journey from a small Australian startup to global leaders in sustainable packaging."
+    },
+    {
+      "title": "The Complete Guide to Composting at Home",
+      "slug": "blog-complete-guide-composting-home",
+      "excerpt": "Learn how to start composting at home and reduce your environmental impact with simple, practical steps."
+    },
+    {
+      "title": "Why Compostable Packaging Matters for Australian Businesses",
+      "slug": "blog-compostable-packaging-matters-australian-businesses",
+      "excerpt": "Discover how switching to compostable packaging can benefit your business and the environment."
+    }
+  ],
+  "totalEntities": 7
+}
