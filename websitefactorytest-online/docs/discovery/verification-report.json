@@ -1,13 +1,13 @@
 {
   "siteUrl": "https://sportsgoods.en.alibaba.com",
-  "timestamp": "2026-07-21T03:22:41.690Z",
+  "timestamp": "2026-07-21T04:50:11.415Z",
   "checks": [
     {
       "name": "pages",
       "status": "PASS",
-      "message": "4 pages verified successfully",
+      "message": "8 pages verified successfully",
       "details": {
-        "total": 4,
+        "total": 8,
         "issues": [],
         "dupeSlugs": 0
       }
@@ -25,9 +25,9 @@
     {
       "name": "links",
       "status": "PASS",
-      "message": "4 pages checked. 0 link issues.",
+      "message": "8 pages checked. 0 link issues.",
       "details": {
-        "totalPages": 4,
+        "totalPages": 8,
         "brokenCanonical": 0,
         "brokenNav": 0,
         "issues": []
@@ -35,17 +35,15 @@
     },
     {
       "name": "seo",
-      "status": "WARNING",
-      "message": "SEO coverage: 75% (4 entries). 4 issues.",
+      "status": "PASS",
+      "message": "SEO coverage: 100% (8 entries). 2 issues.",
       "details": {
-        "total": 4,
-        "coverage": 75,
-        "seoEntries": 4,
+        "total": 8,
+        "coverage": 100,
+        "seoEntries": 8,
         "issues": [
-          "1 pages missing meta description",
-          "1 pages missing OG description",
           "3 pages missing canonical",
-          "4 pages missing structured data"
+          "8 pages missing structured data"
         ]
       }
     },
@@ -54,7 +52,7 @@
       "status": "FAILED",
       "message": "Schema coverage: 0% (0 pages, 0 products).",
       "details": {
-        "totalPages": 4,
+        "totalPages": 8,
         "totalProducts": 0,
         "pagesWithSchema": 0,
         "productsWithSchema": 0,
@@ -113,15 +111,15 @@
           "navigation": 18,
           "pages": 0,
           "settings": 1,
-          "site_urls": 1,
+          "site_urls": 5,
           "product_urls": 0,
           "extracted_products": 0,
           "media_assets": 0,
-          "cms_pages": 4,
+          "cms_pages": 8,
           "cms_brands": 0,
           "cms_collections": 0,
-          "cms_seo": 4,
-          "cms_search_index": 7
+          "cms_seo": 8,
+          "cms_search_index": 11
         },
         "issues": []
       }

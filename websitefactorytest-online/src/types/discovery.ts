@@ -389,6 +389,48 @@ export interface ExtractionMetrics {
   created_at: string;
 }
 
+// ============================================================================
+// ACQUISITION VALIDATOR TYPES
+//
+// Pure validation plugin types. No external calls.
+// ============================================================================
+
+export interface ValidationCheck {
+  name: string;
+  passed: boolean;
+  message: string;
+  severity: "error" | "warning";
+  weight: number;
+  score: number;
+}
+
+export interface ValidationResult {
+  status: "PASS" | "FAIL";
+  score: number;
+  reason: string;
+  engine: ExtractionEngineName;
+  checks: ValidationCheck[];
+}
+
+export interface ValidatorConfig {
+  minimumHtmlSize: number;
+  minimumBodyCharacters: number;
+  minimumInternalLinks: number;
+  minimumNavigationElements: number;
+  minimumImages: number;
+  minimumScore: number;
+  captchaKeywords: string[];
+  antiBotPatterns: AntiBotPattern[];
+}
+
+export interface AntiBotPattern {
+  name: string;
+  pattern: RegExp;
+  severity: "error" | "warning";
+  weight: number;
+  category: "captcha" | "challenge" | "access-denied" | "verification" | "bot-detection";
+}
+
 export interface ExtractedProduct {
   id: number;
   url: string;

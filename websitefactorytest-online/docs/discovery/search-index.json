@@ -1,12 +1,12 @@
 {
   "siteUrl": "https://sportsgoods.en.alibaba.com",
   "productDomain": "websitefactorytest.online",
-  "generatedAt": "2026-07-21T03:22:41.628Z",
-  "totalEntries": 7,
+  "generatedAt": "2026-07-21T04:50:11.390Z",
+  "totalEntries": 11,
   "entries": [
     {
       "entityType": "blog",
-      "entityId": 367,
+      "entityId": 375,
       "title": "From Plant to Packaging: The BioPak Story",
       "description": "Learn about our journey from a small Australian startup to global leaders in sustainable packaging.",
       "keywords": "blog From Plant to Packaging: The BioPak Story Learn about our journey from a small Australian startup to global leaders in sustainable packaging.",
@@ -16,7 +16,7 @@
     },
     {
       "entityType": "blog",
-      "entityId": 365,
+      "entityId": 373,
       "title": "The Complete Guide to Composting at Home",
       "description": "Learn how to start composting at home and reduce your environmental impact with simple, practical steps.",
       "keywords": "blog The Complete Guide to Composting at Home Learn how to start composting at home and reduce your environmental impact with simple, practical steps.",
@@ -26,7 +26,7 @@
     },
     {
       "entityType": "blog",
-      "entityId": 366,
+      "entityId": 374,
       "title": "Why Compostable Packaging Matters for Australian Businesses",
       "description": "Discover how switching to compostable packaging can benefit your business and the environment.",
       "keywords": "blog Why Compostable Packaging Matters for Australian Businesses Discover how switching to compostable packaging can benefit your business and the environment.",
@@ -36,7 +36,17 @@
     },
     {
       "entityType": "page",
-      "entityId": 367,
+      "entityId": 368,
+      "title": "Company Overview - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
+      "description": "Dongguan City Bestway Sports Goods Technology Co., Ltd. Products:Life Jackets, Rash Guard, Children",
+      "keywords": "homepage Company Overview - Dongguan City Bestway Sports Goods Technology Co., Ltd. Dongguan City Bestway Sports Goods Technology Co., Ltd. Products:Life Jackets, Rash Guard, Children",
+      "url": "https://websitefactorytest.online/",
+      "imageUrl": "",
+      "category": "homepage"
+    },
+    {
+      "entityType": "page",
+      "entityId": 375,
       "title": "From Plant to Packaging: The BioPak Story",
       "description": "Learn about our journey from a small Australian startup to global leaders in sustainable packaging.",
       "keywords": "blog-post From Plant to Packaging: The BioPak Story Learn about our journey from a small Australian startup to global leaders in sustainable packaging.",
@@ -46,7 +56,37 @@
     },
     {
       "entityType": "page",
-      "entityId": 365,
+      "entityId": 370,
+      "title": "Kids Swimwear - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
+      "description": "Explore our Kids Swimwear collection, featuring main products like Life Jackets,  Rash Guard, and 467+ more items from Dongguan City Bestway Sports Goods Technology Co., Ltd. on Alibaba.com.",
+      "keywords": "page Kids Swimwear - Dongguan City Bestway Sports Goods Technology Co., Ltd. Explore our Kids Swimwear collection, featuring main products like Life Jackets,  Rash Guard, and 467+ more items from Dongguan City Bestway Sports Goods Technology Co., Ltd. on Alibaba.com.",
+      "url": "https://websitefactorytest.online/productgrouplist-941419449/Kids_Swimwear.html",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 372,
+      "title": "Life Jackets - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
+      "description": "Explore our Life Jackets collection, featuring main products like Life Jackets,  Rash Guard, and 467+ more items from Dongguan City Bestway Sports Goods Technology Co., Ltd. on Alibaba.com.",
+      "keywords": "page Life Jackets - Dongguan City Bestway Sports Goods Technology Co., Ltd. Explore our Life Jackets collection, featuring main products like Life Jackets,  Rash Guard, and 467+ more items from Dongguan City Bestway Sports Goods Technology Co., Ltd. on Alibaba.com.",
+      "url": "https://websitefactorytest.online/productgrouplist-902587773/Life_Jackets.html",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 371,
+      "title": "Men's Wetsuit - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
+      "description": "Explore our Men",
+      "keywords": "page Men's Wetsuit - Dongguan City Bestway Sports Goods Technology Co., Ltd. Explore our Men",
+      "url": "https://websitefactorytest.online/productgrouplist-826961527/Men_s_Wetsuit.html",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 373,
       "title": "The Complete Guide to Composting at Home",
       "description": "Learn how to start composting at home and reduce your environmental impact with simple, practical steps.",
       "keywords": "blog-post The Complete Guide to Composting at Home Learn how to start composting at home and reduce your environmental impact with simple, practical steps.",
@@ -56,23 +96,23 @@
     },
     {
       "entityType": "page",
-      "entityId": 366,
+      "entityId": 369,
+      "title": "Top sale product - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
+      "description": "Explore our Top sale product collection, featuring main products like Life Jackets,  Rash Guard, and 467+ more items from Dongguan City Bestway Sports Goods Technology Co., Ltd. on Alibaba.com.",
+      "keywords": "category Top sale product - Dongguan City Bestway Sports Goods Technology Co., Ltd. Explore our Top sale product collection, featuring main products like Life Jackets,  Rash Guard, and 467+ more items from Dongguan City Bestway Sports Goods Technology Co., Ltd. on Alibaba.com.",
+      "url": "https://websitefactorytest.online/productgrouplist-922829520/Top_sale_product.html",
+      "imageUrl": "",
+      "category": "category"
+    },
+    {
+      "entityType": "page",
+      "entityId": 374,
       "title": "Why Compostable Packaging Matters for Australian Businesses",
       "description": "Discover how switching to compostable packaging can benefit your business and the environment.",
       "keywords": "blog-post Why Compostable Packaging Matters for Australian Businesses Discover how switching to compostable packaging can benefit your business and the environment.",
       "url": "https://websitefactorytest.online/blog/compostable-packaging-matters-australian-businesses",
       "imageUrl": "/images/blog/business-composting.jpg",
       "category": "blog-post"
-    },
-    {
-      "entityType": "page",
-      "entityId": 364,
-      "title": "验证码拦截",
-      "description": "",
-      "keywords": "homepage 验证码拦截",
-      "url": "https://websitefactorytest.online/",
-      "imageUrl": "",
-      "category": "homepage"
     }
   ]
 }

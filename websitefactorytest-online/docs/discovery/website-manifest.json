@@ -1,7 +1,7 @@
 {
   "siteUrl": "https://sportsgoods.en.alibaba.com",
   "productDomain": "websitefactorytest.online",
-  "generatedAt": "2026-07-21T03:22:41.625Z",
+  "generatedAt": "2026-07-21T04:50:11.388Z",
   "version": "1.0.0",
   "pages": [
     {
@@ -26,10 +26,38 @@
       "status": "published"
     },
     {
+      "url": "https://websitefactorytest.online/productgrouplist-922829520/Top_sale_product.html",
+      "slug": "Top_sale_product.html",
+      "title": "Top sale product - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
+      "pageType": "category",
+      "status": "published"
+    },
+    {
       "url": "https://websitefactorytest.online/",
       "slug": "",
-      "title": "验证码拦截",
+      "title": "Company Overview - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
       "pageType": "homepage",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/productgrouplist-941419449/Kids_Swimwear.html",
+      "slug": "Kids_Swimwear.html",
+      "title": "Kids Swimwear - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/productgrouplist-902587773/Life_Jackets.html",
+      "slug": "Life_Jackets.html",
+      "title": "Life Jackets - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/productgrouplist-826961527/Men_s_Wetsuit.html",
+      "slug": "Men_s_Wetsuit.html",
+      "title": "Men's Wetsuit - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
+      "pageType": "page",
       "status": "published"
     }
   ],
@@ -53,5 +81,5 @@
       "excerpt": "Discover how switching to compostable packaging can benefit your business and the environment."
     }
   ],
-  "totalEntities": 7
+  "totalEntities": 11
 }

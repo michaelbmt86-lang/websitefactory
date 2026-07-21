@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sportsgoods.en.alibaba.com",
-  "timestamp": "2026-07-21T03:22:41.694Z",
+  "timestamp": "2026-07-21T04:50:11.416Z",
   "issues": [
     {
       "category": "missing-pages",
@@ -165,21 +165,48 @@
       "fixable": true
     },
     {
-      "category": "missing-seo",
-      "severity": "warning",
-      "message": "Page \"验证码拦截\" missing SEO metadata",
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"Company Overview - Dongguan City Bestway Sports Goods Technology Co., Ltd.\" missing structured data",
       "entity_type": "page",
-      "entity_id": 364,
+      "entity_id": 368,
       "entity_slug": "",
-      "fixable": true
+      "fixable": false
     },
     {
       "category": "missing-schema",
       "severity": "info",
-      "message": "Page \"验证码拦截\" missing structured data",
+      "message": "Page \"Top sale product - Dongguan City Bestway Sports Goods Technology Co., Ltd.\" missing structured data",
       "entity_type": "page",
-      "entity_id": 364,
-      "entity_slug": "",
+      "entity_id": 369,
+      "entity_slug": "Top_sale_product.html",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"Kids Swimwear - Dongguan City Bestway Sports Goods Technology Co., Ltd.\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 370,
+      "entity_slug": "Kids_Swimwear.html",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"Men's Wetsuit - Dongguan City Bestway Sports Goods Technology Co., Ltd.\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 371,
+      "entity_slug": "Men_s_Wetsuit.html",
+      "fixable": false
+    },
+    {
+      "category": "missing-schema",
+      "severity": "info",
+      "message": "Page \"Life Jackets - Dongguan City Bestway Sports Goods Technology Co., Ltd.\" missing structured data",
+      "entity_type": "page",
+      "entity_id": 372,
+      "entity_slug": "Life_Jackets.html",
       "fixable": false
     },
     {
@@ -187,7 +214,7 @@
       "severity": "info",
       "message": "Page \"The Complete Guide to Composting at Home\" missing structured data",
       "entity_type": "page",
-      "entity_id": 365,
+      "entity_id": 373,
       "entity_slug": "blog-complete-guide-composting-home",
       "fixable": false
     },
@@ -196,7 +223,7 @@
       "severity": "info",
       "message": "Page \"Why Compostable Packaging Matters for Australian Businesses\" missing structured data",
       "entity_type": "page",
-      "entity_id": 366,
+      "entity_id": 374,
       "entity_slug": "blog-compostable-packaging-matters-australian-businesses",
       "fixable": false
     },
@@ -205,14 +232,14 @@
       "severity": "info",
       "message": "Page \"From Plant to Packaging: The BioPak Story\" missing structured data",
       "entity_type": "page",
-      "entity_id": 367,
+      "entity_id": 375,
       "entity_slug": "blog-plant-to-packaging-biopak-story",
       "fixable": false
     }
   ],
-  "totalIssues": 23,
+  "totalIssues": 26,
   "errorCount": 18,
-  "warningCount": 1,
-  "infoCount": 4,
-  "fixableCount": 19
+  "warningCount": 0,
+  "infoCount": 8,
+  "fixableCount": 18
 }

@@ -16,6 +16,7 @@ import type {
 } from "@/types/discovery";
 import { fetchWithJCodesMore } from "./jcodesmore-engine";
 import { fetchWithFirecrawl } from "./firecrawl-engine";
+import { validateAcquisition } from "./acquisition-validator";
 
 export interface ExtractionManagerOptions {
   maxRetriesPerEngine?: number;
@@ -43,7 +44,23 @@ async function fetchWithChromeDevTools(url: string, timeoutMs: number): Promise<
     const html = await fetchRenderedHtml(url, timeoutMs);
     const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
     const title = titleMatch ? titleMatch[1].trim().replace(/<[^>]+>/g, "") : null;
-    return { success: true, engine: "chrome-devtools-mcp", html, title, durationMs: Date.now() - startTime };
+
+    // Validate acquisition quality
+    const validation = validateAcquisition(html, title, "chrome-devtools-mcp");
+
+    if (validation.status === "PASS") {
+      return { success: true, engine: "chrome-devtools-mcp", html, title, durationMs: Date.now() - startTime };
+    }
+
+    // Validation failed — return failure to trigger recovery
+    return {
+      success: false,
+      engine: "chrome-devtools-mcp",
+      html: null,
+      title: null,
+      durationMs: Date.now() - startTime,
+      error: `Validation failed: ${validation.reason} (score: ${validation.score}/100)`,
+    };
   } catch (err) {
     return { success: false, engine: "chrome-devtools-mcp", html: null, title: null, durationMs: Date.now() - startTime, error: err instanceof Error ? err.message : "Chrome DevTools extraction failed" };
   }

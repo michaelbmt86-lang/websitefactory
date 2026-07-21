@@ -7,6 +7,7 @@
 // ============================================================================
 
 import type { ExtractionEngineResult } from "@/types/discovery";
+import { validateAcquisition } from "./acquisition-validator";
 
 export async function fetchWithJCodesMore(url: string, timeoutMs: number): Promise<ExtractionEngineResult> {
   const startTime = Date.now();
@@ -62,26 +63,27 @@ export async function fetchWithJCodesMore(url: string, timeoutMs: number): Promi
     const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
     const title = titleMatch ? titleMatch[1].trim().replace(/<[^>]+>/g, "") : null;
 
-    // Validate extraction quality — must have meaningful content
-    const hasMinimalContent = html.replace(/<[^>]+>/g, "").trim().length > 200;
+    // Validate acquisition quality
+    const validation = validateAcquisition(html, title, "jcodesmore-browser");
 
-    if (!hasMinimalContent) {
+    if (validation.status === "PASS") {
       return {
-        success: false,
+        success: true,
         engine: "jcodesmore-browser",
-        html: null,
-        title: null,
+        html,
+        title,
         durationMs: Date.now() - startTime,
-        error: "Insufficient content after DOM expansion",
       };
     }
 
+    // Validation failed
     return {
-      success: true,
+      success: false,
       engine: "jcodesmore-browser",
-      html,
-      title,
+      html: null,
+      title: null,
       durationMs: Date.now() - startTime,
+      error: `Validation failed: ${validation.reason} (score: ${validation.score}/100)`,
     };
   } catch (err) {
     return {

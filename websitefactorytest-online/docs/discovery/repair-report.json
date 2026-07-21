@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sportsgoods.en.alibaba.com",
-  "timestamp": "2026-07-21T03:22:41.695Z",
+  "timestamp": "2026-07-21T04:50:11.417Z",
   "actions": [
     {
       "category": "missing-pages",
@@ -181,20 +181,10 @@
       "entity_slug": "about",
       "before_value": "",
       "after_value": ""
-    },
-    {
-      "category": "missing-seo",
-      "action": "fixed",
-      "message": "Generated SEO metadata for \"验证码拦截\"",
-      "entity_type": "page",
-      "entity_id": 364,
-      "entity_slug": "",
-      "before_value": "",
-      "after_value": "title: 验证码拦截, desc: ..."
     }
   ],
-  "totalActions": 19,
-  "fixedCount": 1,
+  "totalActions": 18,
+  "fixedCount": 0,
   "skippedCount": 18,
   "failedCount": 0
 }

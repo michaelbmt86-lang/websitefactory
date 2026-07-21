@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sportsgoods.en.alibaba.com",
-  "generatedAt": "2026-07-21T03:22:41.652Z",
+  "generatedAt": "2026-07-21T04:50:11.401Z",
   "projectName": "websitefactory",
   "projectSlug": "websitefactorytest-online",
   "targetDomain": "websitefactorytest.online",
@@ -24,14 +24,14 @@
     "repairReport": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\repair-report.json"
   },
   "summary": {
-    "totalSiteUrls": 1,
+    "totalSiteUrls": 5,
     "totalProductUrls": 0,
     "totalExtractedProducts": 0,
-    "totalCmsPages": 4,
+    "totalCmsPages": 8,
     "totalBrands": 0,
     "totalCollections": 0,
     "totalBlogPosts": 3,
-    "seoCoverage": 75,
+    "seoCoverage": 100,
     "searchCoverage": 100
   }
 }
