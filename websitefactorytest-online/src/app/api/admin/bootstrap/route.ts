@@ -25,13 +25,15 @@ export async function POST(req: NextRequest) {
 
     const existing = db.prepare("SELECT id FROM users WHERE username = ?").get(adminUsername) as { id: number } | undefined;
 
+    const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
+
     if (existing) {
       db.prepare("UPDATE users SET password_hash = ?, email = ?, role = ? WHERE username = ?").run(
-        hash, "admin@websitefactory.local", "admin", adminUsername
+        hash, adminEmail, "admin", adminUsername
       );
     } else {
       db.prepare("INSERT INTO users (username, password_hash, email, role) VALUES (?, ?, ?, ?)").run(
-        adminUsername, hash, "admin@websitefactory.local", "admin"
+        adminUsername, hash, adminEmail, "admin"
       );
     }
 

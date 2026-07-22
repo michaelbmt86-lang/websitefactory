@@ -30,10 +30,10 @@ export async function generateMetadata({
   if (!post) return { title: "Post Not Found" };
 
   return {
-    title: `${post.title} | BioPak Blog`,
-    description: post.excerpt || `Read ${post.title} on the BioPak blog`,
+    title: post.title,
+    description: post.excerpt || `Read ${post.title}`,
     openGraph: {
-      title: `${post.title} | BioPak Blog`,
+      title: post.title,
       description: post.excerpt,
       images: post.featured_image ? [{ url: post.featured_image }] : [],
       type: "article",

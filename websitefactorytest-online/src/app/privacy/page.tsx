@@ -1,22 +1,29 @@
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { getNavigation, getSettings, getPageBySlug } from "@/lib/site";
 
-export const metadata = {
-  title: "Privacy Policy | BioPak Australia",
-  description:
-    "Read BioPak's Privacy Policy. Learn how we collect, use, and protect your personal information.",
-};
+export const dynamic = "force-dynamic";
 
-const sections = [
+export async function generateMetadata() {
+  const page = getPageBySlug("privacy");
+  const settings = getSettings();
+  const siteName = settings.site_name || process.env.SITE_NAME || "";
+  return {
+    title: page?.meta_title || `Privacy Policy${siteName ? ` | ${siteName}` : ""}`,
+    description: page?.meta_description || `How we collect, use, and protect your personal information.`,
+  };
+}
+
+const defaultSections = [
   {
     title: "1. Information We Collect",
     content: `We collect personal information you voluntarily provide when you interact with our website, place an order, subscribe to our newsletter, or contact us. This may include:
 
-• Name and contact details (email, phone, address)
-• Company name and business information
-• Payment and billing information
-• Order history and preferences
-• Communications you send to us
+\u2022 Name and contact details (email, phone, address)
+\u2022 Company name and business information
+\u2022 Payment and billing information
+\u2022 Order history and preferences
+\u2022 Communications you send to us
 
 We also automatically collect certain information when you visit our website, including your IP address, browser type, operating system, referral URLs, and browsing behaviour through cookies and similar technologies.`,
   },
@@ -24,12 +31,12 @@ We also automatically collect certain information when you visit our website, in
     title: "2. How We Use Your Information",
     content: `We use the information we collect to:
 
-• Process and fulfil your orders
-• Communicate with you about your orders, products, and services
-• Send you marketing communications (with your consent)
-• Improve our website, products, and customer experience
-• Comply with legal obligations
-• Detect and prevent fraud or unauthorised access
+\u2022 Process and fulfil your orders
+\u2022 Communicate with you about your orders, products, and services
+\u2022 Send you marketing communications (with your consent)
+\u2022 Improve our website, products, and customer experience
+\u2022 Comply with legal obligations
+\u2022 Detect and prevent fraud or unauthorised access
 
 We will not sell your personal information to third parties.`,
   },
@@ -37,10 +44,10 @@ We will not sell your personal information to third parties.`,
     title: "3. Data Security",
     content: `We take reasonable steps to protect your personal information from misuse, interference, loss, unauthorised access, modification, or disclosure. Our security measures include:
 
-• Encrypted data transmission (SSL/TLS)
-• Secure server infrastructure
-• Access controls and authentication
-• Regular security assessments
+\u2022 Encrypted data transmission (SSL/TLS)
+\u2022 Secure server infrastructure
+\u2022 Access controls and authentication
+\u2022 Regular security assessments
 
 However, no method of transmission over the Internet or electronic storage is completely secure, and we cannot guarantee absolute security.`,
   },
@@ -48,10 +55,10 @@ However, no method of transmission over the Internet or electronic storage is co
     title: "4. Cookies and Tracking Technologies",
     content: `Our website uses cookies and similar technologies to enhance your experience. Cookies are small files stored on your device that help us:
 
-• Remember your preferences and settings
-• Analyse website traffic and usage patterns
-• Provide personalised content
-• Support marketing and advertising efforts
+\u2022 Remember your preferences and settings
+\u2022 Analyse website traffic and usage patterns
+\u2022 Provide personalised content
+\u2022 Support marketing and advertising efforts
 
 You can control cookies through your browser settings. Disabling certain cookies may affect website functionality.`,
   },
@@ -63,38 +70,42 @@ We may also share your information when required by law, to protect our rights, 
   },
   {
     title: "6. Your Rights",
-    content: `Under the Australian Privacy Act 1988 and applicable state legislation, you have the right to:
+    content: `Under applicable privacy legislation, you have the right to:
 
-• Access the personal information we hold about you
-• Request correction of inaccurate information
-• Opt out of marketing communications at any time
-• Lodge a complaint with the Office of the Australian Information Commissioner (OAIC)
+\u2022 Access the personal information we hold about you
+\u2022 Request correction of inaccurate information
+\u2022 Opt out of marketing communications at any time
+\u2022 Lodge a complaint with the relevant privacy authority
 
 To exercise any of these rights, please contact us using the details below.`,
   },
   {
     title: "7. Contact Us",
-    content: `If you have any questions about this Privacy Policy or our data practices, please contact us:
+    content: `If you have any questions about this Privacy Policy or our data practices, please contact us using the details on our Contact page.
 
-BioPak Pty Ltd
-Email: privacy@biopak.com.au
-Phone: 1300 246 725
-Address: Sydney, Australia
-
-For privacy complaints, you may also contact the Office of the Australian Information Commissioner (OAIC) at www.oaic.gov.au.`,
+For privacy complaints, you may also contact the relevant privacy authority in your jurisdiction.`,
   },
 ];
 
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const settings = getSettings();
+  const page = getPageBySlug("privacy");
+  const navItems = getNavigation().map((item) => ({
+    label: item.label,
+    href: item.href,
+  }));
+
+  const sections = defaultSections;
+
   return (
     <>
-      <SiteHeader />
+      <SiteHeader navItems={navItems} logo={settings.logo} />
       <main>
         {/* Page Header */}
         <section className="bg-[#f8f9fa] px-4 py-16 md:py-20">
           <div className="mx-auto max-w-[1280px] text-center">
             <h1 className="mb-4 text-3xl font-extrabold text-[#252525] md:text-4xl lg:text-5xl">
-              Privacy Policy
+              {page?.title || "Privacy Policy"}
             </h1>
             <p className="text-sm text-[#52525C]">
               Last updated: January 1, 2025
@@ -105,25 +116,33 @@ export default function PrivacyPage() {
         {/* Content */}
         <section className="px-4 py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
-            <p className="mb-8 text-base leading-relaxed text-[#52525C]">
-              At BioPak, we are committed to protecting your privacy. This
-              Privacy Policy explains how we collect, use, disclose, and
-              safeguard your personal information when you visit our website or
-              use our services.
-            </p>
+            {page?.content ? (
+              <div
+                className="prose prose-lg max-w-none"
+                dangerouslySetInnerHTML={{ __html: page.content }}
+              />
+            ) : (
+              <>
+                <p className="mb-8 text-base leading-relaxed text-[#52525C]">
+                  We are committed to protecting your privacy. This Privacy Policy
+                  explains how we collect, use, disclose, and safeguard your personal
+                  information when you visit our website or use our services.
+                </p>
 
-            <div className="space-y-8">
-              {sections.map((section) => (
-                <div key={section.title}>
-                  <h2 className="mb-4 text-xl font-bold text-[#252525]">
-                    {section.title}
-                  </h2>
-                  <div className="whitespace-pre-line text-base leading-relaxed text-[#52525C]">
-                    {section.content}
-                  </div>
+                <div className="space-y-8">
+                  {sections.map((section) => (
+                    <div key={section.title}>
+                      <h2 className="mb-4 text-xl font-bold text-[#252525]">
+                        {section.title}
+                      </h2>
+                      <div className="whitespace-pre-line text-base leading-relaxed text-[#52525C]">
+                        {section.content}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
           </div>
         </section>
       </main>

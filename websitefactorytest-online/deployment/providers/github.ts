@@ -369,6 +369,18 @@ async function pushFolderCode(config: GitHubPushFolderConfig): Promise<ProviderR
       throw new Error(`No files found in ${config.sourceDir}`);
     }
 
+    const newFilePaths = new Set(entries.map((e) => e.path));
+    let staleDeleted = 0;
+    for (const [existingPath] of existingFileMap) {
+      if (existingPath.startsWith(`${config.folderName}/`) && !newFilePaths.has(existingPath)) {
+        existingFileMap.delete(existingPath);
+        staleDeleted++;
+      }
+    }
+    if (staleDeleted > 0) {
+      log.info(PROVIDER, "pushFolderCode", `cleaned ${staleDeleted} stale files from "${config.folderName}"`);
+    }
+
     log.info(PROVIDER, "pushFolderCode", `collecting ${entries.length} files from ${config.sourceDir}`);
 
     function gitBlobSha(contentBytes: Buffer): string {

@@ -5,6 +5,11 @@
 // Priority: Chrome DevTools MCP → JCodesMore Browser → Firecrawl
 // Never skips engine priority. Never promotes Firecrawl to primary.
 // First successful extraction terminates the recovery chain.
+//
+// ARCHITECTURE BOUNDARY:
+// - Engine functions: ONLY fetch HTML (no validation)
+// - Extraction Manager: ORCHESTRATE recovery chain (calls validator)
+// - Validator: ONLY evaluate quality (no orchestration)
 // ============================================================================
 
 import db from "@/lib/db";
@@ -37,6 +42,7 @@ const DEFAULT_OPTIONS: ExtractionManagerOptions = {
 // ---------------------------------------------------------------------------
 // Chrome DevTools MCP — Primary engine
 // Uses chrome-devtools-mcp server via stdio MCP for real browser rendering.
+// NOTE: This function ONLY fetches HTML. Validation is done by Extraction Manager.
 // ---------------------------------------------------------------------------
 async function fetchWithChromeDevTools(url: string, timeoutMs: number): Promise<ExtractionEngineResult> {
   const startTime = Date.now();
@@ -44,23 +50,7 @@ async function fetchWithChromeDevTools(url: string, timeoutMs: number): Promise<
     const html = await fetchRenderedHtml(url, timeoutMs);
     const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
     const title = titleMatch ? titleMatch[1].trim().replace(/<[^>]+>/g, "") : null;
-
-    // Validate acquisition quality
-    const validation = validateAcquisition(html, title, "chrome-devtools-mcp");
-
-    if (validation.status === "PASS") {
-      return { success: true, engine: "chrome-devtools-mcp", html, title, durationMs: Date.now() - startTime };
-    }
-
-    // Validation failed — return failure to trigger recovery
-    return {
-      success: false,
-      engine: "chrome-devtools-mcp",
-      html: null,
-      title: null,
-      durationMs: Date.now() - startTime,
-      error: `Validation failed: ${validation.reason} (score: ${validation.score}/100)`,
-    };
+    return { success: true, engine: "chrome-devtools-mcp", html, title, durationMs: Date.now() - startTime };
   } catch (err) {
     return { success: false, engine: "chrome-devtools-mcp", html: null, title: null, durationMs: Date.now() - startTime, error: err instanceof Error ? err.message : "Chrome DevTools extraction failed" };
   }
@@ -80,6 +70,11 @@ function getEngineConfigs(options: ExtractionManagerOptions): EngineConfig[] {
 
 // ---------------------------------------------------------------------------
 // Extract with automatic fallback recovery
+//
+// ARCHITECTURE BOUNDARY:
+// 1. Call engine function to fetch HTML
+// 2. Call validator to evaluate quality
+// 3. Decide: PASS → return result, FAIL → try next engine
 // ---------------------------------------------------------------------------
 export async function extractWithRecovery(
   url: string,
@@ -95,13 +90,25 @@ export async function extractWithRecovery(
       totalAttempts++;
       const result = await engine.fetchFn(url, options.timeoutMs ?? 30000);
 
-      if (result.success) {
-        // Record success metric
-        recordMetric(url, engine.name, engine.name, totalAttempts, Date.now() - startTime, null, "success");
-        return result;
+      // Step 1: Engine returned HTML
+      if (result.success && result.html) {
+        // Step 2: Validate acquisition quality
+        const validation = validateAcquisition(result.html, result.title);
+
+        // Step 3: Decide based on validation
+        if (validation.status === "PASS") {
+          // Validation passed — record success and return
+          recordMetric(url, engine.name, engine.name, totalAttempts, Date.now() - startTime, null, "success");
+          return result;
+        }
+
+        // Validation failed — treat as engine failure
+        lastError = `Validation failed: ${validation.reason} (score: ${validation.score}/100)`;
+      } else {
+        // Engine returned error
+        lastError = result.error || `${engine.name} failed`;
       }
 
-      lastError = result.error || `${engine.name} failed`;
       // Brief delay before retry within same engine
       if (attempt < engine.maxRetries) {
         await delay(500 * attempt);

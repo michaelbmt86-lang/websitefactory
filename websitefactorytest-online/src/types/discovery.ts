@@ -407,8 +407,8 @@ export interface ValidationCheck {
 export interface ValidationResult {
   status: "PASS" | "FAIL";
   score: number;
+  confidence: number;
   reason: string;
-  engine: ExtractionEngineName;
   checks: ValidationCheck[];
 }
 

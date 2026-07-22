@@ -180,6 +180,24 @@ async function preDeploymentCheckAndCreateProject(
   const start = Date.now();
 
   try {
+    const existing = await Vercel.findProjectByName(state.projectSlug, "glotalk");
+    if (existing.success && existing.data) {
+      state.projectId = existing.data.projectId;
+      state.vercelProjectName = existing.data.name;
+
+      log.info("workflow", name, `reusing existing project: ${existing.data.name} (${existing.data.projectId})`);
+
+      const duration = Date.now() - start;
+      return makeStepResult(
+        stepNum,
+        name,
+        provider,
+        true,
+        `project="${state.vercelProjectName}" id="${state.projectId}" (existing)`,
+        duration,
+      );
+    }
+
     const candidates = projectNameCandidates(state.projectSlug);
     let created = false;
 

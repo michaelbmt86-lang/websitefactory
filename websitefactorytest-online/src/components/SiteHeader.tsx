@@ -7,82 +7,28 @@ import {
   SearchIcon,
   UserIcon,
   ShoppingBagIcon,
-  ChevronDownIcon,
   MenuIcon,
   XIcon,
 } from "@/components/icons";
 
-interface NavChildLink {
-  label: string;
-  href: string;
-}
-
-interface NavChildGroup {
-  title: string;
-  links: NavChildLink[];
-}
-
 interface NavItem {
   label: string;
   href: string;
-  children?: NavChildGroup[];
 }
 
-const navItems: NavItem[] = [
-  {
-    label: "SHOP",
-    href: "/products",
-    children: [
-      {
-        title: "Drinks",
-        links: [
-          { label: "Single Wall Hot Cups", href: "/products" },
-          { label: "Double Wall Hot Cups", href: "/products" },
-          { label: "Cold Cups & Lids", href: "/products" },
-          { label: "Reusable Cups", href: "/products" },
-        ],
-      },
-      {
-        title: "Food Packaging",
-        links: [
-          { label: "Containers & Lids", href: "/products" },
-          { label: "Bowls", href: "/products" },
-          { label: "Clamshells", href: "/products" },
-          { label: "Chip Cups", href: "/products" },
-        ],
-      },
-      {
-        title: "Cutlery & Straws",
-        links: [
-          { label: "Wooden Cutlery", href: "/products" },
-          { label: "BioCane Cutlery", href: "/products" },
-          { label: "Paper Straws", href: "/products" },
-          { label: "PLA Straws", href: "/products" },
-        ],
-      },
-      {
-        title: "More",
-        links: [
-          { label: "Plates & Trays", href: "/products" },
-          { label: "Bags & Carry", href: "/products" },
-          { label: "Napkins & Gloves", href: "/products" },
-          { label: "All Products", href: "/products" },
-        ],
-      },
-    ],
-  },
-  { label: "PRODUCTS", href: "/products" },
-  { label: "INDUSTRIES", href: "/industries" },
-  { label: "ABOUT", href: "/about" },
-  { label: "BLOG", href: "/blog" },
-  { label: "CONTACT", href: "/contact" },
+const defaultNavItems: NavItem[] = [
+  { label: "Products", href: "/products" },
+  { label: "Industries", href: "/industries" },
+  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ navItems, logo }: { navItems?: NavItem[]; logo?: string }) {
   const [scrolled, setScrolled] = useState(false);
-  const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileShopOpen, setMobileShopOpen] = useState(false);
+
+  const items = navItems && navItems.length > 0 ? navItems : defaultNavItems;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -95,8 +41,6 @@ export function SiteHeader() {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
-
-  const closeMega = useCallback(() => setMegaOpen(false), []);
 
   return (
     <>
@@ -111,8 +55,8 @@ export function SiteHeader() {
           {/* Logo */}
           <Link href="/" className="shrink-0">
             <Image
-              src="/images/logo.png"
-              alt="BioPak"
+              src={logo || "/images/logo.png"}
+              alt="Logo"
               width={120}
               height={40}
               className="h-[40px] w-auto"
@@ -122,68 +66,14 @@ export function SiteHeader() {
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-8 xl:flex" aria-label="Main navigation">
-            {navItems.map((item) => (
-              <div
+            {items.map((item) => (
+              <Link
                 key={item.label}
-                className="relative"
-                onMouseEnter={() => item.children && setMegaOpen(true)}
-                onMouseLeave={closeMega}
+                href={item.href}
+                className="text-[14px] font-semibold uppercase tracking-[0.05em] text-[#252525] transition-colors duration-200 hover:text-[#007a55]"
               >
-                <Link
-                  href={item.href}
-                  className={`flex items-center gap-1 text-[14px] font-semibold uppercase tracking-[0.05em] transition-colors duration-200 ${
-                    megaOpen && item.children
-                      ? "text-[#007a55]"
-                      : "text-[#252525] hover:text-[#007a55]"
-                  }`}
-                  onClick={(e) => {
-                    if (item.children) {
-                      e.preventDefault();
-                      setMegaOpen((prev) => !prev);
-                    }
-                  }}
-                >
-                  {item.label}
-                  {item.children && (
-                    <ChevronDownIcon
-                      size={14}
-                      className={`transition-transform duration-200 ${megaOpen ? "rotate-180" : ""}`}
-                    />
-                  )}
-                </Link>
-
-                {/* Mega Menu */}
-                {item.children && megaOpen && (
-                  <div
-                    className="absolute left-1/2 top-full -translate-x-1/2 pt-2"
-                    onMouseEnter={() => setMegaOpen(true)}
-                    onMouseLeave={closeMega}
-                  >
-                    <div className="grid min-w-[640px] grid-cols-4 gap-8 rounded-xl border border-black/5 bg-white p-8 shadow-lg">
-                      {item.children.map((group) => (
-                        <div key={group.title}>
-                          <h3 className="mb-3 text-[13px] font-bold uppercase tracking-wider text-[#007a55]">
-                            {group.title}
-                          </h3>
-                          <ul className="space-y-2">
-                            {group.links.map((link) => (
-                              <li key={link.href}>
-                                <Link
-                                  href={link.href}
-                                  className="text-[13px] text-[#252525] transition-colors hover:text-[#007a55]"
-                                  onClick={closeMega}
-                                >
-                                  {link.label}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+                {item.label}
+              </Link>
             ))}
           </nav>
 
@@ -232,55 +122,15 @@ export function SiteHeader() {
       >
         <nav className="h-full overflow-y-auto px-6 pb-24 pt-6">
           <ul className="space-y-1">
-            {navItems.map((item) => (
+            {items.map((item) => (
               <li key={item.label}>
-                {item.children ? (
-                  <>
-                    <button
-                      type="button"
-                      className="flex w-full items-center justify-between py-3 text-[15px] font-semibold uppercase tracking-[0.05em] text-[#252525]"
-                      onClick={() => setMobileShopOpen((prev) => !prev)}
-                    >
-                      {item.label}
-                      <ChevronDownIcon
-                        size={18}
-                        className={`transition-transform duration-200 ${mobileShopOpen ? "rotate-180" : ""}`}
-                      />
-                    </button>
-                    {mobileShopOpen && (
-                      <div className="space-y-5 pb-4 pl-4">
-                        {item.children.map((group) => (
-                          <div key={group.title}>
-                            <h3 className="mb-2 text-[12px] font-bold uppercase tracking-wider text-[#007a55]">
-                              {group.title}
-                            </h3>
-                            <ul className="space-y-1.5">
-                              {group.links.map((link) => (
-                                <li key={link.href}>
-                                  <Link
-                                    href={link.href}
-                                    className="block py-1 text-[14px] text-[#252525] transition-colors hover:text-[#007a55]"
-                                    onClick={() => setMobileOpen(false)}
-                                  >
-                                    {link.label}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="block py-3 text-[15px] font-semibold uppercase tracking-[0.05em] text-[#252525] transition-colors hover:text-[#007a55]"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                )}
+                <Link
+                  href={item.href}
+                  className="block py-3 text-[15px] font-semibold uppercase tracking-[0.05em] text-[#252525] transition-colors hover:text-[#007a55]"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {item.label}
+                </Link>
               </li>
             ))}
           </ul>

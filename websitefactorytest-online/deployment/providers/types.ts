@@ -159,6 +159,7 @@ export interface GitHubProvider {
 }
 
 export interface VercelProvider {
+  findProjectByName(name: string, teamId?: string): Promise<ProviderResult<VercelProjectResult | null>>;
   createProject(config: VercelProjectConfig): Promise<ProviderResult<VercelProjectResult>>;
   deploy(config: VercelDeployConfig): Promise<ProviderResult<VercelDeployResult>>;
   bindDomain(config: VercelDomainConfig): Promise<ProviderResult<VercelDomainResult>>;

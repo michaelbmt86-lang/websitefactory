@@ -3,9 +3,9 @@ import Link from "next/link";
 
 const customData = {
   badge: "Custom Program",
-  title: "Build Your Brand with Custom Packaging",
+  title: "Build Your Brand with Custom Solutions",
   description:
-    "Stand out with fully customised, sustainable packaging. From design to delivery, we handle everything so you can focus on your business.",
+    "Stand out with fully customised solutions tailored to your business. From design to delivery, we handle everything so you can focus on your business.",
   features: [
     {
       title: "Full Design Service",
@@ -18,11 +18,11 @@ const customData = {
   ],
   primaryCta: { label: "Request Custom Quote", href: "/contact" },
   secondaryCta: {
-    label: "View Custom Examples",
+    label: "View Our Range",
     href: "/products",
   },
-  stats: { number: "500+", label: "Custom Projects" },
-  image: "/images/custom/custom-biopak-cup.jpg",
+  stats: { number: "500+", label: "Projects Completed" },
+  image: "/images/hero-bg.jpg",
 };
 
 export function CustomProgram() {
@@ -78,7 +78,7 @@ export function CustomProgram() {
 
         <Image
           src={customData.image}
-          alt="Custom packaging example"
+          alt="Custom solutions example"
           width={600}
           height={400}
           className="w-full rounded-2xl object-cover"

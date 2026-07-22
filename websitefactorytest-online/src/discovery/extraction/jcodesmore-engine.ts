@@ -7,13 +7,11 @@
 // ============================================================================
 
 import type { ExtractionEngineResult } from "@/types/discovery";
-import { validateAcquisition } from "./acquisition-validator";
 
 export async function fetchWithJCodesMore(url: string, timeoutMs: number): Promise<ExtractionEngineResult> {
   const startTime = Date.now();
 
   try {
-    // Attempt 1: Fetch with browser-like headers and enhanced parsing
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
 
@@ -55,35 +53,19 @@ export async function fetchWithJCodesMore(url: string, timeoutMs: number): Promi
       };
     }
 
-    // Simulate DOM interaction: expand hidden content
     html = expandHiddenContent(html);
-    // Simulate scroll: extract lazy-loaded images
     html = extractLazyContent(html);
 
     const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
     const title = titleMatch ? titleMatch[1].trim().replace(/<[^>]+>/g, "") : null;
 
-    // Validate acquisition quality
-    const validation = validateAcquisition(html, title, "jcodesmore-browser");
-
-    if (validation.status === "PASS") {
-      return {
-        success: true,
-        engine: "jcodesmore-browser",
-        html,
-        title,
-        durationMs: Date.now() - startTime,
-      };
-    }
-
-    // Validation failed
+    // Return raw HTML — Extraction Manager handles validation
     return {
-      success: false,
+      success: true,
       engine: "jcodesmore-browser",
-      html: null,
-      title: null,
+      html,
+      title,
       durationMs: Date.now() - startTime,
-      error: `Validation failed: ${validation.reason} (score: ${validation.score}/100)`,
     };
   } catch (err) {
     return {

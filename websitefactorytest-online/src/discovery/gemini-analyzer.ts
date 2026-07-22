@@ -1,9 +1,12 @@
 // ============================================================================
-// GEMINI ANALYZER
+// GEMINI ANALYZER (Legacy — now wrapped by RegexAnalyzerAdapter)
 //
 // Receives structured HTML, network JSON, and DOM data from product pages.
 // Normalizes data into clean JSON output. Gemini MUST NOT crawl — it only
 // analyzes pre-extracted content.
+//
+// This module is preserved for backward compatibility. New code should
+// import `analyze` from "./analyzer-engine" instead.
 // ============================================================================
 
 import type {

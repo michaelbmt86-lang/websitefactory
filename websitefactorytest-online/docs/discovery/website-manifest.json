@@ -1,27 +1,27 @@
 {
   "siteUrl": "https://sportsgoods.en.alibaba.com",
   "productDomain": "websitefactorytest.online",
-  "generatedAt": "2026-07-21T04:50:11.388Z",
+  "generatedAt": "2026-07-22T05:29:09.523Z",
   "version": "1.0.0",
   "pages": [
     {
-      "url": "https://websitefactorytest.online/blog/plant-to-packaging-biopak-story",
-      "slug": "blog-plant-to-packaging-biopak-story",
-      "title": "From Plant to Packaging: The BioPak Story",
+      "url": "https://websitefactorytest.online/blog/getting-started",
+      "slug": "blog-getting-started",
+      "title": "Getting Started with Our Products",
       "pageType": "blog-post",
       "status": "published"
     },
     {
-      "url": "https://websitefactorytest.online/blog/complete-guide-composting-home",
-      "slug": "blog-complete-guide-composting-home",
-      "title": "The Complete Guide to Composting at Home",
+      "url": "https://websitefactorytest.online/blog/choosing-right-products",
+      "slug": "blog-choosing-right-products",
+      "title": "How to Choose the Right Products for Your Business",
       "pageType": "blog-post",
       "status": "published"
     },
     {
-      "url": "https://websitefactorytest.online/blog/compostable-packaging-matters-australian-businesses",
-      "slug": "blog-compostable-packaging-matters-australian-businesses",
-      "title": "Why Compostable Packaging Matters for Australian Businesses",
+      "url": "https://websitefactorytest.online/blog/commitment-to-quality",
+      "slug": "blog-commitment-to-quality",
+      "title": "Our Commitment to Quality",
       "pageType": "blog-post",
       "status": "published"
     },
@@ -66,19 +66,19 @@
   "categories": [],
   "blog": [
     {
-      "title": "From Plant to Packaging: The BioPak Story",
-      "slug": "blog-plant-to-packaging-biopak-story",
-      "excerpt": "Learn about our journey from a small Australian startup to global leaders in sustainable packaging."
+      "title": "Getting Started with Our Products",
+      "slug": "blog-getting-started",
+      "excerpt": "A comprehensive guide to help you choose the right products for your business needs."
     },
     {
-      "title": "The Complete Guide to Composting at Home",
-      "slug": "blog-complete-guide-composting-home",
-      "excerpt": "Learn how to start composting at home and reduce your environmental impact with simple, practical steps."
+      "title": "How to Choose the Right Products for Your Business",
+      "slug": "blog-choosing-right-products",
+      "excerpt": "Find out which products best suit your industry and customer requirements."
     },
     {
-      "title": "Why Compostable Packaging Matters for Australian Businesses",
-      "slug": "blog-compostable-packaging-matters-australian-businesses",
-      "excerpt": "Discover how switching to compostable packaging can benefit your business and the environment."
+      "title": "Our Commitment to Quality",
+      "slug": "blog-commitment-to-quality",
+      "excerpt": "Learn about our dedication to quality and customer satisfaction across every product we offer."
     }
   ],
   "totalEntities": 11

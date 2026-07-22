@@ -1,0 +1,13 @@
+{
+  "domain": "websitefactorytest.online",
+  "projectSlug": "websitefactorytest-online",
+  "projectId": "",
+  "vercelProjectName": "",
+  "deploymentId": "",
+  "deploymentUrl": "",
+  "zoneId": "",
+  "completedSteps": [
+    "create_github"
+  ],
+  "timestamp": 1784698150166
+}

@@ -90,7 +90,7 @@ Stage 6: Delivery (deploy.ts)
 ### Stage 5: Verification
 
 24. Verification ran 5/10 checks (skipped products, media, etc. due to 0 products)
-25. No verification report for `sportsgoods.en.alibaba.com` (only `solidhydrogen.tech` and `biopak.com` in DB)
+25. No verification report for `sportsgoods.en.alibaba.com` (only `solidhydrogen.tech` in DB)
 
 ---
 
@@ -414,7 +414,7 @@ JCodesMore is Engine 2 (index 1). It can only execute if Engine 1 (Chrome) exhau
 
 ### verification_reports Table
 
-**No entry for `sportsgoods.en.alibaba.com`** — only entries for `solidhydrogen.tech` and `biopak.com`
+**No entry for `sportsgoods.en.alibaba.com`** — only entries for `solidhydrogen.tech`
 
 ---
 

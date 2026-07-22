@@ -1,6 +1,6 @@
 # Website Factory Framework Patterns
 
-Reference for all reusable patterns extracted from the BioPak clone project. Every pattern here was battle-tested on Vercel production.
+Reference for all reusable patterns extracted from the Website Factory framework. Every pattern here was battle-tested on Vercel production.
 
 ---
 

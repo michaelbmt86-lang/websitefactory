@@ -140,7 +140,7 @@ export default function DashboardHome() {
       {/* Sidebar */}
       <aside className="w-64 shrink-0 bg-slate-900 text-white">
         <div className="border-b border-slate-700 p-6">
-          <h1 className="text-xl font-bold">{data.settings?.site_name ?? "BioPak"} CMS</h1>
+          <h1 className="text-xl font-bold">{data.settings?.site_name ?? process.env.SITE_NAME ?? "Website"} CMS</h1>
         </div>
         <nav className="space-y-0.5 p-4">
           <p className="mb-2 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Content</p>
@@ -185,7 +185,7 @@ export default function DashboardHome() {
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900">Dashboard</h2>
           <p className="mt-1 text-gray-600">
-            Welcome to the {data.settings?.site_name ?? "BioPak"} content management system.
+            Welcome to the {data.settings?.site_name ?? process.env.SITE_NAME ?? "Website"} content management system.
           </p>
         </div>
 

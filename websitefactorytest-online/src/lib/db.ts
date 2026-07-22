@@ -429,6 +429,18 @@ function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS idx_extraction_metrics_url ON extraction_metrics(url);
     CREATE INDEX IF NOT EXISTS idx_extraction_metrics_status ON extraction_metrics(status);
     CREATE INDEX IF NOT EXISTS idx_extraction_metrics_successful_engine ON extraction_metrics(successful_engine);
+
+    CREATE TABLE IF NOT EXISTS deployments (
+      domain TEXT PRIMARY KEY,
+      github_repo TEXT DEFAULT '',
+      github_folder TEXT DEFAULT '',
+      vercel_project_id TEXT DEFAULT '',
+      vercel_project_name TEXT DEFAULT '',
+      cloudflare_zone_id TEXT DEFAULT '',
+      status TEXT NOT NULL DEFAULT 'pending',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   // ALTER TABLE for existing databases — add recovery columns if missing
@@ -454,24 +466,23 @@ function initializeDatabase() {
   const categoriesExist = db.prepare("SELECT COUNT(*) as count FROM categories").get() as { count: number };
   if (categoriesExist.count === 0) {
     db.prepare(`INSERT INTO categories (name, slug, description, image_url, display_order) VALUES
-      ('Drinks', 'drinks', 'Cups, Lids & Straws', '/images/categories/drinks.png', 1),
-      ('Food Packaging', 'food-packaging', 'Containers, Bowls & Plates', '/images/categories/food-packaging.png', 2),
-      ('Service & Accessories', 'service-accessories', 'Cutlery, Napkins & Gloves', '/images/categories/service-accessories.jpg', 3),
-      ('Bags & Carry', 'bags-carry', 'Paper & Carry Bags', '/images/categories/bags-carry.jpg', 4),
-      ('Kits', 'kits', 'Retail & Catering Packs', '/images/categories/kits.png', 5),
-      ('Plates & Trays', 'plates-trays', 'Compostable Serveware', '/images/categories/plates-trays.jpg', 6)`).run();
+      ('Category One', 'category-one', 'Description for the first category', '/images/categories/category-one.png', 1),
+      ('Category Two', 'category-two', 'Description for the second category', '/images/categories/category-two.png', 2),
+      ('Category Three', 'category-three', 'Description for the third category', '/images/categories/category-three.png', 3),
+      ('Category Four', 'category-four', 'Description for the fourth category', '/images/categories/category-four.png', 4),
+      ('Category Five', 'category-five', 'Description for the fifth category', '/images/categories/category-five.png', 5),
+      ('Category Six', 'category-six', 'Description for the sixth category', '/images/categories/category-six.png', 6)`).run();
   }
 
   // Seed navigation (multi-row — MUST call .run())
   const navExists = db.prepare("SELECT COUNT(*) as count FROM navigation").get() as { count: number };
   if (navExists.count === 0) {
     db.prepare(`INSERT INTO navigation (label, href, sort_order) VALUES
-      ('SHOP', '/products', 1),
-      ('CUSTOM', '/contact', 2),
-      ('INDUSTRY', '/industries', 3),
-      ('SUSTAINABILITY', '/about', 4),
-      ('NEWS', '/blog', 5),
-      ('ABOUT US', '/about', 6)`).run();
+      ('Products', '/products', 1),
+      ('Industries', '/industries', 2),
+      ('About', '/about', 3),
+      ('Blog', '/blog', 4),
+      ('Contact', '/contact', 5)`).run();
   }
 
   // Admin UPSERT — always syncs password from env var on cold start.
@@ -479,21 +490,22 @@ function initializeDatabase() {
   const adminUsername = process.env.ADMIN_USERNAME || "admin";
   const adminPassword = process.env.ADMIN_PASSWORD || "Admin123!";
   const hash = crypto.createHash("sha256").update(adminPassword).digest("hex");
+  const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
 
   const existingAdmin = db.prepare("SELECT id FROM users WHERE username = ?").get(adminUsername) as { id: number } | undefined;
   if (existingAdmin) {
-    db.prepare("UPDATE users SET password_hash = ?, email = ?, role = ? WHERE username = ?").run(hash, "admin@websitefactory.local", "admin", adminUsername);
+    db.prepare("UPDATE users SET password_hash = ?, email = ?, role = ? WHERE username = ?").run(hash, adminEmail, "admin", adminUsername);
   } else {
-    db.prepare("INSERT INTO users (username, password_hash, email, role) VALUES (?, ?, ?, ?)").run(adminUsername, hash, "admin@websitefactory.local", "admin");
+    db.prepare("INSERT INTO users (username, password_hash, email, role) VALUES (?, ?, ?, ?)").run(adminUsername, hash, adminEmail, "admin");
   }
 
   // Seed posts (multi-row — MUST call .run())
   const postsExist = db.prepare("SELECT COUNT(*) as count FROM posts").get() as { count: number };
   if (postsExist.count === 0) {
     db.prepare(`INSERT INTO posts (title, slug, excerpt, content, author, category, featured_image) VALUES
-      ('The Complete Guide to Composting at Home', 'complete-guide-composting-home', 'Learn how to start composting at home and reduce your environmental impact with simple, practical steps.', '<h2>Why Compost?</h2><p>Composting is one of the simplest and most effective ways to reduce your household waste while creating nutrient-rich soil for your garden.</p><h2>Getting Started</h2><p>Starting a compost bin is easier than you think. You will need a mix of green materials and brown materials.</p>', 'BioPak Team', 'Sustainability', '/images/hero-bg.jpg'),
-      ('Why Compostable Packaging Matters for Australian Businesses', 'compostable-packaging-matters-australian-businesses', 'Discover how switching to compostable packaging can benefit your business and the environment.', '<h2>The Business Case for Sustainability</h2><p>Australian consumers are increasingly choosing businesses that demonstrate environmental responsibility.</p>', 'Sarah Mitchell', 'Business', '/images/hero-bg.jpg'),
-      ('From Plant to Packaging: The BioPak Story', 'plant-to-packaging-biopak-story', 'Learn about our journey from a small Australian startup to global leaders in sustainable packaging.', '<h2>Our Beginning</h2><p>BioPak was born from a simple idea: packaging should not cost the earth.</p>', 'BioPak Team', 'Company', '/images/hero-bg.jpg')`).run();
+      ('Getting Started with Our Products', 'getting-started', 'A comprehensive guide to help you choose the right products for your business needs.', '<h2>Introduction</h2><p>We offer a wide range of products designed to meet the needs of various industries. This guide will help you get started.</p><h2>Browse Our Catalog</h2><p>Explore our categories to find the perfect solution for your business.</p>', 'Team', 'Company', '/images/hero-bg.jpg'),
+      ('How to Choose the Right Products for Your Business', 'choosing-right-products', 'Find out which products best suit your industry and customer requirements.', '<h2>Consider Your Industry</h2><p>Different industries have different needs. Consider what matters most for your customers and operations.</p>', 'Team', 'Industry', '/images/hero-bg.jpg'),
+      ('Our Commitment to Quality', 'commitment-to-quality', 'Learn about our dedication to quality and customer satisfaction across every product we offer.', '<h2>Quality First</h2><p>We believe in delivering products that meet the highest standards of quality and reliability.</p>', 'Team', 'Company', '/images/hero-bg.jpg')`).run();
   }
 }
 

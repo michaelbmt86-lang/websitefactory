@@ -7,20 +7,17 @@
 // ============================================================================
 
 import type { ExtractionEngineResult } from "@/types/discovery";
-import { validateAcquisition } from "./acquisition-validator";
 
 export async function fetchWithFirecrawl(url: string, timeoutMs: number): Promise<ExtractionEngineResult> {
   const startTime = Date.now();
 
   try {
-    // Firecrawl API integration (if API key available)
     const apiKey = process.env.FIRECRAWL_API_KEY;
 
     if (apiKey) {
       return await fetchViaFirecrawlApi(url, apiKey, timeoutMs, startTime);
     }
 
-    // Fallback: aggressive HTTP fetch with comprehensive header extraction
     return await fetchViaFallbackParser(url, timeoutMs, startTime);
   } catch (err) {
     return {
@@ -65,7 +62,6 @@ async function fetchViaFirecrawlApi(
     clearTimeout(timer);
 
     if (!response.ok) {
-      // Fall back to local parser if API fails
       return await fetchViaFallbackParser(url, timeoutMs, startTime);
     }
 
@@ -86,27 +82,13 @@ async function fetchViaFirecrawlApi(
     const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
     const title = titleMatch ? titleMatch[1].trim().replace(/<[^>]+>/g, "") : null;
 
-    // Validate acquisition quality
-    const validation = validateAcquisition(html, title, "firecrawl");
-
-    if (validation.status === "PASS") {
-      return {
-        success: true,
-        engine: "firecrawl",
-        html,
-        title,
-        durationMs: Date.now() - startTime,
-      };
-    }
-
-    // Validation failed
+    // Return raw HTML — Extraction Manager handles validation
     return {
-      success: false,
+      success: true,
       engine: "firecrawl",
-      html: null,
-      title: null,
+      html,
+      title,
       durationMs: Date.now() - startTime,
-      error: `Validation failed: ${validation.reason} (score: ${validation.score}/100)`,
     };
   } catch {
     clearTimeout(timer);
@@ -126,7 +108,6 @@ async function fetchViaFallbackParser(
   const timer = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    // Try multiple user agents
     const userAgents = [
       "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -171,21 +152,17 @@ async function fetchViaFallbackParser(
       };
     }
 
-    // Extract embedded JSON data (API responses, JSON-LD, etc.)
     const jsonLdMatches = html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi);
     for (const match of jsonLdMatches) {
-      html += match[1]; // Append JSON-LD content to main HTML
+      html += match[1];
     }
 
-    // Extract content from noscript tags (often contains product data for bots)
     const noscriptMatches = html.matchAll(/<noscript[^>]*>([\s\S]*?)<\/noscript>/gi);
     for (const match of noscriptMatches) {
-      html += match[1]; // Append noscript content to main HTML
+      html += match[1];
     }
 
-    // Extract from meta tags
     const ogTitle = html.match(/<meta[^>]*property=["']og:title["'][^>]*content=["']([^"']+)["']/i);
-
     const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
     const title = titleMatch
       ? titleMatch[1].trim().replace(/<[^>]+>/g, "")
@@ -193,27 +170,13 @@ async function fetchViaFallbackParser(
         ? ogTitle[1]
         : null;
 
-    // Validate acquisition quality
-    const validation = validateAcquisition(html, title, "firecrawl");
-
-    if (validation.status === "PASS") {
-      return {
-        success: true,
-        engine: "firecrawl",
-        html,
-        title,
-        durationMs: Date.now() - startTime,
-      };
-    }
-
-    // Validation failed
+    // Return raw HTML — Extraction Manager handles validation
     return {
-      success: false,
+      success: true,
       engine: "firecrawl",
-      html: null,
-      title: null,
+      html,
+      title,
       durationMs: Date.now() - startTime,
-      error: `Validation failed: ${validation.reason} (score: ${validation.score}/100)`,
     };
   } catch (err) {
     clearTimeout(timer);

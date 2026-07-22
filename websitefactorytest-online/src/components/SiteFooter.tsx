@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getSettings, getNavigation } from "@/lib/site";
 import {
   FacebookIcon,
   LinkedinIcon,
@@ -7,107 +8,72 @@ import {
   MapPinIcon,
 } from "@/components/icons";
 
-const footerLinks = [
-  {
-    title: "Shop",
-    links: [
-      { label: "All Products", href: "/products" },
-      { label: "Drinks", href: "/products" },
-      { label: "Food Packaging", href: "/products" },
-      { label: "Service & Accessories", href: "/products" },
-      { label: "Bags & Carry", href: "/products" },
-      { label: "Plates & Trays", href: "/products" },
-    ],
-  },
-  {
-    title: "Industries",
-    links: [
-      { label: "Cafes & Restaurants", href: "/industries" },
-      { label: "Quick Service Restaurants", href: "/industries" },
-      { label: "Corporate Catering", href: "/industries" },
-      { label: "Events & Festivals", href: "/industries" },
-      { label: "Retail & Grocery", href: "/industries" },
-      { label: "Education", href: "/industries" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About BioPak", href: "/about" },
-      { label: "Sustainability", href: "/about" },
-      { label: "News & Blog", href: "/blog" },
-      { label: "Contact Us", href: "/contact" },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      { label: "Contact Us", href: "/contact" },
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "Terms & Conditions", href: "/terms" },
-    ],
-  },
-];
-
-const supportLinks = [
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Terms & Conditions", href: "/terms" },
-  { label: "Contact Us", href: "/contact" },
-];
-
-const contactInfo = {
-  phone: "1300 246 725",
-  email: "sales@biopak.com.au",
-  location: "Sydney, Australia",
-};
-
-const socialLinks = [
-  {
-    platform: "Facebook",
-    url: "https://www.facebook.com/biopak/",
-    icon: FacebookIcon,
-  },
-  {
-    platform: "LinkedIn",
-    url: "https://www.linkedin.com/company/biopakpackaging/",
-    icon: LinkedinIcon,
-  },
-];
-
 export function SiteFooter() {
+  const settings = getSettings();
+  const navItems = getNavigation();
+
+  const siteName = settings.site_name || process.env.SITE_NAME || "";
+  const phone = settings.phone || "";
+  const email = settings.email || "";
+  const address = settings.address || "";
+
+  const socialLinks = [
+    settings.facebook_url ? { platform: "Facebook", url: settings.facebook_url, icon: FacebookIcon } : null,
+    settings.linkedin_url ? { platform: "LinkedIn", url: settings.linkedin_url, icon: LinkedinIcon } : null,
+  ].filter(Boolean) as { platform: string; url: string; icon: typeof FacebookIcon }[];
+
+  // Build footer link columns from navigation + standard pages
+  const footerColumns = [
+    {
+      title: "Pages",
+      links: navItems.map((item) => ({ label: item.label, href: item.href })),
+    },
+    {
+      title: "Support",
+      links: [
+        { label: "Contact Us", href: "/contact" },
+        { label: "Privacy Policy", href: "/privacy" },
+        { label: "Terms & Conditions", href: "/terms" },
+      ],
+    },
+  ];
+
   return (
     <footer className="bg-[rgb(21,21,21)] px-4 pt-16 pb-8 text-white">
       <div className="mx-auto grid max-w-[1280px] gap-16 md:grid-cols-[1fr_2fr]">
         <div className="max-w-[320px]">
           <Link href="/" className="mb-4 block">
             <span className="text-xl font-bold tracking-tight text-white">
-              BioPak
+              {siteName || "Website"}
             </span>
           </Link>
 
-          <p className="mb-6 text-sm leading-[22px] text-white/70">
-            Award-winning plant-based compostable packaging that puts the planet
-            first. Designed for the circular economy.
-          </p>
+          {settings.meta_description && (
+            <p className="mb-6 text-sm leading-[22px] text-white/70">
+              {settings.meta_description}
+            </p>
+          )}
 
-          <div className="flex gap-4">
-            {socialLinks.map((social) => (
-              <a
-                key={social.platform}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.platform}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-[rgb(0,122,85)]"
-              >
-                <social.icon size={18} />
-              </a>
-            ))}
-          </div>
+          {socialLinks.length > 0 && (
+            <div className="flex gap-4">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.platform}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.platform}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-[rgb(0,122,85)]"
+                >
+                  <social.icon size={18} />
+                </a>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-          {footerLinks.map((column) => (
+          {footerColumns.map((column) => (
             <div key={column.title}>
               <h3 className="mb-4 text-sm font-bold text-white">
                 {column.title}
@@ -132,32 +98,38 @@ export function SiteFooter() {
       <div className="mx-auto mt-12 max-w-[1280px] border-t border-white/10 pt-8">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div className="flex flex-wrap justify-center gap-8">
-            <a
-              href={`tel:${contactInfo.phone}`}
-              className="flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
-            >
-              <PhoneIcon size={16} />
-              {contactInfo.phone}
-            </a>
-            <a
-              href={`mailto:${contactInfo.email}`}
-              className="flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
-            >
-              <MailIcon size={16} />
-              {contactInfo.email}
-            </a>
-            <span className="flex items-center gap-2 text-sm text-white/70">
-              <MapPinIcon size={16} />
-              {contactInfo.location}
-            </span>
+            {phone && (
+              <a
+                href={`tel:${phone.replace(/\s/g, "")}`}
+                className="flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
+              >
+                <PhoneIcon size={16} />
+                {phone}
+              </a>
+            )}
+            {email && (
+              <a
+                href={`mailto:${email}`}
+                className="flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
+              >
+                <MailIcon size={16} />
+                {email}
+              </a>
+            )}
+            {address && (
+              <span className="flex items-center gap-2 text-sm text-white/70">
+                <MapPinIcon size={16} />
+                {address}
+              </span>
+            )}
           </div>
 
           <p className="text-sm text-white/50">
-            &copy; {new Date().getFullYear()} BioPak. All rights reserved.
+            &copy; {new Date().getFullYear()} {siteName || "Website"}. All rights reserved.
           </p>
 
           <div className="flex gap-4">
-            {supportLinks.map((link) => (
+            {footerColumns[1]?.links.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}

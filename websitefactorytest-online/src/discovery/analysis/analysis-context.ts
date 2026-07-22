@@ -148,9 +148,9 @@ export const ANALYSIS_MODULE_CONTEXTS: Record<string, AnalysisModuleContext> = {
     capabilities: ["title-extraction", "spec-extraction", "faq-extraction", "breadcrumb-extraction", "structure-extraction", "seo-extraction", "schema-extraction"],
     limitations: ["regex-based-parsing", "no-ai-analysis"],
   },
-  "gemini-analyzer": {
-    name: "gemini-analyzer",
-    displayName: "Gemini Heuristic Analyzer",
+  "regex-analyzer": {
+    name: "regex-analyzer",
+    displayName: "Regex Analyzer Adapter",
     priority: 3,
     role: "analysis",
     timeoutMs: 60000,

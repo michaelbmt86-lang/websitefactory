@@ -14,6 +14,66 @@ import type { RepairEntry } from "./deliveryReportArchive";
 import type { ProjectIdentity } from "./types/identity";
 
 /* ============================================================================
+ * Deployment State Persistence
+ *
+ * Persists pipeline state to a JSON file keyed by domain.
+ * On rerun, loads previous state to reuse existing resources.
+ * ============================================================================
+ */
+
+interface PersistedDeploymentState {
+  domain: string;
+  projectSlug: string;
+  projectId: string;
+  vercelProjectName: string;
+  deploymentId: string;
+  deploymentUrl: string;
+  zoneId: string;
+  completedSteps: string[];
+  timestamp: number;
+}
+
+function getStatePath(domain: string): string {
+  const stateDir = path.join(getContext().deploymentRoot, ".state");
+  if (!fs.existsSync(stateDir)) {
+    fs.mkdirSync(stateDir, { recursive: true });
+  }
+  return path.join(stateDir, `${domain}.json`);
+}
+
+function persistState(state: PipelineState, completedSteps: string[]): void {
+  const filePath = getStatePath(state.domain);
+  const data: PersistedDeploymentState = {
+    domain: state.domain,
+    projectSlug: state.projectSlug,
+    projectId: state.projectId,
+    vercelProjectName: state.vercelProjectName,
+    deploymentId: state.deploymentId,
+    deploymentUrl: state.deploymentUrl,
+    zoneId: state.zoneId,
+    completedSteps,
+    timestamp: Date.now(),
+  };
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf8");
+  log.info("deploy", "persistState", `saved state for ${state.domain}`);
+}
+
+function loadPersistedState(domain: string): PersistedDeploymentState | null {
+  const filePath = getStatePath(domain);
+  try {
+    if (fs.existsSync(filePath)) {
+      const raw = fs.readFileSync(filePath, "utf8");
+      const data = JSON.parse(raw) as PersistedDeploymentState;
+      log.info("deploy", "loadPersistedState", `loaded state for ${domain} (${data.completedSteps.length} steps completed)`);
+      return data;
+    }
+  } catch (err) {
+    log.warn("deploy", "loadPersistedState", `failed to load state: ${err}`);
+  }
+  return null;
+}
+
+/* ============================================================================
  * Interfaces — unchanged, preserves workflowRunner compatibility
  * ============================================================================
  */
@@ -141,6 +201,7 @@ function loadWorkflow(): WorkflowDefinition {
 
 function buildInitialState(): PipelineState {
   const identity = getContext().identity;
+  const persisted = loadPersistedState(identity.productDomain);
   return {
     identity,
     domain: identity.productDomain,
@@ -148,11 +209,11 @@ function buildInitialState(): PipelineState {
     repoFullName: getContext().githubRepository,
     projectSlug: identity.productSlug,
     projectFolder: identity.productSlug,
-    vercelProjectName: "",
-    zoneId: "",
-    projectId: "",
-    deploymentId: "",
-    deploymentUrl: "",
+    vercelProjectName: persisted?.vercelProjectName ?? "",
+    zoneId: persisted?.zoneId ?? "",
+    projectId: persisted?.projectId ?? "",
+    deploymentId: persisted?.deploymentId ?? "",
+    deploymentUrl: persisted?.deploymentUrl ?? "",
     repairHistory: [],
     checks: [],
     failureReason: null,
@@ -204,49 +265,6 @@ function dateStamp(): string {
   const m = String(d.getUTCMonth() + 1).padStart(2, "0");
   const day = String(d.getUTCDate()).padStart(2, "0");
   return `${y}${m}${day}`;
-}
-
-function projectNameCandidates(slug: string): string[] {
-  const stamp = dateStamp();
-  return [
-    slug,
-    `${slug}-2`,
-    `${slug}-3`,
-    `${slug}-4`,
-    `${slug}-5`,
-    `${slug}-prod`,
-    `${slug}-${stamp}`,
-    `${slug}-${stamp}-2`,
-  ];
-}
-
-async function createProjectWithUniqueName(
-  slug: string,
-  framework: string,
-): Promise<{ projectId: string; projectName: string }> {
-  const candidates = projectNameCandidates(slug);
-
-  for (const name of candidates) {
-    log.info("deploy", "createProject", `attempting project name: ${name}`);
-
-    const result = await Vercel.createProject({ name, framework });
-    if (result.success && result.data) {
-      log.info("deploy", "createProject", `created: ${result.data.projectId} (${name})`);
-      return { projectId: result.data.projectId, projectName: result.data.name };
-    }
-
-    const err = result.error ?? "";
-    if (result.success === false && err.includes("409")) {
-      log.info("deploy", "createProject", `"${name}" taken — trying next candidate`);
-      continue;
-    }
-
-    throw new Error(`createProject failed for "${name}": ${err}`);
-  }
-
-  throw new Error(
-    `All project name candidates exhausted for slug "${slug}". Tried: ${candidates.join(", ")}`,
-  );
 }
 
 /* ============================================================================
@@ -359,6 +377,19 @@ async function stepCreateProject(
 ): Promise<StepResult> {
   return runStep(step.step, step.id, step.provider, dryRun, async () => {
     const vConfig = loadVercelConfig();
+
+    if (state.projectId) {
+      log.info("deploy", "create_project", `reusing existing project: ${state.vercelProjectName} (${state.projectId})`);
+      return;
+    }
+
+    const existing = await Vercel.findProjectByName(state.identity.productSlug, "glotalk");
+    if (existing.success && existing.data) {
+      state.projectId = existing.data.projectId;
+      state.vercelProjectName = existing.data.name;
+      log.info("deploy", "create_project", `found existing project: ${existing.data.name} (${existing.data.projectId})`);
+      return;
+    }
 
     const result = await Vercel.createProject({
       name: state.identity.productSlug,
@@ -1056,24 +1087,40 @@ export async function deploy(
 
   const workflow = applySkipOptions(loadWorkflow(), opts);
 
+  const completedSteps: string[] = [];
+
+  function withPersistence(
+    name: string,
+    handler: (state: PipelineState, step: WorkflowStep, dryRun: boolean) => Promise<StepResult>,
+  ): (state: PipelineState, step: WorkflowStep, dryRun: boolean) => Promise<StepResult> {
+    return async (state, step, dryRun) => {
+      const result = await handler(state, step, dryRun);
+      if (result.passed && !dryRun) {
+        completedSteps.push(name);
+        persistState(state, completedSteps);
+      }
+      return result;
+    };
+  }
+
   const executor: WorkflowExecutor = {
-    create_github: stepCreateGithub,
-    push_code: stepPushCode,
-    create_project: stepCreateProject,
-    connect_github: stepConnectGithub,
-    configure_env: stepConfigureEnv,
-    deploy_project: stepDeployProject,
-    bind_domain: stepBindDomain,
-    configure_cloudflare_dns: stepConfigureCloudflareDns,
-    configure_dns: stepConfigureDns,
-    verify_dns: stepVerifyDns,
-    verify_https: stepVerifyHttps,
-    verify_homepage: stepVerifyHomepage,
-    verify_dashboard_login: stepVerifyDashboardLogin,
-    verify_admin_account: stepVerifyAdminAccount,
-    delivery_complete: stepDeliveryComplete,
-    verify_repository: stepVerifyRepository,
-    verify_ssl: stepVerifySsl,
+    create_github: withPersistence("create_github", stepCreateGithub),
+    push_code: withPersistence("push_code", stepPushCode),
+    create_project: withPersistence("create_project", stepCreateProject),
+    connect_github: withPersistence("connect_github", stepConnectGithub),
+    configure_env: withPersistence("configure_env", stepConfigureEnv),
+    deploy_project: withPersistence("deploy_project", stepDeployProject),
+    bind_domain: withPersistence("bind_domain", stepBindDomain),
+    configure_cloudflare_dns: withPersistence("configure_cloudflare_dns", stepConfigureCloudflareDns),
+    configure_dns: withPersistence("configure_dns", stepConfigureDns),
+    verify_dns: withPersistence("verify_dns", stepVerifyDns),
+    verify_https: withPersistence("verify_https", stepVerifyHttps),
+    verify_homepage: withPersistence("verify_homepage", stepVerifyHomepage),
+    verify_dashboard_login: withPersistence("verify_dashboard_login", stepVerifyDashboardLogin),
+    verify_admin_account: withPersistence("verify_admin_account", stepVerifyAdminAccount),
+    delivery_complete: withPersistence("delivery_complete", stepDeliveryComplete),
+    verify_repository: withPersistence("verify_repository", stepVerifyRepository),
+    verify_ssl: withPersistence("verify_ssl", stepVerifySsl),
   };
 
   const result = await runWorkflow(workflow, executor, state, opts.dryRun);

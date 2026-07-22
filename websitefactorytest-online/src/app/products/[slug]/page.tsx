@@ -27,11 +27,11 @@ export async function generateMetadata({
   if (!product) return { title: "Product Not Found" };
 
   return {
-    title: `${product.name} | BioPak Australia`,
+    title: product.name,
     description:
-      product.short_description || product.description || `Buy ${product.name} from BioPak`,
+      product.short_description || product.description || `View ${product.name}`,
     openGraph: {
-      title: `${product.name} | BioPak Australia`,
+      title: product.name,
       description: product.short_description || product.description,
       images: product.image_url ? [{ url: product.image_url }] : [],
     },

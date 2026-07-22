@@ -1,110 +1,38 @@
 {
   "siteUrl": "https://sportsgoods.en.alibaba.com",
-  "timestamp": "2026-07-21T04:50:11.416Z",
+  "timestamp": "2026-07-22T05:29:09.564Z",
   "issues": [
     {
       "category": "missing-pages",
       "severity": "error",
-      "message": "Navigation link \"Technology\" points to non-existent page: #technology",
+      "message": "Navigation link \"SHOP\" points to non-existent page: /products",
       "entity_type": "page",
       "entity_id": null,
-      "entity_slug": "#technology",
+      "entity_slug": "products",
       "fixable": true
     },
     {
       "category": "missing-pages",
       "severity": "error",
-      "message": "Navigation link \"Team\" points to non-existent page: #team",
+      "message": "Navigation link \"CUSTOM\" points to non-existent page: /contact",
       "entity_type": "page",
       "entity_id": null,
-      "entity_slug": "#team",
+      "entity_slug": "contact",
       "fixable": true
     },
     {
       "category": "missing-pages",
       "severity": "error",
-      "message": "Navigation link \"Benefits\" points to non-existent page: #benefits",
+      "message": "Navigation link \"INDUSTRY\" points to non-existent page: /industries",
       "entity_type": "page",
       "entity_id": null,
-      "entity_slug": "#benefits",
+      "entity_slug": "industries",
       "fixable": true
     },
     {
       "category": "missing-pages",
       "severity": "error",
-      "message": "Navigation link \"Products\" points to non-existent page: #products",
-      "entity_type": "page",
-      "entity_id": null,
-      "entity_slug": "#products",
-      "fixable": true
-    },
-    {
-      "category": "missing-pages",
-      "severity": "error",
-      "message": "Navigation link \"Use Cases\" points to non-existent page: #use-cases",
-      "entity_type": "page",
-      "entity_id": null,
-      "entity_slug": "#use-cases",
-      "fixable": true
-    },
-    {
-      "category": "missing-pages",
-      "severity": "error",
-      "message": "Navigation link \"Blog\" points to non-existent page: #blog",
-      "entity_type": "page",
-      "entity_id": null,
-      "entity_slug": "#blog",
-      "fixable": true
-    },
-    {
-      "category": "missing-pages",
-      "severity": "error",
-      "message": "Navigation link \"SHOP\" points to non-existent page: #",
-      "entity_type": "page",
-      "entity_id": null,
-      "entity_slug": "#",
-      "fixable": true
-    },
-    {
-      "category": "missing-pages",
-      "severity": "error",
-      "message": "Navigation link \"CUSTOM\" points to non-existent page: /custom-packaging",
-      "entity_type": "page",
-      "entity_id": null,
-      "entity_slug": "custom-packaging",
-      "fixable": true
-    },
-    {
-      "category": "missing-pages",
-      "severity": "error",
-      "message": "Navigation link \"INDUSTRY\" points to non-existent page: /industry",
-      "entity_type": "page",
-      "entity_id": null,
-      "entity_slug": "industry",
-      "fixable": true
-    },
-    {
-      "category": "missing-pages",
-      "severity": "error",
-      "message": "Navigation link \"SUSTAINABILITY\" points to non-existent page: /environmental-responsibility",
-      "entity_type": "page",
-      "entity_id": null,
-      "entity_slug": "environmental-responsibility",
-      "fixable": true
-    },
-    {
-      "category": "missing-pages",
-      "severity": "error",
-      "message": "Navigation link \"NEWS\" points to non-existent page: /resources",
-      "entity_type": "page",
-      "entity_id": null,
-      "entity_slug": "resources",
-      "fixable": true
-    },
-    {
-      "category": "missing-pages",
-      "severity": "error",
-      "message": "Navigation link \"ABOUT US\" points to non-existent page: /about",
+      "message": "Navigation link \"SUSTAINABILITY\" points to non-existent page: /about",
       "entity_type": "page",
       "entity_id": null,
       "entity_slug": "about",
@@ -113,46 +41,10 @@
     {
       "category": "missing-pages",
       "severity": "error",
-      "message": "Navigation link \"SHOP\" points to non-existent page: #",
+      "message": "Navigation link \"NEWS\" points to non-existent page: /blog",
       "entity_type": "page",
       "entity_id": null,
-      "entity_slug": "#",
-      "fixable": true
-    },
-    {
-      "category": "missing-pages",
-      "severity": "error",
-      "message": "Navigation link \"CUSTOM\" points to non-existent page: /custom-packaging",
-      "entity_type": "page",
-      "entity_id": null,
-      "entity_slug": "custom-packaging",
-      "fixable": true
-    },
-    {
-      "category": "missing-pages",
-      "severity": "error",
-      "message": "Navigation link \"INDUSTRY\" points to non-existent page: /industry",
-      "entity_type": "page",
-      "entity_id": null,
-      "entity_slug": "industry",
-      "fixable": true
-    },
-    {
-      "category": "missing-pages",
-      "severity": "error",
-      "message": "Navigation link \"SUSTAINABILITY\" points to non-existent page: /environmental-responsibility",
-      "entity_type": "page",
-      "entity_id": null,
-      "entity_slug": "environmental-responsibility",
-      "fixable": true
-    },
-    {
-      "category": "missing-pages",
-      "severity": "error",
-      "message": "Navigation link \"NEWS\" points to non-existent page: /resources",
-      "entity_type": "page",
-      "entity_id": null,
-      "entity_slug": "resources",
+      "entity_slug": "blog",
       "fixable": true
     },
     {
@@ -169,7 +61,7 @@
       "severity": "info",
       "message": "Page \"Company Overview - Dongguan City Bestway Sports Goods Technology Co., Ltd.\" missing structured data",
       "entity_type": "page",
-      "entity_id": 368,
+      "entity_id": 1,
       "entity_slug": "",
       "fixable": false
     },
@@ -178,7 +70,7 @@
       "severity": "info",
       "message": "Page \"Top sale product - Dongguan City Bestway Sports Goods Technology Co., Ltd.\" missing structured data",
       "entity_type": "page",
-      "entity_id": 369,
+      "entity_id": 2,
       "entity_slug": "Top_sale_product.html",
       "fixable": false
     },
@@ -187,7 +79,7 @@
       "severity": "info",
       "message": "Page \"Kids Swimwear - Dongguan City Bestway Sports Goods Technology Co., Ltd.\" missing structured data",
       "entity_type": "page",
-      "entity_id": 370,
+      "entity_id": 3,
       "entity_slug": "Kids_Swimwear.html",
       "fixable": false
     },
@@ -196,7 +88,7 @@
       "severity": "info",
       "message": "Page \"Men's Wetsuit - Dongguan City Bestway Sports Goods Technology Co., Ltd.\" missing structured data",
       "entity_type": "page",
-      "entity_id": 371,
+      "entity_id": 4,
       "entity_slug": "Men_s_Wetsuit.html",
       "fixable": false
     },
@@ -205,41 +97,41 @@
       "severity": "info",
       "message": "Page \"Life Jackets - Dongguan City Bestway Sports Goods Technology Co., Ltd.\" missing structured data",
       "entity_type": "page",
-      "entity_id": 372,
+      "entity_id": 5,
       "entity_slug": "Life_Jackets.html",
       "fixable": false
     },
     {
       "category": "missing-schema",
       "severity": "info",
-      "message": "Page \"The Complete Guide to Composting at Home\" missing structured data",
+      "message": "Page \"Getting Started with Our Products\" missing structured data",
       "entity_type": "page",
-      "entity_id": 373,
-      "entity_slug": "blog-complete-guide-composting-home",
+      "entity_id": 6,
+      "entity_slug": "blog-getting-started",
       "fixable": false
     },
     {
       "category": "missing-schema",
       "severity": "info",
-      "message": "Page \"Why Compostable Packaging Matters for Australian Businesses\" missing structured data",
+      "message": "Page \"How to Choose the Right Products for Your Business\" missing structured data",
       "entity_type": "page",
-      "entity_id": 374,
-      "entity_slug": "blog-compostable-packaging-matters-australian-businesses",
+      "entity_id": 7,
+      "entity_slug": "blog-choosing-right-products",
       "fixable": false
     },
     {
       "category": "missing-schema",
       "severity": "info",
-      "message": "Page \"From Plant to Packaging: The BioPak Story\" missing structured data",
+      "message": "Page \"Our Commitment to Quality\" missing structured data",
       "entity_type": "page",
-      "entity_id": 375,
-      "entity_slug": "blog-plant-to-packaging-biopak-story",
+      "entity_id": 8,
+      "entity_slug": "blog-commitment-to-quality",
       "fixable": false
     }
   ],
-  "totalIssues": 26,
-  "errorCount": 18,
+  "totalIssues": 14,
+  "errorCount": 6,
   "warningCount": 0,
   "infoCount": 8,
-  "fixableCount": 18
+  "fixableCount": 6
 }

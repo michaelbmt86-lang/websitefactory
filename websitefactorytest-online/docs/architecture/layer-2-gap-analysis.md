@@ -178,7 +178,7 @@
 |---|---|---|---|
 | Deployment verification | `deployment/verify.ts` (pre-deploy) | `deployment/deploy.ts` stepDeliveryComplete (post-deploy) | Overlapping verification checks (Vercel project exists, domain bind, etc.) |
 | Database initialization | `scripts/init-db.ts` | `scripts/init-database.mjs` | Two scripts creating overlapping table schemas |
-| Asset download | `scripts/download-assets.mjs` | `scripts/download-biopak-assets.mjs` | Two separate download scripts with different target sites but similar patterns |
+| Asset download | `scripts/download-assets.mjs` | — | Asset download script (target-specific script removed) |
 | Extraction engines | `src/discovery/extraction/jcodesmore-engine.ts` | `src/discovery/detail-extraction-engine.ts` | Overlapping extraction logic between standalone engine and extraction-with-recovery wrapper |
 | Quality validation | `src/discovery/quality-validator.ts` | `src/discovery/cms/cms-quality-validator.ts` | Two quality validators with similar structure but different targets |
 | Output generation | `src/discovery/output-generator.ts` | `src/discovery/detail-output-generator.ts` | Two output generators producing different report formats |
@@ -191,7 +191,7 @@
 
 | File | Description |
 |---|---|
-| `src/types/solidhydrogen.ts` | Static data for SolidHydrogen site (previous clone target); no longer the active target (BioPak is current). Referenced nowhere in active code. |
+| `src/types/solidhydrogen.ts` | Static data for SolidHydrogen site (previous clone target); no longer the active target. Referenced nowhere in active code. |
 | `scripts/run-analyzer.ts` | Script that runs `src/analyzer/website-analyzer.ts`; the analyzer itself is a lightweight component checker that doesn't integrate with the main pipeline. |
 | `src/analyzer/` (entire directory) | `website-analyzer.ts`, `config.ts`, `dashboard-schema.ts` — hardcoded to 5 components (Header, Hero, Technology, Team, Footer) from the SolidHydrogen clone. Does not scale to new targets. No integration with discovery or verification systems. |
 | `deployment/deploy.ts` legacy steps | `stepVerifyRepository`, `stepConfigureDns`, `stepVerifySsl` — backward compatibility functions still registered in the executor map but not used by current workflow (replaced by `configure_cloudflare_dns`, `verify_dns`, `verify_https`). |

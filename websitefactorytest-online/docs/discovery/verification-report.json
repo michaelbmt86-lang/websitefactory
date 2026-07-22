@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sportsgoods.en.alibaba.com",
-  "timestamp": "2026-07-21T04:50:11.415Z",
+  "timestamp": "2026-07-22T05:29:09.562Z",
   "checks": [
     {
       "name": "pages",
@@ -65,14 +65,13 @@
     {
       "name": "navigation",
       "status": "FAILED",
-      "message": "18 nav links. 2 issues.",
+      "message": "6 nav links. 1 issues.",
       "details": {
-        "total": 18,
-        "brokenNavLinks": 18,
+        "total": 6,
+        "brokenNavLinks": 6,
         "missingLabels": 0,
         "issues": [
-          "12 duplicate sort orders",
-          "18 broken navigation links"
+          "6 broken navigation links"
         ]
       }
     },
@@ -101,14 +100,14 @@
     {
       "name": "sqlite",
       "status": "PASS",
-      "message": "38 tables. 0 issues.",
+      "message": "25 tables. 0 issues.",
       "details": {
-        "tables": 38,
+        "tables": 25,
         "missingTables": [],
         "counts": {
           "products": 0,
           "categories": 6,
-          "navigation": 18,
+          "navigation": 6,
           "pages": 0,
           "settings": 1,
           "site_urls": 5,

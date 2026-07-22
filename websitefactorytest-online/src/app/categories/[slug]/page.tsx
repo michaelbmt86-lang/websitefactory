@@ -30,10 +30,10 @@ export async function generateMetadata({
   if (!category) return { title: "Category Not Found" };
 
   return {
-    title: `${category.name} | BioPak Sustainable Packaging`,
+    title: category.name,
     description:
       category.description ||
-      `Browse BioPak's range of ${category.name} — certified compostable packaging solutions.`,
+      `Browse our range of ${category.name}.`,
   };
 }
 

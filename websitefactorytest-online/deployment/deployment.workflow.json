@@ -20,10 +20,10 @@
   "projectName": {
     "source": "normalized_domain",
     "example": {
-      "input_url": "https://www.biopak.com",
-      "domain": "biopak.com",
-      "folder": "biopak-com",
-      "vercel_project_name": "biopak-com"
+      "input_url": "https://www.example.com",
+      "domain": "example.com",
+      "folder": "example-com",
+      "vercel_project_name": "example-com"
     },
     "rules": [
       "Each website is stored inside the monorepo under a folder generated from the domain",

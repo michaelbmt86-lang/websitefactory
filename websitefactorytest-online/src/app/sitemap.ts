@@ -12,6 +12,8 @@ import type { MetadataRoute } from "next";
 import { getProducts, getPosts } from "@/lib/site";
 import { getPublicBaseUrl } from "@/lib/public-url";
 
+export const dynamic = "force-dynamic";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = getPublicBaseUrl();
 

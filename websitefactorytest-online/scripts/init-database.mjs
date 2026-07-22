@@ -77,17 +77,17 @@ db.exec(`
   -- Settings table
   CREATE TABLE IF NOT EXISTS settings (
     id INTEGER PRIMARY KEY DEFAULT 1,
-    site_name TEXT DEFAULT 'BioPak Australia',
+    site_name TEXT DEFAULT '',
     logo TEXT DEFAULT '/images/logo.png',
     favicon TEXT DEFAULT '/seo/favicon.png',
-    meta_title TEXT DEFAULT 'Market Leaders in Sustainable Packaging | BioPak Australia',
-    meta_description TEXT DEFAULT 'Award-winning plant-based compostable packaging that puts the planet first.',
+    meta_title TEXT DEFAULT '',
+    meta_description TEXT DEFAULT '',
     og_image TEXT DEFAULT '/images/hero-bg.jpg',
-    phone TEXT DEFAULT '1300 246 725',
-    email TEXT DEFAULT 'sales@biopak.com.au',
-    address TEXT DEFAULT 'Sydney, Australia',
-    facebook_url TEXT DEFAULT 'https://www.facebook.com/biopak/',
-    linkedin_url TEXT DEFAULT 'https://www.linkedin.com/company/biopakpackaging/',
+    phone TEXT DEFAULT '',
+    email TEXT DEFAULT '',
+    address TEXT DEFAULT '',
+    facebook_url TEXT DEFAULT '',
+    linkedin_url TEXT DEFAULT '',
     instagram_url TEXT DEFAULT ''
   );
 
@@ -138,8 +138,8 @@ db.exec(`
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 
-  -- Insert default settings
-  INSERT OR IGNORE INTO settings (id, site_name) VALUES (1, 'BioPak Australia');
+  -- Insert default settings (CMS will populate via admin dashboard)
+  INSERT OR IGNORE INTO settings (id, site_name) VALUES (1, 'Website Factory');
 
   -- Insert default categories
   INSERT OR IGNORE INTO categories (name, slug, description, image_url, display_order) VALUES
@@ -152,22 +152,22 @@ db.exec(`
 
   -- Insert default navigation items
   INSERT OR IGNORE INTO navigation (label, href, sort_order) VALUES
-    ('SHOP', '#', 1),
-    ('CUSTOM', '/custom-packaging', 2),
-    ('INDUSTRY', '/industry', 3),
-    ('SUSTAINABILITY', '/environmental-responsibility', 4),
-    ('NEWS', '/resources', 5),
+    ('SHOP', '/products', 1),
+    ('CUSTOM', '/contact', 2),
+    ('INDUSTRY', '/industries', 3),
+    ('SUSTAINABILITY', '/about', 4),
+    ('NEWS', '/blog', 5),
     ('ABOUT US', '/about', 6);
 
-  -- Insert admin user (password: ChangeMe123!)
+  -- Insert admin user (password synced from ADMIN_PASSWORD env var on cold start)
   INSERT OR IGNORE INTO users (username, password_hash, email, role) VALUES
-    ('admin', '${crypto.createHash("sha256").update("ChangeMe123!").digest("hex")}', 'admin@biopak.com.au', 'admin');
+    ('admin', '${crypto.createHash("sha256").update("ChangeMe123!").digest("hex")}', 'admin@websitefactory.local', 'admin');
 
   -- Insert sample blog posts
   INSERT OR IGNORE INTO posts (title, slug, excerpt, content, author, category, featured_image) VALUES
-    ('The Complete Guide to Composting at Home', 'complete-guide-composting-home', 'Learn how to start composting at home and reduce your environmental impact with simple, practical steps.', '<h2>Why Compost?</h2><p>Composting is one of the simplest and most effective ways to reduce your household waste while creating nutrient-rich soil for your garden. At BioPak, we believe that every small action counts toward a more sustainable future.</p><h2>Getting Started</h2><p>Starting a compost bin is easier than you think. You will need a mix of green materials (food scraps, grass clippings) and brown materials (dry leaves, cardboard). The key is maintaining the right balance.</p><h2>What Can You Compost?</h2><p>With BioPak compostable packaging, you can now add your takeaway containers and cups directly to your compost bin. Our products are certified commercially compostable and will break down within 12 weeks in industrial composting facilities.</p><h2>Benefits for Your Garden</h2><p>Finished compost improves soil structure, increases moisture retention, and provides essential nutrients for healthy plant growth. It is nature''s perfect fertiliser.</p>', 'BioPak Team', 'Sustainability', '/images/blog/composting-guide.jpg'),
-    ('Why Compostable Packaging Matters for Australian Businesses', 'compostable-packaging-matters-australian-businesses', 'Discover how switching to compostable packaging can benefit your business and the environment.', '<h2>The Business Case for Sustainability</h2><p>Australian consumers are increasingly choosing businesses that demonstrate environmental responsibility. By switching to compostable packaging, your business sends a clear message that you care about the planet.</p><h2>Reducing Landfill Waste</h2><p>Every year, millions of tonnes of packaging end up in Australian landfills. Traditional plastic packaging can take hundreds of years to decompose, releasing harmful greenhouse gases in the process. Compostable alternatives break down naturally within months.</p><h2>Customer Expectations</h2><p>Studies show that 78% of Australian consumers prefer to buy from environmentally responsible businesses. Compostable packaging is not just good for the planet—it is good for business.</p><h2>Making the Switch</h2><p>BioPak offers a comprehensive range of compostable packaging solutions for every industry, from cafes and restaurants to retail and events. Our team can help you find the perfect products for your needs.</p>', 'Sarah Mitchell', 'Business', '/images/blog/business-composting.jpg'),
-    ('From Plant to Packaging: The BioPak Story', 'plant-to-packaging-biopak-story', 'Learn about our journey from a small Australian startup to global leaders in sustainable packaging.', '<h2>Our Beginning</h2><p>BioPak was born from a simple idea: packaging should not cost the earth. Founded in Australia, we set out to create packaging alternatives that are kind to the environment without compromising on quality or performance.</p><h2>Innovation in Sustainability</h2><p>Our packaging is made from renewable resources like sugarcane, wood fibre, and corn starch. These materials are by-products of existing industries, meaning we are not using additional agricultural land or resources.</p><h2>Certified Compostable</h2><p>Every BioPak product is certified to Australian Standards for compostability. When disposed of in commercial composting facilities, our packaging breaks down completely, leaving no harmful residues behind.</p><h2>Looking Ahead</h2><p>We continue to innovate and push the boundaries of what is possible with sustainable packaging. Our goal is simple: to make compostable packaging the new normal.</p>', 'BioPak Team', 'Company', '/images/blog/biopak-story.jpg');
+    ('Getting Started with Our Products', 'getting-started', 'A comprehensive guide to help you choose the right products for your business needs.', '<h2>Introduction</h2><p>We offer a wide range of products designed to meet the needs of various industries. This guide will help you get started.</p><h2>Browse Our Catalog</h2><p>Explore our categories to find the perfect solution for your business.</p>', 'Team', 'Company', '/images/hero-bg.jpg'),
+    ('How to Choose the Right Products for Your Business', 'choosing-right-products', 'Find out which products best suit your industry and customer requirements.', '<h2>Consider Your Industry</h2><p>Different industries have different needs. Consider what matters most for your customers and operations.</p>', 'Team', 'Industry', '/images/hero-bg.jpg'),
+    ('Our Commitment to Quality', 'commitment-to-quality', 'Learn about our dedication to quality and customer satisfaction across every product we offer.', '<h2>Quality First</h2><p>We believe in delivering products that meet the highest standards of quality and reliability.</p>', 'Team', 'Company', '/images/hero-bg.jpg');
 `);
 
 console.log("Database initialized successfully!");

@@ -31,7 +31,8 @@ import {
 import { extractAllMedia } from "./media-extractor";
 import { analyzeNetworkData } from "./network-analyzer";
 import { prepareHtmlForExtraction } from "./dynamic-renderer";
-import { analyzeWithGemini } from "./gemini-analyzer";
+import { analyze } from "./analyzer-engine";
+import { buildAnalyzerInput } from "./analyzer-input-builder";
 
 interface DetailExtractionOptions {
   concurrency?: number;
@@ -139,19 +140,23 @@ export class DetailExtractionEngine {
       // Step 5: Analyze network data
       const networkData = analyzeNetworkData(html);
 
-      // Step 6: Run Gemini analyzer for normalization
-      const geminiResult = analyzeWithGemini({
+      // Step 6: Run analyzer for normalization
+      const geminiResult = await analyze(buildAnalyzerInput({
         url,
         html,
-        structuredData: schema.map(s => s.data),
-        networkData: networkData.jsonApiResponses,
-        existingSpecs: specifications,
-        existingFAQ: faq,
-        existingStructure: pageStructure,
-      });
+        schema,
+        networkData,
+        specifications,
+        faq,
+        pageStructure,
+      }));
 
       // Step 7: Compute extraction time
       const extractionTime = Date.now() - startTime;
+      const specsJson = JSON.stringify(geminiResult.specifications);
+      const relatedJson = JSON.stringify(geminiResult.relatedProducts);
+      const faqJson = JSON.stringify(geminiResult.faq);
+
       db.prepare(`
         UPDATE extracted_products SET
           title = ?,
@@ -159,19 +164,19 @@ export class DetailExtractionEngine {
           description = ?,
           short_description = ?,
           category = ?,
-          subcategory = ?,
-          brand = ?,
-          model = ?,
-          sku = ?,
+          subcategory = CASE WHEN ? != '' THEN ? ELSE subcategory END,
+          brand = CASE WHEN ? != '' THEN ? ELSE brand END,
+          model = CASE WHEN ? != '' THEN ? ELSE model END,
+          sku = CASE WHEN ? != '' THEN ? ELSE sku END,
           language = 'en',
           images_json = ?,
           gallery_json = ?,
           downloads_json = ?,
-          specifications_json = ?,
+          specifications_json = CASE WHEN ? != '[]' THEN ? ELSE specifications_json END,
           seo_json = ?,
           schema_json = ?,
-          related_products_json = ?,
-          faq_json = ?,
+          related_products_json = CASE WHEN ? != '[]' THEN ? ELSE related_products_json END,
+          faq_json = CASE WHEN ? != '[]' THEN ? ELSE faq_json END,
           status = 'completed',
           error_message = '',
           extraction_time_ms = ?,
@@ -183,18 +188,18 @@ export class DetailExtractionEngine {
         geminiResult.description || description,
         geminiResult.shortDescription || shortDescription,
         geminiResult.category || "Unknown",
-        geminiResult.subcategory,
-        geminiResult.brand,
-        geminiResult.model,
-        geminiResult.sku,
+        geminiResult.subcategory, geminiResult.subcategory,
+        geminiResult.brand, geminiResult.brand,
+        geminiResult.model, geminiResult.model,
+        geminiResult.sku, geminiResult.sku,
         JSON.stringify(images),
         JSON.stringify(images),
         JSON.stringify(downloads),
-        JSON.stringify(geminiResult.specifications),
+        specsJson, specsJson,
         JSON.stringify(seo),
         JSON.stringify(schema),
-        JSON.stringify(geminiResult.relatedProducts),
-        JSON.stringify(geminiResult.faq),
+        relatedJson, relatedJson,
+        faqJson, faqJson,
         extractionTime,
         url
       );

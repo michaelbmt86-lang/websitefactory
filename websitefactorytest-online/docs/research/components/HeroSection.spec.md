@@ -2,7 +2,7 @@
 
 ## Overview
 - **Target file:** `src/components/HeroSection.tsx`
-- **Screenshot:** `docs/design-references/biopak-desktop-fullpage.png`
+- **Screenshot:** `docs/design-references/desktop-fullpage.png`
 - **Interaction model:** static
 
 ## DOM Structure

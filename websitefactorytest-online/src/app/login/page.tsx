@@ -42,10 +42,10 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
           <h1 className="font-heading text-3xl font-bold tracking-tight text-[#007A55]">
-            BioPak
+            Dashboard
           </h1>
           <p className="mt-2 font-sans text-sm text-gray-500">
-            Sustainable Packaging Management
+            Content Management System
           </p>
         </div>
 
@@ -138,7 +138,7 @@ export default function LoginPage() {
         </div>
 
         <p className="mt-6 text-center font-sans text-xs text-gray-400">
-          &copy; {new Date().getFullYear()} BioPak Australia. All rights reserved.
+          &copy; {new Date().getFullYear()} All rights reserved.
         </p>
       </div>
     </div>

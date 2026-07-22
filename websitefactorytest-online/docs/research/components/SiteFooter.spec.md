@@ -115,26 +115,26 @@
 
 ## Link Columns
 1. **Shop:** All Products, Drinks, Food Packaging, Service & Accessories, Bags & Carry, Kits
-2. **Custom:** BioPak Catalogue, BioPak Price List, Custom Packaging, Design Process, Request Quote, My Account
+2. **Custom:** Catalogue, Price List, Custom Packaging, Design Process, Request Quote, My Account
 3. **Solutions:** Plastic Ban, Disposal Guide, Compost Connect, Customer Stories
-4. **Company:** Why Choose BioPak, Sustainability, Give Back Fund, Sustainable Sourcing, Media Centre, News & Resources, Awards, Contact Us
+4. **Company:** Why Choose Us, Sustainability, Give Back Fund, Sustainable Sourcing, Media Centre, News & Resources, Awards, Contact Us
 5. **Support:** Delivery & Returns Policy, Terms & Conditions, Privacy Policy, Track Your order, Payment Methods, Become a Distributor, Preference Centre, FAQs
 
 ## Contact Info
 - Phone: 1300 246 725
-- Email: sales@biopak.com.au
+- Email: sales@example.com
 - Location: Sydney, Australia
 
 ## Copyright
-- "Copyright © 2025 BioPak. All rights reserved (FSC™ C110879)."
+- "Copyright © 2025 Website. All rights reserved."
 
 ## Badges
 - B Corp Certified
 - Australian Owned
 
 ## Social Links
-- Facebook: https://www.facebook.com/biopak/
-- LinkedIn: https://www.linkedin.com/company/biopakpackaging/
+- Facebook: https://www.facebook.com/
+- LinkedIn: https://www.linkedin.com/company/
 
 ## Assets
 - Logo: `public/images/footer-logo.png`

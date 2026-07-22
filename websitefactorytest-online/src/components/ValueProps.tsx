@@ -1,29 +1,29 @@
-import Image from "next/image";
+import { LeafIcon, TruckIcon, UsersIcon, RecycleIcon } from "@/components/icons";
 
 const valueProps = [
   {
-    title: "Packaging Made From Plants",
+    title: "Quality Products",
     description:
-      "Designed for the circular economy where resources are reused and not wasted.",
-    icon: "/images/value-props/packaging-from-plants.png",
+      "We offer products that meet the highest standards of quality and reliability.",
+    icon: LeafIcon,
   },
   {
-    title: "Certified Compostable",
+    title: "Fast Delivery",
     description:
-      "We champion composting as the best recycling solution for food packaging.",
-    icon: "/images/value-props/certified-compostable.png",
+      "Quick and reliable delivery to get your products to you when you need them.",
+    icon: TruckIcon,
   },
   {
-    title: "B Corp Certified",
+    title: "Customer Support",
     description:
-      "We give back to people and planet, so your purchases directly affect positive change.",
-    icon: "/images/value-props/b-corp.png",
+      "Dedicated support team ready to help with any questions or requirements.",
+    icon: UsersIcon,
   },
   {
-    title: "Emissions Reduction",
+    title: "Sustainable Practices",
     description:
-      "We have a roadmap in place to reduce our carbon emissions in our supply chain and operations.",
-    icon: "/images/value-props/emissions-reduction.png",
+      "Committed to responsible sourcing and environmentally conscious operations.",
+    icon: RecycleIcon,
   },
 ];
 
@@ -33,12 +33,9 @@ export function ValueProps() {
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {valueProps.map((prop) => (
           <div key={prop.title} className="flex flex-col gap-4">
-            <Image
-              src={prop.icon}
-              alt={prop.title}
-              width={60}
-              height={60}
-              className="h-[60px] w-[60px] object-contain"
+            <prop.icon
+              size={60}
+              className="text-[#007A55]"
             />
             <h3 className="font-sans text-[16px] font-bold leading-[24px] text-[rgb(37,37,37)]">
               {prop.title}

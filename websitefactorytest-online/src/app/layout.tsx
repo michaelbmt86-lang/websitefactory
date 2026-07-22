@@ -11,6 +11,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import { getPublicBaseUrl } from "@/lib/public-url";
+import { getSettings } from "@/lib/site";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -25,30 +26,36 @@ const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const publicBaseUrl = getPublicBaseUrl();
+export async function generateMetadata(): Promise<Metadata> {
+  const publicBaseUrl = getPublicBaseUrl();
+  const settings = getSettings();
 
-export const metadata: Metadata = {
-  metadataBase: new URL(publicBaseUrl),
-  title: "Market Leaders in Sustainable Packaging | BioPak Australia",
-  description:
-    "Award-winning plant-based compostable packaging that puts the planet first. We design food service and catering packaging for the circular economy.",
-  icons: {
-    icon: "/seo/favicon.png",
-    apple: "/seo/favicon.png",
-  },
-  twitter: {
-    card: "summary_large_image",
-  },
-  openGraph: {
-    title: "Market Leaders in Sustainable Packaging | BioPak Australia",
-    description:
-      "Award-winning plant-based compostable packaging that puts the planet first.",
-    url: publicBaseUrl,
-    siteName: "BioPak Australia",
-    locale: "en_AU",
-    type: "website",
-  },
-};
+  const siteName = settings.site_name || process.env.SITE_NAME || "";
+  const metaTitle = settings.meta_title || siteName;
+  const metaDesc = settings.meta_description;
+
+  return {
+    metadataBase: new URL(publicBaseUrl),
+    title: metaTitle || { default: siteName || "Website", template: `%s | ${siteName || "Website"}` },
+    description: metaDesc || undefined,
+    icons: {
+      icon: settings.favicon || "/seo/favicon.png",
+      apple: settings.favicon || "/seo/favicon.png",
+    },
+    twitter: {
+      card: "summary_large_image",
+    },
+    openGraph: {
+      title: metaTitle || siteName || "Website",
+      description: metaDesc || undefined,
+      url: publicBaseUrl,
+      siteName: siteName || undefined,
+      locale: "en_US",
+      type: "website",
+      images: settings.og_image ? [{ url: settings.og_image }] : [],
+    },
+  };
+}
 
 export default function RootLayout({
   children,

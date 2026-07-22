@@ -74,6 +74,34 @@ function handleVercelError(status: number, body: VercelErrorResponse): never {
   }
 }
 
+async function findProjectByName(name: string, teamId?: string): Promise<ProviderResult<VercelProjectResult | null>> {
+  log.info(PROVIDER, "findProjectByName", `looking up project: ${name}`);
+
+  return timed(PROVIDER, "findProjectByName", async () => {
+    const teamParam = teamId ? `?teamId=${teamId}` : "";
+    const { status, body } = await vercelFetch<{ id: string; name: string; link?: unknown }>(
+      `/v9/projects/${encodeURIComponent(name)}${teamParam}`,
+      { method: "GET" },
+    );
+
+    if (status === 200) {
+      log.info(PROVIDER, "findProjectByName", `found: ${body.name} (${body.id})`);
+      return {
+        projectId: body.id,
+        name: body.name,
+        link: body.link ? JSON.stringify(body.link) : "",
+      };
+    }
+
+    if (status === 404) {
+      log.info(PROVIDER, "findProjectByName", `project "${name}" not found`);
+      return null;
+    }
+
+    handleVercelError(status, body);
+  });
+}
+
 async function createProject(config: VercelProjectConfig): Promise<ProviderResult<VercelProjectResult>> {
   log.info(PROVIDER, "createProject", `creating project: ${config.name}`);
 
@@ -367,6 +395,7 @@ async function getDeploymentStatus(
 }
 
 export const Vercel: VercelProvider = {
+  findProjectByName,
   createProject,
   deploy,
   bindDomain,

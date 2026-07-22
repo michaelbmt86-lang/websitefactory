@@ -257,17 +257,17 @@ export function getSettings(): SiteSettings {
   const row = db.prepare("SELECT * FROM settings LIMIT 1").get() as SiteSettings | undefined;
   return row ?? {
     id: 1,
-    site_name: "BioPak Australia",
+    site_name: process.env.SITE_NAME || "",
     logo: "/images/logo.png",
     favicon: "/seo/favicon.png",
-    meta_title: "Market Leaders in Sustainable Packaging | BioPak Australia",
-    meta_description: "Award-winning plant-based compostable packaging that puts the planet first.",
+    meta_title: "",
+    meta_description: "",
     og_image: "/images/hero-bg.jpg",
-    phone: "1300 246 725",
-    email: "sales@biopak.com.au",
-    address: "Sydney, Australia",
-    facebook_url: "https://www.facebook.com/biopak/",
-    linkedin_url: "https://www.linkedin.com/company/biopakpackaging/",
+    phone: "",
+    email: "",
+    address: "",
+    facebook_url: "",
+    linkedin_url: "",
     instagram_url: ""
   };
 }

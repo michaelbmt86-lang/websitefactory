@@ -14,7 +14,7 @@
   - Two CTA buttons
 - Right column:
   - Stats: "500+" / "Custom Projects"
-  - Image: Custom BioPak Cup
+  - Image: Custom packaging example
 
 ## Computed Styles
 
@@ -130,7 +130,7 @@
 - Stats Label: "Custom Projects"
 
 ## Assets
-- `public/images/custom/custom-biopak-cup.jpg`
+- `public/images/custom/custom-example.jpg`
 
 ## Responsive Behavior
 - **Desktop (1440px):** Two columns side-by-side

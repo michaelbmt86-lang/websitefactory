@@ -139,7 +139,7 @@
 - **INDUSTRY**: Fast Food, Events, Distributors, Coffee Roasters
 - **SUSTAINABILITY**: Plastic Bans, Disposal Guide, Compost Connect, Impact Report
 - **NEWS**: Blog, Customer Stories, Media Centre
-- **ABOUT US**: Why BioPak, Sustainability, Give Back Fund, Awards, Contact
+- **ABOUT US**: Why Us, Sustainability, Give Back Fund, Awards, Contact
 
 ## Text Content
 - Nav items: SHOP, CUSTOM, INDUSTRY, SUSTAINABILITY, NEWS, ABOUT US

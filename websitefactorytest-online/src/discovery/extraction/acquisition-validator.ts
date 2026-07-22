@@ -3,12 +3,11 @@
 //
 // Pure validation plugin. Evaluates acquisition quality.
 // No external calls. No crawling. No API calls.
-// Input: HTML, Metadata, Engine Name
-// Output: ValidationResult (status, score, reason, checks)
+// Input: HTML, Metadata
+// Output: ValidationResult (status, score, confidence, reason, checks)
 // ============================================================================
 
 import type {
-  ExtractionEngineName,
   ValidationCheck,
   ValidationResult,
   ValidatorConfig,
@@ -23,7 +22,6 @@ import { DEFAULT_VALIDATOR_CONFIG, SCORE_WEIGHTS } from "./validator-config";
 export function validateAcquisition(
   html: string,
   title: string | null,
-  engine: ExtractionEngineName,
   config: ValidatorConfig = DEFAULT_VALIDATOR_CONFIG
 ): ValidationResult {
   const checks: ValidationCheck[] = [];
@@ -77,14 +75,18 @@ export function validateAcquisition(
   // Determine status
   const status = totalScore >= config.minimumScore ? "PASS" : "FAIL";
 
+  // Calculate confidence based on how many checks passed
+  const passedChecks = checks.filter((c) => c.passed).length;
+  const confidence = passedChecks / checks.length;
+
   // Generate reason
   const reason = generateReason(checks, status, totalScore);
 
   return {
     status,
     score: totalScore,
+    confidence,
     reason,
-    engine,
     checks,
   };
 }

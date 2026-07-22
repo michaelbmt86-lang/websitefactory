@@ -2,8 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
 import { ArrowRightIcon, LeafIcon } from "@/components/icons";
 
 export default function NotFound() {
@@ -11,8 +9,7 @@ export default function NotFound() {
 
   return (
     <>
-      <SiteHeader />
-      <main className="flex min-h-[calc(100vh-72px-200px)] flex-col items-center justify-center px-4 py-20 text-center">
+      <main className="flex min-h-[calc(100vh-200px)] flex-col items-center justify-center px-4 py-20 text-center">
         <LeafIcon size={48} className="mb-6 text-[#007A55]/30" />
         <div className="mb-2 text-8xl font-extrabold text-[#007A55] md:text-9xl">
           404
@@ -41,7 +38,9 @@ export default function NotFound() {
           </button>
         </div>
       </main>
-      <SiteFooter />
+      <footer className="bg-[rgb(21,21,21)] px-4 py-8 text-center text-sm text-white/50">
+        &copy; {new Date().getFullYear()} All rights reserved.
+      </footer>
     </>
   );
 }
