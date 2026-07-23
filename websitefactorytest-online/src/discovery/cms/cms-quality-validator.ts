@@ -136,6 +136,61 @@ export function validateCmsQuality(): CmsQualityResult {
     });
   }
 
+  // 6. Check collection consistency — product_count vs products_json length
+  const extractedSlugs = new Set(
+    (db.prepare("SELECT slug FROM extracted_products WHERE status = 'completed'").all() as { slug: string }[]).map(r => r.slug)
+  );
+
+  for (const collection of collections) {
+    let productsJson: { slug: string; name: string }[] = [];
+    try {
+      productsJson = JSON.parse(collection.products_json || "[]");
+    } catch { /* skip */ }
+
+    if (collection.product_count !== productsJson.length) {
+      issues.push({
+        entityType: "collection",
+        entityId: collection.id,
+        entitySlug: collection.slug,
+        issueType: "data-mismatch",
+        severity: "warning",
+        message: `Collection "${collection.name}" product_count (${collection.product_count}) differs from products_json length (${productsJson.length})`,
+      });
+    }
+
+    const orphaned = productsJson.filter(p => !extractedSlugs.has(p.slug));
+    if (orphaned.length > 0) {
+      issues.push({
+        entityType: "collection",
+        entityId: collection.id,
+        entitySlug: collection.slug,
+        issueType: "orphaned-reference",
+        severity: "warning",
+        message: `Collection "${collection.name}" references ${orphaned.length} products not found in extracted_products`,
+      });
+    }
+  }
+
+  // 7. Check blog posts exist in cms_pages (blog generator consistency)
+  const blogPosts = db.prepare("SELECT * FROM cms_pages WHERE page_type = 'blog-post'").all() as CmsPage[];
+  const postSlugs = new Set(
+    (db.prepare("SELECT slug FROM posts").all() as { slug: string }[]).map(r => r.slug)
+  );
+
+  for (const blog of blogPosts) {
+    const postSlug = blog.slug.replace(/^blog-/, "");
+    if (!postSlugs.has(postSlug)) {
+      issues.push({
+        entityType: "page",
+        entityId: blog.id,
+        entitySlug: blog.slug,
+        issueType: "orphaned-reference",
+        severity: "warning",
+        message: `Blog post "${blog.title}" references non-existent post slug "${postSlug}"`,
+      });
+    }
+  }
+
   const missingMetadata = issues.filter(i => i.issueType === "missing-metadata").length;
   const missingSeo = issues.filter(i => i.issueType === "missing-seo").length;
   const brokenLinkIssues = issues.filter(i => i.issueType === "broken-link").length;

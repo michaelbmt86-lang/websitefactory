@@ -9,6 +9,7 @@ export { DiscoveryEngine, discoverSite } from "./discovery-engine";
 export { discoverSitemaps, crawlSitemaps, fetchText, parseRobotsTxt, parseSitemapXml } from "./sitemap-parser";
 export { extractPageData, fetchPageStatus } from "./page-extractor";
 export { classifyUrlByPath, classifyByContent, normalizeUrl, extractSlug, isInternalUrl } from "./page-classifier";
+export { slugify } from "../lib/slugify";
 export { buildUrlGraph, getNodeDepth, getChildren, getParent, getSiblings, getNodesByType, getNodesByStatus, getNodesByDepth, getPath } from "./url-graph";
 export { generateSiteMapJson, generateUrlGraphJson, generateCrawlSummary, generateDeliveryReport } from "./output-generator";
 
@@ -29,13 +30,6 @@ export { extractAllMedia, getMediaAssetsForProduct, getAllMediaAssets } from "./
 export { analyzeNetworkData } from "./network-analyzer";
 export { prepareHtmlForExtraction, extractAccordionContent, extractTabContent } from "./dynamic-renderer";
 export { analyzeWithGemini } from "./gemini-analyzer";
-export type { GeminiInput, GeminiOutput } from "./gemini-analyzer";
-export type { AnalyzerAdapter } from "./analyzer-adapter";
-export { regexAnalyzerAdapter } from "./adapters/regex-analyzer";
-export { analyze, getActiveProviderName, setActiveProvider } from "./analyzer-engine";
-export { AnalyzerProviderRegistry, analyzerRegistry } from "./analyzer-provider-registry";
-export { buildAnalyzerInput } from "./analyzer-input-builder";
-export type { AnalyzerInputSource } from "./analyzer-input-builder";
 export { validateExtractionQuality } from "./quality-validator";
 export { generateProductsJson, generateMediaLibraryJson, generateSEOLibraryJson, generateSchemaLibraryJson } from "./detail-output-generator";
 

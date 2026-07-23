@@ -12,6 +12,19 @@ import type { OrchestratorInput } from "@/orchestrator/website-factory-orchestra
 import { createProjectIdentity } from "../../deployment/types/identity";
 
 // ---------------------------------------------------------------------------
+// Global error handlers — ensure fatal errors are always visible
+// ---------------------------------------------------------------------------
+process.on("unhandledRejection", (reason) => {
+  console.error("[website-factory] Unhandled rejection:", reason);
+  process.exit(1);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("[website-factory] Uncaught exception:", err);
+  process.exit(1);
+});
+
+// ---------------------------------------------------------------------------
 // Argument parser — supports Key=Value (no dashes)
 // ---------------------------------------------------------------------------
 function parseArgs(argv: string[]): Record<string, string> {
@@ -107,4 +120,7 @@ async function main(): Promise<void> {
   process.exit(result.overallStatus === "failed" ? 1 : 0);
 }
 
-main();
+main().catch((err) => {
+  console.error("[website-factory] Fatal error:", err);
+  process.exit(1);
+});

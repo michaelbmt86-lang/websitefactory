@@ -84,7 +84,7 @@ async function verifyPreflight(): Promise<VerificationCheck[]> {
   }));
 
   checks.push(await runCheck(0, "context_domain", "runtime", async () => {
-    if (!getContext().targetDomain) throw new Error("targetDomain is empty");
+    if (!getContext().identity.productDomain) throw new Error("identity.productDomain is empty");
     if (!getContext().deploymentProvider) throw new Error("deploymentProvider is empty");
     if (!getContext().dnsProvider) throw new Error("dnsProvider is empty");
   }));
@@ -134,7 +134,7 @@ async function verifyGitHub(): Promise<VerificationCheck[]> {
 
 async function verifyCloudflare(): Promise<VerificationCheck[]> {
   const checks: VerificationCheck[] = [];
-  const domain = getContext().targetDomain;
+  const domain = getContext().identity.productDomain;
 
   checks.push(await runCheck(2, "cloudflare_zone_lookup", "cloudflare", async () => {
     const result = await Cloudflare.getZone(domain);
@@ -157,7 +157,7 @@ async function verifyCloudflare(): Promise<VerificationCheck[]> {
 
 async function verifyVercel(): Promise<VerificationCheck[]> {
   const checks: VerificationCheck[] = [];
-  const projectSlug = getContext().projectSlug;
+  const projectSlug = getContext().identity.productSlug;
 
   checks.push(await runCheck(3, "vercel_project_check", "vercel", async () => {
     const { status } = await fetch(
@@ -183,8 +183,8 @@ async function verifyVercel(): Promise<VerificationCheck[]> {
     );
     if (domainsResp.status !== 200) throw new Error(`Vercel domain list returned HTTP ${domainsResp.status}`);
     const { domains } = await domainsResp.json() as { domains: Array<{ name: string }> };
-    const bound = domains?.some((d) => d.name === getContext().targetDomain);
-    if (!bound) throw new Error(`Domain "${getContext().targetDomain}" is not bound to project "${projectSlug}"`);
+    const bound = domains?.some((d) => d.name === getContext().identity.productDomain);
+    if (!bound) throw new Error(`Domain "${getContext().identity.productDomain}" is not bound to project "${projectSlug}"`);
   }));
 
   return checks;

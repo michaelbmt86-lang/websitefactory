@@ -6,15 +6,9 @@
 // ============================================================================
 
 import db from "@/lib/db";
+import { slugify } from "@/lib/slugify";
 import type { ExtractedProduct, CmsBrand } from "@/types/discovery";
 import type { ProjectIdentity } from "../../../deployment/types/identity";
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function generateBrands(_identity: ProjectIdentity): {

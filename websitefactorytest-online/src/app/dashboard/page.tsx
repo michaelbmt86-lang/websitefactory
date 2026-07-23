@@ -118,10 +118,10 @@ export default function DashboardHome() {
 
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-gray-100">
+      <div className="flex h-64 items-center justify-center">
         <div className="text-center">
           <div className="mb-4 h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent mx-auto"></div>
-          <p className="text-lg text-gray-600">Loading Dashboard...</p>
+          <p className="text-gray-600">Loading Dashboard...</p>
         </div>
       </div>
     );
@@ -129,59 +129,14 @@ export default function DashboardHome() {
 
   if (!data) {
     return (
-      <div className="flex h-screen items-center justify-center bg-gray-100">
+      <div className="flex h-64 items-center justify-center">
         <p className="text-lg text-red-600">Failed to load dashboard data.</p>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 shrink-0 bg-slate-900 text-white">
-        <div className="border-b border-slate-700 p-6">
-          <h1 className="text-xl font-bold">{data.settings?.site_name ?? process.env.SITE_NAME ?? "Website"} CMS</h1>
-        </div>
-        <nav className="space-y-0.5 p-4">
-          <p className="mb-2 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Content</p>
-          <NavLink href="/dashboard" label="Dashboard" icon="📊" />
-          <NavLink href="/dashboard/products" label="Products" icon="📦" />
-          <NavLink href="/dashboard/categories" label="Categories" icon="📁" />
-          <NavLink href="/dashboard/pages" label="Pages" icon="📄" />
-          <NavLink href="/dashboard/navigation" label="Navigation" icon="🧭" />
-          <NavLink href="/dashboard/media" label="Media" icon="🖼️" />
-          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Discovery</p>
-          <NavLink href="/dashboard/discovery" label="Site Discovery" icon="🔍" />
-          <NavLink href="/dashboard/discovery/urls" label="Discovered URLs" icon="🔗" />
-          <NavLink href="/dashboard/product-discovery" label="Product Discovery" icon="🛒" />
-          <NavLink href="/dashboard/product-discovery/products" label="Product URLs" icon="📦" />
-          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Detail Extraction</p>
-          <NavLink href="/dashboard/detail-extraction" label="Extraction Overview" icon="🔍" />
-          <NavLink href="/dashboard/detail-extraction/products" label="Extracted Products" icon="📦" />
-          <NavLink href="/dashboard/detail-extraction/images" label="Images" icon="🖼️" />
-          <NavLink href="/dashboard/detail-extraction/seo" label="SEO" icon="📋" />
-          <NavLink href="/dashboard/detail-extraction/schema" label="Schema" icon="📐" />
-          <NavLink href="/dashboard/extraction-recovery" label="Extraction Recovery" icon="🛡️" />
-          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">CMS Generator</p>
-          <NavLink href="/dashboard/cms-generator" label="Overview" icon="🏗️" />
-          <NavLink href="/dashboard/cms-generator/pages" label="Pages" icon="📄" />
-          <NavLink href="/dashboard/cms-generator/brands" label="Brands" icon="🏷️" />
-          <NavLink href="/dashboard/cms-generator/collections" label="Collections" icon="📁" />
-          <NavLink href="/dashboard/cms-generator/seo" label="SEO" icon="🔍" />
-          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Verification</p>
-          <NavLink href="/dashboard/verification" label="Overview" icon="🛡️" />
-          <NavLink href="/dashboard/verification/audit" label="Audit" icon="🔎" />
-          <NavLink href="/dashboard/verification/repair" label="Repair" icon="🔧" />
-          <NavLink href="/dashboard/verification/build" label="Build" icon="🏗️" />
-          <NavLink href="/dashboard/verification/deployment" label="Deployment" icon="🚀" />
-          <p className="mb-2 mt-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Settings</p>
-          <NavLink href="/dashboard/settings" label="General" icon="⚙️" />
-          <NavLink href="/dashboard/seo" label="SEO" icon="🔍" />
-        </nav>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-8">
+    <div className="p-8">
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900">Dashboard</h2>
           <p className="mt-1 text-gray-600">
@@ -509,20 +464,7 @@ export default function DashboardHome() {
             </div>
           </div>
         )}
-      </main>
     </div>
-  );
-}
-
-function NavLink({ href, label, icon }: { href: string; label: string; icon: string }) {
-  return (
-    <Link
-      href={href}
-      className="flex items-center gap-3 rounded px-3 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-slate-700 hover:text-white"
-    >
-      <span>{icon}</span>
-      <span>{label}</span>
-    </Link>
   );
 }
 

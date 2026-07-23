@@ -1,7 +1,7 @@
 {
-  "siteUrl": "https://sportsgoods.en.alibaba.com",
+  "siteUrl": "https://www.liewood.com",
   "productDomain": "websitefactorytest.online",
-  "generatedAt": "2026-07-22T05:29:09.523Z",
+  "generatedAt": "2026-07-23T02:50:33.828Z",
   "version": "1.0.0",
   "pages": [
     {
@@ -26,44 +26,214 @@
       "status": "published"
     },
     {
-      "url": "https://websitefactorytest.online/productgrouplist-922829520/Top_sale_product.html",
-      "slug": "Top_sale_product.html",
-      "title": "Top sale product - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
-      "pageType": "category",
-      "status": "published"
-    },
-    {
       "url": "https://websitefactorytest.online/",
       "slug": "",
-      "title": "Company Overview - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
+      "title": "www.liewood.com",
       "pageType": "homepage",
       "status": "published"
     },
     {
-      "url": "https://websitefactorytest.online/productgrouplist-941419449/Kids_Swimwear.html",
-      "slug": "Kids_Swimwear.html",
-      "title": "Kids Swimwear - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
+      "url": "https://websitefactorytest.online/products/weston-small-storage-box-2-pack-whale-blue",
+      "slug": "weston-small-storage-box-2-pack-whale-blue",
+      "title": "Elijah Storage Box with Lid - Tuscany rose",
       "pageType": "page",
       "status": "published"
     },
     {
-      "url": "https://websitefactorytest.online/productgrouplist-902587773/Life_Jackets.html",
-      "slug": "Life_Jackets.html",
-      "title": "Life Jackets - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
+      "url": "https://websitefactorytest.online/products/lewis-muslin-cloth-2-pack-all-together-sandy",
+      "slug": "lewis-muslin-cloth-2-pack-all-together-sandy",
+      "title": "Elijah Storage Box with Lid - Tuscany rose",
       "pageType": "page",
       "status": "published"
     },
     {
-      "url": "https://websitefactorytest.online/productgrouplist-826961527/Men_s_Wetsuit.html",
-      "slug": "Men_s_Wetsuit.html",
-      "title": "Men's Wetsuit - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
+      "url": "https://websitefactorytest.online/products/arthur-lunch-box-all-together-sandy",
+      "slug": "arthur-lunch-box-all-together-sandy",
+      "title": "Elijah Storage Box with Lid - Tuscany rose",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/products/weston-small-storage-box-2-pack-sandy",
+      "slug": "weston-small-storage-box-2-pack-sandy",
+      "title": "Elijah Storage Box with Lid - Tuscany rose",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/agents.md",
+      "slug": "agents.md",
+      "title": "Emi Wet Wipes Cover - Sandy",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/products/emi-wet-wipes-cover-sandy",
+      "slug": "emi-wet-wipes-cover-sandy",
+      "title": "Emi Wet Wipes Cover - Sandy",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/essentials",
+      "slug": "essentials",
+      "title": "Essentials",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/weaning",
+      "slug": "weaning",
+      "title": "Essentials",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/products/gift-card",
+      "slug": "gift-card",
+      "title": "Essentials",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/pages/shipping-and-delivery",
+      "slug": "shipping-and-delivery",
+      "title": "Shipping and Delivery",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/products/elijah-storage-box-w-lid-whale-blue",
+      "slug": "elijah-storage-box-w-lid-whale-blue",
+      "title": "Tilda Printed Bib 2-Pack - All together / Sandy",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/products/peony-suction-bowl-2-pack-mustard-tuscany-rose-mix",
+      "slug": "peony-suction-bowl-2-pack-mustard-tuscany-rose-mix",
+      "title": "Tilda Printed Bib 2-Pack - All together / Sandy",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/products/stacy-divider-suction-plate-2-pack-mustard-tuscany-rose-mix",
+      "slug": "stacy-divider-suction-plate-2-pack-mustard-tuscany-rose-mix",
+      "title": "Tilda Printed Bib 2-Pack - All together / Sandy",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/products/hope-storage-caddy-whale-blue",
+      "slug": "hope-storage-caddy-whale-blue",
+      "title": "WESTON Medium Storage Box 2-Pack - Sandy",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/products/hope-storage-caddy-sandy",
+      "slug": "hope-storage-caddy-sandy",
+      "title": "WESTON Medium Storage Box 2-Pack - Sandy",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/products/weston-medium-storage-box-2-pack-sandy",
+      "slug": "weston-medium-storage-box-2-pack-sandy",
+      "title": "WESTON Medium Storage Box 2-Pack - Sandy",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/products/hope-storage-caddy-rose",
+      "slug": "hope-storage-caddy-rose",
+      "title": "WESTON Medium Storage Box 2-Pack - Sandy",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/products/may-storage-caddy-sandy",
+      "slug": "may-storage-caddy-sandy",
+      "title": "Weston Large Storage Box - Whale blue",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/products/samantha-basket-rose",
+      "slug": "samantha-basket-rose",
+      "title": "Weston Large Storage Box - Whale blue",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/new-products",
+      "slug": "new-products",
+      "title": "www.liewood.com",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/back-to-school",
+      "slug": "back-to-school",
+      "title": "www.liewood.com",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/online-exclusives",
+      "slug": "online-exclusives",
+      "title": "www.liewood.com",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/bestsellers",
+      "slug": "bestsellers",
+      "title": "www.liewood.com",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/gifts",
+      "slug": "gifts",
+      "title": "www.liewood.com",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/pages/newborn-must-haves",
+      "slug": "newborn-must-haves",
+      "title": "www.liewood.com",
+      "pageType": "page",
+      "status": "published"
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/gifts-0-2-years",
+      "slug": "gifts-0-2-years",
+      "title": "www.liewood.com",
       "pageType": "page",
       "status": "published"
     }
   ],
   "brands": [],
-  "collections": [],
-  "categories": [],
+  "collections": [
+    {
+      "name": "Unknown",
+      "slug": "unknown",
+      "productCount": 14
+    },
+    {
+      "name": "All Products",
+      "slug": "all-products",
+      "productCount": 14
+    }
+  ],
+  "categories": [
+    {
+      "name": "Unknown",
+      "slug": "unknown"
+    }
+  ],
   "blog": [
     {
       "title": "Getting Started with Our Products",
@@ -81,5 +251,5 @@
       "excerpt": "Learn about our dedication to quality and customer satisfaction across every product we offer."
     }
   ],
-  "totalEntities": 11
+  "totalEntities": 35
 }

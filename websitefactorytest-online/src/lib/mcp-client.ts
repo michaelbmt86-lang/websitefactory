@@ -25,6 +25,7 @@ async function getClient(): Promise<Client> {
 
   connectPromise = (async () => {
     try {
+      console.log("[mcp-client] Connecting to Chrome DevTools MCP server...");
       transport = new StdioClientTransport({
         command: "npx",
         args: ["-y", "chrome-devtools-mcp@latest", "--headless", "--isolated"],
@@ -34,7 +35,12 @@ async function getClient(): Promise<Client> {
       const c = new Client({ name: "website-factory", version: "1.0.0" });
       await c.connect(transport);
       client = c;
+      console.log("[mcp-client] Connected successfully");
       return c;
+    } catch (err) {
+      console.error("[mcp-client] Connection failed:", err instanceof Error ? err.message : err);
+      transport = null;
+      throw err;
     } finally {
       connectPromise = null;
     }
@@ -60,13 +66,22 @@ export async function fetchRenderedHtml(
   url: string,
   timeoutMs: number,
 ): Promise<string> {
-  const c = await getClient();
+  let c: Client;
+  try {
+    c = await getClient();
+  } catch (err) {
+    // Connection failed — reset stale state and rethrow
+    client = null;
+    transport = null;
+    throw err;
+  }
   resetIdleTimer();
 
   let pageId: number | undefined;
 
   try {
     // 1. Open a new tab and load the URL (waits for page load)
+    console.log(`[mcp-client] Fetching rendered HTML: ${url} (timeout: ${timeoutMs}ms)`);
     const navResult = await c.callTool({
       name: "new_page",
       arguments: { url, timeout: timeoutMs },
@@ -103,7 +118,12 @@ export async function fetchRenderedHtml(
       throw new Error("Rendered HTML was empty");
     }
 
+    console.log(`[mcp-client] Fetched ${html.length} bytes from ${url}`);
     return html;
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`[mcp-client] Failed to fetch ${url}: ${msg}`);
+    throw err;
   } finally {
     // 3. Close the tab if we have a pageId
     if (pageId !== undefined) {
@@ -137,6 +157,7 @@ export async function shutdown(): Promise<void> {
   if (c) {
     try {
       await c.close();
+      console.log("[mcp-client] Client closed");
     } catch {
       // Best effort
     }
@@ -145,6 +166,7 @@ export async function shutdown(): Promise<void> {
   if (t) {
     try {
       await t.close();
+      console.log("[mcp-client] Transport closed");
     } catch {
       // Best effort
     }
@@ -159,6 +181,13 @@ if (typeof process !== "undefined") {
     if (client) {
       try {
         client.close();
+      } catch {
+        // Best effort — process is exiting
+      }
+    }
+    if (transport) {
+      try {
+        transport.close();
       } catch {
         // Best effort — process is exiting
       }

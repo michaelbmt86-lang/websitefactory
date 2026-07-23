@@ -69,16 +69,16 @@ export class ProductDiscoveryEngine {
 
   async discover(): Promise<ProductDiscoveryResult> {
     const startTimeMs = Date.now();
-
-    // Clear previous product_urls data
-    db.prepare("DELETE FROM product_urls").run();
+    console.log("[product-discovery] Starting product discovery for", this.baseUrl);
 
     // PIPELINE CONTRACT: Read ONLY from Discovery output (site_urls)
+    const maxProducts = this.options.maxProducts ?? 5000;
     const siteUrls = db.prepare(`
       SELECT * FROM site_urls
       WHERE status IN ('crawled', 'discovered')
       ORDER BY priority DESC
-    `).all() as Array<{
+      LIMIT ?
+    `).all(maxProducts) as Array<{
       id: number;
       url: string;
       slug: string;
@@ -87,6 +87,8 @@ export class ProductDiscoveryEngine {
       title: string;
       json_ld: string | null;
     }>;
+
+    console.log(`[product-discovery] Processing ${siteUrls.length} crawled URL(s)...`);
 
     // Classify each URL and store product URLs
     for (const siteUrl of siteUrls) {
@@ -106,8 +108,12 @@ export class ProductDiscoveryEngine {
     }
 
     const endTimeMs = Date.now();
+    const result = this.generateResults(startTimeMs, endTimeMs);
 
-    return this.generateResults(startTimeMs, endTimeMs);
+    console.log(`[product-discovery] Complete: ${result.totalProducts} product(s) found in ${result.discoveryTimeMs}ms`);
+    console.log(`[product-discovery]   Categories: ${result.totalCategories}, Duplicates: ${result.duplicatesFound}`);
+
+    return result;
   }
 
   // -------------------------------------------------------------------------

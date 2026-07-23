@@ -1,54 +1,186 @@
 {
-  "siteUrl": "https://sportsgoods.en.alibaba.com",
+  "siteUrl": "https://www.liewood.com",
   "productDomain": "websitefactorytest.online",
-  "generatedAt": "2026-07-22T05:29:09.529Z",
-  "totalUrls": 8,
+  "generatedAt": "2026-07-23T02:50:33.834Z",
+  "totalUrls": 30,
   "urls": [
     {
       "url": "https://websitefactorytest.online/blog/getting-started",
-      "lastmod": "2026-07-22 05:29:09",
+      "lastmod": "2026-07-23 02:50:33",
       "changefreq": "weekly",
       "priority": 0.7
     },
     {
       "url": "https://websitefactorytest.online/blog/choosing-right-products",
-      "lastmod": "2026-07-22 05:29:09",
+      "lastmod": "2026-07-23 02:50:33",
       "changefreq": "weekly",
       "priority": 0.7
     },
     {
       "url": "https://websitefactorytest.online/blog/commitment-to-quality",
-      "lastmod": "2026-07-22 05:29:09",
+      "lastmod": "2026-07-23 02:50:33",
       "changefreq": "weekly",
       "priority": 0.7
     },
     {
-      "url": "https://websitefactorytest.online/productgrouplist-922829520/Top_sale_product.html",
-      "lastmod": "2026-07-22 05:29:09",
-      "changefreq": "monthly",
-      "priority": 0.9
-    },
-    {
       "url": "https://websitefactorytest.online/",
-      "lastmod": "2026-07-22 05:29:09",
+      "lastmod": "2026-07-23 02:50:33",
       "changefreq": "monthly",
       "priority": 1
     },
     {
-      "url": "https://websitefactorytest.online/productgrouplist-941419449/Kids_Swimwear.html",
-      "lastmod": "2026-07-22 05:29:09",
+      "url": "https://websitefactorytest.online/products/weston-small-storage-box-2-pack-whale-blue",
+      "lastmod": "2026-07-23 02:50:33",
       "changefreq": "monthly",
       "priority": 0.5
     },
     {
-      "url": "https://websitefactorytest.online/productgrouplist-902587773/Life_Jackets.html",
-      "lastmod": "2026-07-22 05:29:09",
+      "url": "https://websitefactorytest.online/products/lewis-muslin-cloth-2-pack-all-together-sandy",
+      "lastmod": "2026-07-23 02:50:33",
       "changefreq": "monthly",
       "priority": 0.5
     },
     {
-      "url": "https://websitefactorytest.online/productgrouplist-826961527/Men_s_Wetsuit.html",
-      "lastmod": "2026-07-22 05:29:09",
+      "url": "https://websitefactorytest.online/products/arthur-lunch-box-all-together-sandy",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/products/weston-small-storage-box-2-pack-sandy",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/agents.md",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/products/emi-wet-wipes-cover-sandy",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/essentials",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/weaning",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/products/gift-card",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/pages/shipping-and-delivery",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/products/elijah-storage-box-w-lid-whale-blue",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/products/peony-suction-bowl-2-pack-mustard-tuscany-rose-mix",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/products/stacy-divider-suction-plate-2-pack-mustard-tuscany-rose-mix",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/products/hope-storage-caddy-whale-blue",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/products/hope-storage-caddy-sandy",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/products/weston-medium-storage-box-2-pack-sandy",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/products/hope-storage-caddy-rose",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/products/may-storage-caddy-sandy",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/products/samantha-basket-rose",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/new-products",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/back-to-school",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/online-exclusives",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/bestsellers",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/gifts",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/pages/newborn-must-haves",
+      "lastmod": "2026-07-23 02:50:33",
+      "changefreq": "monthly",
+      "priority": 0.5
+    },
+    {
+      "url": "https://websitefactorytest.online/collections/gifts-0-2-years",
+      "lastmod": "2026-07-23 02:50:33",
       "changefreq": "monthly",
       "priority": 0.5
     }

@@ -5,7 +5,7 @@ import GitHub from "./providers/github";
 import Vercel from "./providers/vercel";
 import Cloudflare from "./providers/cloudflare";
 import * as log from "./providers/logger";
-import { retry, sleep } from "./providers/utils";
+import { retry, sleep, dateStamp } from "./providers/utils";
 import type { ProviderResult } from "./providers/types";
 import { runWorkflow } from "./workflowRunner";
 import type { WorkflowDefinition, WorkflowExecutor, WorkflowStep } from "./workflowRunner";
@@ -29,7 +29,7 @@ interface PersistedDeploymentState {
   deploymentId: string;
   deploymentUrl: string;
   zoneId: string;
-  completedSteps: string[];
+  lastCompletedStep: string;
   timestamp: number;
 }
 
@@ -41,7 +41,7 @@ function getStatePath(domain: string): string {
   return path.join(stateDir, `${domain}.json`);
 }
 
-function persistState(state: PipelineState, completedSteps: string[]): void {
+function persistState(state: PipelineState): void {
   const filePath = getStatePath(state.domain);
   const data: PersistedDeploymentState = {
     domain: state.domain,
@@ -51,7 +51,7 @@ function persistState(state: PipelineState, completedSteps: string[]): void {
     deploymentId: state.deploymentId,
     deploymentUrl: state.deploymentUrl,
     zoneId: state.zoneId,
-    completedSteps,
+    lastCompletedStep: state.lastCompletedStep,
     timestamp: Date.now(),
   };
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf8");
@@ -64,7 +64,7 @@ function loadPersistedState(domain: string): PersistedDeploymentState | null {
     if (fs.existsSync(filePath)) {
       const raw = fs.readFileSync(filePath, "utf8");
       const data = JSON.parse(raw) as PersistedDeploymentState;
-      log.info("deploy", "loadPersistedState", `loaded state for ${domain} (${data.completedSteps.length} steps completed)`);
+      log.info("deploy", "loadPersistedState", `loaded state for ${domain}`);
       return data;
     }
   } catch (err) {
@@ -90,6 +90,7 @@ export interface PipelineState {
   projectId: string;
   deploymentId: string;
   deploymentUrl: string;
+  lastCompletedStep: string;
   repairHistory: RepairEntry[];
   checks: DeliveryCheck[];
   failureReason: string | null;
@@ -214,6 +215,7 @@ function buildInitialState(): PipelineState {
     projectId: persisted?.projectId ?? "",
     deploymentId: persisted?.deploymentId ?? "",
     deploymentUrl: persisted?.deploymentUrl ?? "",
+    lastCompletedStep: persisted?.lastCompletedStep ?? "",
     repairHistory: [],
     checks: [],
     failureReason: null,
@@ -249,22 +251,6 @@ async function deliveryCheck(
     log.error("deploy", name, `FAILED (${duration}ms): ${message}`);
     return { step, name, passed: false, message, duration };
   }
-}
-
-/* ============================================================================
- * Unique project name generator
- *
- * Tries: slug → slug-2 → slug-3 → slug-YYYYMMDD → slug-YYYYMMDD-2
- * Never reuses an existing Vercel project.
- * ============================================================================
- */
-
-function dateStamp(): string {
-  const d = new Date();
-  const y = d.getUTCFullYear();
-  const m = String(d.getUTCMonth() + 1).padStart(2, "0");
-  const day = String(d.getUTCDate()).padStart(2, "0");
-  return `${y}${m}${day}`;
 }
 
 /* ============================================================================
@@ -750,7 +736,7 @@ async function stepDeliveryComplete(
   dryRun: boolean,
 ): Promise<StepResult> {
   return runStep(step.step, step.id, step.provider, dryRun, async () => {
-    log.info("deploy", "delivery_complete", "=== 19-CHECK DELIVERY VERIFICATION ===");
+    log.info("deploy", "delivery_complete", "=== 17-CHECK DELIVERY VERIFICATION ===");
     const deliveryStart = Date.now();
     const checks: DeliveryCheck[] = [];
 
@@ -831,14 +817,42 @@ async function stepDeliveryComplete(
       if (html.length < 5000) throw new Error(`Homepage too small: ${html.length} bytes (expected > 5000)`);
     }));
 
-    // ── Check 11: Dashboard 200 ───────────────────────────────────────────
-    checks.push(await deliveryCheck(11, "dashboard_200", async () => {
+    // ── Check 10: No critical route errors (404/500/525) ──────────────────
+    checks.push(await deliveryCheck(10, "critical_routes_ok", async () => {
+      const paths = ["/about", "/products", "/contact", "/blog", "/login", "/dashboard"];
+      for (const p of paths) {
+        const resp = await fetch(`https://${state.identity.productDomain}${p}`, { redirect: "follow" });
+        if (resp.status === 404) throw new Error(`${p} returned 404 NOT_FOUND`);
+        if (resp.status === 500) throw new Error(`${p} returned 500 Internal Server Error`);
+        if (resp.status === 525) throw new Error(`${p} returned 525 SSL Handshake Failed`);
+      }
+    }));
+
+    // ── Check 11: No 525 SSL errors ───────────────────────────────────────
+    checks.push(await deliveryCheck(11, "no_525_ssl_errors", async () => {
+      const urls = [`https://${state.identity.productDomain}`, `https://www.${state.identity.productDomain}`];
+      for (const url of urls) {
+        const resp = await fetch(url, { redirect: "follow" });
+        if (resp.status === 525) throw new Error(`${url} returned 525 SSL Handshake Failed`);
+      }
+    }));
+
+    // ── Check 12: Cloudflare DNS verified ──────────────────────────────────
+    checks.push(await deliveryCheck(12, "cloudflare_dns_verified", async () => {
+      if (!state.zoneId) throw new Error("zoneId not set");
+      const zone = await Cloudflare.getZone(state.identity.productDomain);
+      requireSuccess(zone, "getZone");
+      if (!zone.data) throw new Error(`Cloudflare zone not found for ${state.identity.productDomain}`);
+    }));
+
+    // ── Check 13: Dashboard 200 ───────────────────────────────────────────
+    checks.push(await deliveryCheck(13, "dashboard_200", async () => {
       const resp = await fetch(`https://${state.identity.productDomain}/dashboard`, { redirect: "follow" });
       if (!resp.ok) throw new Error(`/dashboard returned HTTP ${resp.status}`);
     }));
 
-    // ── Check 12: Dashboard login works ────────────────────────────────────
-    checks.push(await deliveryCheck(12, "dashboard_login_works", async () => {
+    // ── Check 14: Dashboard login works ────────────────────────────────────
+    checks.push(await deliveryCheck(14, "dashboard_login_works", async () => {
       const resp = await fetch(`https://${state.identity.productDomain}/login`, { redirect: "follow" });
       if (!resp.ok) throw new Error(`/login returned HTTP ${resp.status}`);
       const html = await resp.text();
@@ -847,15 +861,15 @@ async function stepDeliveryComplete(
       }
     }));
 
-    // ── Check 13: Admin account exists ─────────────────────────────────────
-    checks.push(await deliveryCheck(13, "admin_account_exists", async () => {
+    // ── Check 15: Admin account exists ─────────────────────────────────────
+    checks.push(await deliveryCheck(15, "admin_account_exists", async () => {
       const resp = await fetch(`https://${state.identity.productDomain}/api/auth/me`);
       if (resp.status === 401) throw new Error("/api/auth/me returned 401 — admin not configured");
       if (!resp.ok) throw new Error(`/api/auth/me returned HTTP ${resp.status}`);
     }));
 
-    // ── Check 14: Admin login succeeds ─────────────────────────────────────
-    checks.push(await deliveryCheck(14, "admin_login_succeeds", async () => {
+    // ── Check 16: Admin login succeeds ─────────────────────────────────────
+    checks.push(await deliveryCheck(16, "admin_login_succeeds", async () => {
       const loginResp = await fetch(`https://${state.identity.productDomain}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -870,8 +884,8 @@ async function stepDeliveryComplete(
       }
     }));
 
-    // ── Check 15: Admin dashboard loads ────────────────────────────────────
-    checks.push(await deliveryCheck(15, "admin_dashboard_loads", async () => {
+    // ── Check 17: Admin dashboard loads ────────────────────────────────────
+    checks.push(await deliveryCheck(17, "admin_dashboard_loads", async () => {
       const cookie = await (async () => {
         const loginResp = await fetch(`https://${state.identity.productDomain}/api/auth/login`, {
           method: "POST",
@@ -890,59 +904,6 @@ async function stepDeliveryComplete(
         redirect: "follow",
       });
       if (!resp.ok) throw new Error(`Admin dashboard returned HTTP ${resp.status}`);
-    }));
-
-    // ── Check 16: No NOT_FOUND errors ─────────────────────────────────────
-    checks.push(await deliveryCheck(16, "no_not_found_errors", async () => {
-      const urls = [
-        `https://${state.identity.productDomain}/about`,
-        `https://${state.identity.productDomain}/products`,
-        `https://${state.identity.productDomain}/contact`,
-        `https://${state.identity.productDomain}/blog`,
-        `https://${state.identity.productDomain}/login`,
-        `https://${state.identity.productDomain}/dashboard`,
-      ];
-      for (const url of urls) {
-        const resp = await fetch(url, { redirect: "follow" });
-        if (resp.status === 404) throw new Error(`${url} returned 404 NOT_FOUND`);
-        if (resp.status === 500) throw new Error(`${url} returned 500`);
-        if (resp.status === 525) throw new Error(`${url} returned 525 SSL error`);
-      }
-    }));
-
-    // ── Check 17: No 404 pages ────────────────────────────────────────────
-    checks.push(await deliveryCheck(17, "no_404_pages", async () => {
-      const criticalPaths = ["/about", "/products", "/contact", "/blog", "/login"];
-      for (const p of criticalPaths) {
-        const resp = await fetch(`https://${state.identity.productDomain}${p}`, { redirect: "follow" });
-        if (resp.status === 404) throw new Error(`${p} returned 404`);
-      }
-    }));
-
-    // ── Check 18: No 500 errors ───────────────────────────────────────────
-    checks.push(await deliveryCheck(18, "no_500_errors", async () => {
-      const paths = ["/about", "/products", "/contact", "/blog", "/login", "/dashboard"];
-      for (const p of paths) {
-        const resp = await fetch(`https://${state.identity.productDomain}${p}`, { redirect: "follow" });
-        if (resp.status === 500) throw new Error(`${p} returned 500 Internal Server Error`);
-      }
-    }));
-
-    // ── Check 19: No 525 SSL errors ───────────────────────────────────────
-    checks.push(await deliveryCheck(19, "no_525_ssl_errors", async () => {
-      const urls = [`https://${state.identity.productDomain}`, `https://www.${state.identity.productDomain}`];
-      for (const url of urls) {
-        const resp = await fetch(url, { redirect: "follow" });
-        if (resp.status === 525) throw new Error(`${url} returned 525 SSL Handshake Failed`);
-      }
-    }));
-
-    // ── Check 20: Cloudflare DNS verified ──────────────────────────────────
-    checks.push(await deliveryCheck(20, "cloudflare_dns_verified", async () => {
-      if (!state.zoneId) throw new Error("zoneId not set");
-      const zone = await Cloudflare.getZone(state.identity.productDomain);
-      requireSuccess(zone, "getZone");
-      if (!zone.data) throw new Error(`Cloudflare zone not found for ${state.identity.productDomain}`);
     }));
 
     // ── Build Delivery Report ──────────────────────────────────────────────
@@ -967,7 +928,7 @@ async function stepDeliveryComplete(
       );
     }
 
-    log.info("deploy", "delivery_complete", "DELIVERY COMPLETE — all 19 checks passed");
+    log.info("deploy", "delivery_complete", "DELIVERY COMPLETE — all 17 checks passed");
   });
 }
 
@@ -979,8 +940,9 @@ async function stepDeliveryComplete(
 async function stepVerifyRepository(
   state: PipelineState,
   step: WorkflowStep,
+  dryRun: boolean,
 ): Promise<StepResult> {
-  return runStep(step.step, step.id, step.provider, false, async () => {
+  return runStep(step.step, step.id, step.provider, dryRun, async () => {
     if (!state.repoFullName) {
       throw new Error("githubRepository is not configured");
     }
@@ -1087,40 +1049,37 @@ export async function deploy(
 
   const workflow = applySkipOptions(loadWorkflow(), opts);
 
-  const completedSteps: string[] = [];
-
   function withPersistence(
-    name: string,
     handler: (state: PipelineState, step: WorkflowStep, dryRun: boolean) => Promise<StepResult>,
   ): (state: PipelineState, step: WorkflowStep, dryRun: boolean) => Promise<StepResult> {
     return async (state, step, dryRun) => {
       const result = await handler(state, step, dryRun);
       if (result.passed && !dryRun) {
-        completedSteps.push(name);
-        persistState(state, completedSteps);
+        state.lastCompletedStep = step.id;
+        persistState(state);
       }
       return result;
     };
   }
 
   const executor: WorkflowExecutor = {
-    create_github: withPersistence("create_github", stepCreateGithub),
-    push_code: withPersistence("push_code", stepPushCode),
-    create_project: withPersistence("create_project", stepCreateProject),
-    connect_github: withPersistence("connect_github", stepConnectGithub),
-    configure_env: withPersistence("configure_env", stepConfigureEnv),
-    deploy_project: withPersistence("deploy_project", stepDeployProject),
-    bind_domain: withPersistence("bind_domain", stepBindDomain),
-    configure_cloudflare_dns: withPersistence("configure_cloudflare_dns", stepConfigureCloudflareDns),
-    configure_dns: withPersistence("configure_dns", stepConfigureDns),
-    verify_dns: withPersistence("verify_dns", stepVerifyDns),
-    verify_https: withPersistence("verify_https", stepVerifyHttps),
-    verify_homepage: withPersistence("verify_homepage", stepVerifyHomepage),
-    verify_dashboard_login: withPersistence("verify_dashboard_login", stepVerifyDashboardLogin),
-    verify_admin_account: withPersistence("verify_admin_account", stepVerifyAdminAccount),
-    delivery_complete: withPersistence("delivery_complete", stepDeliveryComplete),
-    verify_repository: withPersistence("verify_repository", stepVerifyRepository),
-    verify_ssl: withPersistence("verify_ssl", stepVerifySsl),
+    create_github: withPersistence(stepCreateGithub),
+    push_code: withPersistence(stepPushCode),
+    create_project: withPersistence(stepCreateProject),
+    connect_github: withPersistence(stepConnectGithub),
+    configure_env: withPersistence(stepConfigureEnv),
+    deploy_project: withPersistence(stepDeployProject),
+    bind_domain: withPersistence(stepBindDomain),
+    configure_cloudflare_dns: withPersistence(stepConfigureCloudflareDns),
+    configure_dns: withPersistence(stepConfigureDns),
+    verify_dns: withPersistence(stepVerifyDns),
+    verify_https: withPersistence(stepVerifyHttps),
+    verify_homepage: withPersistence(stepVerifyHomepage),
+    verify_dashboard_login: withPersistence(stepVerifyDashboardLogin),
+    verify_admin_account: withPersistence(stepVerifyAdminAccount),
+    delivery_complete: withPersistence(stepDeliveryComplete),
+    verify_repository: withPersistence(stepVerifyRepository),
+    verify_ssl: withPersistence(stepVerifySsl),
   };
 
   const result = await runWorkflow(workflow, executor, state, opts.dryRun);
@@ -1281,13 +1240,13 @@ function formatDuration(ms: number): string {
 export function printDeliveryReport(report: DeliveryReport): void {
   console.log("");
   console.log("=".repeat(70));
-  console.log("  DELIVERY REPORT — 19-CHECK VERIFICATION");
+  console.log("  DELIVERY REPORT — 17-CHECK VERIFICATION");
   console.log("=".repeat(70));
 
   const passedCount = report.checks.filter((c) => c.passed).length;
   const failedCount = report.checks.filter((c) => !c.passed).length;
   console.log(`  Status:       ${report.passed ? "DELIVERY COMPLETE" : "DELIVERY INCOMPLETE"}`);
-  console.log(`  Checks:       ${passedCount}/19 passed, ${failedCount} failed`);
+  console.log(`  Checks:       ${passedCount}/17 passed, ${failedCount} failed`);
   console.log(`  Duration:     ${formatDuration(report.totalDuration)}`);
   console.log("-".repeat(70));
 
@@ -1307,7 +1266,7 @@ export function printDeliveryReport(report: DeliveryReport): void {
   console.log(`  Time:         ${report.deploymentTime}`);
   console.log("-".repeat(70));
 
-  console.log("  19-CHECK VERIFICATION RESULTS");
+  console.log("  17-CHECK VERIFICATION RESULTS");
   for (const check of report.checks) {
     const icon = check.passed ? "[PASS]" : "[FAIL]";
     const name = check.name.padEnd(30);

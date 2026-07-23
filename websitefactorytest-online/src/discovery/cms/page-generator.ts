@@ -7,15 +7,9 @@
 
 import db from "@/lib/db";
 import { toProductUrl } from "@/lib/public-url";
+import { slugify } from "@/lib/slugify";
 import type { SiteUrl, ExtractedProduct, CmsPage, CmsPageInput } from "@/types/discovery";
 import type { ProjectIdentity } from "../../../deployment/types/identity";
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-}
 
 function mapPageType(pageType: string): string {
   const mapping: Record<string, string> = {

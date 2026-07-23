@@ -1,6 +1,6 @@
 {
-  "siteUrl": "https://sportsgoods.en.alibaba.com",
-  "timestamp": "2026-07-22T05:29:09.566Z",
+  "siteUrl": "https://www.liewood.com",
+  "timestamp": "2026-07-23T02:51:08.421Z",
   "actions": [
     {
       "category": "missing-pages",
@@ -61,10 +61,260 @@
       "entity_slug": "about",
       "before_value": "",
       "after_value": ""
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Emi Wet Wipes Cover - Sandy\"",
+      "entity_type": "page",
+      "entity_id": 10,
+      "entity_slug": "agents.md",
+      "before_value": "",
+      "after_value": "title: Emi Wet Wipes Cover - Sandy, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Emi Wet Wipes Cover - Sandy\"",
+      "entity_type": "page",
+      "entity_id": 11,
+      "entity_slug": "emi-wet-wipes-cover-sandy",
+      "before_value": "",
+      "after_value": "title: Emi Wet Wipes Cover - Sandy, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Weston Large Storage Box - Whale blue\"",
+      "entity_type": "page",
+      "entity_id": 12,
+      "entity_slug": "may-storage-caddy-sandy",
+      "before_value": "",
+      "after_value": "title: Weston Large Storage Box - Whale blue, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Weston Large Storage Box - Whale blue\"",
+      "entity_type": "page",
+      "entity_id": 13,
+      "entity_slug": "samantha-basket-rose",
+      "before_value": "",
+      "after_value": "title: Weston Large Storage Box - Whale blue, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Elijah Storage Box with Lid - Tuscany rose\"",
+      "entity_type": "page",
+      "entity_id": 14,
+      "entity_slug": "weston-small-storage-box-2-pack-whale-blue",
+      "before_value": "",
+      "after_value": "title: Elijah Storage Box with Lid - Tuscany rose, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Elijah Storage Box with Lid - Tuscany rose\"",
+      "entity_type": "page",
+      "entity_id": 15,
+      "entity_slug": "lewis-muslin-cloth-2-pack-all-together-sandy",
+      "before_value": "",
+      "after_value": "title: Elijah Storage Box with Lid - Tuscany rose, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Elijah Storage Box with Lid - Tuscany rose\"",
+      "entity_type": "page",
+      "entity_id": 16,
+      "entity_slug": "arthur-lunch-box-all-together-sandy",
+      "before_value": "",
+      "after_value": "title: Elijah Storage Box with Lid - Tuscany rose, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Elijah Storage Box with Lid - Tuscany rose\"",
+      "entity_type": "page",
+      "entity_id": 17,
+      "entity_slug": "weston-small-storage-box-2-pack-sandy",
+      "before_value": "",
+      "after_value": "title: Elijah Storage Box with Lid - Tuscany rose, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Tilda Printed Bib 2-Pack - All together / Sandy\"",
+      "entity_type": "page",
+      "entity_id": 18,
+      "entity_slug": "elijah-storage-box-w-lid-whale-blue",
+      "before_value": "",
+      "after_value": "title: Tilda Printed Bib 2-Pack - All together / Sandy, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Tilda Printed Bib 2-Pack - All together / Sandy\"",
+      "entity_type": "page",
+      "entity_id": 19,
+      "entity_slug": "peony-suction-bowl-2-pack-mustard-tuscany-rose-mix",
+      "before_value": "",
+      "after_value": "title: Tilda Printed Bib 2-Pack - All together / Sandy, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Tilda Printed Bib 2-Pack - All together / Sandy\"",
+      "entity_type": "page",
+      "entity_id": 20,
+      "entity_slug": "stacy-divider-suction-plate-2-pack-mustard-tuscany-rose-mix",
+      "before_value": "",
+      "after_value": "title: Tilda Printed Bib 2-Pack - All together / Sandy, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"WESTON Medium Storage Box 2-Pack - Sandy\"",
+      "entity_type": "page",
+      "entity_id": 21,
+      "entity_slug": "hope-storage-caddy-whale-blue",
+      "before_value": "",
+      "after_value": "title: WESTON Medium Storage Box 2-Pack - Sandy, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"WESTON Medium Storage Box 2-Pack - Sandy\"",
+      "entity_type": "page",
+      "entity_id": 22,
+      "entity_slug": "hope-storage-caddy-sandy",
+      "before_value": "",
+      "after_value": "title: WESTON Medium Storage Box 2-Pack - Sandy, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"WESTON Medium Storage Box 2-Pack - Sandy\"",
+      "entity_type": "page",
+      "entity_id": 23,
+      "entity_slug": "weston-medium-storage-box-2-pack-sandy",
+      "before_value": "",
+      "after_value": "title: WESTON Medium Storage Box 2-Pack - Sandy, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"WESTON Medium Storage Box 2-Pack - Sandy\"",
+      "entity_type": "page",
+      "entity_id": 24,
+      "entity_slug": "hope-storage-caddy-rose",
+      "before_value": "",
+      "after_value": "title: WESTON Medium Storage Box 2-Pack - Sandy, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"www.liewood.com\"",
+      "entity_type": "page",
+      "entity_id": 25,
+      "entity_slug": "new-products",
+      "before_value": "",
+      "after_value": "title: www.liewood.com, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"www.liewood.com\"",
+      "entity_type": "page",
+      "entity_id": 26,
+      "entity_slug": "back-to-school",
+      "before_value": "",
+      "after_value": "title: www.liewood.com, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"www.liewood.com\"",
+      "entity_type": "page",
+      "entity_id": 28,
+      "entity_slug": "online-exclusives",
+      "before_value": "",
+      "after_value": "title: www.liewood.com, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"www.liewood.com\"",
+      "entity_type": "page",
+      "entity_id": 29,
+      "entity_slug": "bestsellers",
+      "before_value": "",
+      "after_value": "title: www.liewood.com, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"www.liewood.com\"",
+      "entity_type": "page",
+      "entity_id": 30,
+      "entity_slug": "gifts",
+      "before_value": "",
+      "after_value": "title: www.liewood.com, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"www.liewood.com\"",
+      "entity_type": "page",
+      "entity_id": 31,
+      "entity_slug": "newborn-must-haves",
+      "before_value": "",
+      "after_value": "title: www.liewood.com, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"www.liewood.com\"",
+      "entity_type": "page",
+      "entity_id": 32,
+      "entity_slug": "gifts-0-2-years",
+      "before_value": "",
+      "after_value": "title: www.liewood.com, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Essentials\"",
+      "entity_type": "page",
+      "entity_id": 33,
+      "entity_slug": "essentials",
+      "before_value": "",
+      "after_value": "title: Essentials, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Essentials\"",
+      "entity_type": "page",
+      "entity_id": 34,
+      "entity_slug": "weaning",
+      "before_value": "",
+      "after_value": "title: Essentials, desc: ..."
+    },
+    {
+      "category": "missing-seo",
+      "action": "fixed",
+      "message": "Generated SEO metadata for \"Essentials\"",
+      "entity_type": "page",
+      "entity_id": 35,
+      "entity_slug": "gift-card",
+      "before_value": "",
+      "after_value": "title: Essentials, desc: ..."
     }
   ],
-  "totalActions": 6,
-  "fixedCount": 0,
+  "totalActions": 31,
+  "fixedCount": 25,
   "skippedCount": 6,
   "failedCount": 0
 }

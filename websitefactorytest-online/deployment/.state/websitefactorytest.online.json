@@ -1,13 +1,11 @@
 {
   "domain": "websitefactorytest.online",
   "projectSlug": "websitefactorytest-online",
-  "projectId": "",
-  "vercelProjectName": "",
-  "deploymentId": "",
-  "deploymentUrl": "",
+  "projectId": "prj_xdzGDUiRy7Q093IGMeQ741mY1RSr",
+  "vercelProjectName": "websitefactorytest-online",
+  "deploymentId": "dpl_6F9Xu7J1RwKvD9873u8ZggDcFyBK",
+  "deploymentUrl": "websitefactorytest-online-gfoke844l-glotalk.vercel.app",
   "zoneId": "",
-  "completedSteps": [
-    "create_github"
-  ],
-  "timestamp": 1784698150166
+  "lastCompletedStep": "create_github",
+  "timestamp": 1784775068973
 }

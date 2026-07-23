@@ -82,17 +82,6 @@ export function generateSearchIndex(identity: ProjectIdentity): {
     indexedEntities++;
   }
 
-  // 5. Index blog posts
-  const blogPages = db.prepare(
-    "SELECT * FROM cms_pages WHERE page_type = 'blog-post' AND status = 'published'"
-  ).all() as CmsPage[];
-  for (const blog of blogPages) {
-    totalEntities++;
-    const keywords = ["blog", blog.title, blog.description].filter(Boolean).join(" ");
-    insertStmt.run("blog", blog.id, blog.title, blog.description, keywords, toProductUrl(blog.url, identity.productDomain), blog.og_image || "", "blog");
-    indexedEntities++;
-  }
-
   const searchCoverage = totalEntities > 0 ? Math.round((indexedEntities / totalEntities) * 100) : 0;
 
   const entries = db.prepare("SELECT * FROM cms_search_index ORDER BY entity_type, title").all() as CmsSearchIndex[];

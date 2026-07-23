@@ -13,7 +13,7 @@ import type {
   DetailExtractionResult,
   ExtractionStatus,
 } from "@/types/discovery";
-import { fetchText } from "./sitemap-parser";
+import { extractWithRecovery, type ExtractionManagerOptions } from "./extraction/extraction-manager";
 import { normalizeUrl } from "./page-classifier";
 import {
   extractTitle,
@@ -31,19 +31,20 @@ import {
 import { extractAllMedia } from "./media-extractor";
 import { analyzeNetworkData } from "./network-analyzer";
 import { prepareHtmlForExtraction } from "./dynamic-renderer";
-import { analyze } from "./analyzer-engine";
-import { buildAnalyzerInput } from "./analyzer-input-builder";
+import { analyzeWithGemini } from "./gemini-analyzer";
 
 interface DetailExtractionOptions {
   concurrency?: number;
   maxRetries?: number;
   resumeFromFailure?: boolean;
+  managerOptions?: ExtractionManagerOptions;
 }
 
 const DEFAULT_OPTIONS: DetailExtractionOptions = {
   concurrency: 3,
   maxRetries: 2,
   resumeFromFailure: true,
+  managerOptions: { maxRetriesPerEngine: 2, timeoutMs: 30000 },
 };
 
 export class DetailExtractionEngine {
@@ -64,19 +65,26 @@ export class DetailExtractionEngine {
     this.extractedCount = 0;
     this.failedCount = 0;
     this.retriedCount = 0;
+    console.log("[detail-extraction] Starting product detail extraction for", this.baseUrl);
 
     // Get products to process (non-duplicate, not already extracted or failed)
     const products = this.getProductsToProcess();
     const totalProducts = products.length;
+    console.log(`[detail-extraction] ${totalProducts} product(s) to process`);
 
     // Process in concurrent batches
     const concurrency = this.options.concurrency ?? 3;
     for (let i = 0; i < products.length; i += concurrency) {
       const batch = products.slice(i, i + concurrency);
+      console.log(`[detail-extraction] Batch ${Math.floor(i / concurrency) + 1}: processing ${batch.length} product(s)...`);
       await Promise.all(batch.map(p => this.extractProduct(p.url, p.product_slug)));
     }
 
-    return this.generateResult(totalProducts);
+    const result = this.generateResult(totalProducts);
+    console.log(`[detail-extraction] Complete: ${result.extractedProducts}/${result.totalProducts} extracted in ${result.extractionTimeMs}ms`);
+    console.log(`[detail-extraction]   Failed: ${result.failedProducts}, Retried: ${result.retriedProducts}`);
+
+    return result;
   }
 
   private getProductsToProcess(): { url: string; product_slug: string }[] {
@@ -106,16 +114,18 @@ export class DetailExtractionEngine {
     this.upsertProduct(url, slug, { status: "extracting" });
 
     try {
-      // Step 1: Fetch and prepare HTML
-      const rawHtml = await fetchText(url);
-      if (!rawHtml) {
-        this.failProduct(url, "Failed to fetch URL");
+      // Step 1: Multi-engine extraction with automatic recovery
+      const extractionResult = await extractWithRecovery(url, this.options.managerOptions);
+
+      if (!extractionResult.success || !extractionResult.html) {
+        this.failProduct(url, extractionResult.error || "All extraction engines failed", extractionResult.engine);
         return;
       }
-      const html = prepareHtmlForExtraction(rawHtml);
+
+      const html = prepareHtmlForExtraction(extractionResult.html);
 
       // Step 2: Ensure product exists in DB and get ID
-      const productId = this.getProductId(url, slug);
+      const productId = this.getProductId(url);
       if (!productId) {
         this.failProduct(url, "Failed to create product record");
         return;
@@ -140,16 +150,16 @@ export class DetailExtractionEngine {
       // Step 5: Analyze network data
       const networkData = analyzeNetworkData(html);
 
-      // Step 6: Run analyzer for normalization
-      const geminiResult = await analyze(buildAnalyzerInput({
+      // Step 6: Run Gemini analyzer for normalization
+      const geminiResult = analyzeWithGemini({
         url,
         html,
-        schema,
-        networkData,
-        specifications,
-        faq,
-        pageStructure,
-      }));
+        structuredData: schema.map(s => s.data),
+        networkData: networkData.jsonApiResponses,
+        existingSpecs: specifications,
+        existingFAQ: faq,
+        existingStructure: pageStructure,
+      });
 
       // Step 7: Compute extraction time
       const extractionTime = Date.now() - startTime;
@@ -230,20 +240,20 @@ export class DetailExtractionEngine {
     }
   }
 
-  private getProductId(url: string, slug: string): number | null {
-    this.upsertProduct(url, slug, { status: "extracting" });
+  private getProductId(url: string): number | null {
     const row = db.prepare("SELECT id FROM extracted_products WHERE url = ?").get(url) as { id: number } | undefined;
     return row?.id ?? null;
   }
 
-  private failProduct(url: string, errorMsg: string): void {
+  private failProduct(url: string, errorMsg: string, engine?: string): void {
     db.prepare(`
       UPDATE extracted_products SET
         status = 'failed',
         error_message = ?,
+        extraction_engine = ?,
         updated_at = CURRENT_TIMESTAMP
       WHERE url = ?
-    `).run(errorMsg, url);
+    `).run(errorMsg, engine || null, url);
     this.failedCount++;
   }
 

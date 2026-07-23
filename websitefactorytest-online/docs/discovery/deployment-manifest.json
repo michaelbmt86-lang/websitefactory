@@ -1,12 +1,12 @@
 {
-  "siteUrl": "https://sportsgoods.en.alibaba.com",
-  "generatedAt": "2026-07-22T05:29:09.543Z",
+  "siteUrl": "https://www.liewood.com",
+  "generatedAt": "2026-07-23T02:50:33.840Z",
   "projectName": "websitefactory",
   "projectSlug": "websitefactorytest-online",
   "targetDomain": "websitefactorytest.online",
   "environment": "development",
-  "sourceUrl": "https://sportsgoods.en.alibaba.com",
-  "sourceDomain": "sportsgoods.en.alibaba.com",
+  "sourceUrl": "https://www.liewood.com",
+  "sourceDomain": "www.liewood.com",
   "productDomain": "websitefactorytest.online",
   "productSlug": "websitefactorytest-online",
   "artifacts": {
@@ -24,14 +24,14 @@
     "repairReport": "E:\\AI-Projects\\website-factory\\jcodemore\\docs\\discovery\\repair-report.json"
   },
   "summary": {
-    "totalSiteUrls": 5,
-    "totalProductUrls": 0,
-    "totalExtractedProducts": 0,
-    "totalCmsPages": 8,
+    "totalSiteUrls": 47,
+    "totalProductUrls": 15,
+    "totalExtractedProducts": 14,
+    "totalCmsPages": 30,
     "totalBrands": 0,
-    "totalCollections": 0,
+    "totalCollections": 2,
     "totalBlogPosts": 3,
-    "seoCoverage": 100,
+    "seoCoverage": 17,
     "searchCoverage": 100
   }
 }

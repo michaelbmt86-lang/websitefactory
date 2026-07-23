@@ -26,8 +26,37 @@ if (!fs.existsSync(dbDir)) {
 }
 
 const dbPath = path.join(dbDir, "site.db");
-const db = new Database(dbPath);
+const shmPath = dbPath + "-shm";
+const walPath = dbPath + "-wal";
 
+function cleanStaleWalFiles(): void {
+  try {
+    if (fs.existsSync(walPath)) {
+      const stat = fs.statSync(walPath);
+      if (stat.size > 500_000) {
+        console.warn(`[db] Removing stale WAL file (${(stat.size / 1024 / 1024).toFixed(1)}MB)`);
+        fs.unlinkSync(walPath);
+      }
+    }
+  } catch { /* best effort */ }
+  try {
+    if (fs.existsSync(shmPath)) {
+      fs.unlinkSync(shmPath);
+    }
+  } catch { /* best effort */ }
+}
+
+function openDatabase(): InstanceType<typeof Database> {
+  try {
+    return new Database(dbPath);
+  } catch (err) {
+    console.warn("[db] Failed to open database, cleaning stale WAL/SHM and retrying:", err);
+    cleanStaleWalFiles();
+    return new Database(dbPath);
+  }
+}
+
+const db = openDatabase();
 db.pragma("journal_mode = WAL");
 
 function initializeDatabase() {
@@ -441,6 +470,11 @@ function initializeDatabase() {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS schema_version (
+      version INTEGER PRIMARY KEY,
+      applied_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   // ALTER TABLE for existing databases — add recovery columns if missing
@@ -507,12 +541,72 @@ function initializeDatabase() {
       ('How to Choose the Right Products for Your Business', 'choosing-right-products', 'Find out which products best suit your industry and customer requirements.', '<h2>Consider Your Industry</h2><p>Different industries have different needs. Consider what matters most for your customers and operations.</p>', 'Team', 'Industry', '/images/hero-bg.jpg'),
       ('Our Commitment to Quality', 'commitment-to-quality', 'Learn about our dedication to quality and customer satisfaction across every product we offer.', '<h2>Quality First</h2><p>We believe in delivering products that meet the highest standards of quality and reliability.</p>', 'Team', 'Company', '/images/hero-bg.jpg')`).run();
   }
+
+  // Schema version tracking — record current version for future migrations
+  const currentSchemaVersion = 1;
+  const versionRow = db.prepare("SELECT version FROM schema_version ORDER BY version DESC LIMIT 1").get() as { version: number } | undefined;
+  if (!versionRow || versionRow.version < currentSchemaVersion) {
+    db.prepare("INSERT OR REPLACE INTO schema_version (version) VALUES (?)").run(currentSchemaVersion);
+    console.log(`[db] Schema version updated to ${currentSchemaVersion}`);
+  }
 }
 
 try {
   initializeDatabase();
 } catch (err) {
   console.error("[db] Database initialization failed:", err);
+}
+
+// ---------------------------------------------------------------------------
+// WAL checkpoint management — call after pipeline stages to flush WAL
+// ---------------------------------------------------------------------------
+export function checkpointWal(): void {
+  try {
+    db.pragma("wal_checkpoint(PASSIVE)");
+    console.log("[db] WAL checkpoint complete");
+  } catch (err) {
+    console.warn("[db] WAL checkpoint failed (non-fatal):", err);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Database backup — copy DB file before risky operations
+// ---------------------------------------------------------------------------
+export function backupDatabase(label?: string): string | null {
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const suffix = label ? `-${label}` : "";
+  const backupPath = path.join(dbDir, `site${suffix}-${timestamp}.db`);
+
+  try {
+    fs.copyFileSync(dbPath, backupPath);
+    console.log(`[db] Backup created: ${path.basename(backupPath)}`);
+    return backupPath;
+  } catch (err) {
+    console.warn("[db] Backup failed (non-fatal):", err);
+    return null;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Safe recovery — clean stale files and reopen database
+// ---------------------------------------------------------------------------
+export function recoverDatabase(): InstanceType<typeof Database> {
+  console.log("[db] Attempting database recovery...");
+  cleanStaleWalFiles();
+  try {
+    if (db.open) {
+      db.close();
+    }
+  } catch { /* best effort close */ }
+  try {
+    const recovered = new Database(dbPath);
+    recovered.pragma("journal_mode = WAL");
+    console.log("[db] Recovery successful");
+    return recovered;
+  } catch (err) {
+    console.error("[db] Recovery failed:", err);
+    throw err;
+  }
 }
 
 export default db;

@@ -897,7 +897,7 @@ export interface CmsQualityIssue {
   entityType: CmsEntityType;
   entityId: number;
   entitySlug: string;
-  issueType: "missing-metadata" | "missing-seo" | "broken-link" | "duplicate-slug" | "empty-description" | "missing-image";
+  issueType: "missing-metadata" | "missing-seo" | "broken-link" | "duplicate-slug" | "empty-description" | "missing-image" | "data-mismatch" | "orphaned-reference";
   severity: "warning" | "error";
   message: string;
 }

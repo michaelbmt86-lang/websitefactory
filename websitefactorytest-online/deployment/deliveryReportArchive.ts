@@ -140,12 +140,12 @@ function buildVerificationSummary(
 
   return {
     homepage: has("homepage_status_and_size"),
-    routes: has("no_not_found_errors") && has("no_404_pages"),
+    routes: has("critical_routes_ok"),
     dashboard: has("dashboard_200") && has("admin_dashboard_loads"),
     login: has("dashboard_login_works") && has("admin_login_succeeds"),
-    seo: true,
-    robots: true,
-    sitemap: true,
+    seo: false,
+    robots: false,
+    sitemap: false,
     ssl: has("https_apex_200") && has("https_www_200"),
     dns: has("dns_configured") && has("cloudflare_dns_verified"),
   };
@@ -333,21 +333,42 @@ export function generateReport(options: BuildArchiveOptions): string {
   const filepath = writeReportToArchive(report);
 
   const icon = report.deployment.status === "PASS" ? "PASS" : "FAIL";
+  const passedCount = options.checks.filter((c) => c.passed).length;
+  const failedCount = options.checks.filter((c) => !c.passed).length;
+
   console.log("");
   console.log("=".repeat(70));
   console.log(`  DELIVERY REPORT ARCHIVED [${icon}]`);
   console.log("=".repeat(70));
-  console.log(`  File:     ${path.basename(filepath)}`);
-  console.log(`  Domain:   ${report.targetDomain}`);
-  console.log(`  Status:   ${report.deployment.status}`);
-  console.log(`  Duration: ${report.deployment.duration}`);
-  console.log(`  Time:     ${report.timestamp}`);
+  console.log(`  File:      ${path.basename(filepath)}`);
+  console.log(`  Domain:    ${report.targetDomain}`);
+  console.log(`  Status:    ${report.deployment.status}`);
+  console.log(`  Checks:    ${passedCount}/${options.checks.length} passed, ${failedCount} failed`);
+  console.log(`  Duration:  ${report.deployment.duration}`);
+  console.log(`  Time:      ${report.timestamp}`);
+
   if (report.deployment.failureReason) {
-    console.log(`  Failure:  ${report.deployment.failureReason}`);
+    console.log("");
+    console.log("  FAILURE REASON:");
+    console.log(`    ${report.deployment.failureReason}`);
   }
+
+  if (failedCount > 0) {
+    console.log("");
+    console.log("  FAILED CHECKS:");
+    for (const c of options.checks.filter((c) => !c.passed)) {
+      console.log(`    [FAIL] #${String(c.step).padStart(2, "0")} ${c.name}: ${c.message}`);
+    }
+  }
+
   if (report.repairHistory.length > 0) {
-    console.log(`  Repairs:  ${report.repairHistory.length} repair(s) recorded`);
+    console.log("");
+    console.log(`  REPAIRS: ${report.repairHistory.length} repair(s) recorded`);
+    for (const r of report.repairHistory) {
+      console.log(`    [${r.result === "repaired" ? "OK" : "FAIL"}] ${r.step}: ${r.description}`);
+    }
   }
+
   console.log("=".repeat(70));
   console.log("");
 

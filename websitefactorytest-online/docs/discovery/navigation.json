@@ -1,17 +1,32 @@
 {
-  "siteUrl": "https://sportsgoods.en.alibaba.com",
+  "siteUrl": "https://www.liewood.com",
   "productDomain": "websitefactorytest.online",
-  "generatedAt": "2026-07-22T05:29:09.528Z",
+  "generatedAt": "2026-07-23T02:50:33.833Z",
   "mainNav": [
     {
       "label": "Home",
       "href": "/"
+    },
+    {
+      "label": "Collections",
+      "href": "/collections",
+      "children": [
+        {
+          "label": "Unknown",
+          "href": "/collections/unknown"
+        }
+      ]
     }
   ],
   "footerNav": [
     {
       "section": "Products",
-      "links": []
+      "links": [
+        {
+          "label": "Unknown",
+          "href": "/collections/unknown"
+        }
+      ]
     },
     {
       "section": "Company",

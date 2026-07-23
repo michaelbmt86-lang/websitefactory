@@ -1,33 +1,55 @@
 {
-  "siteUrl": "https://sportsgoods.en.alibaba.com",
-  "timestamp": "2026-07-22T05:29:09.562Z",
+  "siteUrl": "https://www.liewood.com",
+  "timestamp": "2026-07-23T02:51:08.418Z",
   "checks": [
     {
       "name": "pages",
       "status": "PASS",
-      "message": "8 pages verified successfully",
+      "message": "30 pages verified successfully",
       "details": {
-        "total": 8,
+        "total": 30,
         "issues": [],
         "dupeSlugs": 0
       }
     },
     {
       "name": "products",
-      "status": "WARNING",
-      "message": "No extracted products found"
+      "status": "PASS",
+      "message": "14/15 products extracted. 1 issues.",
+      "details": {
+        "total": 15,
+        "completed": 14,
+        "failed": 1,
+        "issues": [
+          "10 products without images"
+        ],
+        "dupes": 0
+      }
     },
     {
       "name": "media",
       "status": "WARNING",
-      "message": "No media assets found"
+      "message": "77 media assets. 1 issues.",
+      "details": {
+        "total": 77,
+        "byType": {
+          "image": 72,
+          "thumbnail": 4,
+          "download": 1
+        },
+        "issues": [
+          "20 duplicate media hashes"
+        ],
+        "orphans": 0,
+        "dupeHashes": 20
+      }
     },
     {
       "name": "links",
       "status": "PASS",
-      "message": "8 pages checked. 0 link issues.",
+      "message": "30 pages checked. 0 link issues.",
       "details": {
-        "totalPages": 8,
+        "totalPages": 30,
         "brokenCanonical": 0,
         "brokenNav": 0,
         "issues": []
@@ -35,28 +57,30 @@
     },
     {
       "name": "seo",
-      "status": "PASS",
-      "message": "SEO coverage: 100% (8 entries). 2 issues.",
+      "status": "FAILED",
+      "message": "SEO coverage: 17% (30 entries). 4 issues.",
       "details": {
-        "total": 8,
-        "coverage": 100,
-        "seoEntries": 8,
+        "total": 30,
+        "coverage": 17,
+        "seoEntries": 30,
         "issues": [
+          "25 pages missing meta description",
+          "25 pages missing OG description",
           "3 pages missing canonical",
-          "8 pages missing structured data"
+          "28 pages missing structured data"
         ]
       }
     },
     {
       "name": "schema",
       "status": "FAILED",
-      "message": "Schema coverage: 0% (0 pages, 0 products).",
+      "message": "Schema coverage: 9% (0 pages, 4 products).",
       "details": {
-        "totalPages": 8,
-        "totalProducts": 0,
+        "totalPages": 30,
+        "totalProducts": 14,
         "pagesWithSchema": 0,
-        "productsWithSchema": 0,
-        "coverage": 0,
+        "productsWithSchema": 4,
+        "coverage": 9,
         "issues": [
           "No pages have structured data"
         ]
@@ -77,32 +101,37 @@
     },
     {
       "name": "build",
-      "status": "PASS",
-      "message": "All build checks passed",
+      "status": "FAILED",
+      "message": "Build issues: ESLint: Invalid project directory provided, no such directory: E:\\AI-Projects\\website-factory\\jcodemore\\lint",
       "details": {
         "typecheck": "PASS",
-        "lint": "PASS",
+        "lint": "FAIL",
         "build": "PASS",
-        "issues": []
+        "issues": [
+          "ESLint: Invalid project directory provided, no such directory: E:\\AI-Projects\\website-factory\\jcodemore\\lint"
+        ]
       }
     },
     {
       "name": "deployment",
-      "status": "PASS",
-      "message": "Deployment ready",
+      "status": "WARNING",
+      "message": "2 deployment issues",
       "details": {
-        "gitClean": true,
+        "gitClean": false,
         "hasRemote": true,
         "missingEnvVars": [],
-        "issues": []
+        "issues": [
+          "Git working directory not clean",
+          "No vercel.json found"
+        ]
       }
     },
     {
       "name": "sqlite",
       "status": "PASS",
-      "message": "25 tables. 0 issues.",
+      "message": "26 tables. 0 issues.",
       "details": {
-        "tables": 25,
+        "tables": 26,
         "missingTables": [],
         "counts": {
           "products": 0,
@@ -110,15 +139,15 @@
           "navigation": 6,
           "pages": 0,
           "settings": 1,
-          "site_urls": 5,
-          "product_urls": 0,
-          "extracted_products": 0,
-          "media_assets": 0,
-          "cms_pages": 8,
+          "site_urls": 47,
+          "product_urls": 15,
+          "extracted_products": 15,
+          "media_assets": 77,
+          "cms_pages": 30,
           "cms_brands": 0,
-          "cms_collections": 0,
-          "cms_seo": 8,
-          "cms_search_index": 11
+          "cms_collections": 2,
+          "cms_seo": 30,
+          "cms_search_index": 46
         },
         "issues": []
       }

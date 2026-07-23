@@ -58,14 +58,19 @@ export class DiscoveryEngine {
   }
 
   async discover(): Promise<SiteDiscoveryResult> {
-    this.clearDatabase();
+    const startTimeMs = Date.now();
+    console.log("[discovery] Starting site discovery for", this.baseUrl);
 
     // Phase 1: Discover sitemaps and robots.txt
+    console.log("[discovery] Phase 1/5: Discovering sitemaps...");
     const robotsTxt = await this.fetchRobotsTxt();
     const sitemapUrls = await discoverSitemaps(this.baseUrl);
+    console.log(`[discovery] Found ${sitemapUrls.length} sitemap(s)`);
 
     // Phase 2: Crawl sitemaps
+    console.log("[discovery] Phase 2/5: Crawling sitemaps...");
     const sitemapEntries = await crawlSitemaps(sitemapUrls);
+    console.log(`[discovery] Crawled ${sitemapEntries.length} URL(s) from sitemaps`);
 
     // Seed the queue with sitemap entries
     for (const entry of sitemapEntries) {
@@ -83,17 +88,25 @@ export class DiscoveryEngine {
     }
 
     // Phase 3: Crawl the homepage to discover navigation links
-    await this.crawlPage(this.baseUrl, 0, null, "header-nav");
+    console.log("[discovery] Phase 3/5: Crawling homepage...");
+    try {
+      await this.crawlPage(this.baseUrl, 0, null, "header-nav");
+    } catch (err) {
+      console.warn("[discovery] Homepage crawl failed:", err instanceof Error ? err.message : err);
+    }
 
     // Phase 4: BFS crawl
+    console.log("[discovery] Phase 4/5: BFS crawl starting...");
     await this.bfsCrawl();
 
     // Phase 5: Generate results
-    return this.generateResults(sitemapUrls, robotsTxt);
-  }
+    console.log("[discovery] Phase 5/5: Generating results...");
+    const result = this.generateResults(sitemapUrls, robotsTxt);
+    const elapsed = Date.now() - startTimeMs;
+    console.log(`[discovery] Complete: ${result.totalUrls} URL(s) discovered in ${elapsed}ms`);
+    console.log(`[discovery]   Broken: ${result.brokenUrls.length}, Types: ${Object.keys(result.urlsByType).length}`);
 
-  private clearDatabase(): void {
-    db.prepare("DELETE FROM site_urls").run();
+    return result;
   }
 
   private async fetchRobotsTxt() {
@@ -191,16 +204,27 @@ export class DiscoveryEngine {
   private async bfsCrawl(): Promise<void> {
     const maxDepth = this.options.maxDepth ?? 5;
     const maxPages = this.options.maxPages ?? 500;
+    const errors: { url: string; error: string }[] = [];
 
     while (this.queue.length > 0 && this.visited.size < maxPages) {
       const batch = this.queue.splice(0, this.options.concurrency ?? 5);
       const validBatch = batch.filter(item => item.depth <= maxDepth);
 
       await Promise.all(
-        validBatch.map(item =>
-          this.crawlPage(item.url, item.depth, item.parentUrl, item.source)
-        )
+        validBatch.map(async (item) => {
+          try {
+            await this.crawlPage(item.url, item.depth, item.parentUrl, item.source);
+          } catch (err) {
+            const errorMsg = err instanceof Error ? err.message : String(err);
+            errors.push({ url: item.url, error: errorMsg });
+            console.warn(`[discovery] Failed to crawl ${item.url}: ${errorMsg}`);
+          }
+        })
       );
+    }
+
+    if (errors.length > 0) {
+      console.warn(`[discovery] ${errors.length} URL(s) failed during crawl`);
     }
   }
 
@@ -254,20 +278,38 @@ export class DiscoveryEngine {
     if (existing) {
       db.prepare(`
         UPDATE site_urls SET
+          depth = ?,
+          parent_url = CASE WHEN ? IS NOT NULL THEN ? ELSE parent_url END,
+          page_type = ?,
           status = ?,
+          priority = ?,
+          discovered_by = CASE WHEN discovered_by != ? THEN discovered_by || ',' || ? ELSE discovered_by END,
           title = CASE WHEN ? != '' THEN ? ELSE title END,
           meta_description = CASE WHEN ? != '' THEN ? ELSE meta_description END,
           canonical_url = CASE WHEN ? IS NOT NULL THEN ? ELSE canonical_url END,
           h1 = CASE WHEN ? != '' THEN ? ELSE h1 END,
+          internal_links = ?,
+          external_links = ?,
+          images = ?,
+          json_ld = CASE WHEN ? IS NOT NULL THEN ? ELSE json_ld END,
           status_code = ?,
           response_time_ms = ?
         WHERE url = ?
       `).run(
+        input.depth,
+        input.parent_url, input.parent_url,
+        input.page_type,
         input.status,
+        input.priority,
+        input.discovered_by, input.discovered_by,
         input.title, input.title,
         input.meta_description, input.meta_description,
         input.canonical_url, input.canonical_url,
         input.h1, input.h1,
+        input.internal_links || 0,
+        input.external_links || 0,
+        input.images || 0,
+        input.json_ld, input.json_ld,
         input.status_code,
         input.response_time_ms,
         input.url

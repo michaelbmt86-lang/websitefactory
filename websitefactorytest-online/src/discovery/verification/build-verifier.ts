@@ -2,33 +2,43 @@
 // BUILD VERIFIER (Verification Engine)
 //
 // Verifies build integrity: typecheck, lint, build status.
-// Checks the actual build output and reports status.
+// Runs actual build commands via child_process and reports real results.
 // No site-specific logic.
 // ============================================================================
 
+import { execSync } from "child_process";
 import type { VerificationCheck } from "@/types/discovery";
 
+function runCheck(name: string, command: string): { passed: boolean; message: string } {
+  try {
+    execSync(command, { stdio: "pipe", timeout: 120_000 });
+    return { passed: true, message: "OK" };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    const stderr = (err as { stderr?: Buffer })?.stderr?.toString() ?? "";
+    const summary = stderr.split("\n").filter(Boolean).slice(0, 5).join(" | ");
+    return { passed: false, message: summary || msg.slice(0, 200) };
+  }
+}
+
 export function verifyBuild(): VerificationCheck {
-  // Build verification is performed externally via npm run check
-  // This verifier checks the results stored in the verification flow
   const checks: string[] = [];
 
-  // In a real deployment, these would be run via child_process.execSync
-  // For now, we report based on the verification pipeline state
-  const typecheck = "PASS";
-  const lint = "PASS";
-  const build = "PASS";
+  const typecheck = runCheck("typecheck", "npx tsc --noEmit");
+  if (!typecheck.passed) checks.push(`TypeScript: ${typecheck.message}`);
 
-  if (typecheck !== "PASS") checks.push("TypeScript check failed");
-  if (lint !== "PASS") checks.push("ESLint check failed");
-  if (build !== "PASS") checks.push("Build failed");
+  const lint = runCheck("lint", "npx next lint");
+  if (!lint.passed) checks.push(`ESLint: ${lint.message}`);
+
+  const build = runCheck("build", "npx next build");
+  if (!build.passed) checks.push(`Build: ${build.message}`);
 
   const status = checks.length === 0 ? "PASS" : "FAILED";
 
   return {
     name: "build",
     status,
-    message: checks.length === 0 ? "All build checks passed" : `Build issues: ${checks.join(", ")}`,
-    details: { typecheck, lint, build, issues: checks },
+    message: checks.length === 0 ? "All build checks passed" : `Build issues: ${checks.join("; ")}`,
+    details: { typecheck: typecheck.passed ? "PASS" : "FAIL", lint: lint.passed ? "PASS" : "FAIL", build: build.passed ? "PASS" : "FAIL", issues: checks },
   };
 }

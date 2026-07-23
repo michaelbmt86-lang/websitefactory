@@ -1,52 +1,122 @@
 {
-  "siteUrl": "https://sportsgoods.en.alibaba.com",
+  "siteUrl": "https://www.liewood.com",
   "productDomain": "websitefactorytest.online",
-  "generatedAt": "2026-07-22T05:29:09.525Z",
-  "totalEntries": 11,
+  "generatedAt": "2026-07-23T02:50:33.830Z",
+  "totalEntries": 46,
   "entries": [
     {
-      "entityType": "blog",
-      "entityId": 6,
-      "title": "Getting Started with Our Products",
-      "description": "A comprehensive guide to help you choose the right products for your business needs.",
-      "keywords": "blog Getting Started with Our Products A comprehensive guide to help you choose the right products for your business needs.",
-      "url": "https://websitefactorytest.online/blog/getting-started",
-      "imageUrl": "/images/hero-bg.jpg",
-      "category": "blog"
-    },
-    {
-      "entityType": "blog",
-      "entityId": 7,
-      "title": "How to Choose the Right Products for Your Business",
-      "description": "Find out which products best suit your industry and customer requirements.",
-      "keywords": "blog How to Choose the Right Products for Your Business Find out which products best suit your industry and customer requirements.",
-      "url": "https://websitefactorytest.online/blog/choosing-right-products",
-      "imageUrl": "/images/hero-bg.jpg",
-      "category": "blog"
-    },
-    {
-      "entityType": "blog",
-      "entityId": 8,
-      "title": "Our Commitment to Quality",
-      "description": "Learn about our dedication to quality and customer satisfaction across every product we offer.",
-      "keywords": "blog Our Commitment to Quality Learn about our dedication to quality and customer satisfaction across every product we offer.",
-      "url": "https://websitefactorytest.online/blog/commitment-to-quality",
-      "imageUrl": "/images/hero-bg.jpg",
-      "category": "blog"
-    },
-    {
-      "entityType": "page",
-      "entityId": 1,
-      "title": "Company Overview - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
-      "description": "Dongguan City Bestway Sports Goods Technology Co., Ltd. Products:Life Jackets, Rash Guard, Children",
-      "keywords": "homepage Company Overview - Dongguan City Bestway Sports Goods Technology Co., Ltd. Dongguan City Bestway Sports Goods Technology Co., Ltd. Products:Life Jackets, Rash Guard, Children",
-      "url": "https://websitefactorytest.online/",
+      "entityType": "collection",
+      "entityId": 2,
+      "title": "All Products",
+      "description": "All available products",
+      "keywords": "All Products All available products",
+      "url": "https://websitefactorytest.online/collections/all-products",
       "imageUrl": "",
-      "category": "homepage"
+      "category": "collection"
+    },
+    {
+      "entityType": "collection",
+      "entityId": 1,
+      "title": "Unknown",
+      "description": "14 products in Unknown",
+      "keywords": "Unknown 14 products in Unknown",
+      "url": "https://websitefactorytest.online/collections/unknown",
+      "imageUrl": "",
+      "category": "collection"
     },
     {
       "entityType": "page",
-      "entityId": 6,
+      "entityId": 14,
+      "title": "Elijah Storage Box with Lid - Tuscany rose",
+      "description": "",
+      "keywords": "page Elijah Storage Box with Lid - Tuscany rose",
+      "url": "https://websitefactorytest.online/products/weston-small-storage-box-2-pack-whale-blue",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 15,
+      "title": "Elijah Storage Box with Lid - Tuscany rose",
+      "description": "",
+      "keywords": "page Elijah Storage Box with Lid - Tuscany rose",
+      "url": "https://websitefactorytest.online/products/lewis-muslin-cloth-2-pack-all-together-sandy",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 16,
+      "title": "Elijah Storage Box with Lid - Tuscany rose",
+      "description": "",
+      "keywords": "page Elijah Storage Box with Lid - Tuscany rose",
+      "url": "https://websitefactorytest.online/products/arthur-lunch-box-all-together-sandy",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 17,
+      "title": "Elijah Storage Box with Lid - Tuscany rose",
+      "description": "",
+      "keywords": "page Elijah Storage Box with Lid - Tuscany rose",
+      "url": "https://websitefactorytest.online/products/weston-small-storage-box-2-pack-sandy",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 10,
+      "title": "Emi Wet Wipes Cover - Sandy",
+      "description": "",
+      "keywords": "page Emi Wet Wipes Cover - Sandy",
+      "url": "https://websitefactorytest.online/agents.md",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 11,
+      "title": "Emi Wet Wipes Cover - Sandy",
+      "description": "",
+      "keywords": "page Emi Wet Wipes Cover - Sandy",
+      "url": "https://websitefactorytest.online/products/emi-wet-wipes-cover-sandy",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 33,
+      "title": "Essentials",
+      "description": "",
+      "keywords": "page Essentials",
+      "url": "https://websitefactorytest.online/collections/essentials",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 34,
+      "title": "Essentials",
+      "description": "",
+      "keywords": "page Essentials",
+      "url": "https://websitefactorytest.online/collections/weaning",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 35,
+      "title": "Essentials",
+      "description": "",
+      "keywords": "page Essentials",
+      "url": "https://websitefactorytest.online/products/gift-card",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 36,
       "title": "Getting Started with Our Products",
       "description": "A comprehensive guide to help you choose the right products for your business needs.",
       "keywords": "blog-post Getting Started with Our Products A comprehensive guide to help you choose the right products for your business needs.",
@@ -56,7 +126,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 7,
+      "entityId": 37,
       "title": "How to Choose the Right Products for Your Business",
       "description": "Find out which products best suit your industry and customer requirements.",
       "keywords": "blog-post How to Choose the Right Products for Your Business Find out which products best suit your industry and customer requirements.",
@@ -66,37 +136,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 3,
-      "title": "Kids Swimwear - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
-      "description": "Explore our Kids Swimwear collection, featuring main products like Life Jackets,  Rash Guard, and 467+ more items from Dongguan City Bestway Sports Goods Technology Co., Ltd. on Alibaba.com.",
-      "keywords": "page Kids Swimwear - Dongguan City Bestway Sports Goods Technology Co., Ltd. Explore our Kids Swimwear collection, featuring main products like Life Jackets,  Rash Guard, and 467+ more items from Dongguan City Bestway Sports Goods Technology Co., Ltd. on Alibaba.com.",
-      "url": "https://websitefactorytest.online/productgrouplist-941419449/Kids_Swimwear.html",
-      "imageUrl": "",
-      "category": "page"
-    },
-    {
-      "entityType": "page",
-      "entityId": 5,
-      "title": "Life Jackets - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
-      "description": "Explore our Life Jackets collection, featuring main products like Life Jackets,  Rash Guard, and 467+ more items from Dongguan City Bestway Sports Goods Technology Co., Ltd. on Alibaba.com.",
-      "keywords": "page Life Jackets - Dongguan City Bestway Sports Goods Technology Co., Ltd. Explore our Life Jackets collection, featuring main products like Life Jackets,  Rash Guard, and 467+ more items from Dongguan City Bestway Sports Goods Technology Co., Ltd. on Alibaba.com.",
-      "url": "https://websitefactorytest.online/productgrouplist-902587773/Life_Jackets.html",
-      "imageUrl": "",
-      "category": "page"
-    },
-    {
-      "entityType": "page",
-      "entityId": 4,
-      "title": "Men's Wetsuit - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
-      "description": "Explore our Men",
-      "keywords": "page Men's Wetsuit - Dongguan City Bestway Sports Goods Technology Co., Ltd. Explore our Men",
-      "url": "https://websitefactorytest.online/productgrouplist-826961527/Men_s_Wetsuit.html",
-      "imageUrl": "",
-      "category": "page"
-    },
-    {
-      "entityType": "page",
-      "entityId": 8,
+      "entityId": 38,
       "title": "Our Commitment to Quality",
       "description": "Learn about our dedication to quality and customer satisfaction across every product we offer.",
       "keywords": "blog-post Our Commitment to Quality Learn about our dedication to quality and customer satisfaction across every product we offer.",
@@ -106,13 +146,323 @@
     },
     {
       "entityType": "page",
-      "entityId": 2,
-      "title": "Top sale product - Dongguan City Bestway Sports Goods Technology Co., Ltd.",
-      "description": "Explore our Top sale product collection, featuring main products like Life Jackets,  Rash Guard, and 467+ more items from Dongguan City Bestway Sports Goods Technology Co., Ltd. on Alibaba.com.",
-      "keywords": "category Top sale product - Dongguan City Bestway Sports Goods Technology Co., Ltd. Explore our Top sale product collection, featuring main products like Life Jackets,  Rash Guard, and 467+ more items from Dongguan City Bestway Sports Goods Technology Co., Ltd. on Alibaba.com.",
-      "url": "https://websitefactorytest.online/productgrouplist-922829520/Top_sale_product.html",
+      "entityId": 27,
+      "title": "Shipping and Delivery",
+      "description": "Shipping and Delivery: please note, that it might take 2-3 business days before your order is shipped from our warehouse. Once shipped you will receive e-mail with a tracking link. Depending on a courier, the link might not be active within the first 2 business days. Shipping costs are based on package weight.",
+      "keywords": "page Shipping and Delivery Shipping and Delivery: please note, that it might take 2-3 business days before your order is shipped from our warehouse. Once shipped you will receive e-mail with a tracking link. Depending on a courier, the link might not be active within the first 2 business days. Shipping costs are based on package weight.",
+      "url": "https://websitefactorytest.online/pages/shipping-and-delivery",
       "imageUrl": "",
-      "category": "category"
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 18,
+      "title": "Tilda Printed Bib 2-Pack - All together / Sandy",
+      "description": "",
+      "keywords": "page Tilda Printed Bib 2-Pack - All together / Sandy",
+      "url": "https://websitefactorytest.online/products/elijah-storage-box-w-lid-whale-blue",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 19,
+      "title": "Tilda Printed Bib 2-Pack - All together / Sandy",
+      "description": "",
+      "keywords": "page Tilda Printed Bib 2-Pack - All together / Sandy",
+      "url": "https://websitefactorytest.online/products/peony-suction-bowl-2-pack-mustard-tuscany-rose-mix",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 20,
+      "title": "Tilda Printed Bib 2-Pack - All together / Sandy",
+      "description": "",
+      "keywords": "page Tilda Printed Bib 2-Pack - All together / Sandy",
+      "url": "https://websitefactorytest.online/products/stacy-divider-suction-plate-2-pack-mustard-tuscany-rose-mix",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 21,
+      "title": "WESTON Medium Storage Box 2-Pack - Sandy",
+      "description": "",
+      "keywords": "page WESTON Medium Storage Box 2-Pack - Sandy",
+      "url": "https://websitefactorytest.online/products/hope-storage-caddy-whale-blue",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 22,
+      "title": "WESTON Medium Storage Box 2-Pack - Sandy",
+      "description": "",
+      "keywords": "page WESTON Medium Storage Box 2-Pack - Sandy",
+      "url": "https://websitefactorytest.online/products/hope-storage-caddy-sandy",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 23,
+      "title": "WESTON Medium Storage Box 2-Pack - Sandy",
+      "description": "",
+      "keywords": "page WESTON Medium Storage Box 2-Pack - Sandy",
+      "url": "https://websitefactorytest.online/products/weston-medium-storage-box-2-pack-sandy",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 24,
+      "title": "WESTON Medium Storage Box 2-Pack - Sandy",
+      "description": "",
+      "keywords": "page WESTON Medium Storage Box 2-Pack - Sandy",
+      "url": "https://websitefactorytest.online/products/hope-storage-caddy-rose",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 12,
+      "title": "Weston Large Storage Box - Whale blue",
+      "description": "",
+      "keywords": "page Weston Large Storage Box - Whale blue",
+      "url": "https://websitefactorytest.online/products/may-storage-caddy-sandy",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 13,
+      "title": "Weston Large Storage Box - Whale blue",
+      "description": "",
+      "keywords": "page Weston Large Storage Box - Whale blue",
+      "url": "https://websitefactorytest.online/products/samantha-basket-rose",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 9,
+      "title": "www.liewood.com",
+      "description": "Explore our extensive range of clothes and toys designed to inspire and delight your little ones. Shop now for quality and style | Nordic design",
+      "keywords": "homepage www.liewood.com Explore our extensive range of clothes and toys designed to inspire and delight your little ones. Shop now for quality and style | Nordic design",
+      "url": "https://websitefactorytest.online/",
+      "imageUrl": "",
+      "category": "homepage"
+    },
+    {
+      "entityType": "page",
+      "entityId": 25,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "page www.liewood.com",
+      "url": "https://websitefactorytest.online/collections/new-products",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 26,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "page www.liewood.com",
+      "url": "https://websitefactorytest.online/collections/back-to-school",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 28,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "page www.liewood.com",
+      "url": "https://websitefactorytest.online/collections/online-exclusives",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 29,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "page www.liewood.com",
+      "url": "https://websitefactorytest.online/collections/bestsellers",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 30,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "page www.liewood.com",
+      "url": "https://websitefactorytest.online/collections/gifts",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 31,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "page www.liewood.com",
+      "url": "https://websitefactorytest.online/pages/newborn-must-haves",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "page",
+      "entityId": 32,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "page www.liewood.com",
+      "url": "https://websitefactorytest.online/collections/gifts-0-2-years",
+      "imageUrl": "",
+      "category": "page"
+    },
+    {
+      "entityType": "product",
+      "entityId": 1,
+      "title": "Emi Wet Wipes Cover - Sandy",
+      "description": "A soft and simple cover for concealing wet wipe packages on the changing table or throughout your home. It has a small opening at the top ensuring easy dispensing while keeping wipes moist. With bear ears, the EMI cover is a cute and practical must-have. Silicone wet wipes cover with sweet animal details A must-have fo",
+      "keywords": "Emi Wet Wipes Cover - Sandy Unknown LIEWOOD",
+      "url": "https://websitefactorytest.online/products/emi-wet-wipes-cover-sandy",
+      "imageUrl": "http://cdn.shopify.com/s/files/1/0984/4880/files/a29udGFpbmVyL25ldy80OTQ5LzExMjQwNjUxdjEucG5n_241db5a2-fb2b-49c8-a594-ee5b3806691f.jpg?v=1777452604&width=2048",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 10,
+      "title": "Stacy Divider Suction Plate 2-Pack - Mustard / tuscany rose mix",
+      "description": "Discovering new foods is made easier with the STACY divider plate. Three individual compartments mean you can present new foods alongside well-known dishes, and the slender silicone base adheres to various surfaces, ensuring little ones will not lift or tip over the plate while eating. Silicone divider plate with playf",
+      "keywords": "Stacy Divider Suction Plate 2-Pack - Mustard / tuscany rose mix Unknown LIEWOOD",
+      "url": "https://websitefactorytest.online/products/stacy-divider-suction-plate-2-pack-mustard-tuscany-rose-mix",
+      "imageUrl": "http://cdn.shopify.com/s/files/1/0984/4880/files/a29udGFpbmVyL25ldy80OTQ5Lzk1ODU2ODN2MS5wbmc_9d070b51-6fb6-452e-8a2e-cd88620b790a.jpg?v=1777455099&width=2048",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 13,
+      "title": "WESTON Medium Storage Box 2-Pack - Sandy",
+      "description": "A true storage superhero, the versatile WESTON storage boxes are now crafted from 60% recycled PP. Available in playful colours, the foldable and stackable WESTON crates help you stay organised throughout your home. Medium storage boxes in playful colours Made from durable, lightweight, and 60% recycled PP Ideal for th",
+      "keywords": "WESTON Medium Storage Box 2-Pack - Sandy Unknown LIEWOOD",
+      "url": "https://websitefactorytest.online/products/weston-medium-storage-box-2-pack-sandy",
+      "imageUrl": "http://cdn.shopify.com/s/files/1/0984/4880/files/a29udGFpbmVyL25ldy80OTQ5Lzk1ODcxMDZ2MS5wbmc.jpg?v=1777453720&width=2048",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 7,
+      "title": "WESTON Small Storage Box 2-Pack - Sandy",
+      "description": "A true storage superhero, the versatile WESTON storage boxes are both practical and pretty and are now crafted from 60% recycled PP. Available in playful colours, the foldable and stackable WESTON crates help you stay organised throughout your home. Small storage boxes in playful colours Made from durable, lightweight,",
+      "keywords": "WESTON Small Storage Box 2-Pack - Sandy Unknown LIEWOOD",
+      "url": "https://websitefactorytest.online/products/weston-small-storage-box-2-pack-sandy",
+      "imageUrl": "http://cdn.shopify.com/s/files/1/0984/4880/files/a29udGFpbmVyL25ldy80OTQ5LzIwNzUxOTIzdjEucG5n.jpg?v=1777453577&width=2048",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 2,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "www.liewood.com Unknown",
+      "url": "https://websitefactorytest.online/products/may-storage-caddy-sandy",
+      "imageUrl": "",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 3,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "www.liewood.com Unknown",
+      "url": "https://websitefactorytest.online/products/samantha-basket-rose",
+      "imageUrl": "",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 5,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "www.liewood.com Unknown",
+      "url": "https://websitefactorytest.online/products/lewis-muslin-cloth-2-pack-all-together-sandy",
+      "imageUrl": "",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 6,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "www.liewood.com Unknown",
+      "url": "https://websitefactorytest.online/products/arthur-lunch-box-all-together-sandy",
+      "imageUrl": "",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 8,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "www.liewood.com Unknown",
+      "url": "https://websitefactorytest.online/products/elijah-storage-box-w-lid-whale-blue",
+      "imageUrl": "",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 9,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "www.liewood.com Unknown",
+      "url": "https://websitefactorytest.online/products/peony-suction-bowl-2-pack-mustard-tuscany-rose-mix",
+      "imageUrl": "",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 11,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "www.liewood.com Unknown",
+      "url": "https://websitefactorytest.online/products/hope-storage-caddy-whale-blue",
+      "imageUrl": "",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 12,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "www.liewood.com Unknown",
+      "url": "https://websitefactorytest.online/products/hope-storage-caddy-sandy",
+      "imageUrl": "",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 14,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "www.liewood.com Unknown",
+      "url": "https://websitefactorytest.online/products/hope-storage-caddy-rose",
+      "imageUrl": "",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 15,
+      "title": "www.liewood.com",
+      "description": "",
+      "keywords": "www.liewood.com Unknown",
+      "url": "https://websitefactorytest.online/products/gift-card",
+      "imageUrl": "",
+      "category": "Unknown"
     }
   ]
 }

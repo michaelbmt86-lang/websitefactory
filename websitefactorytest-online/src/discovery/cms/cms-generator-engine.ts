@@ -57,35 +57,43 @@ export async function generateCms(siteUrl: string, identity: ProjectIdentity): P
   console.log("[cms-generator] Starting CMS generation for", siteUrl);
   console.log("[cms-generator] Product domain:", identity.productDomain);
 
-  // 1. Generate pages from site_urls + extracted_products
-  console.log("[cms-generator] Generating pages...");
-  const pagesResult = generatePages(identity);
-  console.log(`[cms-generator] Generated ${pagesResult.pagesGenerated} pages`);
+  // All 6 generators run inside a single transaction for atomicity (F5).
+  // Blog posts generated right after pages so page_type is corrected for blog URLs (F2).
+  console.log("[cms-generator] Starting CMS generation in transaction...");
+  const txResult = db.transaction(() => {
+    console.log("[cms-generator] Generating pages...");
+    const pages = generatePages(identity);
+    console.log(`[cms-generator] Generated ${pages.pagesGenerated} pages`);
 
-  // 2. Generate brands from extracted_products
-  console.log("[cms-generator] Generating brands...");
-    const brandsResult = generateBrands(identity);
-    console.log(`[cms-generator] Generated ${brandsResult.brandsGenerated} brands`);
+    console.log("[cms-generator] Generating blog posts...");
+    const blog = generateBlogPosts(identity);
+    console.log(`[cms-generator] Generated ${blog.blogPostsGenerated} blog posts`);
 
-    // 3. Generate collections from categories
+    console.log("[cms-generator] Generating brands...");
+    const brands = generateBrands(identity);
+    console.log(`[cms-generator] Generated ${brands.brandsGenerated} brands`);
+
     console.log("[cms-generator] Generating collections...");
-    const collectionsResult = generateCollections(identity);
-  console.log(`[cms-generator] Generated ${collectionsResult.collectionsGenerated} collections`);
+    const collections = generateCollections(identity);
+    console.log(`[cms-generator] Generated ${collections.collectionsGenerated} collections`);
 
-  // 4. Generate blog posts from posts table
-  console.log("[cms-generator] Generating blog posts...");
-  const blogResult = generateBlogPosts(identity);
-  console.log(`[cms-generator] Generated ${blogResult.blogPostsGenerated} blog posts`);
+    console.log("[cms-generator] Generating SEO metadata...");
+    const seo = generateSeoMetadata(identity);
+    console.log(`[cms-generator] Generated ${seo.seoPagesGenerated} SEO entries`);
 
-  // 5. Generate SEO metadata for all pages
-  console.log("[cms-generator] Generating SEO metadata...");
-  const seoResult = generateSeoMetadata(identity);
-  console.log(`[cms-generator] Generated ${seoResult.seoPagesGenerated} SEO entries`);
+    console.log("[cms-generator] Building search index...");
+    const search = generateSearchIndex(identity);
+    console.log(`[cms-generator] Built search index with ${search.searchIndexEntries} entries`);
 
-  // 6. Build search index
-  console.log("[cms-generator] Building search index...");
-  const searchResult = generateSearchIndex(identity);
-  console.log(`[cms-generator] Built search index with ${searchResult.searchIndexEntries} entries`);
+    return { pages, blog, brands, collections, seo, search };
+  })();
+
+  const pagesResult = txResult.pages;
+  const blogResult = txResult.blog;
+  const brandsResult = txResult.brands;
+  const collectionsResult = txResult.collections;
+  const seoResult = txResult.seo;
+  const searchResult = txResult.search;
 
   // 7. Generate output files
   console.log("[cms-generator] Generating output files...");

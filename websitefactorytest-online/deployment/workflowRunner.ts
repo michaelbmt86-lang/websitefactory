@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { getContext } from "./context";
 import Vercel from "./providers/vercel";
+import { dateStamp } from "./providers/utils";
 import * as log from "./providers/logger";
 import type { PipelineState, StepResult } from "./deploy";
 
@@ -85,26 +86,6 @@ function validateWorkflow(workflow: WorkflowDefinition): void {
   }
 }
 
-function buildInitialState(): PipelineState {
-  const identity = getContext().identity;
-  return {
-    identity,
-    domain: identity.productDomain,
-    environment: getContext().environment,
-    repoFullName: getContext().githubRepository,
-    projectSlug: identity.productSlug,
-    projectFolder: identity.productSlug,
-    vercelProjectName: "",
-    zoneId: "",
-    projectId: "",
-    deploymentId: "",
-    deploymentUrl: "",
-    repairHistory: [],
-    checks: [],
-    failureReason: null,
-  };
-}
-
 function makeStepResult(
   step: number,
   name: string,
@@ -148,14 +129,6 @@ async function preDeploymentVerifyIdentity(
  * Unique project name generator (used by preDeploymentCheckAndCreateProject)
  * ============================================================================
  */
-
-function dateStamp(): string {
-  const d = new Date();
-  const y = d.getUTCFullYear();
-  const m = String(d.getUTCMonth() + 1).padStart(2, "0");
-  const day = String(d.getUTCDate()).padStart(2, "0");
-  return `${y}${m}${day}`;
-}
 
 function projectNameCandidates(slug: string): string[] {
   const stamp = dateStamp();
@@ -445,7 +418,24 @@ export async function loadAndRunWorkflow(
   dryRun: boolean,
 ): Promise<WorkflowRunResult> {
   const workflow = loadWorkflow();
-  const state = buildInitialState();
+  const identity = getContext().identity;
+  const state: PipelineState = {
+    identity,
+    domain: identity.productDomain,
+    environment: getContext().environment,
+    repoFullName: getContext().githubRepository,
+    projectSlug: identity.productSlug,
+    projectFolder: identity.productSlug,
+    vercelProjectName: "",
+    zoneId: "",
+    projectId: "",
+    deploymentId: "",
+    deploymentUrl: "",
+    lastCompletedStep: "",
+    repairHistory: [],
+    checks: [],
+    failureReason: null,
+  };
   return runWorkflow(workflow, executor, state, dryRun);
 }
 

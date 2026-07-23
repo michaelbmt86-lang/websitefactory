@@ -30,8 +30,7 @@ import {
 import { extractAllMedia } from "./media-extractor";
 import { analyzeNetworkData } from "./network-analyzer";
 import { prepareHtmlForExtraction } from "./dynamic-renderer";
-import { analyze } from "./analyzer-engine";
-import { buildAnalyzerInput } from "./analyzer-input-builder";
+import { analyzeWithGemini } from "./gemini-analyzer";
 
 interface RecoveryExtractionOptions {
   concurrency?: number;
@@ -42,7 +41,7 @@ interface RecoveryExtractionOptions {
 
 const DEFAULT_OPTIONS: RecoveryExtractionOptions = {
   concurrency: 3,
-  maxRetries: 2,
+  maxRetries: 1,
   resumeFromFailure: true,
   managerOptions: { maxRetriesPerEngine: 2, timeoutMs: 30000 },
 };
@@ -65,17 +64,24 @@ export class RecoveryExtractionEngine {
     this.extractedCount = 0;
     this.failedCount = 0;
     this.retriedCount = 0;
+    console.log("[recovery-extraction] Starting recovery extraction for", this.baseUrl);
 
     const products = this.getProductsToProcess();
     const totalProducts = products.length;
+    console.log(`[recovery-extraction] ${totalProducts} product(s) to process`);
 
     const concurrency = this.options.concurrency ?? 3;
     for (let i = 0; i < products.length; i += concurrency) {
       const batch = products.slice(i, i + concurrency);
+      console.log(`[recovery-extraction] Batch ${Math.floor(i / concurrency) + 1}: processing ${batch.length} product(s)...`);
       await Promise.all(batch.map(p => this.extractProduct(p.url, p.product_slug)));
     }
 
-    return this.generateResult(totalProducts);
+    const result = this.generateResult(totalProducts);
+    console.log(`[recovery-extraction] Complete: ${result.extractedProducts}/${result.totalProducts} extracted in ${result.extractionTimeMs}ms`);
+    console.log(`[recovery-extraction]   Failed: ${result.failedProducts}, Retried: ${result.retriedProducts}`);
+
+    return result;
   }
 
   private getProductsToProcess(): { url: string; product_slug: string }[] {
@@ -140,16 +146,16 @@ export class RecoveryExtractionEngine {
       // Step 5: Analyze network data
       const networkData = analyzeNetworkData(html);
 
-      // Step 6: Run analyzer for normalization
-      const geminiResult = await analyze(buildAnalyzerInput({
+      // Step 6: Run Gemini analyzer for normalization
+      const geminiResult = analyzeWithGemini({
         url,
         html,
-        schema,
-        networkData,
-        specifications,
-        faq,
-        pageStructure,
-      }));
+        structuredData: schema.map(s => s.data),
+        networkData: networkData.jsonApiResponses,
+        existingSpecs: specifications,
+        existingFAQ: faq,
+        existingStructure: pageStructure,
+      });
 
       // Step 7: Compute extraction time and record recovery metadata
       const extractionTime = Date.now() - startTime;
@@ -215,8 +221,10 @@ export class RecoveryExtractionEngine {
       );
 
       this.extractedCount++;
+      console.log(`[recovery-extraction] Extracted: ${url} (${extractionResult.engine}, ${extractionTime}ms)`);
     } catch (err) {
       const errorMsg = err instanceof Error ? err.message : "Unknown extraction error";
+      console.warn(`[recovery-extraction] Failed: ${url} — ${errorMsg}`);
       this.failProduct(url, errorMsg, "chrome-devtools-mcp");
 
       // Auto-retry if under limit

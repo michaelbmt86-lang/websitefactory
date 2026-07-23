@@ -17,6 +17,7 @@ import {
 } from "@/discovery";
 import { deploy } from "../../deployment/deploy";
 import type { ProjectIdentity } from "../../deployment/types/identity";
+import { checkpointWal, backupDatabase } from "@/lib/db";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -125,6 +126,10 @@ export async function runWebsiteFactory(
   const stages: StageResult[] = [];
   let stopped = false;
 
+  // Pre-pipeline: backup database and checkpoint WAL
+  backupDatabase("pre-pipeline");
+  checkpointWal();
+
   // Stage 1: Discovery
   const discovery = await runStage("discovery", () => discoverSite(siteUrl));
   stages.push(discovery.stage);
@@ -203,6 +208,9 @@ export async function runWebsiteFactory(
   } else {
     overallStatus = "partial";
   }
+
+  // Post-pipeline: checkpoint WAL to flush pending writes
+  checkpointWal();
 
   return {
     siteUrl,
