@@ -11,7 +11,7 @@ import path from "path";
 import {
   discoverSite,
   discoverProducts,
-  extractProductDetails,
+  extractProductDetailsWithRecovery,
   generateCms,
   runVerification,
 } from "@/discovery";
@@ -151,7 +151,7 @@ export async function runWebsiteFactory(
   // Stage 3: Detail Extraction
   if (!stopped) {
     const detailExtraction = await runStage("detail-extraction", () =>
-      extractProductDetails(siteUrl),
+      extractProductDetailsWithRecovery(siteUrl),
     );
     stages.push(detailExtraction.stage);
     if (detailExtraction.stage.status === "failed") {

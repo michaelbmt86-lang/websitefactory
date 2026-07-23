@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://www.liewood.com",
-  "timestamp": "2026-07-23T02:51:08.420Z",
+  "timestamp": "2026-07-23T07:35:12.346Z",
   "issues": [
     {
       "category": "missing-pages",
@@ -72,6 +72,15 @@
       "entity_type": "product",
       "entity_id": 3,
       "entity_slug": "samantha-basket-rose",
+      "fixable": false
+    },
+    {
+      "category": "missing-images",
+      "severity": "warning",
+      "message": "Product \"WESTON Small Storage Box 2\" has no images",
+      "entity_type": "product",
+      "entity_id": 4,
+      "entity_slug": "weston-small-storage-box-2-pack-whale-blue",
       "fixable": false
     },
     {
@@ -176,6 +185,15 @@
     {
       "category": "missing-downloads",
       "severity": "info",
+      "message": "Product \"WESTON Small Storage Box 2\" has no downloads",
+      "entity_type": "product",
+      "entity_id": 4,
+      "entity_slug": "weston-small-storage-box-2-pack-whale-blue",
+      "fixable": false
+    },
+    {
+      "category": "missing-downloads",
+      "severity": "info",
       "message": "Product \"www.liewood.com\" has no downloads",
       "entity_type": "product",
       "entity_id": 5,
@@ -268,7 +286,7 @@
       "severity": "warning",
       "message": "Page \"Emi Wet Wipes Cover - Sandy\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 10,
+      "entity_id": 40,
       "entity_slug": "agents.md",
       "fixable": true
     },
@@ -277,7 +295,7 @@
       "severity": "warning",
       "message": "Page \"Emi Wet Wipes Cover - Sandy\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 11,
+      "entity_id": 41,
       "entity_slug": "emi-wet-wipes-cover-sandy",
       "fixable": true
     },
@@ -286,7 +304,7 @@
       "severity": "warning",
       "message": "Page \"Weston Large Storage Box - Whale blue\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 12,
+      "entity_id": 42,
       "entity_slug": "may-storage-caddy-sandy",
       "fixable": true
     },
@@ -295,7 +313,7 @@
       "severity": "warning",
       "message": "Page \"Weston Large Storage Box - Whale blue\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 13,
+      "entity_id": 43,
       "entity_slug": "samantha-basket-rose",
       "fixable": true
     },
@@ -304,7 +322,7 @@
       "severity": "warning",
       "message": "Page \"Elijah Storage Box with Lid - Tuscany rose\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 14,
+      "entity_id": 44,
       "entity_slug": "weston-small-storage-box-2-pack-whale-blue",
       "fixable": true
     },
@@ -313,7 +331,7 @@
       "severity": "warning",
       "message": "Page \"Elijah Storage Box with Lid - Tuscany rose\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 15,
+      "entity_id": 45,
       "entity_slug": "lewis-muslin-cloth-2-pack-all-together-sandy",
       "fixable": true
     },
@@ -322,7 +340,7 @@
       "severity": "warning",
       "message": "Page \"Elijah Storage Box with Lid - Tuscany rose\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 16,
+      "entity_id": 46,
       "entity_slug": "arthur-lunch-box-all-together-sandy",
       "fixable": true
     },
@@ -331,7 +349,7 @@
       "severity": "warning",
       "message": "Page \"Elijah Storage Box with Lid - Tuscany rose\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 17,
+      "entity_id": 47,
       "entity_slug": "weston-small-storage-box-2-pack-sandy",
       "fixable": true
     },
@@ -340,7 +358,7 @@
       "severity": "warning",
       "message": "Page \"Tilda Printed Bib 2-Pack - All together / Sandy\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 18,
+      "entity_id": 48,
       "entity_slug": "elijah-storage-box-w-lid-whale-blue",
       "fixable": true
     },
@@ -349,7 +367,7 @@
       "severity": "warning",
       "message": "Page \"Tilda Printed Bib 2-Pack - All together / Sandy\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 19,
+      "entity_id": 49,
       "entity_slug": "peony-suction-bowl-2-pack-mustard-tuscany-rose-mix",
       "fixable": true
     },
@@ -358,7 +376,7 @@
       "severity": "warning",
       "message": "Page \"Tilda Printed Bib 2-Pack - All together / Sandy\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 20,
+      "entity_id": 50,
       "entity_slug": "stacy-divider-suction-plate-2-pack-mustard-tuscany-rose-mix",
       "fixable": true
     },
@@ -367,7 +385,7 @@
       "severity": "warning",
       "message": "Page \"WESTON Medium Storage Box 2-Pack - Sandy\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 21,
+      "entity_id": 51,
       "entity_slug": "hope-storage-caddy-whale-blue",
       "fixable": true
     },
@@ -376,7 +394,7 @@
       "severity": "warning",
       "message": "Page \"WESTON Medium Storage Box 2-Pack - Sandy\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 22,
+      "entity_id": 52,
       "entity_slug": "hope-storage-caddy-sandy",
       "fixable": true
     },
@@ -385,7 +403,7 @@
       "severity": "warning",
       "message": "Page \"WESTON Medium Storage Box 2-Pack - Sandy\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 23,
+      "entity_id": 53,
       "entity_slug": "weston-medium-storage-box-2-pack-sandy",
       "fixable": true
     },
@@ -394,7 +412,7 @@
       "severity": "warning",
       "message": "Page \"WESTON Medium Storage Box 2-Pack - Sandy\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 24,
+      "entity_id": 54,
       "entity_slug": "hope-storage-caddy-rose",
       "fixable": true
     },
@@ -403,7 +421,7 @@
       "severity": "warning",
       "message": "Page \"www.liewood.com\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 25,
+      "entity_id": 55,
       "entity_slug": "new-products",
       "fixable": true
     },
@@ -412,7 +430,7 @@
       "severity": "warning",
       "message": "Page \"www.liewood.com\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 26,
+      "entity_id": 56,
       "entity_slug": "back-to-school",
       "fixable": true
     },
@@ -421,7 +439,7 @@
       "severity": "warning",
       "message": "Page \"www.liewood.com\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 28,
+      "entity_id": 58,
       "entity_slug": "online-exclusives",
       "fixable": true
     },
@@ -430,7 +448,7 @@
       "severity": "warning",
       "message": "Page \"www.liewood.com\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 29,
+      "entity_id": 59,
       "entity_slug": "bestsellers",
       "fixable": true
     },
@@ -439,7 +457,7 @@
       "severity": "warning",
       "message": "Page \"www.liewood.com\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 30,
+      "entity_id": 60,
       "entity_slug": "gifts",
       "fixable": true
     },
@@ -448,7 +466,7 @@
       "severity": "warning",
       "message": "Page \"www.liewood.com\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 31,
+      "entity_id": 61,
       "entity_slug": "newborn-must-haves",
       "fixable": true
     },
@@ -457,7 +475,7 @@
       "severity": "warning",
       "message": "Page \"www.liewood.com\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 32,
+      "entity_id": 62,
       "entity_slug": "gifts-0-2-years",
       "fixable": true
     },
@@ -466,7 +484,7 @@
       "severity": "warning",
       "message": "Page \"Essentials\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 33,
+      "entity_id": 63,
       "entity_slug": "essentials",
       "fixable": true
     },
@@ -475,7 +493,7 @@
       "severity": "warning",
       "message": "Page \"Essentials\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 34,
+      "entity_id": 64,
       "entity_slug": "weaning",
       "fixable": true
     },
@@ -484,7 +502,7 @@
       "severity": "warning",
       "message": "Page \"Essentials\" missing SEO metadata",
       "entity_type": "page",
-      "entity_id": 35,
+      "entity_id": 65,
       "entity_slug": "gift-card",
       "fixable": true
     },
@@ -493,7 +511,7 @@
       "severity": "info",
       "message": "Page \"Emi Wet Wipes Cover - Sandy\" missing structured data",
       "entity_type": "page",
-      "entity_id": 10,
+      "entity_id": 40,
       "entity_slug": "agents.md",
       "fixable": false
     },
@@ -502,7 +520,7 @@
       "severity": "info",
       "message": "Page \"Emi Wet Wipes Cover - Sandy\" missing structured data",
       "entity_type": "page",
-      "entity_id": 11,
+      "entity_id": 41,
       "entity_slug": "emi-wet-wipes-cover-sandy",
       "fixable": false
     },
@@ -511,7 +529,7 @@
       "severity": "info",
       "message": "Page \"Weston Large Storage Box - Whale blue\" missing structured data",
       "entity_type": "page",
-      "entity_id": 12,
+      "entity_id": 42,
       "entity_slug": "may-storage-caddy-sandy",
       "fixable": false
     },
@@ -520,7 +538,7 @@
       "severity": "info",
       "message": "Page \"Weston Large Storage Box - Whale blue\" missing structured data",
       "entity_type": "page",
-      "entity_id": 13,
+      "entity_id": 43,
       "entity_slug": "samantha-basket-rose",
       "fixable": false
     },
@@ -529,7 +547,7 @@
       "severity": "info",
       "message": "Page \"Elijah Storage Box with Lid - Tuscany rose\" missing structured data",
       "entity_type": "page",
-      "entity_id": 14,
+      "entity_id": 44,
       "entity_slug": "weston-small-storage-box-2-pack-whale-blue",
       "fixable": false
     },
@@ -538,7 +556,7 @@
       "severity": "info",
       "message": "Page \"Elijah Storage Box with Lid - Tuscany rose\" missing structured data",
       "entity_type": "page",
-      "entity_id": 15,
+      "entity_id": 45,
       "entity_slug": "lewis-muslin-cloth-2-pack-all-together-sandy",
       "fixable": false
     },
@@ -547,7 +565,7 @@
       "severity": "info",
       "message": "Page \"Elijah Storage Box with Lid - Tuscany rose\" missing structured data",
       "entity_type": "page",
-      "entity_id": 16,
+      "entity_id": 46,
       "entity_slug": "arthur-lunch-box-all-together-sandy",
       "fixable": false
     },
@@ -556,7 +574,7 @@
       "severity": "info",
       "message": "Page \"Elijah Storage Box with Lid - Tuscany rose\" missing structured data",
       "entity_type": "page",
-      "entity_id": 17,
+      "entity_id": 47,
       "entity_slug": "weston-small-storage-box-2-pack-sandy",
       "fixable": false
     },
@@ -565,7 +583,7 @@
       "severity": "info",
       "message": "Page \"Tilda Printed Bib 2-Pack - All together / Sandy\" missing structured data",
       "entity_type": "page",
-      "entity_id": 18,
+      "entity_id": 48,
       "entity_slug": "elijah-storage-box-w-lid-whale-blue",
       "fixable": false
     },
@@ -574,7 +592,7 @@
       "severity": "info",
       "message": "Page \"Tilda Printed Bib 2-Pack - All together / Sandy\" missing structured data",
       "entity_type": "page",
-      "entity_id": 19,
+      "entity_id": 49,
       "entity_slug": "peony-suction-bowl-2-pack-mustard-tuscany-rose-mix",
       "fixable": false
     },
@@ -583,7 +601,7 @@
       "severity": "info",
       "message": "Page \"Tilda Printed Bib 2-Pack - All together / Sandy\" missing structured data",
       "entity_type": "page",
-      "entity_id": 20,
+      "entity_id": 50,
       "entity_slug": "stacy-divider-suction-plate-2-pack-mustard-tuscany-rose-mix",
       "fixable": false
     },
@@ -592,7 +610,7 @@
       "severity": "info",
       "message": "Page \"WESTON Medium Storage Box 2-Pack - Sandy\" missing structured data",
       "entity_type": "page",
-      "entity_id": 21,
+      "entity_id": 51,
       "entity_slug": "hope-storage-caddy-whale-blue",
       "fixable": false
     },
@@ -601,7 +619,7 @@
       "severity": "info",
       "message": "Page \"WESTON Medium Storage Box 2-Pack - Sandy\" missing structured data",
       "entity_type": "page",
-      "entity_id": 22,
+      "entity_id": 52,
       "entity_slug": "hope-storage-caddy-sandy",
       "fixable": false
     },
@@ -610,7 +628,7 @@
       "severity": "info",
       "message": "Page \"WESTON Medium Storage Box 2-Pack - Sandy\" missing structured data",
       "entity_type": "page",
-      "entity_id": 23,
+      "entity_id": 53,
       "entity_slug": "weston-medium-storage-box-2-pack-sandy",
       "fixable": false
     },
@@ -619,7 +637,7 @@
       "severity": "info",
       "message": "Page \"WESTON Medium Storage Box 2-Pack - Sandy\" missing structured data",
       "entity_type": "page",
-      "entity_id": 24,
+      "entity_id": 54,
       "entity_slug": "hope-storage-caddy-rose",
       "fixable": false
     },
@@ -628,7 +646,7 @@
       "severity": "info",
       "message": "Page \"www.liewood.com\" missing structured data",
       "entity_type": "page",
-      "entity_id": 25,
+      "entity_id": 55,
       "entity_slug": "new-products",
       "fixable": false
     },
@@ -637,7 +655,7 @@
       "severity": "info",
       "message": "Page \"www.liewood.com\" missing structured data",
       "entity_type": "page",
-      "entity_id": 26,
+      "entity_id": 56,
       "entity_slug": "back-to-school",
       "fixable": false
     },
@@ -646,7 +664,7 @@
       "severity": "info",
       "message": "Page \"www.liewood.com\" missing structured data",
       "entity_type": "page",
-      "entity_id": 28,
+      "entity_id": 58,
       "entity_slug": "online-exclusives",
       "fixable": false
     },
@@ -655,7 +673,7 @@
       "severity": "info",
       "message": "Page \"www.liewood.com\" missing structured data",
       "entity_type": "page",
-      "entity_id": 29,
+      "entity_id": 59,
       "entity_slug": "bestsellers",
       "fixable": false
     },
@@ -664,7 +682,7 @@
       "severity": "info",
       "message": "Page \"www.liewood.com\" missing structured data",
       "entity_type": "page",
-      "entity_id": 30,
+      "entity_id": 60,
       "entity_slug": "gifts",
       "fixable": false
     },
@@ -673,7 +691,7 @@
       "severity": "info",
       "message": "Page \"www.liewood.com\" missing structured data",
       "entity_type": "page",
-      "entity_id": 31,
+      "entity_id": 61,
       "entity_slug": "newborn-must-haves",
       "fixable": false
     },
@@ -682,7 +700,7 @@
       "severity": "info",
       "message": "Page \"www.liewood.com\" missing structured data",
       "entity_type": "page",
-      "entity_id": 32,
+      "entity_id": 62,
       "entity_slug": "gifts-0-2-years",
       "fixable": false
     },
@@ -691,7 +709,7 @@
       "severity": "info",
       "message": "Page \"Essentials\" missing structured data",
       "entity_type": "page",
-      "entity_id": 33,
+      "entity_id": 63,
       "entity_slug": "essentials",
       "fixable": false
     },
@@ -700,7 +718,7 @@
       "severity": "info",
       "message": "Page \"Essentials\" missing structured data",
       "entity_type": "page",
-      "entity_id": 34,
+      "entity_id": 64,
       "entity_slug": "weaning",
       "fixable": false
     },
@@ -709,7 +727,7 @@
       "severity": "info",
       "message": "Page \"Essentials\" missing structured data",
       "entity_type": "page",
-      "entity_id": 35,
+      "entity_id": 65,
       "entity_slug": "gift-card",
       "fixable": false
     },
@@ -718,7 +736,7 @@
       "severity": "info",
       "message": "Page \"Getting Started with Our Products\" missing structured data",
       "entity_type": "page",
-      "entity_id": 36,
+      "entity_id": 66,
       "entity_slug": "blog-getting-started",
       "fixable": false
     },
@@ -727,7 +745,7 @@
       "severity": "info",
       "message": "Page \"How to Choose the Right Products for Your Business\" missing structured data",
       "entity_type": "page",
-      "entity_id": 37,
+      "entity_id": 67,
       "entity_slug": "blog-choosing-right-products",
       "fixable": false
     },
@@ -736,7 +754,7 @@
       "severity": "info",
       "message": "Page \"Our Commitment to Quality\" missing structured data",
       "entity_type": "page",
-      "entity_id": 38,
+      "entity_id": 68,
       "entity_slug": "blog-commitment-to-quality",
       "fixable": false
     },
@@ -765,6 +783,15 @@
       "entity_type": "product",
       "entity_id": 3,
       "entity_slug": "samantha-basket-rose",
+      "fixable": false
+    },
+    {
+      "category": "missing-faq",
+      "severity": "info",
+      "message": "Product \"WESTON Small Storage Box 2\" missing FAQ",
+      "entity_type": "product",
+      "entity_id": 4,
+      "entity_slug": "weston-small-storage-box-2-pack-whale-blue",
       "fixable": false
     },
     {
@@ -867,9 +894,9 @@
       "fixable": false
     }
   ],
-  "totalIssues": 96,
+  "totalIssues": 99,
   "errorCount": 6,
-  "warningCount": 35,
-  "infoCount": 55,
+  "warningCount": 36,
+  "infoCount": 57,
   "fixableCount": 31
 }

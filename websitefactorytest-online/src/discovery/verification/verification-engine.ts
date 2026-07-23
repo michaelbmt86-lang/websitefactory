@@ -32,6 +32,7 @@ import { verifyNavigation } from "./navigation-verifier";
 import { verifyBuild } from "./build-verifier";
 import { verifyDeployment } from "./deployment-verifier";
 import { verifySqlite } from "./sqlite-verifier";
+import { verifyUrlCoverage, verifyProductCoverage, verifyCmsCoverage } from "./coverage-verifier";
 import { runAudit } from "./audit-engine";
 import { runRepairs } from "./repair-engine";
 
@@ -58,6 +59,9 @@ export async function runVerification(siteUrl: string): Promise<VerificationResu
     verifyBuild(),
     verifyDeployment(),
     verifySqlite(),
+    verifyUrlCoverage(),
+    verifyProductCoverage(),
+    verifyCmsCoverage(),
   ];
 
   const passedChecks = checks.filter(c => c.status === "PASS").length;

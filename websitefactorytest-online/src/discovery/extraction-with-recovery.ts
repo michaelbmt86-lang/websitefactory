@@ -147,7 +147,7 @@ export class RecoveryExtractionEngine {
       const networkData = analyzeNetworkData(html);
 
       // Step 6: Run Gemini analyzer for normalization
-      const geminiResult = analyzeWithGemini({
+      const geminiResult = await analyzeWithGemini({
         url,
         html,
         structuredData: schema.map(s => s.data),

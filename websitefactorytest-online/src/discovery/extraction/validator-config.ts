@@ -21,7 +21,7 @@ export const DEFAULT_VALIDATOR_CONFIG: ValidatorConfig = {
   minimumImages: 0,
 
   // Score threshold (0-100)
-  minimumScore: 50,
+  minimumScore: 70,
 
   // CAPTCHA keywords (case-insensitive)
   captchaKeywords: [
@@ -36,6 +36,13 @@ export const DEFAULT_VALIDATOR_CONFIG: ValidatorConfig = {
 
   // Anti-bot patterns (extensible)
   antiBotPatterns: ALL_ANTI_BOT_PATTERNS,
+
+  // Product identity validation — reject obvious false pages only
+  domainTitlePattern: /^(www\.)?[\w-]+\.[\w.]+\/?$/i,
+  homepageTitlePatterns: [
+    /^[\w\s]+(?:Home|Homepage|Welcome|Forside|Forsida)$/i,
+    /^(Home|Homepage|Welcome|Forside|Forsida)$/i,
+  ],
 };
 
 // ---------------------------------------------------------------------------
@@ -51,6 +58,7 @@ export const SCORE_WEIGHTS = {
   seo: 10,
   schema: 10,
   media: 10,
+  productIdentity: 15,
   antiBotDetection: 20,
 } as const;
 
@@ -64,5 +72,7 @@ export function createValidatorConfig(
   return {
     ...DEFAULT_VALIDATOR_CONFIG,
     ...overrides,
+    antiBotPatterns: overrides.antiBotPatterns ?? DEFAULT_VALIDATOR_CONFIG.antiBotPatterns,
+    homepageTitlePatterns: overrides.homepageTitlePatterns ?? DEFAULT_VALIDATOR_CONFIG.homepageTitlePatterns,
   };
 }

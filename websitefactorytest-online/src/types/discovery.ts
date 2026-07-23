@@ -421,6 +421,8 @@ export interface ValidatorConfig {
   minimumScore: number;
   captchaKeywords: string[];
   antiBotPatterns: AntiBotPattern[];
+  domainTitlePattern: RegExp;
+  homepageTitlePatterns: RegExp[];
 }
 
 export interface AntiBotPattern {

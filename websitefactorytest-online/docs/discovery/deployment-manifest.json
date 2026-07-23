@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://www.liewood.com",
-  "generatedAt": "2026-07-23T02:50:33.840Z",
+  "generatedAt": "2026-07-23T07:34:36.039Z",
   "projectName": "websitefactory",
   "projectSlug": "websitefactorytest-online",
   "targetDomain": "websitefactorytest.online",
@@ -26,7 +26,7 @@
   "summary": {
     "totalSiteUrls": 47,
     "totalProductUrls": 15,
-    "totalExtractedProducts": 14,
+    "totalExtractedProducts": 15,
     "totalCmsPages": 30,
     "totalBrands": 0,
     "totalCollections": 2,

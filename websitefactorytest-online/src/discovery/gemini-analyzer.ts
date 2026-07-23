@@ -13,6 +13,8 @@ import type {
   ProductPageStructure,
 } from "@/types/discovery";
 
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+
 export interface GeminiInput {
   url: string;
   html: string;
@@ -42,12 +44,161 @@ export interface GeminiOutput {
 }
 
 // ============================================================================
-// ANALYZER — Normalizes raw data into clean structured output
-// Uses heuristic analysis, not actual Gemini API call.
-// This module can be swapped with a real Gemini API call later.
+// ANALYZER — Normalizes raw data into clean structured output.
+// Tries real Gemini API first; falls back to heuristic analysis.
+// Gemini MUST NOT invent missing product information — it only normalizes
+// and categorizes what the extraction pipeline already collected.
 // ============================================================================
 
-export function analyzeWithGemini(input: GeminiInput): GeminiOutput {
+export async function analyzeWithGemini(input: GeminiInput): Promise<GeminiOutput> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (apiKey) {
+    try {
+      return await callGeminiApi(input, apiKey);
+    } catch (err) {
+      console.warn("[gemini-analyzer] API call failed, falling back to heuristic:", err);
+    }
+  }
+  return heuristicAnalysis(input);
+}
+
+// ============================================================================
+// GEMINI API CALL — sends extracted data, receives normalized output
+// ============================================================================
+
+async function callGeminiApi(input: GeminiInput, apiKey: string): Promise<GeminiOutput> {
+  const prompt = buildPrompt(input);
+  const body = {
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: {
+      temperature: 0.1,
+      maxOutputTokens: 4096,
+      responseMimeType: "application/json",
+    },
+  };
+
+  const res = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Gemini API ${res.status}: ${text.slice(0, 200)}`);
+  }
+
+  const data = await res.json() as {
+    candidates?: { content?: { parts?: { text?: string }[] } }[];
+  };
+
+  const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (!responseText) throw new Error("Empty Gemini response");
+
+  const parsed = JSON.parse(responseText) as Record<string, unknown>;
+  return normalizeGeminiOutput(parsed, input);
+}
+
+function buildPrompt(input: GeminiInput): string {
+  const { html, structuredData, existingSpecs, existingFAQ, existingStructure } = input;
+
+  // Truncate HTML to stay within token limits — send only essential parts
+  const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  const metaDesc = html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']/i);
+  const ogTitle = html.match(/<meta[^>]*property=["']og:title["'][^>]*content=["']([^"']+)["']/i);
+  const bodyText = stripTags(html).slice(0, 3000);
+
+  return `You are a product data normalizer. Analyze this extracted product page data and return a normalized JSON object.
+
+IMPORTANT: You must ONLY normalize and categorize the data provided. Do NOT invent or hallucinate any information that is not present in the input.
+
+## Extracted Title: ${titleMatch?.[1] || "none"}
+## Meta Description: ${metaDesc?.[1] || "none"}
+## OG Title: ${ogTitle?.[1] || "none"}
+## Body Text (truncated): ${bodyText}
+
+## Structured Data (JSON-LD):
+${JSON.stringify(structuredData, null, 2).slice(0, 3000)}
+
+## Existing Specifications:
+${JSON.stringify(existingSpecs, null, 2)}
+
+## Existing FAQ:
+${JSON.stringify(existingFAQ, null, 2)}
+
+## Page Structure:
+${JSON.stringify(existingStructure, null, 2)}
+
+Return a JSON object with exactly these fields:
+{
+  "title": "string — product title, use existing if present",
+  "subtitle": "string — short tagline from description",
+  "description": "string — full product description",
+  "shortDescription": "string — first 2-3 sentences",
+  "brand": "string — brand name, use existing if present",
+  "model": "string — model number, use existing if present",
+  "sku": "string — SKU code, use existing if present",
+  "category": "string — best category from available data",
+  "subcategory": "string — subcategory from breadcrumbs or data",
+  "specifications": [{"name":"string","value":"string","group":"string"}],
+  "faq": [{"question":"string","answer":"string"}],
+  "relatedProducts": [{"url":"string","name":"string","imageUrl":null,"price":null,"relationship":"related"}],
+  "tags": ["string"],
+  "collection": "string — product collection/line name",
+  "breadcrumbs": [{"label":"string","href":"string or null"}]
+}`;
+}
+
+function stripTags(html: string): string {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function normalizeGeminiOutput(parsed: Record<string, unknown>, input: GeminiInput): GeminiOutput {
+  // Gemini output is a suggestion — merge with existing data as source of truth
+  // Never let Gemini override existing extracted values with empty/null
+  const h = heuristicAnalysis(input);
+
+  return {
+    title: String(parsed.title || h.title),
+    subtitle: String(parsed.subtitle || h.subtitle),
+    description: String(parsed.description || h.description),
+    shortDescription: String(parsed.shortDescription || h.shortDescription),
+    brand: String(parsed.brand || h.brand),
+    model: String(parsed.model || h.model),
+    sku: String(parsed.sku || h.sku),
+    category: String(parsed.category || h.category),
+    subcategory: String(parsed.subcategory || h.subcategory),
+    specifications: Array.isArray(parsed.specifications) && parsed.specifications.length > 0
+      ? (parsed.specifications as ProductSpecification[])
+      : h.specifications,
+    faq: Array.isArray(parsed.faq) && parsed.faq.length > 0
+      ? (parsed.faq as ProductFAQ[])
+      : h.faq,
+    relatedProducts: Array.isArray(parsed.relatedProducts) && parsed.relatedProducts.length > 0
+      ? (parsed.relatedProducts as ProductRelatedProduct[])
+      : h.relatedProducts,
+    tags: Array.isArray(parsed.tags) && parsed.tags.length > 0
+      ? (parsed.tags as string[])
+      : h.tags,
+    collection: String(parsed.collection || h.collection),
+    breadcrumbs: Array.isArray(parsed.breadcrumbs) && parsed.breadcrumbs.length > 0
+      ? (parsed.breadcrumbs as { label: string; href: string | null }[])
+      : h.breadcrumbs,
+  };
+}
+
+// ============================================================================
+// HEURISTIC FALLBACK — used when Gemini API is unavailable
+// This is the original analysis logic, unchanged.
+// ============================================================================
+
+function heuristicAnalysis(input: GeminiInput): GeminiOutput {
   const { html, structuredData, existingSpecs, existingFAQ, existingStructure } = input;
 
   // Extract from structured data first (most reliable)

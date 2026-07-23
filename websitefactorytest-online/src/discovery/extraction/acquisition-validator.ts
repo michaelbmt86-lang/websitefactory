@@ -72,6 +72,11 @@ export function validateAcquisition(
   checks.push(antiBotCheck);
   totalScore += antiBotCheck.score;
 
+  // 10. Product Identity (15 points) — reject false pages only
+  const identityCheck = checkProductIdentity(html, title, config);
+  checks.push(identityCheck);
+  totalScore += identityCheck.score;
+
   // Determine status
   const status = totalScore >= config.minimumScore ? "PASS" : "FAIL";
 
@@ -271,6 +276,66 @@ function checkAntiBotPatterns(html: string, config: ValidatorConfig): Validation
 // Helpers
 // ---------------------------------------------------------------------------
 
+function checkProductIdentity(
+  html: string,
+  title: string | null,
+  config: ValidatorConfig
+): ValidationCheck {
+  // Extract <title> from HTML if not provided
+  const titleText = title?.trim() || (() => {
+    const m = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+    return m ? m[1].trim() : "";
+  })();
+
+  // Error: empty/missing title
+  if (!titleText) {
+    return {
+      name: "product-identity",
+      passed: false,
+      message: "Page has no title — likely not a product page",
+      severity: "error",
+      weight: SCORE_WEIGHTS.productIdentity,
+      score: 0,
+    };
+  }
+
+  // Error: domain-only title (e.g. "www.liewood.com", "liewood.com")
+  if (config.domainTitlePattern.test(titleText)) {
+    return {
+      name: "product-identity",
+      passed: false,
+      message: `Title is domain-only: "${titleText}" — not a product page`,
+      severity: "error",
+      weight: SCORE_WEIGHTS.productIdentity,
+      score: 0,
+    };
+  }
+
+  // Error: homepage title (e.g. "Liewood Home", "Welcome")
+  for (const pattern of config.homepageTitlePatterns) {
+    if (pattern.test(titleText)) {
+      return {
+        name: "product-identity",
+        passed: false,
+        message: `Title matches homepage pattern: "${titleText}"`,
+        severity: "error",
+        weight: SCORE_WEIGHTS.productIdentity,
+        score: 0,
+      };
+    }
+  }
+
+  // Pass — title looks like a real page (not obviously false)
+  return {
+    name: "product-identity",
+    passed: true,
+    message: `Title "${titleText.slice(0, 60)}" passes identity check`,
+    severity: "error",
+    weight: SCORE_WEIGHTS.productIdentity,
+    score: SCORE_WEIGHTS.productIdentity,
+  };
+}
+
 function stripTags(html: string): string {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, "")
@@ -303,5 +368,5 @@ function generateReason(
     return `Validation failed: ${criticalFailures.map((c) => c.message).join("; ")}`;
   }
 
-  return `Validation failed with score ${score}/100 (threshold: 50)`;
+  return `Validation failed with score ${score}/100 (threshold: 70)`;
 }

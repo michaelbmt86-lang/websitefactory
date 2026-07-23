@@ -1,12 +1,12 @@
 {
   "siteUrl": "https://www.liewood.com",
   "productDomain": "websitefactorytest.online",
-  "generatedAt": "2026-07-23T02:50:33.830Z",
-  "totalEntries": 46,
+  "generatedAt": "2026-07-23T07:34:36.028Z",
+  "totalEntries": 47,
   "entries": [
     {
       "entityType": "collection",
-      "entityId": 2,
+      "entityId": 4,
       "title": "All Products",
       "description": "All available products",
       "keywords": "All Products All available products",
@@ -16,17 +16,17 @@
     },
     {
       "entityType": "collection",
-      "entityId": 1,
+      "entityId": 3,
       "title": "Unknown",
-      "description": "14 products in Unknown",
-      "keywords": "Unknown 14 products in Unknown",
+      "description": "15 products in Unknown",
+      "keywords": "Unknown 15 products in Unknown",
       "url": "https://websitefactorytest.online/collections/unknown",
       "imageUrl": "",
       "category": "collection"
     },
     {
       "entityType": "page",
-      "entityId": 14,
+      "entityId": 44,
       "title": "Elijah Storage Box with Lid - Tuscany rose",
       "description": "",
       "keywords": "page Elijah Storage Box with Lid - Tuscany rose",
@@ -36,7 +36,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 15,
+      "entityId": 45,
       "title": "Elijah Storage Box with Lid - Tuscany rose",
       "description": "",
       "keywords": "page Elijah Storage Box with Lid - Tuscany rose",
@@ -46,7 +46,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 16,
+      "entityId": 46,
       "title": "Elijah Storage Box with Lid - Tuscany rose",
       "description": "",
       "keywords": "page Elijah Storage Box with Lid - Tuscany rose",
@@ -56,7 +56,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 17,
+      "entityId": 47,
       "title": "Elijah Storage Box with Lid - Tuscany rose",
       "description": "",
       "keywords": "page Elijah Storage Box with Lid - Tuscany rose",
@@ -66,7 +66,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 10,
+      "entityId": 40,
       "title": "Emi Wet Wipes Cover - Sandy",
       "description": "",
       "keywords": "page Emi Wet Wipes Cover - Sandy",
@@ -76,7 +76,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 11,
+      "entityId": 41,
       "title": "Emi Wet Wipes Cover - Sandy",
       "description": "",
       "keywords": "page Emi Wet Wipes Cover - Sandy",
@@ -86,7 +86,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 33,
+      "entityId": 63,
       "title": "Essentials",
       "description": "",
       "keywords": "page Essentials",
@@ -96,7 +96,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 34,
+      "entityId": 64,
       "title": "Essentials",
       "description": "",
       "keywords": "page Essentials",
@@ -106,7 +106,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 35,
+      "entityId": 65,
       "title": "Essentials",
       "description": "",
       "keywords": "page Essentials",
@@ -116,7 +116,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 36,
+      "entityId": 66,
       "title": "Getting Started with Our Products",
       "description": "A comprehensive guide to help you choose the right products for your business needs.",
       "keywords": "blog-post Getting Started with Our Products A comprehensive guide to help you choose the right products for your business needs.",
@@ -126,7 +126,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 37,
+      "entityId": 67,
       "title": "How to Choose the Right Products for Your Business",
       "description": "Find out which products best suit your industry and customer requirements.",
       "keywords": "blog-post How to Choose the Right Products for Your Business Find out which products best suit your industry and customer requirements.",
@@ -136,7 +136,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 38,
+      "entityId": 68,
       "title": "Our Commitment to Quality",
       "description": "Learn about our dedication to quality and customer satisfaction across every product we offer.",
       "keywords": "blog-post Our Commitment to Quality Learn about our dedication to quality and customer satisfaction across every product we offer.",
@@ -146,7 +146,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 27,
+      "entityId": 57,
       "title": "Shipping and Delivery",
       "description": "Shipping and Delivery: please note, that it might take 2-3 business days before your order is shipped from our warehouse. Once shipped you will receive e-mail with a tracking link. Depending on a courier, the link might not be active within the first 2 business days. Shipping costs are based on package weight.",
       "keywords": "page Shipping and Delivery Shipping and Delivery: please note, that it might take 2-3 business days before your order is shipped from our warehouse. Once shipped you will receive e-mail with a tracking link. Depending on a courier, the link might not be active within the first 2 business days. Shipping costs are based on package weight.",
@@ -156,7 +156,17 @@
     },
     {
       "entityType": "page",
-      "entityId": 18,
+      "entityId": 39,
+      "title": "Shop Kids Clothes &amp; Toys",
+      "description": "Explore our extensive range of clothes and toys designed to inspire and delight your little ones. Shop now for quality and style | Nordic design",
+      "keywords": "homepage Shop Kids Clothes &amp; Toys Explore our extensive range of clothes and toys designed to inspire and delight your little ones. Shop now for quality and style | Nordic design",
+      "url": "https://websitefactorytest.online/",
+      "imageUrl": "",
+      "category": "homepage"
+    },
+    {
+      "entityType": "page",
+      "entityId": 48,
       "title": "Tilda Printed Bib 2-Pack - All together / Sandy",
       "description": "",
       "keywords": "page Tilda Printed Bib 2-Pack - All together / Sandy",
@@ -166,7 +176,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 19,
+      "entityId": 49,
       "title": "Tilda Printed Bib 2-Pack - All together / Sandy",
       "description": "",
       "keywords": "page Tilda Printed Bib 2-Pack - All together / Sandy",
@@ -176,7 +186,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 20,
+      "entityId": 50,
       "title": "Tilda Printed Bib 2-Pack - All together / Sandy",
       "description": "",
       "keywords": "page Tilda Printed Bib 2-Pack - All together / Sandy",
@@ -186,7 +196,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 21,
+      "entityId": 51,
       "title": "WESTON Medium Storage Box 2-Pack - Sandy",
       "description": "",
       "keywords": "page WESTON Medium Storage Box 2-Pack - Sandy",
@@ -196,7 +206,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 22,
+      "entityId": 52,
       "title": "WESTON Medium Storage Box 2-Pack - Sandy",
       "description": "",
       "keywords": "page WESTON Medium Storage Box 2-Pack - Sandy",
@@ -206,7 +216,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 23,
+      "entityId": 53,
       "title": "WESTON Medium Storage Box 2-Pack - Sandy",
       "description": "",
       "keywords": "page WESTON Medium Storage Box 2-Pack - Sandy",
@@ -216,7 +226,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 24,
+      "entityId": 54,
       "title": "WESTON Medium Storage Box 2-Pack - Sandy",
       "description": "",
       "keywords": "page WESTON Medium Storage Box 2-Pack - Sandy",
@@ -226,7 +236,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 12,
+      "entityId": 42,
       "title": "Weston Large Storage Box - Whale blue",
       "description": "",
       "keywords": "page Weston Large Storage Box - Whale blue",
@@ -236,7 +246,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 13,
+      "entityId": 43,
       "title": "Weston Large Storage Box - Whale blue",
       "description": "",
       "keywords": "page Weston Large Storage Box - Whale blue",
@@ -246,17 +256,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 9,
-      "title": "www.liewood.com",
-      "description": "Explore our extensive range of clothes and toys designed to inspire and delight your little ones. Shop now for quality and style | Nordic design",
-      "keywords": "homepage www.liewood.com Explore our extensive range of clothes and toys designed to inspire and delight your little ones. Shop now for quality and style | Nordic design",
-      "url": "https://websitefactorytest.online/",
-      "imageUrl": "",
-      "category": "homepage"
-    },
-    {
-      "entityType": "page",
-      "entityId": 25,
+      "entityId": 55,
       "title": "www.liewood.com",
       "description": "",
       "keywords": "page www.liewood.com",
@@ -266,7 +266,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 26,
+      "entityId": 56,
       "title": "www.liewood.com",
       "description": "",
       "keywords": "page www.liewood.com",
@@ -276,7 +276,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 28,
+      "entityId": 58,
       "title": "www.liewood.com",
       "description": "",
       "keywords": "page www.liewood.com",
@@ -286,7 +286,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 29,
+      "entityId": 59,
       "title": "www.liewood.com",
       "description": "",
       "keywords": "page www.liewood.com",
@@ -296,7 +296,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 30,
+      "entityId": 60,
       "title": "www.liewood.com",
       "description": "",
       "keywords": "page www.liewood.com",
@@ -306,7 +306,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 31,
+      "entityId": 61,
       "title": "www.liewood.com",
       "description": "",
       "keywords": "page www.liewood.com",
@@ -316,7 +316,7 @@
     },
     {
       "entityType": "page",
-      "entityId": 32,
+      "entityId": 62,
       "title": "www.liewood.com",
       "description": "",
       "keywords": "page www.liewood.com",
@@ -352,6 +352,16 @@
       "keywords": "WESTON Medium Storage Box 2-Pack - Sandy Unknown LIEWOOD",
       "url": "https://websitefactorytest.online/products/weston-medium-storage-box-2-pack-sandy",
       "imageUrl": "http://cdn.shopify.com/s/files/1/0984/4880/files/a29udGFpbmVyL25ldy80OTQ5Lzk1ODcxMDZ2MS5wbmc.jpg?v=1777453720&width=2048",
+      "category": "Unknown"
+    },
+    {
+      "entityType": "product",
+      "entityId": 4,
+      "title": "WESTON Small Storage Box 2",
+      "description": "\\n #shopify-section-template--26024250573175__main .product {\\n padding-block-start: min(1.75rem, var(--container-gutter));\\n }@media screen and (min-width: 1000px) {\\n #shopify-section-template--2602",
+      "keywords": "WESTON Small Storage Box 2 Unknown",
+      "url": "https://websitefactorytest.online/products/weston-small-storage-box-2-pack-whale-blue",
+      "imageUrl": "",
       "category": "Unknown"
     },
     {

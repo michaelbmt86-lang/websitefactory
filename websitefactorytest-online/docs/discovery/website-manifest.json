@@ -1,7 +1,7 @@
 {
   "siteUrl": "https://www.liewood.com",
   "productDomain": "websitefactorytest.online",
-  "generatedAt": "2026-07-23T02:50:33.828Z",
+  "generatedAt": "2026-07-23T07:34:36.027Z",
   "version": "1.0.0",
   "pages": [
     {
@@ -28,7 +28,7 @@
     {
       "url": "https://websitefactorytest.online/",
       "slug": "",
-      "title": "www.liewood.com",
+      "title": "Shop Kids Clothes &amp; Toys",
       "pageType": "homepage",
       "status": "published"
     },
@@ -220,12 +220,12 @@
     {
       "name": "Unknown",
       "slug": "unknown",
-      "productCount": 14
+      "productCount": 15
     },
     {
       "name": "All Products",
       "slug": "all-products",
-      "productCount": 14
+      "productCount": 15
     }
   ],
   "categories": [

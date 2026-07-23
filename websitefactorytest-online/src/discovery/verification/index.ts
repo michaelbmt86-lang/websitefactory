@@ -15,5 +15,6 @@ export { verifyNavigation } from "./navigation-verifier";
 export { verifyBuild } from "./build-verifier";
 export { verifyDeployment } from "./deployment-verifier";
 export { verifySqlite } from "./sqlite-verifier";
+export { verifyUrlCoverage, verifyProductCoverage, verifyCmsCoverage } from "./coverage-verifier";
 export { runAudit } from "./audit-engine";
 export { runRepairs } from "./repair-engine";
